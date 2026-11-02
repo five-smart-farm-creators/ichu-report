@@ -10,3 +10,4 @@ Los anexos reúnen evidencias externas, material de investigación y fuentes de 
 - [Anexo F. Repositorio y organización del proyecto](annex-f-repository-and-project-organization.md)
 - [Anexo G. Fuentes de diagramas y artefactos versionados](annex-g-diagram-sources.md)
 - [Anexo H. Recursos digitales y artefactos de TB1](annex-h-tb1-deliverables.md)
+- [Anexo I. Cobertura y trazabilidad de requisitos](annex-i-requirements-traceability.md)

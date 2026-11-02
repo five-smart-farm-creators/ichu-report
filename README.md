@@ -10,7 +10,7 @@ report/
 ├── 10-...md            # Capítulos en orden de lectura
 ├── 88-conclusions-and-recommendations.md
 ├── 99-bibliography.md
-├── annexes/            # Anexos A–H separados por tema
+├── annexes/            # Anexos A–I separados por tema
 └── assets/
     ├── images/         # Imágenes y diagramas renderizados
     └── diagram-sources/ # Fuentes PlantUML y Structurizr DSL

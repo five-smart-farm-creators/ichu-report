@@ -50,7 +50,7 @@
     - [2.4. Big Picture EventStorming.](../20-requirements-elicitation-and-analysis.md#24-big-picture-eventstorming)
     - [2.5. Ubiquitous Language.](../20-requirements-elicitation-and-analysis.md#25-ubiquitous-language)
 - [Capítulo III: Requirements Specification](../30-requirements-specification.md#capítulo-iii-requirements-specification)
-    - [3.1. User Stories](../30-requirements-specification.md#31-user-stories)
+    - [3.1. Épicas e historias de usuario](../30-requirements-specification.md#31-épicas-e-historias-de-usuario)
     - [3.2. Impact Mapping](../30-requirements-specification.md#32-impact-mapping)
         - [Primer segmento objetivo](../30-requirements-specification.md#primer-segmento-objetivo)
         - [Segundo segmento objetivo](../30-requirements-specification.md#segundo-segmento-objetivo)
@@ -187,5 +187,6 @@
 - [Anexos](../annexes/00-index.md#anexos)
     - [Videos de Exposiciones](../annexes/annex-c-videos-and-interviews.md#videos-de-exposiciones)
     - [Anexo H. Recursos digitales y artefactos de TB1](../annexes/annex-h-tb1-deliverables.md#anexo-h-recursos-digitales-y-artefactos-de-tb1)
+    - [Anexo I. Cobertura y trazabilidad de requisitos](../annexes/annex-i-requirements-traceability.md#anexo-i-cobertura-y-trazabilidad-de-requisitos)
 
 <div style="break-after: page; page-break-after: always;"></div>
