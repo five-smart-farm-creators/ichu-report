@@ -760,110 +760,55 @@ Tablero de figma del big picture event storming: [https://tinyurl.com/BigPicture
 
 ## 2.5. Ubiquitous Language.
 
-El Lenguaje Ubicuo (*Ubiquitous Language*) es el vocabulario riguroso, compartido y libre de ambigüedades utilizado por todos los miembros del equipo de desarrollo, los expertos del dominio y los usuarios ganaderos para modelar la realidad del negocio, tal como lo establece Eric Evans en *Domain-Driven Design: Tackling Complexity in the Heart of Software*.  
+El lenguaje ubicuo reúne los términos que comparten los ganaderos, los operarios de campo, los médicos veterinarios, los zootecnistas y el equipo para describir el negocio ganadero investigado en las secciones 2.2 y 2.3. Se presenta como un único glosario, ordenado alfabéticamente por el término en español. El equivalente en inglés facilita la lectura de los eventos de la sección 2.4 sin cambiar su significado.
 
-Para asegurar una comunicación técnica e interdisciplinaria coherente en la documentación, los diagramas de arquitectura C4, los *Bounded Contexts* y el código fuente, se han formalizado las siguientes reglas semánticas fundamentales sobre los términos principales del dominio ganadero:
+Las definiciones describen animales, personas, lugares, prácticas, registros y relaciones del negocio. Una ficha o un historial puede mantenerse en cuadernos, formularios u hojas de cálculo; su existencia no presupone una aplicación. Las reglas clínicas específicas y los procedimientos que las entrevistas no confirman requieren validación con los profesionales y responsables de cada unidad productiva.
 
-* **Cattle (Ganado Bovino):** Se utiliza exclusivamente para referirse a la especie bovina (vacas, toros, terneros, vaquillonas), que constituye la entidad central de monitoreo de la plataforma. No debe usarse para referirse a otras especies animales.
-* **Livestock (Ganado en sentido general / Sector Pecuario):** Se emplea para abarcar la actividad ganadera o pecuaria de forma general, el sector agropecuario o el conjunto de animales de granja de una región.
-* **Herd (Hato):** Designa el grupo, manada o conjunto total de ganado bovino administrado dentro de una unidad productiva ganadera específica (*Ranch*).
-* **Smart Collar (Collar Inteligente):** Denominación única y estandarizada para el dispositivo físico de telemetría IoT colocado en el cuello del animal. Se elimina el uso alternado de términos como *"Cattle Band"* o *"Collar GPS"* para evitar ambigüedades en el código y los diagramas de arquitectura.
-
-A continuación, se organiza el glosario del dominio distribuido por los *Bounded Contexts* clave que conforman el ecosistema **ICHU**. Todos los términos corresponden estrictamente a conceptos del negocio ganadero y omiten jerga técnica de ingeniería de software.  
-
-### 2.5.1\. Términos Transversales del Dominio (Cross-Domain Terms)
-
-| Término (Inglés)          | Equivalente en Español    | Definición y Regla del Dominio                                                                                                                                        |
-| ------------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Cattle**                | Ganado bovino             | Población de bovinos (vacas, toros, terneros) gestionados por la unidad productiva. Es la entidad central objeto de monitoreo biométrico y localización.              |
-| **Livestock**             | Ganado en sentido general | Término global para referirse a la actividad ganadera, el sector pecuario o la producción animal en general.                                                          |
-| **Herd**                  | Hato                      | Conjunto específico de ganado bovino que pertenece a una estancia o unidad productiva; constituye la unidad principal de gestión del ganadero.                        |
-| **Smart Collar**          | Collar inteligente        | Dispositivo físico IoT estandarizado que se instala en el cuello del bovino para capturar constantes biométricas (temperatura, rumia) y geolocalización.              |
-| **Ear Tag**               | Arete                     | Identificador visual físico o arete numérico colocado en la oreja del bovino para su identificación individual en el corral.                                          |
-| **Cattle Rustling**       | Abigeato                  | Delito de hurto o robo de ganado bovino; principal riesgo patrimonial en zonas de pastoreo extensivo.                                                                 |
-| **Silent Heat**           | Celo silencioso           | Evento reproductivo en el que la vaca no muestra signos externos visibles de celo, pero presenta variaciones térmicas y de actividad física detectables por sensores. |
-| **Days Open**             | Días abiertos             | Intervalo de tiempo transcurrido entre el parto de la vaca y su posterior concepción confirmada; indicador clave de eficiencia reproductiva del hato.                 |
-| **Bloat**                 | Timpanismo                | Trastorno digestivo grave causado por la acumulación anormal de gases en el rumen, con evolución rápida que requiere intervención médica urgente.                     |
-| **High Mountain Disease** | Mal de altura             | Alteración fisiológica en terneros criados en zonas andinas de altitud elevada; se manifiesta inicialmente mediante un letargo y marcada reducción de la actividad.   |
-| **Livestock Calendar**    | Calendario ganadero       | Programación sanitaria regional que establece las fechas óptimas para faenas de vacunación, desparasitación y vitaminación del hato.                                  |
-
-
-### 2.5.2\. Identity &amp; Access Management Domain
-
-| Término (Inglés)       | Equivalente en Español  | Definición y Regla del Dominio                                                                                                                                      |
-| ---------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Herd Advisory**      | Asesoría del hato       | Vínculo profesional por el cual un médico veterinario o zootecnista presta servicios de salud y supervisión técnica a un hato administrado por un tercero.          |
-| **Advisory Scope**     | Alcance de la asesoría  | Delimitación del conjunto de animales o potreros sobre los cuales un profesional sanitario tiene autorización para consultar antecedentes y registrar tratamientos. |
-| **Veterinary License** | Colegiatura veterinaria | Número de registro oficial expedido por el colegio profesional correspondiente que habilita al médico veterinario a prescribir tratamientos y emitir diagnósticos.  |  
-
-### 2.5.3\. Profiles &amp; Preferences Management Domain
-
-| Término (Inglés)                 | Equivalente en Español           | Definición y Regla del Dominio                                                                                                                         |
-| -------------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Cattle Rancher**               | Ganadero propietario             | Propietario de la unidad productiva ganadera que toma las decisiones financieras, evalúa la rentabilidad del hato y contrata la suscripción.           |
-| **Ranch Administrator**          | Administrador de estancia        | Responsable operativo de la gestión diaria del hato, supervisión de capataces, control de inventario de insumos y consolidación de reportes.           |
-| **Veterinarian / Zootechnician** | Médico Veterinario / Zootecnista | Profesional especialista de salud animal responsable del monitoreo de signos vitales, diagnóstico clínico y emisión de prescripciones para el hato.    |
-| **Field Operator**               | Capataz / Operario de campo      | Personal operativo de terreno encargado del manejo directo de los animales en el corral, recorrido de potreros y ejecución física de faenas ganaderas. |
-| **Ranch**                        | Fundo / Estancia / Hacienda      | Predio o unidad geográfica delimitada orientada a la explotación ganadera (ej. Fundo El Ganadero, Hacienda del Marqués).                               |  
-
-
-### 2.5.4\. Cattle Information Management Domain
-
-| Término (Inglés)           | Equivalente en Español              | Definición y Regla del Dominio                                                                                                              |
-| -------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Individual Record**      | Ficha individual                    | Expediente digital único de cada bovino que consolida su identificación por arete, raza, etapa productiva, linaje y estado de salud.        |
-| **Breed**                  | Raza                                | Clasificación genética del bovino (ej. Brown Swiss, Fleckvieh, Criollo, Cruzado).                                                           |
-| **Life Stage**             | Etapa productiva                    | Fase de desarrollo del bovino dentro del ciclo del hato (ej. ternero, vaquillona, vaca en producción, toro en engorde).                     |
-| **Lot**                    | Lote                                | Subgrupo de bovinos clasificados bajo criterios operativos comunes (edad, condición corporal, potrero de ubicación o propósito productivo). |
-| **Paddock**                | Potrero                             | Subdivisión geográfica de pastizal dentro de la estancia donde pastorea un lote específico de ganado bovino.                                |
-| **Genealogy**              | Genealogía                          | Registro de ascendencia del animal (macho progenitor y hembra progenitora) utilizado para la certificación de pureza racial.                |
-| **Pregnancy Status**       | Estado de gestación                 | Condición reproductiva de la hembra bovina (vaca vacía, preñada o en periodo de transición al parto).                                       |
-| **Physiological Baseline** | Constante fisiológica de referencia | Valores estándar de temperatura corporal (37.5 °C - 39.5 °C) y frecuencias fisiológicas correspondientes a un bovino sano en reposo.        |  
-
-### 2.5.5\. IoT Asset Management Domain
-
-| Término (Inglés)   | Equivalente en Español      | Definición y Regla del Dominio                                                                                                                              |
-| ------------------ | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Smart Collar**   | Collar inteligente          | Unidad electrónica IoT hermética equipada con sensores y transmisor de red, colocada en el bovino para captura continua de datos.                           |
-| **Device Band**    | Correa del collar           | Accesorio de sujeción ajustable que sostiene el collar inteligente en el cuello del animal y puede reemplazarse de forma independiente.                     |
-| **Device Pairing** | Vinculación del dispositivo | Asociación lógica entre un *Smart Collar* específico y la ficha individual de un bovino en el sistema.                                                      |
-| **Battery Life**   | Autonomía de batería        | Duración estimada de la fuente de energía del *Smart Collar* bajo perfiles de transmisión optimizados.                                                      |
-| **Blind Zone**     | Zona ciega                  | Área de pastoreo extensivo con ausencia temporal de cobertura de red celular o LoRaWAN, donde el dispositivo o el *Edge Service* almacena datos localmente. |  
-
-### 2.5.6\. Operations &amp; Monitoring Domain
-
-| Término (Inglés)         | Equivalente en Español | Definición y Regla del Dominio                                                                                                                                  |
-| ------------------------ | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Biotelemetry**         | Telemetría biométrica  | Conjunto de datos fisiológicos capturados por el *Smart Collar*, como temperatura corporal interna, índice de actividad y patrones de movimiento.               |
-| **Rumination**           | Rumia                  | Proceso fisiológico de masticación diferida en el bovino; la reducción sostenida de sus horas diarias constituye el principal indicador temprano de enfermedad. |
-| **Red Alert**            | Alerta roja            | Notificación prioritaria generada automáticamente al detectar que una constante biométrica sobrepasa los umbrales de riesgo (ej. fiebre &gt; 40.0 °C).             |
-| **Clinical Threshold**   | Umbral clínico         | Rango o límite cuantitativo de temperatura o inactividad calibrado por los veterinarios que desencadena las notificaciones de emergencia.                       |
-| **Geofence**             | Geocerca               | Perímetro virtual geográfico trazado alrededor del potrero; la salida no autorizada del bovino genera un aviso por posible extravío o abigeato.                 |
-| **Estrus Detection**     | Detección de celo      | Identificación algorítmica de la ventana fértil de la hembra bovina mediante el análisis combinado de picos de actividad física y variaciones térmicas.         |
-| **Gestation Ultrasound** | Ecografía de gestación | Examen de diagnóstico por imagen realizado por el veterinario para confirmar la preñez y adjuntar evidencia gráfica al historial del animal.                    |  
-
-### 2.5.7\. Health &amp; Reproductive Planning Domain
-
-| Término (Inglés)      | Equivalente en Español | Definición y Regla del Dominio                                                                                                                                   |
-| --------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Health Campaign**   | Campaña sanitaria      | Intervención profiláctica programada sobre el hato (vacunación masiva, desparasitación) alineada al calendario ganadero regional.                                |
-| **Withdrawal Period** | Tiempo de retiro       | Intervalo obligatorio posterior a la administración de un fármaco veterinario durante el cual la leche o carne del bovino no puede destinarse al consumo humano. |
-| **Quarantine**        | Cuarentena             | Aislamiento preventivo de animales enfermos o recién ingresados a la estancia para evitar la propagación de contagios en el hato.                                |
-| **Gestation Window**  | Ventana de parto       | Periodo estimado para el nacimiento del ternero, calculado automáticamente a partir de la fecha de inseminación o servicio confirmado.                           |  
-
-
-### 2.5.8\. Dashboard &amp; Analytics Domain
-
-| Término (Inglés)          | Equivalente en Español       | Definición y Regla del Dominio                                                                                                        |
-| ------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| **Executive Dashboard**   | Tablero de control ejecutivo | Vista resumida con indicadores cuantitativos consolidada para el propietario (mortalidad, tasa de preñez, distribución por potreros). |
-| **Epidemiological Curve** | Curva epidemiológica         | Representación gráfica del comportamiento y distribución de eventos de enfermedad en el hato a lo largo del tiempo.                   |
-| **Executive Report**      | Reporte ejecutivo            | Informe estructurado exportable en formatos estándar (PDF, Excel) con los registros sanitarios, reproductivos y operativos del hato.  |  
-
-
-### 2.5.9\. Subscriptions &amp; Payment Management Domain
-
-| Término (Inglés)        | Equivalente en Español | Definición y Regla del Dominio                                                                                                        |
-| ----------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| **Annual Subscription** | Suscripción anual      | Modalidad de contratación preferida por los ganaderos con tarifa fija por cabeza de ganado monitoreada.                               |
-| **Plan Coverage**       | Cobertura del plan     | Alcance de funcionalidades, almacenamiento histórico y número de dispositivos *Smart Collar* habilitados según la suscripción activa. |
+| Término del negocio | Equivalente en inglés | Significado compartido |
+|---|---|---|
+| Abigeato | Cattle rustling | Robo de ganado. Se distingue del extravío, en el que se desconoce la ubicación del animal sin que se haya confirmado un robo. |
+| Abrevadero | Water trough | Lugar o recipiente destinado a proporcionar agua de bebida al ganado. |
+| Administrador ganadero | Ranch administrator | Persona responsable de organizar la operación de la unidad productiva, mantener sus registros y coordinar las faenas y la atención del hato. Puede ser también su propietario. |
+| Alcance de la asesoría | Advisory scope | Animales, lotes, labores y responsabilidades que el propietario o administrador acuerda con el profesional que asesora a la unidad productiva. |
+| Arete | Ear tag | Identificador físico colocado en la oreja del bovino para reconocerlo individualmente y asociarlo con sus registros. |
+| Asesoría del hato | Herd advisory | Relación profesional mediante la cual un médico veterinario o zootecnista asesora a una unidad productiva sobre salud, reproducción, alimentación o manejo. |
+| Baja de un animal | Animal deregistration | Constancia de que un animal deja de formar parte del inventario activo del hato por muerte, venta o robo. No equivale a borrar sus antecedentes. |
+| Calendario ganadero | Livestock calendar | Organización de las labores sanitarias, reproductivas y de manejo de la unidad productiva según la época y las condiciones de la región. |
+| Campaña sanitaria | Health campaign | Conjunto planificado de intervenciones preventivas, como vacunación o desparasitación, dirigido a un grupo de animales. Sus responsables y reglas de cierre deben acordarse con la unidad productiva. |
+| Celo | Estrus | Periodo reproductivo de la hembra bovina que se considera para decidir el momento del servicio. Su identificación corresponde a la observación y valoración del responsable del manejo reproductivo. |
+| Celo silencioso | Silent heat | Celo cuyos signos externos son poco evidentes para quien observa al animal. Es una dificultad de detección mencionada en las entrevistas, independiente del medio utilizado para observarlo. |
+| Colegiatura veterinaria | Veterinary license | Registro profesional del médico veterinario que se consigna para identificar al responsable de una atención o informe clínico. |
+| Cuarentena | Quarantine | Separación temporal de animales por motivos sanitarios, bajo las indicaciones del profesional responsable. |
+| Diagnóstico | Diagnosis | Conclusión clínica que el médico veterinario establece tras evaluar al animal y los antecedentes disponibles. Se distingue de una observación de campo o una sospecha. |
+| Días abiertos | Days open | Intervalo entre el parto de una hembra y la concepción siguiente, utilizado en el seguimiento reproductivo. |
+| Ecografía de gestación | Gestation ultrasound | Examen por imagen que el profesional utiliza para evaluar la gestación y conservar evidencia de sus hallazgos. |
+| Etapa productiva | Production stage | Fase de desarrollo o función productiva del animal, como ternero, vaquillona o vaca en producción. |
+| Extravío | Missing animal | Situación en la que un animal no se encuentra donde se esperaba y se desconoce su ubicación. Requiere búsqueda; por sí sola no confirma abigeato. |
+| Faena ganadera | Livestock task | Jornada o labor de manejo realizada sobre uno o varios animales, como vacunación, desparasitación o revisión del hato. |
+| Ficha individual | Individual record | Registro que identifica a un animal y reúne sus datos de raza, etapa productiva, procedencia y otros antecedentes. El soporte puede ser físico o digital. |
+| Ganadero propietario | Cattle rancher | Persona propietaria de la unidad productiva o del ganado que decide sobre inversiones, contratación de servicios y objetivos de producción. |
+| Ganado bovino | Cattle | Conjunto de animales de la especie bovina, como vacas, toros, terneros y vaquillonas. En el informe, el término no incluye otras especies. |
+| Ganado en sentido general | Livestock | Conjunto de animales de producción pecuaria, que puede abarcar distintas especies. Se distingue del ganado bovino estudiado en el proyecto. |
+| Genealogía | Genealogy | Antecedentes de ascendencia de un animal utilizados para el seguimiento reproductivo y el mejoramiento genético. |
+| Gestación o preñez | Pregnancy | Estado reproductivo de la hembra que lleva una cría en desarrollo. La sospecha de preñez se distingue de la confirmación profesional documentada. |
+| Hato | Herd | Conjunto de bovinos administrado en una misma unidad productiva. Puede organizarse en varios lotes. |
+| Historial clínico | Clinical history | Secuencia de observaciones, diagnósticos, tratamientos, exámenes e intervenciones de un animal, con sus fechas y responsables cuando están disponibles. |
+| Informe de la unidad productiva | Ranch report | Documento que reúne resultados sanitarios, reproductivos, operativos o económicos de un periodo para informar al propietario y apoyar decisiones. |
+| Intervención clínica | Clinical intervention | Atención que realiza el médico veterinario sobre un animal, con el procedimiento o producto aplicado y su fecha. |
+| Lote | Lot | Subgrupo del hato reunido por criterios de manejo, como edad, condición productiva o potrero asignado. No equivale al terreno donde se encuentra. |
+| Mal de altura | High mountain disease | Denominación empleada por Grober para un problema de salud observado en terneros criados en altura. Su identificación requiere evaluación profesional. |
+| Médico veterinario | Veterinarian | Profesional que evalúa la salud animal, establece diagnósticos, indica tratamientos y documenta la atención clínica. |
+| Observación de campo | Field observation | Hecho advertido durante el manejo o recorrido del predio, como una conducta inusual o una disminución de actividad. No constituye por sí mismo un diagnóstico. |
+| Operario de campo | Field operator | Persona que realiza el manejo directo de los animales, recorre potreros y ejecuta las faenas asignadas. Puede comunicar y registrar observaciones. |
+| Parto | Calving | Nacimiento de la cría que cierra la gestación y forma parte del historial reproductivo de la hembra. |
+| Pastoreo | Grazing | Actividad de alimentación del ganado en áreas de pastos, acompañada por las labores de conducción y observación que corresponden al predio. |
+| Periodo de retiro | Withdrawal period | Plazo indicado para un medicamento veterinario durante el cual los productos del animal tratado no se destinan al consumo. Su aplicación depende del producto y de la indicación profesional. |
+| Potrero | Paddock | Área de pastos delimitada dentro del predio para organizar el pastoreo. Puede recibir distintos lotes en momentos diferentes. |
+| Raza | Breed | Clasificación del bovino por sus características de origen y crianza, registrada para su identificación y manejo. |
+| Registro de campo | Field record | Anotación de una observación o labor durante la faena, vinculada al animal y al momento del hecho. Puede incorporarse después a los registros de oficina. |
+| Rumia | Rumination | Proceso digestivo del bovino cuya observación aporta información al seguimiento de su estado general. Su valoración se interpreta junto con otros hallazgos. |
+| Servicio reproductivo | Breeding service | Monta o inseminación registrada para el seguimiento de la reproducción. Un servicio no garantiza una preñez. |
+| Timpanismo | Bloat | Problema digestivo del bovino mencionado por Darwin y Eliseo entre los casos sanitarios atendidos. Su diagnóstico corresponde al médico veterinario. |
+| Tratamiento | Treatment | Medida terapéutica indicada por el médico veterinario y aplicada al animal, con registro del producto o procedimiento, fecha y responsable. |
+| Unidad productiva ganadera | Ranch | Organización y predio donde se administra el hato; en las entrevistas también se denomina fundo, estancia o hacienda. |
+| Zootecnista | Zootechnician | Profesional que asesora sobre producción, alimentación, reproducción y manejo del ganado dentro de su ámbito de trabajo. Su rol se distingue del diagnóstico clínico veterinario. |

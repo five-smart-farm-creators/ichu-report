@@ -90,7 +90,7 @@ Abrir tablero Miro de Candidate Context Discovery ([https://tinyurl.com/25yajtgr
 
 **Contextos candidatos identificados**
 
-El recorrido de los eventos pivote produjo ocho contextos candidatos, que coinciden con la organización que el Ubiquitous Language ya había adoptado en el capítulo anterior:
+El recorrido de los eventos pivote del diseño produjo ocho contextos candidatos. Su delimitación se propone en este capítulo a partir de responsabilidades y reglas de la solución; el lenguaje ubicuo de la sección 2.5 aporta el vocabulario compartido del negocio, sin dividirlo por contextos de software:
 
 | Contexto candidato | Responsabilidad | Tipo de subdominio |
 |---|---|---|
