@@ -14,7 +14,7 @@ El Design-Level EventStorming retoma el modelo general y lo lleva al nivel de de
 
 La sesión se organizó en una única jornada de dos horas, con la participación de los seis integrantes del equipo y el material del Big Picture como punto de partida. Se trabajó sobre el mismo lienzo, respetando el código de colores habitual de la técnica.
 
-En la primera fase se enriquecieron los Domain Events ya identificados con sus **Commands**, en azul, y los **Actors** que los ejecutan, en amarillo pequeño. El ejercicio reveló que varios eventos del Big Picture carecían de comando: nadie los provocaba de forma explícita, sino que resultaban de una evaluación automática del sistema.
+En la primera fase se tomaron los hechos del negocio actual identificados en el Big Picture como referencia para proponer los **Commands**, en azul, y los **Actors** que los ejecutan, en amarillo pequeño. En este nivel de diseño se incorporaron además eventos de la solución futura, como las lecturas sincronizadas y las alertas por evaluación de umbrales. Estos eventos técnicos no forman parte del Big Picture de la sección 2.4 ni describen automatizaciones existentes en las unidades productivas.
 
 En la segunda fase se incorporaron las **Policies**, en lila, que representan precisamente esas reacciones automáticas. Cada una responde al patrón "cuando ocurre este hecho, entonces se dispara esta consecuencia", y son el mecanismo que conecta la telemetría con la respuesta sanitaria.
 
@@ -52,9 +52,9 @@ En la cuarta fase se agruparon los elementos alrededor de los **Aggregates**, en
 
 Abrir tablero Miro del Design-Level EventStorming ([https://tinyurl.com/25yajtgr](https://tinyurl.com/25yajtgr))
 
-**Hot spots resueltos en esta sesión**
+**Reglas propuestas para validación**
 
-Tres de las incertidumbres que el Big Picture dejó marcadas quedaron resueltas al modelar a este nivel de detalle. La primera es que **el umbral debe ser por etapa productiva y no único**, lo que obligó a modelar `Threshold` como Value Object con la etapa como parte de su identidad. La segunda es que **el operario registra observaciones pero no diagnósticos**, distinción que se refleja en el tipo de operación y en las reglas de autorización. La tercera es que **un registro creado sin conexión sobre un animal dado de baja no se aplica**, sino que se conserva como conflicto para revisión manual, lo que exigió incorporar el estado de sincronización al agregado correspondiente.
+Al diseñar la solución se proponen tres reglas adicionales: **configurar los umbrales por etapa productiva**, representados mediante `Threshold`; **distinguir las observaciones del operario de los diagnósticos del médico veterinario**, con operaciones y permisos diferentes; y **conservar para revisión los registros pendientes de sincronización sobre animales dados de baja**, sin aplicarlos al estado central. Son decisiones del diseño propuesto que requieren validación; no se presentan como respuestas confirmadas a las cuatro preguntas abiertas del Big Picture de la sección 2.4.
 
 #### 4.1.1.1. Candidate Context Discovery
 
