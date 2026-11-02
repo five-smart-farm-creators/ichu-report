@@ -1,9 +1,7 @@
 workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
-
     !impliedRelationships false
 
     model {
-
         ranchManager = person "Ranch Manager" {
             description "Owner or manager of a cattle farm"
             tags "Person"
@@ -34,12 +32,14 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             tags "External,Hardware"
         }
 
-        firebaseAuth = softwareSystem "Firebase Authentication" {
-            description "External user authentication service"
-            tags "External"
+        ledHardwareDisplay = softwareSystem "LED Hardware Display" {
+            description "External LED indicator connected to the Portable Edge Gateway for visible local alerts"
+            tags "External,Hardware"
         }
 
-        firebaseMessaging = softwareSystem "Firebase Cloud Messaging" {
+      
+
+        firebaseMessaging = softwareSystem "Firebase Cloud Messaging Provider" {
             description "External push notification service"
             tags "External"
         }
@@ -57,27 +57,21 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         ichu = softwareSystem "ICHU" {
             description "Livestock management IoT platform"
 
-            landingPageUxUi = container "Landing Page - UX/UI" {
-                technology "HTML + CSS"
+            landingPageUxUi = container "Website" {
+                technology "HTML + CSS + JavaScript"
                 description "Customer-visible layout and styles of the public landing page, rendered in the browser"
-                tags "LandingPageUxUi"
-            }
-
-            webApplicationHosting = container "Web Application Hosting" {
-                technology "Static Web Hosting"
-                description "Serves the compiled Angular HTML, CSS and JavaScript files"
-                tags "StaticHosting"
-            }
-
-            landingPageWebApplication = container "Landing Page - Web Application" {
-                technology "Angular + JavaScript"
-                description "Interactive logic for the public landing page, delivered as a static bundle and executed in the browser"
-                tags "LandingPageWebApplication"
+                tags "WebApplicationFolder"
             }
 
             webApplication = container "Web Application" {
+                technology "HTML + CSS + JavaScript"
+                description "Static visual layer of the web application, providing its HTML and CSS user interface"
+                tags "WebApplicationFolder"
+            }
+
+            spa = container "Single Page Application" {
                 technology "Angular + TypeScript"
-                description "Cattle-management SPA executed in the user's web browser"
+                description "Interactive Angular single-page application that implements system functionality and displays alerts"
                 tags "BrowserClient"
             }
 
@@ -85,6 +79,12 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                 technology "Flutter + Dart"
                 description "Monitoring, alerts and offline field operations"
                 tags "Mobile"
+            }
+
+            mobileCacheDatabase = container "Mobile Cache Database" {
+                technology "SQLite"
+                description "On-device cache for recently accessed livestock records, alerts and pending offline operations"
+                tags "Database"
             }
 
             cattleBandEmbeddedApp = container "Cattle Band Embedded Application" {
@@ -153,7 +153,6 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     description "Memoria local para lecturas no transmitidas"
                     tags "Infrastructure"
                 }
-
             }
 
             waterControllerEmbeddedApp = container "Water Controller Embedded Application" {
@@ -210,10 +209,9 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     description "Adaptador de envío al backend"
                     tags "Infrastructure"
                 }
-
             }
 
-            edgeGateway = container "Portable Edge Gateway" {
+            edgeGateway = container "Portable Edge Service" {
                 technology "Flask + Peewee ORM on Python, running on Raspberry Pi or similar Edge Device"
                 description "Portable offline gateway with later cloud synchronization"
                 tags "Edge"
@@ -267,7 +265,6 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     description "ACL hacia el API central"
                     tags "ACL"
                 }
-
             }
 
             edgeDatabase = container "Edge Database" {
@@ -378,7 +375,6 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     description "Adaptador hacia el servicio de notificaciones push"
                     tags "ACL"
                 }
-
             }
 
             cloudDatabase = container "ICHU Cloud Database" {
@@ -389,76 +385,65 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         }
 
         ranchManager -> ichu "Manages cattle, devices, planning and subscriptions"
-
         fieldOperator -> ichu "Supervises cattle and records field tasks"
-
         veterinarian -> ichu "Reviews authorized animal health and history"
-
         visitor -> ichu "Reviews the value proposition and plans"
 
         cattleBandHardware -> ichu "Provides temperature, movement and position"
-
         waterControllerHardware -> ichu "Provides water temperature and actuator status"
 
-        ichu -> firebaseAuth "Authenticates users"
-
         ichu -> firebaseMessaging "Sends push notifications"
-
         ichu -> mapProvider "Displays positions and geofences"
-
         ichu -> paymentProvider "Processes subscription payments"
 
         visitor -> landingPageUxUi "Browses the public website" "HTTPS"
 
-        ranchManager -> webApplication "Manages cattle and reviews indicators" "HTTPS"
-        ranchManager -> mobileApplication "Reviews cattle and receives alerts" "HTTPS"
+        ranchManager -> webApplication "Loads the UI from" "HTTPS"
+        ranchManager -> spa "Manages cattle and reviews indicators" "HTTPS"
+        veterinarian -> mobileApplication "Reviews cattle and receives alerts" "HTTPS"
 
         fieldOperator -> mobileApplication "Performs field tasks" "HTTPS / Local Network"
 
-        veterinarian -> webApplication "Reviews authorized information" "HTTPS"
-        veterinarian -> mobileApplication "Reviews information during a farm visit" "HTTPS"
+        veterinarian -> webApplication "Loads the UI from" "HTTPS"
+        veterinarian -> spa "Reviews authorized information" "HTTPS"
+        veterinarian -> mobileApplication "Reviews authorized cattle information during farm visits" "HTTPS"
 
-        webApplication -> firebaseAuth "Authenticates the user" "HTTPS"
-        mobileApplication -> firebaseAuth "Authenticates the user" "HTTPS"
+        landingPageUxUi -> webApplication "Redirects users to the web application when CTA is clicked" "HTTPS"
 
-        webApplication -> mapProvider "Displays positions and geofences" "HTTPS"
+        webApplication -> spa "Delivers"
+
+    
+        spa -> mapProvider "Displays positions and geofences" "HTTPS"
         mobileApplication -> mapProvider "Displays positions and geofences" "HTTPS"
 
-        landingPageUxUi -> landingPageWebApplication "Uses landing-page interactions and dynamic content" "Browser / HTTPS"
-        webApplication -> webApplicationHosting "Downloads the Angular SPA bundle" "HTTPS"
-        landingPageUxUi -> webApplicationHosting "Opens the application URL" "HTTPS"
+        landingPageUxUi -> backend "Requests plans and public content" "HTTPS / JSON"
+        spa -> backend "Retrieves alerts and monitoring" "HTTPS / JSON"
+        backend -> spa "Streams real time alerts and notifications" "HTTPS / WSS"
 
-        landingPageWebApplication -> backend "Requests plans and public content" "HTTPS / JSON"
-        webApplication -> backend "Calls the REST API" "HTTPS / JSON"
         mobileApplication -> backend "Calls the REST API" "HTTPS / JSON"
+        mobileApplication -> mobileCacheDatabase "Reads and writes cached information for offline use" "SQLite"
 
         cattleBandEmbeddedApp -> cattleBandHardware "Reads sensors and position"
-
         cattleBandEmbeddedApp -> backend "Sends telemetry when Internet is available" "HTTPS / JSON"
-
         cattleBandEmbeddedApp -> edgeGateway "Sends offline telemetry over BLE" "Bluetooth Low Energy"
 
         edgeGateway -> edgeDatabase "Stores local telemetry and configuration" "SQLite"
-
         edgeGateway -> backend "Synchronizes when connectivity returns" "HTTPS / JSON"
-
         edgeGateway -> mobileApplication "Delivers local alerts without Internet" "Local Wi-Fi"
+        edgeGateway -> ledHardwareDisplay "Activates visual warnings for critical local events" "GPIO"
+        edgeGateway -> fieldOperator "Notifies the operator about critical local alerts" "Visual LED signal"
 
         waterControllerEmbeddedApp -> waterControllerHardware "Measures water and controls the heater"
-
         waterControllerEmbeddedApp -> backend "Reports temperature and actuator events" "HTTPS / JSON"
 
         backend -> cloudDatabase "Reads and writes cloud data" "Entity Framework Core / Npgsql"
-
-        backend -> firebaseAuth "Validates user identity" "Firebase Admin SDK"
-
         backend -> firebaseMessaging "Requests push notifications" "Firebase Admin SDK"
-
         backend -> paymentProvider "Requests subscription payment" "HTTPS"
 
         firebaseMessaging -> mobileApplication "Delivers the notification to the device" "Push Notification"
 
         // Figura 4.7: Operations & Monitoring.
+
         telemetryApi -> telemetryIngestionService "Invokes telemetry ingestion"
         operationsApi -> operationsApplicationService "Invokes livestock operational workflows"
         edgeConfigurationApi -> edgeConfigurationService "Requests Edge monitoring configuration"
@@ -476,47 +461,59 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         operationsApplicationService -> monitoringRepository "Stores operational events"
 
         edgeConfigurationService -> monitoringRepository "Loads fever thresholds and geofence configuration"
+
         cattleLookupAcl -> cattleApplicationService "Queries Cattle Information module"
         iotAssetsLookupAcl -> iotAssetsApplicationService "Queries IoT Assets module"
+
         monitoringRulesDomainService -> internalDomainEventDispatcher "Publishes monitoring domain events"
         monitoringRulesDomainService -> firebaseMessagingAdapter "Requests notification when a critical condition exists"
+
         firebaseMessagingAdapter -> firebaseMessaging "Sends cloud push notification" "Firebase Admin SDK"
         monitoringRepository -> cloudDatabase "Stores telemetry, monitoring and livestock operational data" "Entity Framework Core / Npgsql"
 
         // Figura 4.8: firmware del collar inteligente.
+
         bandTelemetryInterface -> bandTelemetryService "Starts telemetry acquisition"
         bandTelemetryService -> cattleBandAggregate "Updates cattle band state"
         bandTelemetryService -> cattleTelemetryProcessor "Processes cattle sensor readings"
         bandTelemetryService -> bandConnectivityService "Requests telemetry transmission"
         bandTelemetryService -> cattleBandLocalBuffer "Stores telemetry when communication is unavailable"
+
         cattleBandAggregate -> cattleBandHal "Accesses device state and hardware"
         cattleTelemetryProcessor -> cattleBandHal "Reads normalized temperature, movement and GPS data"
         cattleBandHal -> cattleBandHardwareAcl "Uses hardware-specific drivers"
         cattleBandHardwareAcl -> cattleBandHardware "Reads physical sensors and GPS/GNSS module"
+
         bandConnectivityService -> bandCloudAdapter "Uses cloud route when Wi-Fi and Internet are available"
         bandConnectivityService -> bandBleAdapter "Uses BLE route when cloud connectivity is unavailable"
         bandCloudAdapter -> backend "Envía telemetría directamente a la nube" "HTTPS / JSON"
         bandBleAdapter -> edgeGateway "Sends cattle telemetry to the Portable Edge Gateway" "Bluetooth Low Energy"
 
         // Figura 4.9: pasarela de borde.
+
         bleDeviceInterface -> edgeTelemetryCollectionService "Provides telemetry received from cattle bands"
         edgeTelemetryCollectionService -> localMonitoringService "Evaluates critical offline monitoring rules"
         edgeTelemetryCollectionService -> edgeTelemetryAggregate "Creates and updates local telemetry state"
         edgeTelemetryCollectionService -> edgeRepository "Stores received telemetry"
+
         localMonitoringService -> localAlertAdapter "Requests local alert when a critical condition is detected"
         localMonitoringService -> edgeRepository "Loads cached cattle mappings, thresholds and geofences"
         localAlertAdapter -> mobileApplication "Delivers local fever or geofence alert" "Local Wi-Fi"
+
         edgeSyncOrchestrator -> edgeRepository "Loads pending telemetry and stores synchronized configuration"
         edgeSyncOrchestrator -> ichuCloudApiAcl "Requests upload of pending telemetry and download of monitoring configuration"
+
         edgeRepository -> edgeDatabase "Persists telemetry, rules, mappings and synchronization state" "SQLite"
         ichuCloudApiAcl -> backend "Synchronizes telemetry, assignments, thresholds and geofences" "HTTPS / JSON"
 
         // Figura 4.10: firmware del controlador del abrevadero.
+
         waterControlInterface -> waterControlApplicationService "Starts temperature monitoring"
         waterControlApplicationService -> waterControllerAggregate "Updates controller state"
         waterControlApplicationService -> temperatureRegulationService "Requests temperature regulation evaluation"
         waterControlApplicationService -> waterControllerLocalBuffer "Buffers events while cloud connectivity is unavailable"
         waterControlApplicationService -> waterCloudAdapter "Reports temperature and actuator events"
+
         temperatureRegulationService -> waterControllerAggregate "Updates heating state"
         temperatureRegulationService -> waterControllerHal "Reads temperature and controls heating actuator"
         waterControllerAggregate -> waterControllerHal "Executes device state changes"
@@ -530,18 +527,22 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     technology "ESP32 + Wi-Fi + Bluetooth Low Energy"
                     containerInstance cattleBandEmbeddedApp
                 }
+
                 deploymentNode "Water Temperature Controller Device" {
                     technology "ESP32 + Wi-Fi"
                     containerInstance waterControllerEmbeddedApp
                 }
+
                 deploymentNode "Portable Edge Gateway Device" {
                     technology "Raspberry Pi or similar portable Edge computer with BLE and Wi-Fi"
                     containerInstance edgeGateway
                     containerInstance edgeDatabase
                 }
-                deploymentNode "Field Operator Mobile Device" {
+
+                deploymentNode "Mobile User Device" {
                     technology "Android / iOS"
                     containerInstance mobileApplication
+                    containerInstance mobileCacheDatabase
                 }
             }
 
@@ -550,22 +551,20 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     technology "HTML, CSS and JavaScript execution"
                     containerInstance landingPageUxUi
                     containerInstance webApplication
+                    containerInstance spa
                 }
             }
 
             deploymentNode "Cloud Platform" {
-                deploymentNode "Landing Page Web Hosting" {
-                    technology "HTTPS static file hosting"
-                    containerInstance landingPageWebApplication
-                }
                 deploymentNode "Angular Application Web Hosting" {
                     technology "HTTPS static file hosting"
-                    containerInstance webApplicationHosting
                 }
+
                 deploymentNode ".NET Application Runtime" {
                     technology ".NET / ASP.NET Core"
                     containerInstance backend
                 }
+
                 deploymentNode "PostgreSQL Database Host" {
                     technology "PostgreSQL"
                     containerInstance cloudDatabase
@@ -575,13 +574,14 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             deploymentNode "External Service Providers" {
                 deploymentNode "Firebase Services" {
                     technology "Google Firebase"
-                    softwareSystemInstance firebaseAuth
                     softwareSystemInstance firebaseMessaging
                 }
+
                 deploymentNode "Map Service Provider" {
                     technology "Managed HTTPS service"
                     softwareSystemInstance mapProvider
                 }
+
                 deploymentNode "Payment Service Provider" {
                     technology "Managed HTTPS service"
                     softwareSystemInstance paymentProvider
@@ -591,13 +591,10 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
     }
 
     views {
-
         systemLandscape "SystemLandscape" {
             title "ICHU - System Landscape"
             description "People, devices and external services surrounding the solution"
-
             include *
-
             autoLayout lr
         }
 
@@ -606,16 +603,13 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             description "Users, IoT hardware and external services interacting with ICHU"
 
             include ichu
-
             include ranchManager
             include fieldOperator
             include veterinarian
             include visitor
-
             include cattleBandHardware
             include waterControllerHardware
-
-            include firebaseAuth
+            include ledHardwareDisplay
             include firebaseMessaging
             include mapProvider
             include paymentProvider
@@ -632,7 +626,7 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             autoLayout lr
         }
 
-        deployment * production "ProductionDeployment" {
+        deployment * "Production" "ProductionDeployment" {
             title "ICHU - Production Deployment"
             description "Static hosting is separated from browser execution, Edge and cloud services"
 
@@ -768,7 +762,6 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         }
 
         styles {
-
             element "Element" {
                 shape RoundedBox
             }
@@ -830,15 +823,13 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                 shape WebBrowser
             }
 
+            element "WebApplicationFolder" {
+                shape Folder
+            }
+
             element "LandingPageUxUi" {
                 shape WebBrowser
                 background #3a86ff
-                color #ffffff
-            }
-
-            element "LandingPageWebApplication" {
-                shape Component
-                background #6a4c93
                 color #ffffff
             }
 
