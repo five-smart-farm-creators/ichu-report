@@ -1,48 +1,48 @@
 # SmartFarm — Project Report
 
-Repositorio fuente del informe del proyecto SmartFarm / ICHU para el curso Desarrollo de Soluciones IoT.
+Source repository for the SmartFarm / ICHU project report for the IoT Solutions Development course.
 
-## Estructura
+## Repository structure
 
 ```text
 report/
-├── front-matter/       # Carátula, versiones, colaboración, índice y Student Outcome
-├── 10-...md            # Capítulos en orden de lectura
+├── front-matter/       # Cover, version history, collaboration, contents, and Student Outcome
+├── 10-...md            # Chapters in reading order
 ├── 88-conclusions-and-recommendations.md
 ├── 99-bibliography.md
-├── annexes/            # Anexos A–I separados por tema
+├── annexes/            # Appendices A–I organized by topic
 └── assets/
-    ├── images/         # Imágenes y diagramas renderizados
-    └── diagram-sources/ # Fuentes PlantUML y Structurizr DSL
+    ├── images/         # Rendered images and diagrams
+    └── diagram-sources/ # PlantUML and Structurizr DSL sources
 ```
 
-## Orden de lectura del informe
+## Report reading order
 
-1. [Carátula](report/front-matter/01-cover.md)
-2. [Registro de versiones](report/front-matter/02-version-history.md)
+1. [Cover page](report/front-matter/01-cover.md)
+2. [Version history](report/front-matter/02-version-history.md)
 3. [Project Report Collaboration Insights](report/front-matter/03-collaboration-insights.md)
-4. [Tabla de contenidos](report/front-matter/04-table-of-contents.md)
+4. [Table of contents](report/front-matter/04-table-of-contents.md)
 5. [Student Outcome](report/front-matter/05-student-outcome.md)
-6. [Capítulo I — Introducción](report/10-introduction.md)
-7. [Capítulo II — Requirements Elicitation & Analysis](report/20-requirements-elicitation-and-analysis.md)
-8. [Capítulo III — Requirements Specification](report/30-requirements-specification.md)
-9. [Capítulo IV — Solution Software Design](report/40-solution-software-design.md)
-10. [Capítulo V — Solution UI/UX Design](report/50-solution-ui-ux-design.md)
-11. [Capítulo VI — Product Implementation, Validation & Deployment](report/60-product-implementation-validation-and-deployment.md)
-12. [Conclusiones y recomendaciones](report/88-conclusions-and-recommendations.md)
-13. [Bibliografía](report/99-bibliography.md)
-14. [Anexos](report/annexes/00-index.md)
+6. [Chapter I — Introduction](report/10-introduction.md)
+7. [Chapter II — Requirements Elicitation & Analysis](report/20-requirements-elicitation-and-analysis.md)
+8. [Chapter III — Requirements Specification](report/30-requirements-specification.md)
+9. [Chapter IV — Solution Software Design](report/40-solution-software-design.md)
+10. [Chapter V — Solution UI/UX Design](report/50-solution-ui-ux-design.md)
+11. [Chapter VI — Product Implementation, Validation & Deployment](report/60-product-implementation-validation-and-deployment.md)
+12. [Conclusions and recommendations](report/88-conclusions-and-recommendations.md)
+13. [Bibliography](report/99-bibliography.md)
+14. [Appendices](report/annexes/00-index.md)
 
-## Flujo de trabajo
+## Workflow
 
-- `main` contiene la versión publicada para cada entrega.
-- `develop` integra los cambios aprobados antes de su publicación.
-- Cada cambio se trabaja en una rama temporal (`feature/<alcance>` o `fix/<alcance>`) creada desde `develop`.
-- Los cambios llegan a `develop` mediante Pull Request; después de integrarlos, se elimina la rama temporal.
-- Para una entrega, se integra `develop` en `main` mediante Pull Request. No se realizan commits directos a `main` ni a `develop`.
+- `main` contains the published version for each submission.
+- `develop` integrates approved changes before publication.
+- Work on each change in a short-lived branch (`feature/<scope>` or `fix/<scope>`) created from `develop`.
+- Submit changes to `develop` through a Pull Request. Delete the working branch after it is merged.
+- For each submission, merge `develop` into `main` through a Pull Request. Do not commit directly to `main` or `develop`.
 
-Consulta [CONTRIBUTING.md](CONTRIBUTING.md) para la convención de ramas, commits y revisión.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for branch, commit, and review conventions.
 
-## Recursos generados
+## Generated resources
 
-Las fuentes de diagramas se conservan junto con sus imágenes exportadas dentro de `report/assets/`. Los PDF y archivos temporales generados localmente se mantienen fuera del control de versiones en `output/` y `tmp/`.
+Diagram sources are stored alongside their exported images in `report/assets/`. Locally generated PDFs and temporary files are kept outside version control in `output/` and `tmp/`.
