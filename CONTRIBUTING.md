@@ -1,18 +1,24 @@
-# Contribuir al informe SmartFarm
+# Contributing to the SmartFarm Report
 
-## Ramas
+## Gitflow
 
-- `main`: entregas publicadas.
-- `develop`: integración de cambios aprobados.
-- `feature/<alcance>`: nuevas secciones o artefactos; se crean desde `develop`.
-- `fix/<alcance>`: correcciones; se crean desde `develop`.
-- `hotfix/<alcance>`: correcciones urgentes de una entrega publicada; se crean desde `main` y se integran también en `develop`.
+- `main`: published submissions.
+- `develop`: integration of approved changes.
+- `feature/<scope>`: new sections or artifacts, created from `develop`.
+- `fix/<scope>`: corrections, created from `develop`.
+- `hotfix/<scope>`: urgent fixes to a published submission, created from `main` and also merged into `develop`.
 
-Mantén las ramas de trabajo enfocadas y de corta duración. Abre un Pull Request hacia la rama correspondiente, solicita revisión de otro integrante y elimina la rama al completar la integración. No hagas push directo a `main` o `develop`.
+Keep working branches focused and short-lived. Open a Pull Request to the appropriate target branch, request a review from another team member, and delete the branch after it is merged. Do not push directly to `main` or `develop`.
 
 ## Commits
 
-Usa Conventional Commits en minúsculas y con un alcance opcional:
+Use Conventional Commits in English, following this format:
+
+```text
+type(optional-scope): short description
+```
+
+Keep the type, scope, and description in lowercase. Use a concise, specific description:
 
 ```text
 docs: reorganize report sources
@@ -21,12 +27,12 @@ fix: repair relative asset links
 chore: update repository metadata
 ```
 
-Tipos habituales: `feat`, `fix`, `docs`, `refactor`, `test`, `build`, `ci` y `chore`. Describe en presente y de forma concreta el cambio. Indica los cambios incompatibles con `!` o con un pie `BREAKING CHANGE:`.
+Common types include `feat`, `fix`, `docs`, `refactor`, `test`, `build`, `ci`, and `chore`. Mark breaking changes with `!` or a `BREAKING CHANGE:` footer.
 
-## Cambios en el informe
+## Report changes
 
-- Conserva capítulos y secciones en archivos Markdown separados dentro de `report/`.
-- Usa prefijos numéricos y `kebab-case` para mantener el orden de lectura.
-- Guarda imágenes exportadas en `report/assets/images/` y las fuentes de diagramas en `report/assets/diagram-sources/`.
-- Actualiza los enlaces relativos cuando muevas o renombres archivos.
-- Incluye en el Pull Request el propósito del cambio y las comprobaciones realizadas.
+- Keep chapters and sections in separate Markdown files under `report/`.
+- Use numeric prefixes and `kebab-case` to preserve reading order.
+- Store exported images in `report/assets/images/` and diagram sources in `report/assets/diagram-sources/`.
+- Update relative links when moving or renaming files.
+- Explain the purpose of the change and the checks performed in the Pull Request.
