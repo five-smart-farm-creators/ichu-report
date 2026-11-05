@@ -125,7 +125,91 @@ Los dispositivos embebidos conservan sus registros en una cola persistente si el
 
 Para el collar y el abrevadero, este anexo adopta las historias técnicas del Capítulo III y la arquitectura actualizada del Capítulo IV. La descripción anterior de la sección 5.6.5 del Capítulo V contempla Wi-Fi directo al backend para el collar y deja por definir el paso del abrevadero por Edge. En el flujo vigente ambos entregan sus registros al gateway, que se encarga de sincronizarlos.
 
-### I.5. Verificaciones para el prototipo
+### I.5. Clasificación de sensores, actuadores y equipos de apoyo
+
+| Dispositivo | Sensores o entradas | Actuadores o salidas | Control y soporte |
+|---|---|---|---|
+| Collar | **DS18B20** para temperatura superficial, **MPU-6050** para aceleración y velocidad angular, **NEO-6M** para posición. La lectura del nivel de batería requiere un circuito de medida pendiente. El botón de la carcasa es una entrada manual propuesta. | LED de estado de la carcasa, previsto en el concepto y pendiente de cableado. | ESP32-S3, antena GPS, batería, cargador con protección, regulador y resistencia de pull-up. |
+| Abrevadero | **DS18B20 impermeable** para temperatura del agua. | **Relé** como actuador de conmutación y **resistencia calefactora** como actuador térmico. | ESP32, fuentes de control y potencia, resistencia de pull-up y componente en serie con la carga. |
+| Receptor de alertas | Estado recibido del gateway como entrada de datos. | **LED verde, amarillo y rojo** como indicadores luminosos, **buzzer KY-012** como actuador acústico y **LCD** como salida visual de texto. | ESP32, conversor I²C, resistencias de los LED y fuente regulada. |
+| Portable Edge Gateway | Registros recibidos por BLE de los dispositivos embebidos. | Avisos y datos por red local, y sincronización por HTTPS. | Procesamiento, almacenamiento persistente y comunicación. |
+
+### I.6. Capacidad del suministro de energía
+
+Las capacidades de las fuentes de la tabla son **propuestas para el banco de pruebas**. Se dimensiona con `P = V × I` y se confirma la corriente de pico con todos los consumidores del riel activos. Como criterio de diseño inicial, la capacidad de la fuente debe superar en al menos 25 % el pico medido, sin salir de la tensión admitida por cada módulo.
+
+| Bloque | Capacidad de partida | Base de dimensionamiento y verificación |
+|---|---|---|
+| Collar | Batería dibujada de **3,7 V y 1100 mAh** (aprox. **4,07 Wh nominales**). Regulador propuesto de **3,3 V y 1 A** (3,3 W). | Espressif recomienda capacidad de al menos 500 mA para alimentar el ESP32-S3. Se reserva corriente adicional para GPS, IMU, DS18B20 y transitorios. u-blox indica hasta 67 mA como referencia para dimensionar la alimentación del NEO-6M, antes de considerar el adaptador o la antena activa. Confirmar que celda, protección y regulador soporten el pico simultáneo con batería próxima al fin de descarga. |
+| Abrevadero, control | Fuente propuesta de **5 V y 1 A** (5 W), con salida de 3,3 V para la lógica y el DS18B20 según el pinout de la placa. | La fuente de control debe sostener simultáneamente el ESP32 con BLE activo y la bobina del relé. Medir el consumo de la bobina del módulo elegido y verificar que la conmutación mantenga estable el riel de 3,3 V. |
+| Abrevadero, potencia | Fuente independiente. Su tensión y corriente nominales dependen del calefactor elegido. | Una carga resistiva de banco de **12 V y 24 W** requiere **2 A**. Con 25 % de reserva, ese ensayo requiere una fuente de **12 V y al menos 2,5 A** (30 W). Para el calefactor final calcular `I = P / V` con su placa de datos y dimensionar contactos, conductores y protecciones para esa carga y su régimen de servicio. |
+| Panel | Fuente propuesta de **5 V y 1 A** (5 W). El ESP32 aporta la referencia de 3,3 V al lado bajo del conversor. | Medir con la radio activa, el LCD iluminado, el LED de urgencia y el buzzer encendidos. Revisar el presupuesto si la placa o los periféricos elegidos requieren más corriente. |
+| Portable Edge Gateway | Alimentación por seleccionar con la plataforma de I.10. Para el banco se reserva un presupuesto de **15 W** al nodo completo. | Verificar el consumo de CPU, almacenamiento y radios durante recepción, escrituras y sincronización simultáneas. Elegir la tensión y el adaptador según el equipo utilizado. |
+
+Como objetivo inicial, el collar debe operar **24 h** con el perfil de muestreo de I.7. Si en el ensayo se aprovecha el 80 % de la capacidad nominal de 1100 mAh, el consumo medio permitido en los bornes de batería es `0,80 × 1100 mAh / 24 h ≈ 36,7 mA`. Registrar corriente media y picos durante adquisición GPS, transmisión BLE y reposo, y comprobar la autonomía con un ciclo de descarga del prototipo. La capacidad aprovechable depende de la celda, la temperatura, el regulador y el corte de protección.
+
+### I.7. Tiempo de respuesta objetivo (Time Delay)
+
+Los tiempos de esta tabla distinguen la conversión del sensor, el periodo de muestreo y la latencia de entrega. Las metas son de banco y se verifican con marcas de tiempo. `p95` significa que al menos el 95 % de los ensayos debe quedar dentro del tiempo indicado. Para medir entre equipos se usan relojes sincronizados o un instrumento de tiempo común.
+
+| Tramo | Tiempo de ficha técnica o meta propuesta | Inicio y fin de la medición |
+|---|---|---|
+| DS18B20 del collar y del abrevadero | **Hasta 750 ms** por conversión a 12 bits, según ficha técnica. Periodo propuesto de **60 s** en el collar y **10 s** en el abrevadero. | Medir desde la orden de conversión hasta que la lectura digital queda disponible. Ensayar por separado la respuesta térmica de la sonda y su montaje. |
+| MPU-6050 del collar | Ventana propuesta de **2 s a 25 Hz** (50 muestras por eje) por lectura. Índice listo **≤ 100 ms p95** después de cerrar la ventana. | Registrar inicio y fin de la ventana y el tiempo para calcular el índice. Completar la ventana dentro del ciclo de 60 s. |
+| GPS NEO-6M | Ficha técnica de referencia de **27 s típicos** hasta la primera posición en arranque en frío. Meta de **≤ 60 s p95** en cielo abierto. Una posición reportada debe tener una antigüedad **≤ 10 s** al formar el registro. | Medir desde el encendido en frío hasta la primera posición válida. En cada registro guardar la hora de la posición y marcarla inválida si está ausente o supera la antigüedad admitida. |
+| Control local del abrevadero | Orden al GPIO **≤ 100 ms p95** desde que se dispone de la lectura válida o del resultado de fallo. El relé debe cambiar el contacto **≤ 50 ms p95** después de la orden. | Medir la lectura o el fallo detectado, el flanco de `GPIO26` y el cambio de continuidad del contacto. Un cruce entre muestras puede esperar hasta el siguiente ciclo de 10 s, además de la respuesta térmica de la sonda. |
+| Dispositivo embebido → Edge por BLE | Confirmación de persistencia **≤ 2 s p95** desde que el registro está listo, con enlace establecido y sin cola previa. | Comparar la hora de preparación del registro y la de recepción de su confirmación. Medir las reconexiones y el vaciado de cola por separado. |
+| Procesamiento en Edge | **≤ 250 ms p95** desde la recepción de una trama válida hasta persistir el registro y terminar la evaluación local que corresponda. | Instrumentar recepción, confirmación de SQLite y fin de reglas en el gateway. La confirmación al emisor se habilita tras persistir. |
+| Edge → panel | Presentación del aviso **≤ 1 s p95** desde que Edge deja disponible el estado, con Wi-Fi local operativo. | Comparar la hora de publicación con el cambio visible del LCD y LED y el inicio del buzzer, según el estado. |
+| Salidas locales del panel | LED y buzzer **≤ 100 ms p95** hasta encender o sonar. LCD **≤ 250 ms p95** hasta completar el texto. | Medir cada salida desde que el firmware del panel emite su orden local. |
+| Edge → API central | Meta de sincronizar un lote normal **≤ 30 s p95** desde que queda listo para envío, con Internet operativo. | Medir hasta la confirmación de la API. En ausencia de conectividad se conserva la cola y se mide el tiempo de recuperación por separado. |
+
+El tiempo de calentamiento del agua se mide desde la activación del calefactor hasta alcanzar el límite superior. Depende del volumen, la potencia y las pérdidas térmicas, por lo que se definirá al seleccionar el equipo. Los **30 min** de desviación sostenida de `US-55` y las **6 h** para el estado sin comunicación de `US-54` son ventanas funcionales del reporte, distintas de la latencia de control y transmisión.
+
+### I.8. Incertidumbre objetivo de los sensores (Target Uncertainty)
+
+Para temperatura, movimiento y tensión se propone una incertidumbre expandida objetivo `U = k × u_c` con factor de cobertura `k = 2`. La incertidumbre estándar combinada `u_c` reúne las contribuciones de la referencia, la resolución, la dispersión de las repeticiones y el montaje. Para GPS se usa el percentil 95 del error horizontal frente a una referencia conocida. Los **2,5 m CEP** de la ficha del NEO-6M corresponden al radio que contiene el 50 % de las posiciones en el ensayo estático del fabricante.
+
+| Sensor y cantidad física | Incertidumbre o error objetivo propuesto | Método de verificación |
+|---|---|---|
+| DS18B20 del collar, temperatura superficial (°C) | **U ≤ 1,0 °C** en un ensayo de contacto entre 30 y 42 °C. | Comparar en varios puntos con un termómetro de referencia sobre una superficie estabilizada. Repetir retirando y colocando el collar para incorporar la variación por contacto. El ensayo caracteriza la superficie medida. |
+| DS18B20 del abrevadero, temperatura del agua (°C) | **U ≤ 0,75 °C** en un baño de prueba entre 5 y 40 °C. | Comparar en varios puntos con un termómetro de referencia, con agua mezclada y ambas sondas a la misma profundidad. Repetir lecturas tras estabilizar y registrar la diferencia durante transitorios en una prueba separada. |
+| Acelerómetro del MPU-6050, aceleración en X, Y y Z | **U ≤ 0,10 g por eje** (aprox. 0,98 m/s²), tras calibración en reposo. | Colocar el sensor con cada eje orientado sucesivamente a favor y en contra de la gravedad. Comparar con las componentes esperadas y repetir el montaje. |
+| Giroscopio del MPU-6050, velocidad angular en X, Y y Z | **U ≤ 5 °/s por eje** en banco, tras corregir el sesgo. | Medir el cero en reposo y velocidades de referencia de hasta ±90 °/s mediante giro controlado en ambos sentidos por eje. |
+| NEO-6M, posición horizontal a partir de latitud y longitud | **Error horizontal p95 ≤ 10 m** en cielo abierto y con posición válida. | Comparar series de posiciones con un punto de coordenadas conocidas en varias sesiones. Registrar fallos de posición y estimación de precisión del receptor. Para geocercas, tratar como no concluyentes las posiciones cuya incertidumbre impida distinguir el lado del límite. |
+| Circuito propuesto de medida de batería, tensión de la celda (V) | **U ≤ 0,05 V** en el rango de operación de la celda elegida. | Tras definir el circuito, comparar con un multímetro de referencia en varios puntos y durante carga de trabajo. El porcentaje requiere caracterizar la batería bajo el perfil de uso. |
+
+### I.9. Exactitud y precisión objetivo de los actuadores (Target Accuracy and Precision)
+
+En una salida discreta, la exactitud se verifica por correspondencia entre la orden y el estado observado. La precisión se evalúa repitiendo la orden y midiendo la dispersión del tiempo de respuesta. En el calefactor también se evalúan la potencia y la repetibilidad térmica. Las metas siguientes se proponen para un ensayo controlado.
+
+| Actuador o salida | Exactitud objetivo | Precisión o repetibilidad objetivo y prueba |
+|---|---|---|
+| Relé del abrevadero | **100 de 100 órdenes** de apertura o cierre reproducen el estado esperado del contacto `NO`, con la carga de prueba. El contacto queda abierto durante las pruebas de arranque y fallo del sensor. | Desviación estándar de la latencia **≤ 10 ms** por sentido de conmutación. Registrar el flanco de la orden y el estado estable del contacto en los ciclos de banco. |
+| Resistencia calefactora | Potencia eléctrica estable dentro de **±10 %** de la nominal, a la tensión especificada. Como meta del conjunto de control, el pico del agua tras el apagado se mantiene **≤ 1,0 °C por encima del límite superior** en el volumen y montaje ensayados. | En diez ciclos con igual volumen, temperatura inicial y ubicación de sonda, la desviación estándar de la potencia estable debe ser **≤ 3 %** de su media y la del pico térmico **≤ 0,5 °C**. Medir ambas con instrumentos de referencia. |
+| LED verde, amarillo y rojo | **100 de 100 cambios de estado** muestran el color asignado y un solo LED de estado activo. | Desviación estándar de la latencia de encendido **≤ 20 ms** desde la orden local, por color. Usar fotodetector o registro de video con resolución temporal suficiente. |
+| Buzzer KY-012 | **100 de 100 órdenes** de urgencia generan sonido y las órdenes de desactivación lo silencian. Para un pulso de prueba de **1,00 s**, error de duración audible **≤ 0,10 s**. | Desviación estándar de la duración audible **≤ 50 ms** en pulsos repetidos. Medir con micrófono a distancia fija y comprobar el estado silencioso fuera de urgencia. |
+| LCD de 16 × 2 | **100 de 100 actualizaciones** muestran el texto correspondiente sin restos del mensaje anterior. | Desviación estándar de la latencia de refresco **≤ 50 ms** desde la orden local. Repetir los cambios entre los tres estados y medir hasta que el texto esté completo. |
+| LED de estado del collar | Una vez asignado, **100 de 100 órdenes** muestran el estado definido por el firmware. | Desviación estándar de la latencia de encendido **≤ 20 ms** bajo las mismas condiciones de alimentación. Aplicar cuando se defina el circuito. |
+
+### I.10. Esfuerzo computacional en Edge y Fog (Processing Power)
+
+El ESP32-S3 calcula el índice de actividad a partir de la ventana local y entrega el resumen al **Portable Edge Gateway**. El ESP32 del abrevadero ejecuta el control térmico local. Edge recibe los registros, los valida, los guarda en SQLite, evalúa alertas con la configuración vigente y sincroniza lotes con la API. El procesamiento de Edge se dimensiona para esos registros, con el análisis de muestras crudas en el collar.
+
+| Algoritmo o tarea en Edge | Esfuerzo y memoria esperados | Implementación de referencia |
+|---|---|---|
+| Validar e identificar tramas | `O(B)` por registro, donde `B` es el tamaño de la trama. Memoria proporcional a los registros en proceso. | Validar identidad, campos, unidades, tiempo y validez. Consultar por índice la identidad del registro y confirmar después de que SQLite complete la escritura. |
+| Evaluar umbrales y deduplicar alertas | `O(K)` comparaciones por registro para `K` reglas aplicables, más consultas indexadas de asignaciones y alertas. | Aplicar las reglas de la revisión vigente y la ventana de deduplicación del reporte. Mantener las reglas activas en caché y persistir la alerta junto con su referencia a la lectura. |
+| Evaluar geocercas | `O(V)` por posición para un polígono aplicable de `V` vértices. | Verificar validez y precisión de la posición. Aplicar una prueba punto en polígono y, cerca del límite, evaluar si el margen de error permite concluir el cruce. |
+| Sincronizar registros pendientes | `O(L)` por lote de `L` registros, con memoria acotada al lote. | Preparar lotes paginados por índice, serializar y transmitir por HTTPS. Procesar confirmaciones individuales y reintentar con identidades estables. |
+
+**Escenario de ensayo propuesto.** 100 collares con un registro cada 60 s y 10 abrevaderos con un registro cada 10 s producen en promedio **2,67 lecturas/s** o **230 400 lecturas/día**, más eventos de control. Se propone ensayar **20 registros/s** en Edge para incluir ráfagas de reenvío. Con un polígono de hasta 100 vértices por posición y una ráfaga compuesta íntegramente por posiciones, se recorren hasta **2000 segmentos/s** por pasada de geocerca. Medir los eventos, escrituras y consultas de alertas junto con esa carga.
+
+**CPU, memoria y almacenamiento.** El punto de partida para el ensayo es un equipo Linux de **2 núcleos, 2 GiB de RAM y 16 GB de almacenamiento persistente**, con BLE y red local. Con una hipótesis de **1 KiB por lectura persistida**, siete días sin sincronizar ocupan unos **1,54 GiB** solo en lecturas. Reservar **al menos 4 GiB** para la base, sus índices, alertas y archivos temporales, y verificar el tamaño con la base real. La meta a 20 registros/s es mantener **CPU media ≤ 60 %** de la capacidad total y **RAM residente ≤ 512 MiB** para el servicio Edge y su adaptador BLE, cumplir los **250 ms p95** de I.7 y conservar las confirmaciones tras un reinicio. La frecuencia del procesador y el equipo final se seleccionan a partir de esa prueba de carga.
+
+**Aplicabilidad de Fog.** La arquitectura vigente concentra estas tareas en Edge y envía los lotes a la API central. Un nodo Fog separado queda fuera del dimensionamiento del prototipo. Si se incorpora para concentrar varios gateways, su carga se calculará con la suma de sus tasas y el volumen retenido durante la desconexión. Los umbrales locales y el control del calefactor seguirán ejecutándose en Edge y en el abrevadero, respectivamente.
+
+### I.11. Verificaciones para el prototipo
 
 | Prueba | Criterio de aceptación |
 |---|---|
@@ -135,8 +219,10 @@ Para el collar y el abrevadero, este anexo adopta las historias técnicas del Ca
 | Panel | Probar Normal, Atención y Urgencia con el texto y LED correspondientes. Verificar el sonido en urgencia y comprobar la indicación de pérdida de comunicación cuando se integre con el gateway. |
 | Registros sin conexión | Interrumpir BLE, reiniciar el dispositivo y verificar que los registros siguen pendientes. Recuperar el enlace y comprobar que cada registro se confirma una vez almacenado y que un reenvío idéntico conserva su identidad. |
 | Sincronización del gateway | Interrumpir Internet y comprobar que se siguen recibiendo lecturas locales. Al recuperar la conexión, verificar que se sincronizan con la API central sin crear duplicados. |
+| Metas de medición, actuación y energía | Registrar instrumentos, condiciones, repeticiones y resultados de I.6 a I.9. Comparar la incertidumbre, la repetibilidad, los tiempos y la autonomía medidos con las metas propuestas. |
+| Capacidad del gateway | Reproducir la carga normal y mantener la ráfaga de I.10 durante 30 min con sincronización concurrente. Registrar latencia p95, CPU, memoria, crecimiento de SQLite y recuperación de los registros tras reinicio. |
 
-### I.6. Fuentes y enlaces
+### I.12. Fuentes y enlaces
 
 **Proyecto editable en Cirkit Designer**
 
@@ -189,3 +275,11 @@ Para el collar y el abrevadero, este anexo adopta las historias técnicas del Ca
 **Joy-IT. KY-012 activo, variante de referencia**
 
 <https://www.sensorkit.joy-it.net/en/sensors/ky-012>
+
+**Espressif. Dimensionamiento del suministro del ESP32-S3**
+
+<https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/schematic-checklist.html>
+
+**JCGM. Guía para expresar la incertidumbre de medición**
+
+<https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf>
