@@ -1,25 +1,25 @@
 ## Anexo B. Evidencia documental
 
 **Solution Profile y Lean UX Process**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/blob/main/report/10-introduction.md
+[https://tinyurl.com/29l2l25f](https://tinyurl.com/29l2l25f)
 
 **Requirements Elicitation & Analysis**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/blob/main/report/20-requirements-elicitation-and-analysis.md
+[https://tinyurl.com/23ejh886](https://tinyurl.com/23ejh886)
 
 **Requirements Specification**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/blob/main/report/30-requirements-specification.md
+[https://tinyurl.com/2a32prqe](https://tinyurl.com/2a32prqe)
 
 **Solution Software Design**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/blob/main/report/40-solution-software-design.md
+[https://tinyurl.com/283uehbo](https://tinyurl.com/283uehbo)
 
 **Solution UI/UX Design**<br>
-[Capítulo V](../50-solution-ui-ux-design.md)
+Capítulo V ([https://tinyurl.com/24vby6wm](https://tinyurl.com/24vby6wm))
 
 **Product Implementation, Validation & Deployment**<br>
-[Capítulo VI](../60-product-implementation-validation-and-deployment.md)
+Capítulo VI ([https://tinyurl.com/29x2tlfv](https://tinyurl.com/29x2tlfv))
 
 **Student Outcome**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/blob/main/report/front-matter/05-student-outcome.md
+[https://tinyurl.com/24q5qo2k](https://tinyurl.com/24q5qo2k)
 
 **Project Report Collaboration Insights**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/blob/main/report/front-matter/03-collaboration-insights.md
+[https://tinyurl.com/2ym9hzx8](https://tinyurl.com/2ym9hzx8)

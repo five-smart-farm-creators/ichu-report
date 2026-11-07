@@ -4,35 +4,35 @@ Este anexo reúne los repositorios, despliegues y recursos gráficos que complem
 
 ### Capítulo V. Solution UI/UX Design
 
-El [Capítulo V](../50-solution-ui-ux-design.md) presenta las pautas visuales, la arquitectura de información, los wireframes, mockups, wireflows, user flows y el prototipo web.
+El Capítulo V ([https://tinyurl.com/24vby6wm](https://tinyurl.com/24vby6wm)) presenta las pautas visuales, la arquitectura de información, los wireframes, mockups, wireflows, user flows y el prototipo web.
 
 **Landing Page — wireframes y mockups**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/tree/develop/report/assets/images/landing-page
+[https://tinyurl.com/26cfoh8p](https://tinyurl.com/26cfoh8p)
 
 **Web Application — wireframes**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/tree/develop/report/assets/images/application-wireframes
+[https://tinyurl.com/23feqvd5](https://tinyurl.com/23feqvd5)
 
 **Web Application — mockups**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/tree/develop/report/assets/images/application-screens
+[https://tinyurl.com/238jfb6d](https://tinyurl.com/238jfb6d)
 
 **Web Application — wireflows y user flows**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/tree/develop/report/assets/diagram-sources/chapter-v
+[https://tinyurl.com/2xls264e](https://tinyurl.com/2xls264e)
 
 **Prototipo de Web Application**<br>
-Repositorio: https://github.com/SmartFarm-8733/WebFrontend-SmartFarm<br>
-Despliegue: https://web-frontend-smart-farm.vercel.app/login
+Repositorio: [https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)<br>
+Despliegue: [https://web-frontend-smart-farm.vercel.app/login](https://web-frontend-smart-farm.vercel.app/login)
 
 ### Capítulo VI. Product Implementation, Validation & Deployment
 
-El [Capítulo VI](../60-product-implementation-validation-and-deployment.md) contiene la configuración de desarrollo, la planificación y evidencia del Sprint 1, las comprobaciones realizadas y los despliegues.
+El Capítulo VI ([https://tinyurl.com/29x2tlfv](https://tinyurl.com/29x2tlfv)) contiene la configuración de desarrollo, la planificación y evidencia del Sprint 1, las comprobaciones realizadas y los despliegues.
 
 **Landing Page de ICHU**<br>
-Repositorio: https://github.com/SmartFarm-8733/LandingPageSmartFarm<br>
-Preview público: https://smartfarm-ichu-preview.fpm.it.com/
+Repositorio: [https://tinyurl.com/27vbhfce](https://tinyurl.com/27vbhfce)<br>
+Preview público: [https://smartfarm-ichu-preview.fpm.it.com/](https://smartfarm-ichu-preview.fpm.it.com/)
 
 **Evidencias de implementación y despliegue versionadas**<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/tree/develop/report/assets/images/implementation<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/tree/develop/report/assets/images/deployment<br>
-https://github.com/SmartFarm-8733/Report-SmartFarm/tree/develop/report/assets/images/tests
+[https://tinyurl.com/28zgeeu7](https://tinyurl.com/28zgeeu7)<br>
+[https://tinyurl.com/26mp8v2d](https://tinyurl.com/26mp8v2d)<br>
+[https://tinyurl.com/2xk4fprg](https://tinyurl.com/2xk4fprg)
 
-Los diseños conceptuales y circuitos de dispositivos IoT se encuentran en el [Anexo G](annex-g-diagram-sources.md).
+Los diseños conceptuales y circuitos de dispositivos IoT se encuentran en el Anexo G ([https://tinyurl.com/23ctd3vg](https://tinyurl.com/23ctd3vg)).

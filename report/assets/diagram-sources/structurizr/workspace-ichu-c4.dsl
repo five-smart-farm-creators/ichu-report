@@ -1,13 +1,7 @@
 workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
-
     !impliedRelationships false
 
     model {
-
-        // ============================================================
-        // PEOPLE
-        // ============================================================
-
         ranchManager = person "Ranch Manager" {
             description "Owner or manager of a cattle farm"
             tags "Person"
@@ -28,11 +22,6 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             tags "Visitor"
         }
 
-
-        // ============================================================
-        // EXTERNAL HARDWARE
-        // ============================================================
-
         cattleBandHardware = softwareSystem "Cattle Band Hardware" {
             description "ESP32 collar with temperature, motion and GPS sensors, Wi-Fi and BLE"
             tags "External,Hardware"
@@ -43,17 +32,14 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             tags "External,Hardware"
         }
 
-
-        // ============================================================
-        // EXTERNAL CLOUD SERVICES
-        // ============================================================
-
-        firebaseAuth = softwareSystem "Firebase Authentication" {
-            description "External user authentication service"
-            tags "External"
+        ledHardwareDisplay = softwareSystem "LED Hardware Display" {
+            description "External LED indicator connected to the Portable Edge Gateway for visible local alerts"
+            tags "External,Hardware"
         }
 
-        firebaseMessaging = softwareSystem "Firebase Cloud Messaging" {
+      
+
+        firebaseMessaging = softwareSystem "Firebase Cloud Messaging Provider" {
             description "External push notification service"
             tags "External"
         }
@@ -68,55 +54,26 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             tags "External"
         }
 
-
-        // ============================================================
-        // SMARTFARM SOFTWARE SYSTEM
-        // ============================================================
-
         ichu = softwareSystem "ICHU" {
             description "Livestock management IoT platform"
 
-            // Static delivery is distinct from execution in the browser.
-            landingPageClient = container "Landing Page Browser Client" {
+            landingPageUxUi = container "Website" {
                 technology "HTML + CSS + JavaScript"
-                description "Renders the public website in the customer's browser"
-                tags "BrowserClient"
+                description "Customer-visible layout and styles of the public landing page, rendered in the browser"
+                tags "WebApplicationFolder"
             }
-
-            webApplicationHosting = container "Web Application Hosting" {
-                technology "Static Web Hosting"
-                description "Serves the compiled Angular HTML, CSS and JavaScript files"
-                tags "StaticHosting"
-            }
-
-
-
-
-            // ========================================================
-            // LANDING PAGE
-            // ========================================================
-
-            landingPage = container "Landing Page" {
-                technology "HTML + CSS + JavaScript"
-                description "Hosts the public website files, value proposition and plans"
-                tags "StaticHosting"
-            }
-
-
-            // ========================================================
-            // WEB APPLICATION
-            // ========================================================
 
             webApplication = container "Web Application" {
-                technology "Angular + TypeScript"
-                description "Cattle-management SPA executed in the user's web browser"
-                tags "BrowserClient"
+                technology "HTML + CSS + JavaScript"
+                description "Static visual layer of the web application, providing its HTML and CSS user interface"
+                tags "WebApplicationFolder"
             }
 
-
-            // ========================================================
-            // MOBILE APPLICATION
-            // ========================================================
+            spa = container "Single Page Application" {
+                technology "Angular + TypeScript"
+                description "Interactive Angular single-page application that implements system functionality and displays alerts"
+                tags "BrowserClient"
+            }
 
             mobileApplication = container "Mobile Application" {
                 technology "Flutter + Dart"
@@ -124,16 +81,18 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                 tags "Mobile"
             }
 
-
-            // ========================================================
-            // CATTLE BAND EMBEDDED APPLICATION
-            // ========================================================
+            mobileCacheDatabase = container "Mobile Cache Database" {
+                technology "SQLite"
+                description "On-device cache for recently accessed livestock records, alerts and pending offline operations"
+                tags "Database"
+            }
 
             cattleBandEmbeddedApp = container "Cattle Band Embedded Application" {
                 technology "C++ on ESP32"
                 description "Collar firmware that captures and transmits telemetry"
                 tags "IoT"
 
+                // Figura 4.8: componentes añadidos desde la captura.
 
                 bandTelemetryInterface = component "Band Telemetry Interface" {
                     technology "C++"
@@ -147,13 +106,7 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     tags "Application"
                 }
 
-                bandConnectivityService = component "Band Connectivity Service" {
-                    technology "C++"
-                    description "Servicio de aplicación que elige Wi-Fi o BLE"
-                    tags "Application"
-                }
-
-                cattleBandDevice = component "Cattle Band Aggregate" {
+                cattleBandAggregate = component "Cattle Band Aggregate" {
                     technology "C++"
                     description "Agregado del estado del collar"
                     tags "DomainAggregate"
@@ -165,22 +118,22 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     tags "DomainService"
                 }
 
-                cattleBandHAL = component "Cattle Band HAL" {
+                bandConnectivityService = component "Band Connectivity Service" {
+                    technology "C++"
+                    description "Servicio de aplicación que elige Wi-Fi o BLE"
+                    tags "Application"
+                }
+
+                cattleBandHal = component "Cattle Band HAL" {
                     technology "C++"
                     description "Capa de abstracción del hardware del collar"
                     tags "Infrastructure"
                 }
 
-                cattleBandHardwareACL = component "Cattle Band Hardware ACL" {
+                cattleBandHardwareAcl = component "Cattle Band Hardware ACL" {
                     technology "C++"
                     description "ACL hacia los controladores del fabricante"
-                    tags "Infrastructure,ACL"
-                }
-
-                cattleBandLocalBuffer = component "Cattle Band Local Buffer" {
-                    technology "ESP32 Flash / NVS"
-                    description "Memoria local para lecturas no transmitidas"
-                    tags "Infrastructure"
+                    tags "ACL"
                 }
 
                 bandCloudAdapter = component "Band Cloud Adapter" {
@@ -194,18 +147,20 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     description "Adaptador de envío por Bluetooth Low Energy"
                     tags "Infrastructure"
                 }
+
+                cattleBandLocalBuffer = component "Cattle Band Local Buffer" {
+                    technology "ESP32 Flash / NVS"
+                    description "Memoria local para lecturas no transmitidas"
+                    tags "Infrastructure"
+                }
             }
-
-
-            // ========================================================
-            // WATER TEMPERATURE CONTROLLER
-            // ========================================================
 
             waterControllerEmbeddedApp = container "Water Controller Embedded Application" {
                 technology "C++ on ESP32"
                 description "Water-trough firmware for measurement and heating"
                 tags "IoT"
 
+                // Figura 4.10: componentes añadidos desde la captura.
 
                 waterControlInterface = component "Water Control Interface" {
                     technology "C++"
@@ -213,16 +168,10 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     tags "Interface"
                 }
 
-                waterControlService = component "Water Control Application Service" {
+                waterControlApplicationService = component "Water Control Application Service" {
                     technology "C++"
                     description "Servicio de aplicación que coordina la medición"
                     tags "Application"
-                }
-
-                waterControllerDevice = component "Water Controller Aggregate" {
-                    technology "C++"
-                    description "Agregado del estado del controlador"
-                    tags "DomainAggregate"
                 }
 
                 temperatureRegulationService = component "Temperature Regulation Service" {
@@ -231,19 +180,25 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     tags "DomainService"
                 }
 
-                waterControllerHAL = component "Water Controller HAL" {
+                waterControllerAggregate = component "Water Controller Aggregate" {
+                    technology "C++"
+                    description "Agregado del estado del controlador"
+                    tags "DomainAggregate"
+                }
+
+                waterControllerHal = component "Water Controller HAL" {
                     technology "C++"
                     description "Capa de abstracción del hardware del controlador"
                     tags "Infrastructure"
                 }
 
-                waterHardwareACL = component "Water Controller Hardware ACL" {
+                waterControllerHardwareAcl = component "Water Controller Hardware ACL" {
                     technology "C++"
                     description "ACL hacia los controladores del fabricante"
-                    tags "Infrastructure,ACL"
+                    tags "ACL"
                 }
 
-                waterLocalBuffer = component "Water Controller Local Buffer" {
+                waterControllerLocalBuffer = component "Water Controller Local Buffer" {
                     technology "ESP32 Flash / NVS"
                     description "Memoria local para lecturas no transmitidas"
                     tags "Infrastructure"
@@ -256,16 +211,12 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                 }
             }
 
-
-            // ========================================================
-            // PORTABLE EDGE GATEWAY
-            // ========================================================
-
-            edgeGateway = container "Portable Edge Gateway" {
+            edgeGateway = container "Portable Edge Service" {
                 technology "Flask + Peewee ORM on Python, running on Raspberry Pi or similar Edge Device"
                 description "Portable offline gateway with later cloud synchronization"
                 tags "Edge"
 
+                // Figura 4.9: componentes añadidos desde la captura.
 
                 bleDeviceInterface = component "BLE Device Interface" {
                     technology "Python + Bluetooth Low Energy"
@@ -273,10 +224,22 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     tags "Interface"
                 }
 
-                edgeTelemetryService = component "Edge Telemetry Collection Service" {
+                edgeTelemetryCollectionService = component "Edge Telemetry Collection Service" {
                     technology "Python"
                     description "Servicio de aplicación que recibe de varios collares"
                     tags "Application"
+                }
+
+                localMonitoringService = component "Local Monitoring Service" {
+                    technology "Python"
+                    description "Servicio de dominio que evalúa umbrales sin Internet"
+                    tags "DomainService"
+                }
+
+                edgeTelemetryAggregate = component "Edge Telemetry Aggregate" {
+                    technology "Python"
+                    description "Agregado de la telemetría local y su estado de sincronización"
+                    tags "DomainAggregate"
                 }
 
                 edgeSyncOrchestrator = component "Edge Sync Orchestrator" {
@@ -285,16 +248,10 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     tags "Application"
                 }
 
-                edgeTelemetry = component "Edge Telemetry Aggregate" {
+                localAlertAdapter = component "Local Alert Adapter" {
                     technology "Python"
-                    description "Agregado de la telemetría local y su estado de sincronización"
-                    tags "DomainAggregate"
-                }
-
-                edgeMonitoringService = component "Local Monitoring Service" {
-                    technology "Python"
-                    description "Servicio de dominio que evalúa umbrales sin Internet"
-                    tags "DomainService"
+                    description "Adaptador de alertas locales a la app móvil"
+                    tags "Infrastructure"
                 }
 
                 edgeRepository = component "Edge Repository" {
@@ -303,23 +260,12 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     tags "Infrastructure"
                 }
 
-                cloudApiACL = component "ICHU Cloud API ACL" {
+                ichuCloudApiAcl = component "ICHU Cloud API ACL" {
                     technology "Python"
                     description "ACL hacia el API central"
-                    tags "Infrastructure,ACL"
-                }
-
-                localAlertAdapter = component "Local Alert Adapter" {
-                    technology "Python"
-                    description "Adaptador de alertas locales a la app movil"
-                    tags "Infrastructure"
+                    tags "ACL"
                 }
             }
-
-
-            // ========================================================
-            // EDGE DATABASE
-            // ========================================================
 
             edgeDatabase = container "Edge Database" {
                 technology "SQLite"
@@ -327,343 +273,109 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                 tags "Database,Edge"
             }
 
-
-            // ========================================================
-            // SMARTFARM MODULAR MONOLITH
-            // ========================================================
-
             backend = container "ICHU Web Service" {
                 technology "ASP.NET Core Web API"
                 description "Cloud REST API implemented as a modular monolith"
                 tags "Monolith,API"
 
+                // Figura 4.7: componentes añadidos desde la captura.
 
-                // ====================================================
-                // IDENTITY & ACCESS
-                // ====================================================
-
-                identityAPI = component "Identity & Profile API" {
-                    technology "ASP.NET Core Controllers"
-                    description "Interfaz de cuentas, perfiles y asesorías"
-                    tags "Interface,IAM"
-                }
-
-                identityService = component "Identity & Profile Application Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación de identidad y acceso"
-                    tags "Application,IAM"
-                }
-
-                userAccount = component "User Account Aggregate" {
-                    technology ".NET"
-                    description "Agregado de la cuenta de usuario"
-                    tags "DomainAggregate,IAM"
-                }
-
-                authorizationService = component "Authorization Domain Service" {
-                    technology ".NET"
-                    description "Servicio de dominio que resuelve el alcance de acceso"
-                    tags "DomainService,IAM"
-                }
-
-                identityRepository = component "Identity Repository" {
-                    technology ".NET + Entity Framework Core"
-                    description "Repositorio del esquema iam"
-                    tags "Infrastructure,IAM"
-                }
-
-                firebaseAuthACL = component "Firebase Authentication ACL" {
-                    technology ".NET + Entity Framework Core"
-                    description "ACL hacia el proveedor de autenticación"
-                    tags "Infrastructure,ACL,IAM"
-                }
-
-
-                // ====================================================
-                // CATTLE INFORMATION
-                // ====================================================
-
-                cattleAPI = component "Cattle Information API" {
-                    technology "ASP.NET Core Controllers"
-                    description "Interfaz de fichas de animales y lotes"
-                    tags "Interface,Cattle"
-                }
-
-                cattleApplicationService = component "Cattle Application Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación de información del ganado"
-                    tags "Application,Cattle"
-                }
-
-                cattle = component "Cattle Aggregate" {
-                    technology ".NET"
-                    description "Agregado del animal y su ciclo de vida"
-                    tags "DomainAggregate,Cattle"
-                }
-
-                cattleRepository = component "Cattle Repository" {
-                    technology ".NET + Entity Framework Core"
-                    description "Repositorio del esquema cattle"
-                    tags "Infrastructure,Cattle"
-                }
-
-
-                // ====================================================
-                // IOT ASSETS
-                // ====================================================
-
-                iotAssetsAPI = component "IoT Assets API" {
-                    technology "ASP.NET Core Controllers"
-                    description "Interfaz de inventario y asignación de dispositivos"
-                    tags "Interface,IoTAssets"
-                }
-
-                iotAssetsApplicationService = component "IoT Assets Application Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación de activos IoT"
-                    tags "Application,IoTAssets"
-                }
-
-                iotDevice = component "IoT Device Aggregate" {
-                    technology ".NET"
-                    description "Agregado del dispositivo y su asignación vigente"
-                    tags "DomainAggregate,IoTAssets"
-                }
-
-                deviceAssignmentService = component "Device Assignment Domain Service" {
-                    technology ".NET"
-                    description "Servicio de dominio que valida el límite del plan"
-                    tags "DomainService,IoTAssets"
-                }
-
-                subscriptionEntitlementACL = component "Subscription Entitlement ACL" {
-                    technology ".NET"
-                    description "ACL hacia Subscription Plans"
-                    tags "Infrastructure,ACL,IoTAssets"
-                }
-
-                cattleAssignmentACL = component "Cattle Assignment ACL" {
-                    technology ".NET"
-                    description "ACL hacia Cattle Information"
-                    tags "Infrastructure,ACL,IoTAssets"
-                }
-
-                iotAssetsRepository = component "IoT Assets Repository" {
-                    technology ".NET + Entity Framework Core"
-                    description "Repositorio del esquema iot"
-                    tags "Infrastructure,IoTAssets"
-                }
-
-
-                // ====================================================
-                // OPERATIONS & MONITORING
-                // ====================================================
-
-                telemetryAPI = component "Telemetry API" {
+                telemetryApi = component "Telemetry API" {
                     technology "ASP.NET Core Controllers"
                     description "Interfaz de ingesta y consulta de telemetría"
-                    tags "Interface,Monitoring"
+                    tags "Interface"
                 }
 
-                operationsAPI = component "Operations API" {
+                operationsApi = component "Operations API" {
                     technology "ASP.NET Core Controllers"
                     description "Interfaz de eventos de campo e intervenciones clínicas"
-                    tags "Interface,Monitoring"
+                    tags "Interface"
                 }
 
-                edgeConfigurationAPI = component "Edge Configuration API" {
+                edgeConfigurationApi = component "Edge Configuration API" {
                     technology "ASP.NET Core Controllers"
                     description "Interfaz de configuración y sincronización del borde"
-                    tags "Interface,Monitoring"
+                    tags "Interface"
                 }
 
                 telemetryIngestionService = component "Telemetry Ingestion Service" {
                     technology ".NET"
                     description "Servicio de aplicación que valida y persiste lecturas"
-                    tags "Application,Monitoring"
+                    tags "Application"
                 }
 
                 operationsApplicationService = component "Operations Application Service" {
                     technology ".NET"
                     description "Servicio de aplicación de alertas y operaciones"
-                    tags "Application,Monitoring"
+                    tags "Application"
                 }
 
                 edgeConfigurationService = component "Edge Configuration Service" {
                     technology ".NET"
                     description "Servicio de aplicación que entrega umbrales y geocercas"
-                    tags "Application,Monitoring"
+                    tags "Application"
                 }
 
                 monitoringAggregate = component "Monitoring Aggregate" {
                     technology ".NET"
                     description "Agregado de la alerta y su regla de deduplicación"
-                    tags "DomainAggregate,Monitoring"
+                    tags "DomainAggregate"
                 }
 
-                livestockOperation = component "Livestock Operation Aggregate" {
+                livestockOperationAggregate = component "Livestock Operation Aggregate" {
                     technology ".NET"
-                    description "Agregado del evento de campo y la intervencion clínica"
-                    tags "DomainAggregate,Monitoring"
+                    description "Agregado del evento de campo y la intervención clínica"
+                    tags "DomainAggregate"
                 }
 
-                monitoringRulesService = component "Monitoring Rules Domain Service" {
-                    technology ".NET"
-                    description "Servicio de dominio que evalúa umbrales y geocercas"
-                    tags "DomainService,Monitoring"
-                }
-
-                deviceRegistryACL = component "IoT Assets Lookup ACL" {
-                    technology ".NET"
-                    description "ACL hacia IoT Assets"
-                    tags "Infrastructure,ACL,Monitoring"
-                }
-
-                cattleLookupACL = component "Cattle Lookup ACL" {
+                cattleLookupAcl = component "Cattle Lookup ACL" {
                     technology ".NET"
                     description "ACL hacia Cattle Information"
-                    tags "Infrastructure,ACL,Monitoring"
+                    tags "ACL"
+                }
+
+                iotAssetsLookupAcl = component "IoT Assets Lookup ACL" {
+                    technology ".NET"
+                    description "ACL hacia IoT Assets"
+                    tags "ACL"
+                }
+
+                monitoringRulesDomainService = component "Monitoring Rules Domain Service" {
+                    technology ".NET"
+                    description "Servicio de dominio que evalúa umbrales y geocercas"
+                    tags "DomainService"
                 }
 
                 monitoringRepository = component "Monitoring Repository" {
                     technology ".NET + Entity Framework Core"
                     description "Repositorio del esquema monitoring"
-                    tags "Infrastructure,Monitoring"
+                    tags "Infrastructure"
                 }
 
-
-                // ====================================================
-                // PLANNING
-                // ====================================================
-
-                planningAPI = component "Planning API" {
-                    technology "ASP.NET Core Controllers"
-                    description "Interfaz de campañas, recordatorios y retiros"
-                    tags "Interface,Planning"
-                }
-
-                planningApplicationService = component "Planning Application Service" {
+                cattleApplicationService = component "Cattle Application Service" {
                     technology ".NET"
-                    description "Servicio de aplicación del calendario ganadero"
-                    tags "Application,Planning"
+                    description "Servicio de aplicación de información del ganado"
+                    tags "Application"
                 }
 
-                livestockCalendar = component "Livestock Calendar Aggregate" {
+                iotAssetsApplicationService = component "IoT Assets Application Service" {
                     technology ".NET"
-                    description "Agregado del calendario y sus campañas sanitarias"
-                    tags "DomainAggregate,Planning"
+                    description "Servicio de aplicación de activos IoT"
+                    tags "Application"
                 }
 
-                reminderService = component "Reminder Domain Service" {
-                    technology ".NET"
-                    description "Servicio de dominio que emite los recordatorios"
-                    tags "DomainService,Planning"
-                }
-
-                planningRepository = component "Planning Repository" {
-                    technology ".NET + Entity Framework Core"
-                    description "Repositorio del esquema planning"
-                    tags "Infrastructure,Planning"
-                }
-
-
-                // ====================================================
-                // DASHBOARD & ANALYTICS
-                // ====================================================
-
-                analyticsAPI = component "Dashboard & Analytics API" {
-                    technology "ASP.NET Core Controllers"
-                    description "Interfaz de indicadores, tendencias y reportes"
-                    tags "Interface,Analytics"
-                }
-
-                analyticsApplicationService = component "Analytics Application Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación de analítica"
-                    tags "Application,Analytics"
-                }
-
-                analyticsService = component "Analytics Domain Service" {
-                    technology ".NET"
-                    description "Servicio de dominio que calcula indicadores y curvas"
-                    tags "DomainService,Analytics"
-                }
-
-                analyticsRepository = component "Analytics Repository" {
-                    technology ".NET + Entity Framework Core"
-                    description "Repositorio de solo lectura sobre los esquemas de origen"
-                    tags "Infrastructure,Analytics"
-                }
-
-
-                // ====================================================
-                // SUBSCRIPTIONS & BILLING
-                // ====================================================
-
-                subscriptionAPI = component "Subscription API" {
-                    technology "ASP.NET Core Controllers"
-                    description "Interfaz de planes y suscripciones"
-                    tags "Interface,Subscription"
-                }
-
-                billingAPI = component "Billing API" {
-                    technology "ASP.NET Core Controllers"
-                    description "Interfaz de pagos y facturación"
-                    tags "Interface,Subscription"
-                }
-
-                subscriptionApplicationService = component "Subscription Application Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación de suscripciones"
-                    tags "Application,Subscription"
-                }
-
-                paymentApplicationService = component "Payment Application Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación de cobros"
-                    tags "Application,Subscription"
-                }
-
-                subscription = component "Subscription Aggregate" {
-                    technology ".NET"
-                    description "Agregado de la suscripción y su cobertura"
-                    tags "DomainAggregate,Subscription"
-                }
-
-                subscriptionRepository = component "Subscription Repository" {
-                    technology ".NET + Entity Framework Core"
-                    description "Repositorio del esquema subscription"
-                    tags "Infrastructure,Subscription"
-                }
-
-                paymentProviderACL = component "Payment Provider ACL" {
-                    technology ".NET"
-                    description "ACL hacia la pasarela de pagos"
-                    tags "Infrastructure,ACL,Subscription"
-                }
-
-
-                // ====================================================
-                // SHARED INFRASTRUCTURE
-                // ====================================================
-
-                domainEventDispatcher = component "Internal Domain Event Dispatcher" {
+                internalDomainEventDispatcher = component "Internal Domain Event Dispatcher" {
                     technology ".NET Domain Events"
                     description "Publica eventos de dominio entre módulos del monolito"
                     tags "Infrastructure"
                 }
 
-                notificationAdapter = component "Firebase Messaging Adapter" {
+                firebaseMessagingAdapter = component "Firebase Messaging Adapter" {
                     technology ".NET + Entity Framework Core"
                     description "Adaptador hacia el servicio de notificaciones push"
-                    tags "Infrastructure,ACL"
+                    tags "ACL"
                 }
             }
-
-
-            // ========================================================
-            // SINGLE CLOUD DATABASE
-            // ========================================================
 
             cloudDatabase = container "ICHU Cloud Database" {
                 technology "PostgreSQL"
@@ -672,363 +384,142 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             }
         }
 
-
-        // ============================================================
-        // SYSTEM CONTEXT RELATIONSHIPS
-        // IMPORTANT: DIRECT RELATIONSHIPS TO SMARTFARM
-        // ============================================================
-
         ranchManager -> ichu "Manages cattle, devices, planning and subscriptions"
-
         fieldOperator -> ichu "Supervises cattle and records field tasks"
-
         veterinarian -> ichu "Reviews authorized animal health and history"
-
         visitor -> ichu "Reviews the value proposition and plans"
 
         cattleBandHardware -> ichu "Provides temperature, movement and position"
-
         waterControllerHardware -> ichu "Provides water temperature and actuator status"
 
-        ichu -> firebaseAuth "Authenticates users"
-
         ichu -> firebaseMessaging "Sends push notifications"
-
         ichu -> mapProvider "Displays positions and geofences"
-
         ichu -> paymentProvider "Processes subscription payments"
 
+        visitor -> landingPageUxUi "Browses the public website" "HTTPS"
 
-        // ============================================================
-        // PERSON -> APPLICATION RELATIONSHIPS
-        // ============================================================
-
-        visitor -> landingPageClient "Browses the public website" "HTTPS"
-
-        ranchManager -> webApplication "Manages cattle and reviews indicators" "HTTPS"
-        ranchManager -> mobileApplication "Reviews cattle and receives alerts" "HTTPS"
+        ranchManager -> webApplication "Loads the UI from" "HTTPS"
+        ranchManager -> spa "Manages cattle and reviews indicators" "HTTPS"
+        veterinarian -> mobileApplication "Reviews cattle and receives alerts" "HTTPS"
 
         fieldOperator -> mobileApplication "Performs field tasks" "HTTPS / Local Network"
 
-        veterinarian -> webApplication "Reviews authorized information" "HTTPS"
-        veterinarian -> mobileApplication "Reviews information during a farm visit" "HTTPS"
+        veterinarian -> webApplication "Loads the UI from" "HTTPS"
+        veterinarian -> spa "Reviews authorized information" "HTTPS"
+        veterinarian -> mobileApplication "Reviews authorized cattle information during farm visits" "HTTPS"
 
+        landingPageUxUi -> webApplication "Redirects users to the web application when CTA is clicked" "HTTPS"
 
-        // ============================================================
-        // AUTHENTICATION
-        // ============================================================
+        webApplication -> spa "Delivers"
 
-        webApplication -> firebaseAuth "Authenticates the user" "HTTPS"
-        mobileApplication -> firebaseAuth "Authenticates the user" "HTTPS"
-
-
-        // ============================================================
-        // MAP VISUALIZATION
-        // ============================================================
-
-        webApplication -> mapProvider "Displays positions and geofences" "HTTPS"
+    
+        spa -> mapProvider "Displays positions and geofences" "HTTPS"
         mobileApplication -> mapProvider "Displays positions and geofences" "HTTPS"
 
+        landingPageUxUi -> backend "Requests plans and public content" "HTTPS / JSON"
+        spa -> backend "Retrieves alerts and monitoring" "HTTPS / JSON"
+        backend -> spa "Streams real time alerts and notifications" "HTTPS / WSS"
 
-        // ============================================================
-        // STATIC FILE DELIVERY AND URL NAVIGATION
-        // ============================================================
-
-        landingPageClient -> landingPage "Downloads public website files" "HTTPS"
-        webApplication -> webApplicationHosting "Downloads the Angular SPA bundle" "HTTPS"
-        landingPageClient -> webApplicationHosting "Opens the application URL" "HTTPS"
-
-        // CLIENT -> BACKEND
-        // ============================================================
-
-        landingPageClient -> backend "Requests plans and public content" "HTTPS / JSON"
-        webApplication -> backend "Calls the REST API" "HTTPS / JSON"
         mobileApplication -> backend "Calls the REST API" "HTTPS / JSON"
-
-
-        // ============================================================
-        // HIGH-LEVEL CONTAINER RELATIONSHIPS
-        // ============================================================
+        mobileApplication -> mobileCacheDatabase "Reads and writes cached information for offline use" "SQLite"
 
         cattleBandEmbeddedApp -> cattleBandHardware "Reads sensors and position"
-
         cattleBandEmbeddedApp -> backend "Sends telemetry when Internet is available" "HTTPS / JSON"
-
         cattleBandEmbeddedApp -> edgeGateway "Sends offline telemetry over BLE" "Bluetooth Low Energy"
 
         edgeGateway -> edgeDatabase "Stores local telemetry and configuration" "SQLite"
-
         edgeGateway -> backend "Synchronizes when connectivity returns" "HTTPS / JSON"
-
         edgeGateway -> mobileApplication "Delivers local alerts without Internet" "Local Wi-Fi"
+        edgeGateway -> ledHardwareDisplay "Activates visual warnings for critical local events" "GPIO"
+        edgeGateway -> fieldOperator "Notifies the operator about critical local alerts" "Visual LED signal"
 
         waterControllerEmbeddedApp -> waterControllerHardware "Measures water and controls the heater"
-
         waterControllerEmbeddedApp -> backend "Reports temperature and actuator events" "HTTPS / JSON"
 
         backend -> cloudDatabase "Reads and writes cloud data" "Entity Framework Core / Npgsql"
-
-        backend -> firebaseAuth "Validates user identity" "Firebase Admin SDK"
-
         backend -> firebaseMessaging "Requests push notifications" "Firebase Admin SDK"
-
         backend -> paymentProvider "Requests subscription payment" "HTTPS"
 
         firebaseMessaging -> mobileApplication "Delivers the notification to the device" "Push Notification"
 
-
-        // ============================================================
-        // CATTLE BAND INTERNAL RELATIONSHIPS
-        // ============================================================
-
-        bandTelemetryInterface -> bandTelemetryService "Starts telemetry acquisition"
-
-        bandTelemetryService -> cattleBandDevice "Updates cattle band state"
-
-        bandTelemetryService -> cattleTelemetryProcessor "Processes cattle sensor readings"
-
-        bandTelemetryService -> bandConnectivityService "Requests telemetry transmission"
-
-        bandTelemetryService -> cattleBandLocalBuffer "Stores telemetry when communication is unavailable"
-
-        cattleTelemetryProcessor -> cattleBandHAL "Reads normalized temperature, movement and GPS data"
-
-        cattleBandDevice -> cattleBandHAL "Accesses device state and hardware"
-
-        cattleBandHAL -> cattleBandHardwareACL "Uses hardware-specific drivers"
-
-        cattleBandHardwareACL -> cattleBandHardware "Reads physical sensors and GPS/GNSS module"
-
-        bandConnectivityService -> bandCloudAdapter "Uses cloud route when Wi-Fi and Internet are available"
-
-        bandConnectivityService -> bandBleAdapter "Uses BLE route when cloud connectivity is unavailable"
-
-        bandCloudAdapter -> backend "Envía telemetría directamente a la nube" "HTTPS / JSON"
-
-        bandBleAdapter -> edgeGateway "Sends cattle telemetry to the Portable Edge Gateway" "Bluetooth Low Energy"
-
-
-        // ============================================================
-        // WATER CONTROLLER INTERNAL RELATIONSHIPS
-        // ============================================================
-
-        waterControlInterface -> waterControlService "Starts temperature monitoring"
-
-        waterControlService -> waterControllerDevice "Updates controller state"
-
-        waterControlService -> temperatureRegulationService "Requests temperature regulation evaluation"
-
-        waterControlService -> waterLocalBuffer "Buffers events while cloud connectivity is unavailable"
-
-        waterControlService -> waterCloudAdapter "Reports temperature and actuator events"
-
-        temperatureRegulationService -> waterControllerDevice "Updates heating state"
-
-        temperatureRegulationService -> waterControllerHAL "Reads temperature and controls heating actuator"
-
-        waterControllerDevice -> waterControllerHAL "Executes device state changes"
-
-        waterControllerHAL -> waterHardwareACL "Uses hardware-specific drivers"
-
-        waterHardwareACL -> waterControllerHardware "Reads temperature sensor and operates heating actuator"
-
-        waterCloudAdapter -> backend "Reports water telemetry and actuator events" "HTTPS / JSON"
-
-
-        // ============================================================
-        // EDGE GATEWAY INTERNAL RELATIONSHIPS
-        // ============================================================
-
-        bleDeviceInterface -> edgeTelemetryService "Provides telemetry received from cattle bands"
-
-        edgeTelemetryService -> edgeTelemetry "Creates and updates local telemetry state"
-
-        edgeTelemetryService -> edgeRepository "Stores received telemetry"
-
-        edgeTelemetryService -> edgeMonitoringService "Evaluates critical offline monitoring rules"
-
-        edgeMonitoringService -> edgeRepository "Loads cached cattle mappings, thresholds and geofences"
-
-        edgeMonitoringService -> localAlertAdapter "Requests local alert when a critical condition is detected"
-
-        localAlertAdapter -> mobileApplication "Delivers local fever or geofence alert" "Local Wi-Fi"
-
-        edgeSyncOrchestrator -> edgeRepository "Loads pending telemetry and stores synchronized configuration"
-
-        edgeSyncOrchestrator -> cloudApiACL "Requests upload of pending telemetry and download of monitoring configuration"
-
-        cloudApiACL -> backend "Synchronizes telemetry, assignments, thresholds and geofences" "HTTPS / JSON"
-
-        edgeRepository -> edgeDatabase "Persists telemetry, rules, mappings and synchronization state"
-
-
-        // ============================================================
-        // IDENTITY & ACCESS
-        // ============================================================
-
-        identityAPI -> identityService "Invokes identity and profile use cases"
-
-        identityService -> userAccount "Creates and updates user account state"
-
-        identityService -> authorizationService "Evaluates roles and permissions"
-
-        identityService -> identityRepository "Lee y escribe cuentas, perfiles y asesorías"
-
-        identityService -> firebaseAuthACL "Validates Firebase authenticated identities"
-
-        firebaseAuthACL -> firebaseAuth "Uses Firebase Authentication" "Firebase Admin SDK"
-
-        identityRepository -> cloudDatabase "Stores profile and ranch membership collections"
-
-
-        // ============================================================
-        // CATTLE INFORMATION
-        // ============================================================
-
-        cattleAPI -> cattleApplicationService "Invokes cattle information use cases"
-
-        cattleApplicationService -> cattle "Creates and updates cattle information"
-
-        cattleApplicationService -> cattleRepository "Loads and stores cattle information"
-
-        cattleRepository -> cloudDatabase "Stores cattle collections"
-
-
-        // ============================================================
-        // IOT ASSETS
-        // ============================================================
-
-        iotAssetsAPI -> iotAssetsApplicationService "Invokes IoT asset management use cases"
-
-        iotAssetsApplicationService -> iotDevice "Creates and updates IoT device state"
-
-        iotAssetsApplicationService -> deviceAssignmentService "Coordinates device assignments"
-
-        iotAssetsApplicationService -> iotAssetsRepository "Loads and stores IoT assets"
-
-        deviceAssignmentService -> subscriptionEntitlementACL "Validates device entitlement"
-
-        subscriptionEntitlementACL -> subscriptionApplicationService "Requests subscription and device limit information"
-
-        deviceAssignmentService -> cattleAssignmentACL "Validates cattle assignment"
-
-        cattleAssignmentACL -> cattleApplicationService "Requests cattle information"
-
-        iotAssetsRepository -> cloudDatabase "Stores device and assignment collections"
-
-
-        // ============================================================
-        // OPERATIONS & MONITORING
-        // ============================================================
-
-        telemetryAPI -> telemetryIngestionService "Invokes telemetry ingestion"
-
-        operationsAPI -> operationsApplicationService "Invokes livestock operational workflows"
-
-        edgeConfigurationAPI -> edgeConfigurationService "Requests Edge monitoring configuration"
-
-        telemetryIngestionService -> deviceRegistryACL "Validates device registration and assignment"
-
-        deviceRegistryACL -> iotAssetsApplicationService "Queries IoT Assets module"
-
-        telemetryIngestionService -> cattleLookupACL "Resolves cattle identity when required"
-
-        cattleLookupACL -> cattleApplicationService "Queries Cattle Information module"
+        // Figura 4.7: Operations & Monitoring.
+
+        telemetryApi -> telemetryIngestionService "Invokes telemetry ingestion"
+        operationsApi -> operationsApplicationService "Invokes livestock operational workflows"
+        edgeConfigurationApi -> edgeConfigurationService "Requests Edge monitoring configuration"
 
         telemetryIngestionService -> monitoringAggregate "Updates cloud monitoring state"
-
-        telemetryIngestionService -> monitoringRulesService "Evaluates telemetry rules"
-
+        telemetryIngestionService -> cattleLookupAcl "Validates cattle identity"
+        telemetryIngestionService -> iotAssetsLookupAcl "Validates device registration and assignment"
+        telemetryIngestionService -> monitoringRulesDomainService "Evaluates telemetry rules"
         telemetryIngestionService -> monitoringRepository "Stores accepted telemetry"
 
-        operationsApplicationService -> livestockOperation "Creates and updates livestock operational events"
-
-        operationsApplicationService -> cattleLookupACL "Validates cattle identity"
-
-        operationsApplicationService -> monitoringRulesService "Evaluates operational monitoring conditions"
-
+        operationsApplicationService -> livestockOperationAggregate "Creates and updates livestock operational events"
+        operationsApplicationService -> cattleLookupAcl "Resolves cattle identity when required"
+        operationsApplicationService -> iotAssetsLookupAcl "Resolves device-to-cattle assignments"
+        operationsApplicationService -> monitoringRulesDomainService "Evaluates operational monitoring conditions"
         operationsApplicationService -> monitoringRepository "Stores operational events"
-
-        edgeConfigurationService -> deviceRegistryACL "Resolves device-to-cattle assignments"
 
         edgeConfigurationService -> monitoringRepository "Loads fever thresholds and geofence configuration"
 
-        monitoringRulesService -> notificationAdapter "Requests notification when a critical condition exists"
+        cattleLookupAcl -> cattleApplicationService "Queries Cattle Information module"
+        iotAssetsLookupAcl -> iotAssetsApplicationService "Queries IoT Assets module"
 
-        monitoringRulesService -> domainEventDispatcher "Publishes monitoring domain events"
+        monitoringRulesDomainService -> internalDomainEventDispatcher "Publishes monitoring domain events"
+        monitoringRulesDomainService -> firebaseMessagingAdapter "Requests notification when a critical condition exists"
 
-        monitoringRepository -> cloudDatabase "Stores telemetry, monitoring and livestock operational data"
+        firebaseMessagingAdapter -> firebaseMessaging "Sends cloud push notification" "Firebase Admin SDK"
+        monitoringRepository -> cloudDatabase "Stores telemetry, monitoring and livestock operational data" "Entity Framework Core / Npgsql"
 
+        // Figura 4.8: firmware del collar inteligente.
 
-        // ============================================================
-        // CLOUD NOTIFICATIONS
-        // ============================================================
+        bandTelemetryInterface -> bandTelemetryService "Starts telemetry acquisition"
+        bandTelemetryService -> cattleBandAggregate "Updates cattle band state"
+        bandTelemetryService -> cattleTelemetryProcessor "Processes cattle sensor readings"
+        bandTelemetryService -> bandConnectivityService "Requests telemetry transmission"
+        bandTelemetryService -> cattleBandLocalBuffer "Stores telemetry when communication is unavailable"
 
-        notificationAdapter -> firebaseMessaging "Sends cloud push notification" "Firebase Admin SDK"
+        cattleBandAggregate -> cattleBandHal "Accesses device state and hardware"
+        cattleTelemetryProcessor -> cattleBandHal "Reads normalized temperature, movement and GPS data"
+        cattleBandHal -> cattleBandHardwareAcl "Uses hardware-specific drivers"
+        cattleBandHardwareAcl -> cattleBandHardware "Reads physical sensors and GPS/GNSS module"
 
+        bandConnectivityService -> bandCloudAdapter "Uses cloud route when Wi-Fi and Internet are available"
+        bandConnectivityService -> bandBleAdapter "Uses BLE route when cloud connectivity is unavailable"
+        bandCloudAdapter -> backend "Envía telemetría directamente a la nube" "HTTPS / JSON"
+        bandBleAdapter -> edgeGateway "Sends cattle telemetry to the Portable Edge Gateway" "Bluetooth Low Energy"
 
-        // ============================================================
-        // PLANNING
-        // ============================================================
+        // Figura 4.9: pasarela de borde.
 
-        planningAPI -> planningApplicationService "Invokes planning and calendar use cases"
+        bleDeviceInterface -> edgeTelemetryCollectionService "Provides telemetry received from cattle bands"
+        edgeTelemetryCollectionService -> localMonitoringService "Evaluates critical offline monitoring rules"
+        edgeTelemetryCollectionService -> edgeTelemetryAggregate "Creates and updates local telemetry state"
+        edgeTelemetryCollectionService -> edgeRepository "Stores received telemetry"
 
-        planningApplicationService -> livestockCalendar "Creates and updates planned livestock activities"
+        localMonitoringService -> localAlertAdapter "Requests local alert when a critical condition is detected"
+        localMonitoringService -> edgeRepository "Loads cached cattle mappings, thresholds and geofences"
+        localAlertAdapter -> mobileApplication "Delivers local fever or geofence alert" "Local Wi-Fi"
 
-        planningApplicationService -> reminderService "Evaluates reminder requirements"
+        edgeSyncOrchestrator -> edgeRepository "Loads pending telemetry and stores synchronized configuration"
+        edgeSyncOrchestrator -> ichuCloudApiAcl "Requests upload of pending telemetry and download of monitoring configuration"
 
-        planningApplicationService -> planningRepository "Loads and stores planning information"
+        edgeRepository -> edgeDatabase "Persists telemetry, rules, mappings and synchronization state" "SQLite"
+        ichuCloudApiAcl -> backend "Synchronizes telemetry, assignments, thresholds and geofences" "HTTPS / JSON"
 
-        reminderService -> notificationAdapter "Requests scheduled notification"
+        // Figura 4.10: firmware del controlador del abrevadero.
 
-        reminderService -> domainEventDispatcher "Publishes planning domain events"
+        waterControlInterface -> waterControlApplicationService "Starts temperature monitoring"
+        waterControlApplicationService -> waterControllerAggregate "Updates controller state"
+        waterControlApplicationService -> temperatureRegulationService "Requests temperature regulation evaluation"
+        waterControlApplicationService -> waterControllerLocalBuffer "Buffers events while cloud connectivity is unavailable"
+        waterControlApplicationService -> waterCloudAdapter "Reports temperature and actuator events"
 
-        planningRepository -> cloudDatabase "Stores livestock calendar and campaign collections"
-
-
-        // ============================================================
-        // ANALYTICS
-        // ============================================================
-
-        analyticsAPI -> analyticsApplicationService "Invokes dashboard and analytics queries"
-
-        analyticsApplicationService -> analyticsService "Calculates indicators and trends"
-
-        analyticsApplicationService -> analyticsRepository "Loads analytical information"
-
-        domainEventDispatcher -> analyticsApplicationService "Provides internal domain events"
-
-        analyticsRepository -> cloudDatabase "Stores and retrieves analytical projections"
-
-
-        // ============================================================
-        // SUBSCRIPTIONS & BILLING
-        // ============================================================
-
-        subscriptionAPI -> subscriptionApplicationService "Invokes subscription lifecycle use cases"
-
-        billingAPI -> paymentApplicationService "Invokes billing and payment workflows"
-
-        subscriptionApplicationService -> subscription "Creates and updates subscription state"
-
-        subscriptionApplicationService -> subscriptionRepository "Loads and stores subscriptions"
-
-        subscriptionApplicationService -> domainEventDispatcher "Publishes subscription events"
-
-        paymentApplicationService -> subscription "Updates subscription state after payment"
-
-        paymentApplicationService -> paymentProviderACL "Delegates external payment operation"
-
-        paymentApplicationService -> subscriptionRepository "Stores billing information"
-
-        paymentProviderACL -> paymentProvider "Uses external payment provider" "HTTPS"
-
-        subscriptionRepository -> cloudDatabase "Stores plan, subscription and billing collections"
-
-
-        // ============================================================
-        // DEPLOYMENT
-        // ============================================================
+        temperatureRegulationService -> waterControllerAggregate "Updates heating state"
+        temperatureRegulationService -> waterControllerHal "Reads temperature and controls heating actuator"
+        waterControllerAggregate -> waterControllerHal "Executes device state changes"
+        waterControllerHal -> waterControllerHardwareAcl "Uses hardware-specific drivers"
+        waterControllerHardwareAcl -> waterControllerHardware "Reads temperature sensor and operates heating actuator"
+        waterCloudAdapter -> backend "Reports water telemetry and actuator events" "HTTPS / JSON"
 
         production = deploymentEnvironment "Production" {
             deploymentNode "Ranch / Grazing Environment" {
@@ -1036,42 +527,44 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                     technology "ESP32 + Wi-Fi + Bluetooth Low Energy"
                     containerInstance cattleBandEmbeddedApp
                 }
+
                 deploymentNode "Water Temperature Controller Device" {
                     technology "ESP32 + Wi-Fi"
                     containerInstance waterControllerEmbeddedApp
                 }
+
                 deploymentNode "Portable Edge Gateway Device" {
                     technology "Raspberry Pi or similar portable Edge computer with BLE and Wi-Fi"
                     containerInstance edgeGateway
                     containerInstance edgeDatabase
                 }
-                deploymentNode "Field Operator Mobile Device" {
+
+                deploymentNode "Mobile User Device" {
                     technology "Android / iOS"
                     containerInstance mobileApplication
+                    containerInstance mobileCacheDatabase
                 }
             }
 
             deploymentNode "User Computer" {
                 deploymentNode "Web Browser" {
                     technology "HTML, CSS and JavaScript execution"
-                    containerInstance landingPageClient
+                    containerInstance landingPageUxUi
                     containerInstance webApplication
+                    containerInstance spa
                 }
             }
 
             deploymentNode "Cloud Platform" {
-                deploymentNode "Landing Page Web Hosting" {
-                    technology "HTTPS static file hosting"
-                    containerInstance landingPage
-                }
                 deploymentNode "Angular Application Web Hosting" {
                     technology "HTTPS static file hosting"
-                    containerInstance webApplicationHosting
                 }
+
                 deploymentNode ".NET Application Runtime" {
                     technology ".NET / ASP.NET Core"
                     containerInstance backend
                 }
+
                 deploymentNode "PostgreSQL Database Host" {
                     technology "PostgreSQL"
                     containerInstance cloudDatabase
@@ -1081,13 +574,14 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             deploymentNode "External Service Providers" {
                 deploymentNode "Firebase Services" {
                     technology "Google Firebase"
-                    softwareSystemInstance firebaseAuth
                     softwareSystemInstance firebaseMessaging
                 }
+
                 deploymentNode "Map Service Provider" {
                     technology "Managed HTTPS service"
                     softwareSystemInstance mapProvider
                 }
+
                 deploymentNode "Payment Service Provider" {
                     technology "Managed HTTPS service"
                     softwareSystemInstance paymentProvider
@@ -1096,59 +590,32 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         }
     }
 
-
-    // ================================================================
-    // VIEWS
-    // ================================================================
-
     views {
-
-
-        // ============================================================
-        // LEVEL 1 - SYSTEM CONTEXT
-        // CORRECTED TO EXPLICITLY SHOW USERS + EXTERNAL SYSTEMS
-        // ============================================================
-
-        // ============================================================
-        // LEVEL 0 - SYSTEM LANDSCAPE
-        // ============================================================
-
         systemLandscape "SystemLandscape" {
             title "ICHU - System Landscape"
             description "People, devices and external services surrounding the solution"
-
             include *
-
             autoLayout lr
         }
-
 
         systemContext ichu "SystemContext" {
             title "ICHU - System Context"
             description "Users, IoT hardware and external services interacting with ICHU"
 
             include ichu
-
             include ranchManager
             include fieldOperator
             include veterinarian
             include visitor
-
             include cattleBandHardware
             include waterControllerHardware
-
-            include firebaseAuth
+            include ledHardwareDisplay
             include firebaseMessaging
             include mapProvider
             include paymentProvider
 
             autoLayout lr
         }
-
-
-        // ============================================================
-        // LEVEL 2 - CONTAINERS
-        // ============================================================
 
         container ichu "ContainerDiagram" {
             title "ICHU - Container Diagram"
@@ -1159,469 +626,7 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             autoLayout lr
         }
 
-
-        // ============================================================
-        // LEVEL 3 - CATTLE BAND COMPONENTS
-        // ============================================================
-
-        component cattleBandEmbeddedApp "CattleBandComponents" {
-            title "Cattle Band Embedded Application - Components"
-            description "Componentes del collar para la captura de telemetría y la conectividad"
-
-            include *
-
-            include cattleBandHardware
-            include backend
-            include edgeGateway
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // LEVEL 3 - EDGE GATEWAY COMPONENTS
-        // ============================================================
-
-        component edgeGateway "EdgeGatewayComponents" {
-            title "Portable Edge Gateway - Components"
-            description "Recepción, evaluación local y sincronización posterior durante el pastoreo"
-
-            include *
-
-            include edgeDatabase
-            include cattleBandEmbeddedApp
-            include backend
-            include mobileApplication
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // LEVEL 3 - WATER CONTROLLER COMPONENTS
-        // ============================================================
-
-        component waterControllerEmbeddedApp "WaterControllerComponents" {
-            title "Water Temperature Controller - Components"
-            description "Componentes del controlador para la regulación local de la temperatura del agua"
-
-            include *
-
-            include waterControllerHardware
-            include backend
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // LEVEL 3 - BACKEND: IDENTITY
-        // ============================================================
-
-        component backend "IdentityComponents" {
-            title "ICHU Backend - Identity & Access"
-
-            include identityAPI
-            include identityService
-            include userAccount
-            include authorizationService
-            include identityRepository
-            include firebaseAuthACL
-
-            include firebaseAuth
-            include cloudDatabase
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // LEVEL 3 - BACKEND: CATTLE INFORMATION
-        // ============================================================
-
-        component backend "CattleComponents" {
-            title "ICHU Backend - Cattle Information"
-
-            include cattleAPI
-            include cattleApplicationService
-            include cattle
-            include cattleRepository
-
-            include cloudDatabase
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // LEVEL 3 - BACKEND: IOT ASSETS
-        // ============================================================
-
-        component backend "IoTAssetsComponents" {
-            title "ICHU Backend - IoT Assets"
-
-            include iotAssetsAPI
-            include iotAssetsApplicationService
-            include iotDevice
-            include deviceAssignmentService
-            include subscriptionEntitlementACL
-            include cattleAssignmentACL
-            include iotAssetsRepository
-
-            include subscriptionApplicationService
-            include cattleApplicationService
-            include cloudDatabase
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // LEVEL 3 - BACKEND: OPERATIONS & MONITORING
-        // ============================================================
-
-        component backend "MonitoringComponents" {
-            title "ICHU Backend - Operations & Monitoring"
-
-            include telemetryAPI
-            include operationsAPI
-            include edgeConfigurationAPI
-
-            include telemetryIngestionService
-            include operationsApplicationService
-            include edgeConfigurationService
-
-            include monitoringAggregate
-            include livestockOperation
-            include monitoringRulesService
-
-            include deviceRegistryACL
-            include cattleLookupACL
-            include monitoringRepository
-
-            include notificationAdapter
-            include domainEventDispatcher
-
-            include iotAssetsApplicationService
-            include cattleApplicationService
-
-            include cloudDatabase
-            include firebaseMessaging
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // LEVEL 3 - BACKEND: PLANNING
-        // ============================================================
-
-        component backend "PlanningComponents" {
-            title "ICHU Backend - Planning"
-
-            include planningAPI
-            include planningApplicationService
-            include livestockCalendar
-            include reminderService
-            include planningRepository
-
-            include notificationAdapter
-            include domainEventDispatcher
-
-            include cloudDatabase
-            include firebaseMessaging
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // LEVEL 3 - BACKEND: ANALYTICS
-        // ============================================================
-
-        component backend "AnalyticsComponents" {
-            title "ICHU Backend - Dashboard & Analytics"
-
-            include analyticsAPI
-            include analyticsApplicationService
-            include analyticsService
-            include analyticsRepository
-            include domainEventDispatcher
-
-            include cloudDatabase
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // LEVEL 3 - BACKEND: SUBSCRIPTIONS
-        // ============================================================
-
-        component backend "SubscriptionComponents" {
-            title "ICHU Backend - Subscriptions & Billing"
-
-            include subscriptionAPI
-            include billingAPI
-            include subscriptionApplicationService
-            include paymentApplicationService
-            include subscription
-            include subscriptionRepository
-            include paymentProviderACL
-
-            include domainEventDispatcher
-            include paymentProvider
-            include cloudDatabase
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // END-TO-END DYNAMIC FLOW - CONNECTED CATTLE BAND
-        // ============================================================
-
-        dynamic ichu "ConnectedTelemetryFlow" {
-            title "ICHU - Connected Cattle Monitoring Flow"
-            description "Flujo completo cuando el collar tiene cobertura"
-
-            cattleBandEmbeddedApp -> backend "1. Sends temperature, movement and GPS telemetry through Wi-Fi"
-
-            backend -> cloudDatabase "2. Stores telemetry and monitoring state"
-
-            backend -> firebaseMessaging "3. Requests push notification when a critical rule is detected"
-
-            firebaseMessaging -> mobileApplication "4. Delivers cattle alert to the user"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // END-TO-END DYNAMIC FLOW - OFFLINE GRAZING
-        // ============================================================
-
-        dynamic ichu "OfflineGrazingFlow" {
-            title "ICHU - Offline Grazing Flow"
-            description "Flujo completo durante el pastoreo sin cobertura"
-
-            cattleBandEmbeddedApp -> edgeGateway "1. Sends telemetry through Bluetooth Low Energy"
-
-            edgeGateway -> edgeDatabase "2. Stores telemetry and uses cached monitoring configuration"
-
-            edgeGateway -> mobileApplication "3. Delivers local fever or geofence alerts"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // END-TO-END DYNAMIC FLOW - EDGE SYNCHRONIZATION
-        // ============================================================
-
-        dynamic ichu "EdgeSynchronizationFlow" {
-            title "ICHU - Edge Gateway Synchronization"
-            description "Sincronización al recuperar la conexión"
-
-            edgeGateway -> backend "1. Uploads telemetry collected during offline grazing and requests updated configuration"
-
-            backend -> cloudDatabase "2. Stores synchronized telemetry"
-
-            backend -> firebaseMessaging "3. Requests cloud notifications when required"
-
-            firebaseMessaging -> mobileApplication "4. Delivers cloud notification"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // END-TO-END DYNAMIC FLOW - WATER CONTROLLER
-        // ============================================================
-
-        dynamic ichu "WaterControllerCloudFlow" {
-            title "ICHU - Water Controller Cloud Flow"
-            description "Reporte de temperatura del agua y eventos del actuador"
-
-            waterControllerEmbeddedApp -> backend "1. Reports temperature and heating events"
-
-            backend -> cloudDatabase "2. Stores water telemetry and actuator history"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // INTERNAL DYNAMIC FLOW - CATTLE BAND
-        // ============================================================
-
-        dynamic cattleBandEmbeddedApp "CattleBandInternalFlow" {
-            title "Cattle Band - Internal Telemetry Flow"
-            description "Flujo interno de componentes dentro del collar"
-
-            bandTelemetryInterface -> bandTelemetryService "1. Starts telemetry acquisition"
-
-            bandTelemetryService -> cattleBandDevice "2. Updates device state"
-
-            bandTelemetryService -> cattleTelemetryProcessor "3. Processes sensor readings"
-
-            cattleTelemetryProcessor -> cattleBandHAL "4. Obtains temperature, movement and GPS data"
-
-            cattleBandHAL -> cattleBandHardwareACL "5. Uses hardware-specific drivers"
-
-            cattleBandHardwareACL -> cattleBandHardware "6. Reads physical sensors"
-
-            bandTelemetryService -> bandConnectivityService "7. Selects the available communication route"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // INTERNAL DYNAMIC FLOW - EDGE OFFLINE PROCESSING
-        // ============================================================
-
-        dynamic edgeGateway "EdgeGatewayInternalFlow" {
-            title "Portable Edge Gateway - Offline Processing"
-            description "Procesamiento en el borde durante el pastoreo sin cobertura"
-
-            bleDeviceInterface -> edgeTelemetryService "1. Receives telemetry from cattle bands"
-
-            edgeTelemetryService -> edgeTelemetry "2. Creates local telemetry state"
-
-            edgeTelemetryService -> edgeRepository "3. Stores received telemetry"
-
-            edgeRepository -> edgeDatabase "4. Persists telemetry in SQLite"
-
-            edgeTelemetryService -> edgeMonitoringService "5. Evaluates offline monitoring rules"
-
-            edgeMonitoringService -> edgeRepository "6. Loads cattle mappings, fever thresholds and geofences"
-
-            edgeMonitoringService -> localAlertAdapter "7. Generates local alert when required"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // INTERNAL DYNAMIC FLOW - EDGE CLOUD SYNC
-        // ============================================================
-
-        dynamic edgeGateway "EdgeGatewaySyncInternalFlow" {
-            title "Portable Edge Gateway - Cloud Synchronization"
-            description "Proceso interno de sincronización al restablecerse la conexión"
-
-            edgeSyncOrchestrator -> edgeRepository "1. Loads unsynchronized telemetry"
-
-            edgeRepository -> edgeDatabase "2. Reads pending telemetry and cached configuration"
-
-            edgeSyncOrchestrator -> cloudApiACL "3. Prepares telemetry and configuration synchronization"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // INTERNAL DYNAMIC FLOW - BACKEND TELEMETRY
-        // ============================================================
-
-        dynamic backend "CloudTelemetryProcessingFlow" {
-            title "ICHU Backend - Telemetry Processing"
-            description "Procesamiento interno de la telemetría en el backend"
-
-            telemetryAPI -> telemetryIngestionService "1. Receives cattle or water telemetry"
-
-            telemetryIngestionService -> deviceRegistryACL "2. Validates IoT device assignment"
-
-            deviceRegistryACL -> iotAssetsApplicationService "3. Resolves registered device"
-
-            telemetryIngestionService -> cattleLookupACL "4. Resolves cattle identity when required"
-
-            telemetryIngestionService -> monitoringAggregate "5. Updates monitoring state"
-
-            telemetryIngestionService -> monitoringRepository "6. Stores accepted telemetry"
-
-            telemetryIngestionService -> monitoringRulesService "7. Evaluates fever, inactivity and geofence rules"
-
-            monitoringRulesService -> notificationAdapter "8. Requests cloud notification when a critical condition exists"
-
-            monitoringRulesService -> domainEventDispatcher "9. Publishes internal monitoring event"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // INTERNAL DYNAMIC FLOW - EDGE CONFIGURATION
-        // ============================================================
-
-        dynamic backend "EdgeConfigurationFlow" {
-            title "ICHU Backend - Edge Configuration Flow"
-            description "Prepara la configuración que el borde necesita para operar sin conexión"
-
-            edgeConfigurationAPI -> edgeConfigurationService "1. Receives configuration request from Edge"
-
-            edgeConfigurationService -> deviceRegistryACL "2. Resolves cattle-band assignments"
-
-            deviceRegistryACL -> iotAssetsApplicationService "3. Loads registered device assignments"
-
-            edgeConfigurationService -> monitoringRepository "4. Loads fever thresholds and geofence configuration"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // INTERNAL DYNAMIC FLOW - PLANNING
-        // ============================================================
-
-        dynamic backend "PlanningReminderFlow" {
-            title "ICHU Backend - Planning Reminder Flow"
-            description "Flujo interno de recordatorios del calendario ganadero"
-
-            planningAPI -> planningApplicationService "1. Creates or updates scheduled livestock activity"
-
-            planningApplicationService -> livestockCalendar "2. Updates calendar state"
-
-            planningApplicationService -> planningRepository "3. Stores planned activity"
-
-            planningApplicationService -> reminderService "4. Evaluates reminder schedule"
-
-            reminderService -> notificationAdapter "5. Requests notification when reminder becomes due"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // INTERNAL DYNAMIC FLOW - WATER CONTROLLER
-        // ============================================================
-
-        dynamic waterControllerEmbeddedApp "WaterControllerInternalFlow" {
-            title "Water Controller - Local Temperature Regulation"
-            description "La regulación local sigue operando aunque no haya conexión"
-
-            waterControlInterface -> waterControlService "1. Starts water temperature monitoring"
-
-            waterControlService -> temperatureRegulationService "2. Evaluates configured temperature threshold"
-
-            temperatureRegulationService -> waterControllerHAL "3. Reads temperature and determines actuator action"
-
-            waterControllerHAL -> waterHardwareACL "4. Uses hardware-specific driver"
-
-            waterHardwareACL -> waterControllerHardware "5. Reads sensor or operates heating actuator"
-
-            temperatureRegulationService -> waterControllerDevice "6. Updates heating state"
-
-            autoLayout lr
-        }
-
-
-        // ============================================================
-        // DEPLOYMENT
-        // ============================================================
-
-        deployment * production "ProductionDeployment" {
+        deployment * "Production" "ProductionDeployment" {
             title "ICHU - Production Deployment"
             description "Static hosting is separated from browser execution, Edge and cloud services"
 
@@ -1630,13 +635,133 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             autoLayout lr
         }
 
+        // Figuras 4.7 a 4.13: vistas añadidas desde las siete capturas.
 
-        // ============================================================
-        // STYLES
-        // ============================================================
+        component backend "OperationsMonitoringComponents" {
+            title "Figura 4.7. Componentes del módulo Operations & Monitoring"
+            description "Elaboración propia con Structurizr."
+
+            include telemetryApi
+            include operationsApi
+            include edgeConfigurationApi
+            include telemetryIngestionService
+            include operationsApplicationService
+            include edgeConfigurationService
+            include monitoringAggregate
+            include livestockOperationAggregate
+            include cattleLookupAcl
+            include iotAssetsLookupAcl
+            include monitoringRulesDomainService
+            include monitoringRepository
+            include cattleApplicationService
+            include iotAssetsApplicationService
+            include internalDomainEventDispatcher
+            include firebaseMessagingAdapter
+
+            include cloudDatabase
+            include firebaseMessaging
+
+            autoLayout lr
+        }
+
+        component cattleBandEmbeddedApp "CattleBandComponents" {
+            title "Figura 4.8. Componentes del firmware del collar inteligente"
+            description "Elaboración propia con Structurizr."
+
+            include bandTelemetryInterface
+            include bandTelemetryService
+            include cattleBandAggregate
+            include cattleTelemetryProcessor
+            include bandConnectivityService
+            include cattleBandHal
+            include cattleBandHardwareAcl
+            include bandCloudAdapter
+            include bandBleAdapter
+            include cattleBandLocalBuffer
+
+            include cattleBandHardware
+            include backend
+            include edgeGateway
+
+            autoLayout lr
+        }
+
+        component edgeGateway "EdgeGatewayComponents" {
+            title "Figura 4.9. Componentes de la pasarela de borde"
+            description "Elaboración propia con Structurizr."
+
+            include bleDeviceInterface
+            include edgeTelemetryCollectionService
+            include localMonitoringService
+            include edgeTelemetryAggregate
+            include edgeSyncOrchestrator
+            include localAlertAdapter
+            include edgeRepository
+            include ichuCloudApiAcl
+
+            include mobileApplication
+            include cattleBandEmbeddedApp
+            include edgeDatabase
+            include backend
+
+            autoLayout lr
+        }
+
+        component waterControllerEmbeddedApp "WaterControllerComponents" {
+            title "Figura 4.10. Componentes del firmware del controlador del abrevadero"
+            description "Elaboración propia con Structurizr."
+
+            include waterControlInterface
+            include waterControlApplicationService
+            include temperatureRegulationService
+            include waterControllerAggregate
+            include waterControllerHal
+            include waterControllerHardwareAcl
+            include waterControllerLocalBuffer
+            include waterCloudAdapter
+
+            include waterControllerHardware
+            include backend
+
+            autoLayout lr
+        }
+
+        dynamic ichu "ConnectedCattleMonitoringFlow" {
+            title "Figura 4.11. Flujo completo cuando el collar tiene cobertura"
+            description "Elaboración propia con Structurizr."
+
+            cattleBandEmbeddedApp -> backend "1. Sends temperature, movement and GPS telemetry through Wi-Fi"
+            backend -> cloudDatabase "2. Stores telemetry and monitoring state"
+            backend -> firebaseMessaging "3. Requests push notification when a critical rule is detected"
+            firebaseMessaging -> mobileApplication "4. Delivers cattle alert to the user"
+
+            autoLayout lr
+        }
+
+        dynamic ichu "OfflineGrazingFlow" {
+            title "Figura 4.12. Flujo completo durante el pastoreo sin cobertura"
+            description "Elaboración propia con Structurizr."
+
+            cattleBandEmbeddedApp -> edgeGateway "1. Sends telemetry through Bluetooth Low Energy"
+            edgeGateway -> edgeDatabase "2. Stores telemetry and uses cached monitoring configuration"
+            edgeGateway -> mobileApplication "3. Delivers local fever or geofence alerts"
+
+            autoLayout lr
+        }
+
+        dynamic ichu "EdgeGatewaySynchronization" {
+            title "Figura 4.13. Sincronización al recuperar la conexión"
+            description "Elaboración propia con Structurizr."
+
+            edgeGateway -> backend "1. Uploads telemetry collected during offline grazing and requests updated configuration"
+            backend -> cloudDatabase "2. Stores synchronized telemetry"
+            backend -> firebaseMessaging "3. Requests cloud notifications when required"
+            firebaseMessaging -> mobileApplication "4. Delivers cloud notification"
+
+            autoLayout lr
+        }
 
         styles {
-
             element "Element" {
                 shape RoundedBox
             }
@@ -1696,6 +821,16 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
 
             element "BrowserClient" {
                 shape WebBrowser
+            }
+
+            element "WebApplicationFolder" {
+                shape Folder
+            }
+
+            element "LandingPageUxUi" {
+                shape WebBrowser
+                background #3a86ff
+                color #ffffff
             }
 
             element "StaticHosting" {
