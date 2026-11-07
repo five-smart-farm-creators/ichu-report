@@ -11,3 +11,4 @@ Los anexos reúnen evidencias externas, material de investigación y fuentes de 
 - [Anexo G. Fuentes de diagramas y artefactos versionados](annex-g-diagram-sources.md)
 - [Anexo H. Recursos digitales y artefactos de TB1](annex-h-tb1-deliverables.md)
 - [Anexo I. Cobertura y trazabilidad de requisitos](annex-i-requirements-traceability.md)
+- [Anexo J. Especificaciones de dispositivos IoT y sus conexiones](annex-j-iot-device-specifications.md)
