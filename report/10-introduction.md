@@ -204,7 +204,8 @@ Para guiar el diseño centrado en el usuario, hemos estructurado nuestras creenc
 
 #### 1.2.2.3. Lean UX Hypothesis Statements.
 
-Se redacta una declaración de hipótesis por cada Feature Assumption definido en la sección anterior, aplicando la estructura del template: el resultado de negocio que se busca alcanzar, las personas que deben obtenerlo, el beneficio que obtienen y la característica o solución que lo habilita.
+Las siguientes declaraciones relacionan los resultados de negocio que SmartFarm desea alcanzar con los beneficios esperados por cada tipo de usuario y las capacidades descritas en el producto.
+Para cada hipótesis se aplica la estructura indicada en el template: el resultado de negocio que se busca alcanzar, las personas que deben obtenerlo, el beneficio que obtienen y la característica o solución que lo habilita.
 
 **Hypothesis 1. Biometric and GPS Tracking**
 
@@ -234,6 +235,53 @@ Se redacta una declaración de hipótesis por cada Feature Assumption definido e
 **entonces** podrá mantener la continuidad del trabajo y el registro
 **con** un modo sin conexión que almacena los datos localmente y los sincroniza al recuperar la señal.
 **Medición:** frecuencia de uso, registros locales, sincronizaciones exitosas y conflictos durante el piloto.
+
+**Hypothesis 5. Individual Herd Records**
+
+**Creemos que aumentará** el uso recurrente de ICHU y la renovación de suscripciones
+**si** los administradores ganaderos y operarios de campo
+**pueden** consultar una ficha confiable por animal y registrar eventos sin duplicar la información en cuadernos u hojas de cálculo
+**con** un inventario digital que reúne identificación, lote, antecedentes y eventos del animal.
+
+**Hypothesis 6. Veterinary Clinical History**
+
+**Creemos que aumentará** la recomendación profesional y el uso compartido de la plataforma
+**si** los médicos veterinarios y zootecnistas
+**pueden** preparar una atención con antecedentes clínicos y biométricos trazables, y compartir sus hallazgos con autorización del ganadero
+**con** un historial clínico individual para registrar consultas, diagnósticos, tratamientos, vacunaciones y resultados de seguimiento.
+
+**Hypothesis 7. Health Campaigns and Withdrawal Periods**
+
+**Creemos que mejorará** la continuidad del uso entre veterinarios y ganaderos
+**si** pueden coordinar campañas sanitarias y verificar qué animales fueron atendidos y cuándo pueden volver a destinarse sus productos al consumo
+**con** registro de aplicaciones, recordatorios de seguimiento y consulta de periodos de retiro por animal.
+
+**Hypothesis 8. Livestock Calendar and Preventive Reminders**
+
+**Creemos que aumentará** la frecuencia de uso de la plataforma
+**si** los administradores ganaderos y profesionales asesores
+**pueden** anticipar vacunaciones, controles y revisiones sin depender de recordar fechas o revisar varios registros
+**con** un calendario ganadero que organiza actividades y envía recordatorios a los responsables.
+
+**Hypothesis 9. Geofencing and Lost-Animal Search**
+
+**Creemos que** los ganaderos percibirán suficiente valor operativo para mantener activa su suscripción
+**si** los administradores y operarios
+**pueden** detectar la salida de un animal de su zona asignada y consultar su última ubicación disponible para orientar la búsqueda
+**con** geocercas configurables, alertas de salida y consulta de la última posición GPS recibida.
+
+**Hypothesis 10. Device Status and Maintenance**
+
+**Creemos que se reducirá** la interrupción de la captura de datos y el esfuerzo de soporte
+**si** los administradores ganaderos
+**pueden** identificar collares sin señal, con batería baja o que requieren reasignación antes de perder lecturas durante un periodo prolongado
+**con** una vista del inventario de dispositivos que expone su estado y permite asociarlos o liberarlos de un animal.
+
+**Hypothesis 11. Authorized Herd Advisory**
+
+**Creemos que aumentará** la participación de veterinarios asesores en ICHU sin reducir el control del ganadero sobre sus datos
+**si** el administrador puede conceder, limitar y revocar el acceso de un profesional, y el profesional puede consultar los hatos autorizados desde una sola experiencia
+**con** solicitudes de asesoría, permisos por unidad productiva y un registro auditable de la vigencia del acceso.
 
 #### 1.2.2.4. Lean UX Canvas.
 
