@@ -6,3 +6,4 @@
 *.png binary
 *.jpg binary
 *.jpeg binary
+.githooks/* text eol=lf
