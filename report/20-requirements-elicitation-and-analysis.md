@@ -173,7 +173,7 @@ Con esta estructura, la entrevista se aborda en tres fases: primero el perfil de
 
 ### 2.2.2. Registro de entrevistas.
 
-**Video editado de las entrevistas:** [Abrir video en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202323243_upc_edu_pe/IQCWBM7VmG-wQpKSMg4lQ3R4ARyUf9668Ua8FlogmvsDBS0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=pKyJVK)
+**Video editado de las entrevistas:** Abrir video en SharePoint ([https://tinyurl.com/22n54ovz](https://tinyurl.com/22n54ovz))
 
 **Criterio de asignación por segmento**
 
@@ -187,48 +187,48 @@ Los resúmenes siguientes registran actividades, problemas, dispositivos y neces
 
 ##### Entrevista 1
 
-> **Entrevistado:** Próspero Contreras Flores
-> **Cargo/Rol:** Ganadero, propietario de predio ganadero
-> **Ubicación:** Región Apurímac, Perú
-> **Duración:** 00:22:45
-> **Entrevistador:** Flor Contreras
-
-![Entrevista a Próspero Contreras Flores](assets/images/entrevista-segmento1-prospero-contreras.png)
-
-> **Video: (Inicio: 0:01)** [ver segmento en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202323243_upc_edu_pe/IQCWBM7VmG-wQpKSMg4lQ3R4ARyUf9668Ua8FlogmvsDBS0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=pKyJVK)
-
-> **Resumen:**
-> La entrevista realizada a Próspero Contreras Flores, ganadero ubicado en la región de Apurímac, describe la dinámica operativa y los desafíos clave en la gestión de un predio con aproximadamente 100 cabezas de ganado bajo un régimen de pastoreo extensivo. Actualmente, la administración del inventario y el registro de eventos de salud se realizan de forma rudimentaria mediante hojas de cálculo en Excel y cuadernos de notas, lo que genera vacíos significativos en la trazabilidad médica individual del hato y propicia pérdidas económicas por partos prematuros no supervisados y casos de abigeato (robo de ganado). La infraestructura local presenta una cobertura de internet intermitente (aproximadamente 50% de señal en los potreros), por lo que el productor requiere una herramienta digital multidispositivo (smartphone en campo y laptop en oficina) con capacidad de almacenamiento offline. La solución ideal demandada debe centralizar las fichas clínicas individuales, emitir notificaciones preventivas ajustadas al calendario sanitario andino (vacunación contra carbúnculo, desparasitación), predecir eventos reproductivos (detección de celos y proximidad de partos) y consolidar reportes administrativos de costos y mortalidad bajo un modelo de suscripción anual.
-
-##### Entrevista 2
-
-> **Entrevistado:** Meikoll Morell Bosa Cárdenas
-> **Cargo/Rol:** Ingeniero zootecnista, propietario de la Hacienda del Marqués
-> **Ubicación:** Pampa de Anta, Cusco, Perú
-> **Duración:** 00:15:17
-> **Entrevistador:** Flor Contreras
-
-![Entrevista a Meikoll Morell Bosa Cárdenas](assets/images/entrevista-segmento1-meikoll-morell.png)
-
-> **Video: (Inicio: 6:01)** [ver segmento en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202323243_upc_edu_pe/IQCWBM7VmG-wQpKSMg4lQ3R4ARyUf9668Ua8FlogmvsDBS0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=pKyJVK)
-
-> **Resumen:**
-> El ingeniero zootecnista Meikoll Morell Bosa Cárdenas, propietario de la Hacienda del Marqués en Pampa de Anta (Cusco), maneja 40 cabezas de ganado Brown Swiss bajo un régimen semi-extensivo, 20 toros en engorde intensivo y caballos peruanos de paso. Su principal canal de control actual consiste en fichas individuales ingresadas en Excel desde su laptop y smartphone, pero identifica que el mayor problema en su gestión es la falta de hábito para registrar las intervenciones inmediatamente después del trabajo de campo, lo que deriva en pérdida de historial clínico y de trazabilidad. Respecto a pérdidas económicas, señala eventos de negligencia en partos y accidentes en equinos, además de vulnerabilidad ante el abigeato, donde la geolocalización por microchip ha fallado por falta de señal en zonas rurales. Para optimizar su toma de decisiones, Meikoll muestra interés en adoptar una solución de software bajo suscripción anual, priorizando que funcione desde el teléfono en modo offline para actualizar datos automáticamente al recuperar conexión. Entre las funciones clave que exige destacan las notificaciones automáticas para campañas sanitarias (dosificación, vacunas y vitaminas), alertas sobre el tiempo y peso estimado en ganadería de engorde, módulos de control de costos por alimento y medicinas por cabeza para evaluar la rentabilidad de los ciclos trimestrales, y la capacidad de adjuntar fotografías de los animales como evidencia del estado físico y respaldo ante robos.
-
-##### Entrevista 3
-
 > **Entrevistado:** Grober Barrientos Talaverano
 > **Cargo/Rol:** Médico veterinario zootecnista, encargado de la asistencia técnica en sanidad, manejo, alimentación y registros
 > **Ubicación:** Fundo Agropecuario Yavi Yavi, Cusco, Perú
-> **Duración:** 00:23:02
+> **Duración:** 00:06:00
 > **Entrevistador:** Flor Contreras
 
 ![Entrevista a Grober Barrientos Talaverano](assets/images/entrevista-segmento1-grober-barrientos.png)
 
-> **Video: (Inicio: 12:43)** [ver segmento en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202323243_upc_edu_pe/IQCWBM7VmG-wQpKSMg4lQ3R4ARyUf9668Ua8FlogmvsDBS0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=pKyJVK)
+> **Video: (Inicio: 00:01)** ver segmento en SharePoint ([https://tinyurl.com/22n54ovz](https://tinyurl.com/22n54ovz))
 
 > **Resumen:**
-> Grober Barrientos Talaverano, un médico veterinario zootecnista de 34 años. Grober trabaja en el Fundo Agropecuario Yavi Yavi (Cusco), donde se encarga de brindar asistencia técnica en sanidad, manejo, alimentación y registros de ganado. Durante la charla, Grober explicó que manejan animales criollos, cruzados y un lote de 65 cabezas productoras de leche (Brown Swiss y Fleckvieh). Actualmente utiliza Excel en su computadora para llevar sus registros, aunque enfrenta problemas de conectividad intermitente en la zona de pastoreo. Indicó que la principal causa de mortalidad bovina en su zona es el mal de altura en terneros, cuyos primeros signos suelen evidenciarse en la reducción del movimiento y del tiempo de pastoreo. Por ello, destacó que le sería de gran utilidad una plataforma o sistema que registre y alerte sobre variaciones en las constantes fisiológicas (temperatura, frecuencias) y patrones de desplazamiento, además de permitir el filtrado por categorías, el control de costos e inventario y la generación de reportes e historiales de salud, sanidad y reproducción en tiempo real.
+> Grober Barrientos Talaverano, un médico veterinario zootecnista de 34 años. Grober trabaja en el Fundo Agropecuario Yavi Yavi (Cusco), donde se encarga de brindar asistencia técnica en sanidad, manejo, alimentación y registros de ganado. Grober refleja una personalidad bastante asertiva y serena, además de un conocimiento técnico profundo que le claridad respecto a lo que busca en un sistema de monitoreo para el ganado. Durante la charla, Grober explicó que manejan animales criollos, cruzados y un lote de 65 cabezas productoras de leche (Brown Swiss y Fleckvieh). Actualmente utiliza herramientas de gestión como Excel en su computadora para llevar sus registros, aunque enfrenta problemas de conectividad intermitente en la zona de pastoreo. Indicó que la principal causa de mortalidad bovina en su zona es el mal de altura en terneros, cuyos primeros signos suelen evidenciarse en la reducción del movimiento y del tiempo de pastoreo. Por ello, destacó que le sería de gran utilidad una plataforma o sistema que registre y alerte sobre variaciones en las constantes fisiológicas (temperatura, frecuencias) y patrones de desplazamiento, además de permitir el filtrado por categorías, el control de costos e inventario y la generación de reportes e historiales de salud, sanidad y reproducción en tiempo real.
+
+##### Entrevista 2
+
+> **Entrevistado:** Próspero Contreras Flores
+> **Cargo/Rol:** Ganadero, propietario de predio ganadero
+> **Ubicación:** Región Apurímac, Perú
+> **Duración:** 00:06:41
+> **Entrevistador:** Flor Contreras
+
+![Entrevista a Próspero Contreras Flores](assets/images/entrevista-segmento1-prospero-contreras.png)
+
+> **Video: (Inicio: 06:01)** ver segmento en SharePoint ([https://tinyurl.com/22n54ovz](https://tinyurl.com/22n54ovz))
+
+> **Resumen:**
+> La entrevista realizada a Próspero Contreras Flores, ganadero ubicado en la región de Apurímac, describe la dinámica operativa y los desafíos clave en la gestión de un predio con aproximadamente 100 cabezas de ganado bajo un régimen de pastoreo extensivo. Próspero es un hombre con bastantes años de experiencia y muestra una actitud reflexiva sobre la importancia de la tecnología en la gestión ganadera. Su tono de voz expresa bastante calma y disposición a señalar los aspectos de mejora en este rubro con el uso de una herramienta de gestión adecuada. Actualmente, la administración del inventario y el registro de eventos de salud se realizan de forma rudimentaria mediante hojas de cálculo en Excel y cuadernos de notas, lo que genera vacíos significativos en la trazabilidad médica individual del hato y propicia pérdidas económicas por partos prematuros no supervisados y casos de abigeato (robo de ganado). La infraestructura local presenta una cobertura de internet intermitente (aproximadamente 50% de señal en los potreros), por lo que el productor requiere una herramienta digital multidispositivo (smartphone en campo y laptop en oficina) con capacidad de almacenamiento offline. La solución ideal demandada debe centralizar las fichas clínicas individuales, emitir notificaciones preventivas ajustadas al calendario sanitario andino (vacunación contra carbúnculo, desparasitación), predecir eventos reproductivos (detección de celos y proximidad de partos) y consolidar reportes administrativos de costos y mortalidad bajo un modelo de suscripción anual.
+
+##### Entrevista 3
+
+> **Entrevistado:** Meikoll Morell Bosa Cárdenas
+> **Cargo/Rol:** Ingeniero zootecnista, propietario de la Hacienda del Marqués
+> **Ubicación:** Pampa de Anta, Cusco, Perú
+> **Duración:** 00:05:24
+> **Entrevistador:** Flor Contreras
+
+![Entrevista a Meikoll Morell Bosa Cárdenas](assets/images/entrevista-segmento1-meikoll-morell.png)
+
+> **Video: (Inicio: 12:42)** ver segmento en SharePoint ([https://tinyurl.com/22n54ovz](https://tinyurl.com/22n54ovz))
+
+> **Resumen:**
+> El ingeniero zootecnista Meikoll Morell Bosa Cárdenas, propietario de la Hacienda del Marqués en Pampa de Anta (Cusco), maneja 40 cabezas de ganado Brown Swiss bajo un régimen semi-extensivo, 20 toros en engorde intensivo y caballos peruanos de paso. Meikoll es un profesional con un carácter bastante energico y elocuente, cuenta con amplio conocimiento en el área. Durante la entrevista mostró adoptar el lenguaje técnico adecuado de su rubro lo que facilitó el registro de preguntas. Su principal canal de control actual consiste en fichas individuales ingresadas en Excel desde su laptop y smartphone, pero identifica que el mayor problema en su gestión es la falta de hábito para registrar las intervenciones inmediatamente después del trabajo de campo, lo que deriva en pérdida de historial clínico y de trazabilidad. Respecto a pérdidas económicas, señala eventos de negligencia en partos y accidentes en equinos, además de vulnerabilidad ante el abigeato, donde la geolocalización por microchip ha fallado por falta de señal en zonas rurales. Para optimizar su toma de decisiones, Meikoll muestra interés en adoptar una solución de software bajo suscripción anual, priorizando que funcione desde el teléfono en modo offline para actualizar datos automáticamente al recuperar conexión. Entre las funciones clave que exige destacan las notificaciones automáticas para campañas sanitarias (dosificación, vacunas y vitaminas), alertas sobre el tiempo y peso estimado en ganadería de engorde, módulos de control de costos por alimento y medicinas por cabeza para evaluar la rentabilidad de los ciclos trimestrales, y la capacidad de adjuntar fotografías de los animales como evidencia del estado físico y respaldo ante robos.
 
 #### Segmento 2: Zootecnistas y Médicos Veterinarios
 
@@ -242,7 +242,7 @@ Los resúmenes siguientes registran actividades, problemas, dispositivos y neces
 
 ![Entrevista a Darwin Carbajal Vilca](assets/images/entrevista-segmento2-darwin-carbajal.png)
 
-> **Video: (Inicio: 18:07)** [ver segmento en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202323243_upc_edu_pe/IQCWBM7VmG-wQpKSMg4lQ3R4ARyUf9668Ua8FlogmvsDBS0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=pKyJVK)
+> **Video: (Inicio: 18:07)** ver segmento en SharePoint ([https://tinyurl.com/22n54ovz](https://tinyurl.com/22n54ovz))
 
 > **Resumen:**
 > Darwin Carbajal Vilca, médico veterinario zootecnista y criador de ganado vacuno Brown Swiss en Puno con más de 18 años de experiencia en inseminación artificial, administra el fundo "Flores de Coña" con 26 animales de pedigree y PPC. Su jornada combina labor de campo e inspección en establo en primeras y últimas horas del día con trabajo de escritorio e investigación clínica. En su práctica médica identifica desafíos clave como la detección tardía del celo silencioso, reconocible habitualmente al segundo o tercer día por sangrado vulvar, y el impacto fatal de trastornos metabólicos de rápida evolución como el timpanismo o la intoxicación por ensilado alterado. Para optimizar su gestión, requiere una solución tecnológica integrada que permita registrar historias clínicas digitales en campo para validar fármacos administrados, recibir alertas preventivas sobre caídas en la rumia o alzas térmicas, analizar curvas epidemiológicas a nivel de hato y adjuntar evidencia ecográfica para agilizar los registros de gestación ante ASCRIGAR Perú.
@@ -257,10 +257,10 @@ Los resúmenes siguientes registran actividades, problemas, dispositivos y neces
 
 ![Entrevista a Eliseo Ramírez Mena](assets/images/entrevista-segmento2-eliseo-ramirez.png)
 
-> **Video: (Inicio: 24:01)** [ver segmento en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202323243_upc_edu_pe/IQCWBM7VmG-wQpKSMg4lQ3R4ARyUf9668Ua8FlogmvsDBS0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=pKyJVK)
+> **Video: (Inicio: 24:01)** ver segmento en SharePoint ([https://tinyurl.com/22n54ovz](https://tinyurl.com/22n54ovz))
 
 > **Resumen:**
-> La entrevista expone la rutina laboral y las necesidades tecnológicas de Eliseo Ramírez Mena, bachiller en Medicina Veterinaria y Zootecnia con más de dos años de experiencia en el manejo de ganado vacuno y ovino. Su jornada diaria distribuye la mañana en labores de campo con los animales y la tarde en trabajo de oficina, registro de datos en computadora e impresión de informes para clientes. En el aspecto sanitario y reproductivo, Eliseo enfatiza que los tratamientos dependen del diagnóstico clínico observable, como la variación de temperatura, el apetito, la alteración de rumiación o conductas en celo, y del apoyo de colegas en casos complejos, así como del uso de intervenciones inmediatas ante emergencias metabólicas como el timpanismo gaseoso. Frente a la propuesta de un software y una aplicación móvil veterinaria, el especialista prioriza la utilidad de sincronizar imágenes de ecógrafos para evaluar la gestación en tiempo real desde el celular, la emisión de alertas rojas automáticas cuando decaen las constantes vitales del animal, la automatización de reportes ejecutivos para sustituir el llenado manual en Excel, y la integración de módulos nutricionales que identifiquen deficiencias minerales o de nutrientes en la dieta del ganado.
+> La entrevista expone la rutina laboral y las necesidades tecnológicas de Eliseo Ramírez Mena, bachiller en Medicina Veterinaria y Zootecnia con dos años de experiencia en el manejo de ganado vacuno y ovino. Eliseo muestra una base sólida de conocimiento respecto a los parámetros de salud y reproductividad deñ ganado. Como alguien con pronto ingreso en el campo de la medicina veterinario, muchos aspectos de su rutina requieren el manejo de aplicaciones en su teléfono inteligente, lo que prueba un manejo eficiente del mismo. Su jornada diaria distribuye la mañana en labores de campo con los animales y la tarde en trabajo de oficina, registro de datos en computadora e impresión de informes para clientes. En el aspecto sanitario y reproductivo, Eliseo enfatiza que los tratamientos dependen del diagnóstico clínico observable, como la variación de temperatura, el apetito, la alteración de rumiación o conductas en celo, y del apoyo de colegas en casos complejos, así como del uso de intervenciones inmediatas ante emergencias metabólicas como el timpanismo gaseoso. Frente a la propuesta de un software y una aplicación móvil veterinaria, el especialista prioriza la utilidad de sincronizar imágenes de ecógrafos para evaluar la gestación en tiempo real desde el celular, la emisión de alertas rojas automáticas cuando decaen las constantes vitales del animal, la automatización de reportes ejecutivos para sustituir el llenado manual en Excel, y la integración de módulos nutricionales que identifiquen deficiencias minerales o de nutrientes en la dieta del ganado.
 
 ##### Entrevista 3
 
@@ -272,10 +272,10 @@ Los resúmenes siguientes registran actividades, problemas, dispositivos y neces
 
 ![Entrevista a Dionisio Rodríguez](assets/images/entrevista-segmento2-dionisio-rodriguez.png)
 
-> **Video: (Inicio: 29:32)** [ver segmento en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202323243_upc_edu_pe/IQCWBM7VmG-wQpKSMg4lQ3R4ARyUf9668Ua8FlogmvsDBS0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=pKyJVK)
+> **Video: (Inicio: 29:32)** ver segmento en SharePoint ([https://tinyurl.com/22n54ovz](https://tinyurl.com/22n54ovz))
 
 > **Resumen:**
-> Esta entrevista explora las necesidades operativas y tecnológicas de Dionisio Rodríguez, zootecnista chileno con trabajo de campo en Perú, para guiar el desarrollo de la plataforma ganadera ICHU de SmartFarm. Rodríguez explica que pasa la mayor parte de su jornada en el terreno registrando datos y fotos en su teléfono inteligente, reservando la computadora de oficina para la elaboración de informes. Para la detección temprana de enfermedades metabólicas o infecciosas y la identificación de celos silenciosos, fundamenta su diagnóstico en el seguimiento continuo de la temperatura corporal, la inactividad, la disminución de la rumia y los cambios de conducta, recurriendo a exámenes de laboratorio solo en casos complejos. En cuanto al diseño de la plataforma, solicita alertas automáticas ante fiebres o partos, reportes exportables a Excel o PDF, e integración directa con equipos de campo como ecógrafos portátiles y software de nutrición para evitar la duplicidad en el registro de información.
+> Esta entrevista explora las necesidades operativas y tecnológicas de Dionisio Rodríguez, zootecnista chileno con trabajo de campo en Perú, para guiar el desarrollo de la plataforma ganadera ICHU de SmartFarm. Indica que lleva unos pocos años ejerciendo como zootecnista a partir de su pasión por los animales y su reproducción. Rodríguez explica que pasa la mayor parte de su jornada en el terreno registrando datos y fotos en su teléfono inteligente, reservando la computadora de oficina para la elaboración de informes. Para la detección temprana de enfermedades metabólicas o infecciosas y la identificación de celos silenciosos, fundamenta su diagnóstico en el seguimiento continuo de la temperatura corporal, la inactividad, la disminución de la rumia y los cambios de conducta, recurriendo a exámenes de laboratorio solo en casos complejos. En cuanto al diseño de la plataforma, solicita alertas automáticas ante fiebres o partos, reportes exportables a Excel o PDF, e integración directa con equipos de campo como ecógrafos portátiles y software de nutrición para evitar la duplicidad en el registro de información.
 
 **Trazabilidad de los dispositivos y herramientas hacia las User Personas**
 
@@ -306,7 +306,7 @@ Para complementar las entrevistas en profundidad del Segmento 1, se aplicó un c
 
 *Figura 1. Elaboración propia a partir de los datos recolectados. Startup SmartFarm.*
 
-[Cuestionario ampliado del Segmento 1: Ganaderos](https://drive.google.com/file/d/1WZdTKVgyGmAlKlI4ZXnRhkK2MJL7fO8D/view?usp=sharing)
+Cuestionario ampliado del Segmento 1: Ganaderos ([https://tinyurl.com/2bxh784s](https://tinyurl.com/2bxh784s))
 
 Como muestra el gráfico, el **50% utiliza hojas de cálculo (Excel/Google Sheets) y el 50% restante cuaderno o registro manual**; ningún ganadero emplea software especializado ganadero ni aplicación móvil. Este patrón confirma que el 100% del segmento digitaliza de forma rudimentaria o no digitaliza nada, sin ningún uso de herramientas especializadas. Además, el registro se divide entre lo semi-digital (Excel) y lo totalmente análogo (cuaderno), lo que genera trazabilidad fragmentada. En consecuencia, ICHU debe incorporar una **migración simple desde Excel y cuadernos hacia la ficha digital por animal**, sin exigir competencias técnicas avanzadas a usuarios acostumbrados a registrar en papel.
 
@@ -316,7 +316,7 @@ Como muestra el gráfico, el **50% utiliza hojas de cálculo (Excel/Google Sheet
 
 *Figura 2. Elaboración propia a partir de los datos recolectados. Startup SmartFarm.*
 
-[Cuestionario ampliado del Segmento 1: Ganaderos](https://drive.google.com/file/d/1WZdTKVgyGmAlKlI4ZXnRhkK2MJL7fO8D/view?usp=sharing)
+Cuestionario ampliado del Segmento 1: Ganaderos ([https://tinyurl.com/2bxh784s](https://tinyurl.com/2bxh784s))
 
 El gráfico evidencia una validación total de la propuesta de valor: el **100% de los ganaderos calificó la plataforma centralizada como "Muy útil, mejoraría significativamente mis procesos"**, sin ninguna respuesta neutra o negativa. Este dato porcentual respalda directamente el núcleo del producto ICHU: la centralización del historial de salud, la ubicación y las alertas por animal en un único sistema, frente a la dispersión actual en Excel y cuadernos que los propios entrevistados identifican como su principal debilidad de gestión.
 
@@ -378,7 +378,7 @@ Para complementar las entrevistas en profundidad del Segmento 2, se aplicó un c
 
 *Figura 3. Elaboración propia a partir de los datos recolectados. Startup SmartFarm.*
 
-[Cuestionario ampliado del Segmento 2: Zootecnistas y médicos veterinarios](https://drive.google.com/file/d/15h2MLOWtvMBic0O97VnSMJxAeW9ZpUy2/view?usp=drive_link)
+Cuestionario ampliado del Segmento 2: Zootecnistas y médicos veterinarios ([https://tinyurl.com/28t73nqb](https://tinyurl.com/28t73nqb))
 
 Como muestra el gráfico, los dispositivos de registro se distribuyen de forma exactamente equitativa: **33.3% smartphone, 33.3% laptop y 33.3% registros en papel únicamente**. Ningún profesional emplea tablet ni computadora de escritorio como dispositivo principal. Este patrón porcentual evidencia que un tercio del segmento aún no digitaliza su información clínica, mientras que los dos tercios restantes dependen de dispositivos móviles o portátiles. En consecuencia, la plataforma ICHU debe responder con una **aplicación móvil de primera clase** (compatible con smartphones y laptops) que además ofrezca un proceso de migración simple para trasladar los registros en papel hacia el sistema digital centralizado.
 
@@ -388,7 +388,7 @@ Como muestra el gráfico, los dispositivos de registro se distribuyen de forma e
 
 *Figura 4. Elaboración propia a partir de los datos recolectados. Startup SmartFarm.*
 
-[Cuestionario ampliado del Segmento 2: Zootecnistas y médicos veterinarios](https://drive.google.com/file/d/15h2MLOWtvMBic0O97VnSMJxAeW9ZpUy2/view?usp=drive_link)
+Cuestionario ampliado del Segmento 2: Zootecnistas y médicos veterinarios ([https://tinyurl.com/28t73nqb](https://tinyurl.com/28t73nqb))
 
 Según el gráfico, el **66.7% de los entrevistados califica los registros manuales como moderadamente confiables (50-70% de precisión)** y el **33.3% restante como confiables (70-90% de precisión)**. Es destacable que **ningún profesional los considera muy confiables ni confiables al 100%**, es decir, el 100% reconoce un margen de error de al menos un 10% en la información clínica que hoy sostiene sus decisiones. Este dato porcentual valida directamente la propuesta de valor de ICHU: historias clínicas digitales con trazabilidad completa (qué se aplicó, cuándo y quién), reduciendo riesgos ya observados por los propios entrevistados, como intoxicaciones por dosificación repetida o fallos de preñez por vacunación omitida.
 
@@ -398,7 +398,7 @@ Según el gráfico, el **66.7% de los entrevistados califica los registros manua
 
 *Figura 5. Elaboración propia a partir de los datos recolectados. Startup SmartFarm.*
 
-[Cuestionario ampliado del Segmento 2: Zootecnistas y médicos veterinarios](https://drive.google.com/file/d/15h2MLOWtvMBic0O97VnSMJxAeW9ZpUy2/view?usp=drive_link)
+Cuestionario ampliado del Segmento 2: Zootecnistas y médicos veterinarios ([https://tinyurl.com/28t73nqb](https://tinyurl.com/28t73nqb))
 
 El gráfico evidencia un resultado unánime: el **100% de los entrevistados seleccionó "Todos los anteriores"**, es decir, desea medir de forma continua los **ciclos de rumia y alimentación, la frecuencia cardíaca y respiratoria, los niveles de actividad física diaria y la temperatura corporal continua 24/7**. La unanimidad absoluta del segmento convierte a estos cuatro parámetros en el **núcleo obligatorio de telemetría biométrica** que el collar inteligente de ICHU debe capturar, ya que constituyen variables que la observación manual no logra registrar de manera precisa y sostenida.
 
@@ -442,7 +442,7 @@ Arquetipo del Segmento 1, construido a partir de los patrones identificados en l
 
 ![User Persona Cesar Flores, arquetipo del Segmento 1](assets/images/persona-segmento1-cesar-flores.png)
 
-[Ficha de User Persona de Cesar Flores en UXPressia](https://uxpressia.com/w/v8FzI/p/JsGGF?tagId=AIZ5N)
+Ficha de User Persona de Cesar Flores en UXPressia ([https://tinyurl.com/2yd9eme2](https://tinyurl.com/2yd9eme2))
 
 La ficha diferencia el uso de smartphone y laptop declarado por Próspero y Meikoll de la configuración de cuatro dispositivos que no está respaldada como patrón común. El rango de 51–200 cabezas y la preferencia por pago anual fijo corresponden a las dos respuestas del cuestionario del segmento, no a todos los predios entrevistados.
 
@@ -454,7 +454,7 @@ Arquetipo del Segmento 2, construido a partir de los patrones identificados en l
 
 ![User Persona Leonardo Rosales, arquetipo del Segmento 2](assets/images/persona-segmento2-leonardo-rosales.png)
 
-[Ficha de User Persona de Leonardo Rosales en UXPressia](https://uxpressia.com/w/v8FzI/p/Mq5pD?tagId=AIZ5N)
+Ficha de User Persona de Leonardo Rosales en UXPressia ([https://tinyurl.com/266yhp4g](https://tinyurl.com/266yhp4g))
 
 La ficha sintetiza las entrevistas a Darwin, Eliseo y Dionisio y explicita la variedad de herramientas registrada en las tres respuestas del cuestionario. ASCRIGAR Perú se mantiene como evidencia individual de Darwin para registros de gestación; no se generaliza como marca o influencia compartida. Los objetivos y motivaciones expresan resultados deseados, no efectos clínicos ya comprobados de ICHU.
 
@@ -477,39 +477,112 @@ Estos límites también se aplican a la lectura de los Empathy Maps de 2.3.4: ni
 
 ### 2.3.2. User Task Matrix.
 
-El User Task Matrix concentra las tareas que cada arquetipo ejecuta para cumplir sus objetivos. Se trata de actividades que ambos segmentos realizan hoy con independencia de que exista una solución de software, por lo que no deben confundirse con funcionalidades del sistema. Las tareas se identificaron a partir de las descripciones de jornada recogidas en las seis entrevistas.
+La User Task Matrix compara las actividades actuales de **Cesar Flores**, administrador ganadero del Segmento 1, y **Leonardo Rosales**, médico veterinario del Segmento 2. Las tareas sintetizan las jornadas descritas en las seis entrevistas y se expresan mediante una acción y su objeto de trabajo: inventario ganadero, identificación individual, evaluación sanitaria, atención clínica o control económico. Pueden ejecutarse mediante observación directa, registros de campo y hojas de cálculo, sin depender de ICHU.
 
-La frecuencia expresa con qué regularidad se ejecuta la tarea y la importancia expresa cuánto afecta al objetivo del arquetipo que la tarea se realice mal o no se realice. Ambas se valoran en tres niveles: alta, media y baja.
+La **frecuencia** indica la recurrencia de la actividad: alta, habitual; media, periódica o según el caso; baja, ocasional. La **importancia** expresa el impacto de omitirla o ejecutarla incorrectamente sobre los objetivos del arquetipo: alto, medio o bajo. Son valoraciones cualitativas de síntesis, no mediciones estadísticas. **No aplica** identifica una responsabilidad que no se atribuye a ese arquetipo en esta matriz; no equivale a importancia baja.
 
-| Tarea | Cesar Flores: frecuencia | Cesar Flores: importancia | Leonardo Rosales: frecuencia | Leonardo Rosales: importancia |
-|---|---|---|---|---|
-| Recorrer el potrero y contar las cabezas del hato | Alta | Alta | Baja | Baja |
-| Observar el comportamiento del animal para detectar anomalías | Alta | Alta | Alta | Alta |
-| Tomar constantes fisiológicas de un animal sospechoso | Media | Alta | Alta | Alta |
-| Registrar un evento sanitario o reproductivo | Media | Alta | Alta | Alta |
-| Consultar los antecedentes clínicos de un animal | Media | Alta | Alta | Alta |
-| Identificar individualmente a un animal por su arete | Alta | Media | Alta | Media |
-| Coordinar la visita de un profesional veterinario | Media | Alta | No aplica | No aplica |
-| Desplazarse entre predios para atender a distintos clientes | Baja | Baja | Alta | Alta |
-| Programar y ejecutar una campaña sanitaria | Baja | Alta | Media | Alta |
-| Aplicar un tratamiento o una inseminación | Baja | Alta | Alta | Alta |
-| Verificar el resultado de un tratamiento aplicado | Media | Alta | Alta | Alta |
-| Buscar un animal extraviado en el terreno | Baja | Alta | Baja | Baja |
-| Registrar costos de alimento, medicinas e insumos | Media | Alta | Baja | Media |
-| Elaborar reportes para sustentar decisiones | Baja | Media | Alta | Alta |
-| Consultar el calendario sanitario de la región | Baja | Media | Media | Alta |
-| Interpretar imágenes ecográficas de gestación | No aplica | No aplica | Media | Alta |
-| Evaluar la rentabilidad del ciclo productivo | Baja | Alta | Baja | Baja |
+<table>
+  <colgroup>
+    <col style="width: 40%;"/>
+    <col style="width: 15%;"/>
+    <col style="width: 15%;"/>
+    <col style="width: 15%;"/>
+    <col style="width: 15%;"/>
+  </colgroup>
+  <thead>
+    <tr>
+      <th rowspan="2" scope="col" align="left">Tarea del usuario</th>
+      <th colspan="2" scope="colgroup" align="center">Cesar Flores<br/>Administrador ganadero</th>
+      <th colspan="2" scope="colgroup" align="center">Leonardo Rosales<br/>Médico veterinario</th>
+    </tr>
+    <tr>
+      <th scope="col" align="center">Frecuencia</th>
+      <th scope="col" align="center">Importancia</th>
+      <th scope="col" align="center">Frecuencia</th>
+      <th scope="col" align="center">Importancia</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row" align="left">Conciliar el inventario ganadero mediante el conteo físico del hato en los potreros.</th>
+      <td align="center">Alta</td><td align="center">Alta</td><td align="center">Baja</td><td align="center">Baja</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Evaluar signos conductuales de alteración sanitaria o reproductiva durante el pastoreo.</th>
+      <td align="center">Alta</td><td align="center">Alta</td><td align="center">Alta</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Medir las constantes fisiológicas de un animal con sospecha de alteración sanitaria.</th>
+      <td align="center">Media</td><td align="center">Alta</td><td align="center">Alta</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Documentar eventos sanitarios y reproductivos con identificación del animal y fecha.</th>
+      <td align="center">Media</td><td align="center">Alta</td><td align="center">Alta</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Revisar los antecedentes clínicos, sanitarios y reproductivos de un animal.</th>
+      <td align="center">Media</td><td align="center">Alta</td><td align="center">Alta</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Verificar la identidad individual del bovino mediante su número de arete.</th>
+      <td align="center">Alta</td><td align="center">Media</td><td align="center">Alta</td><td align="center">Media</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Coordinar la atención veterinaria según el caso y la disponibilidad del profesional.</th>
+      <td align="center">Media</td><td align="center">Alta</td><td align="center">No aplica</td><td align="center">No aplica</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Organizar el desplazamiento entre unidades productivas para realizar atenciones veterinarias.</th>
+      <td align="center">Baja</td><td align="center">Baja</td><td align="center">Alta</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Programar y ejecutar campañas de prevención sanitaria según el calendario del hato.</th>
+      <td align="center">Baja</td><td align="center">Alta</td><td align="center">Media</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Realizar intervenciones terapéuticas o procedimientos de inseminación según indicación veterinaria.</th>
+      <td align="center">Baja</td><td align="center">Alta</td><td align="center">Alta</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Evaluar la evolución clínica posterior a una intervención terapéutica.</th>
+      <td align="center">Media</td><td align="center">Alta</td><td align="center">Alta</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Localizar un bovino extraviado mediante la inspección de las zonas de pastoreo.</th>
+      <td align="center">Baja</td><td align="center">Alta</td><td align="center">Baja</td><td align="center">Baja</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Registrar los costos operativos de alimentación, medicamentos e insumos por ciclo productivo.</th>
+      <td align="center">Media</td><td align="center">Alta</td><td align="center">Baja</td><td align="center">Media</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Elaborar informes sanitarios o productivos para sustentar decisiones de manejo.</th>
+      <td align="center">Baja</td><td align="center">Media</td><td align="center">Alta</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Verificar las fechas y pautas del calendario sanitario aplicable a la región.</th>
+      <td align="center">Baja</td><td align="center">Media</td><td align="center">Media</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Interpretar hallazgos ecográficos para evaluar el estado de gestación.</th>
+      <td align="center">No aplica</td><td align="center">No aplica</td><td align="center">Media</td><td align="center">Alta</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Analizar los costos y resultados del ciclo productivo para estimar su rentabilidad.</th>
+      <td align="center">Baja</td><td align="center">Alta</td><td align="center">Baja</td><td align="center">Baja</td>
+    </tr>
+  </tbody>
+</table>
 
 **Lectura del cuadro**
 
-Las tareas de mayor frecuencia e importancia para Cesar Flores son el recorrido del potrero con el conteo de cabezas y la observación del comportamiento animal. Ambas son actividades de vigilancia que consumen buena parte de su jornada y cuyo resultado determina si un problema se detecta a tiempo. Le siguen en importancia, aunque con menor frecuencia, la coordinación de la visita veterinaria y la búsqueda de animales extraviados: son tareas esporádicas, pero cada ocurrencia tiene consecuencias económicas directas.
+Para **Cesar Flores**, la conciliación del inventario y la evaluación del comportamiento animal combinan frecuencia e importancia altas. La coordinación veterinaria, la localización de animales extraviados y el control económico conservan importancia alta, aunque su ejecución es periódica u ocasional.
 
-Para Leonardo Rosales, la concentración de frecuencia e importancia se desplaza hacia la consulta de antecedentes clínicos, la toma de constantes, la aplicación de tratamientos y la elaboración de reportes. Su jornada se reparte entre el trabajo de campo y el de oficina, y ambas mitades dependen de información que hoy está dispersa.
+Para **Leonardo Rosales**, destacan la medición de constantes, la revisión de antecedentes, las intervenciones terapéuticas, el seguimiento clínico y los informes sanitarios, todos con frecuencia e importancia altas. La interpretación ecográfica tiene frecuencia media e importancia alta y corresponde al ámbito profesional del arquetipo.
 
-La coincidencia más relevante entre ambos arquetipos está en la observación del comportamiento animal y en el registro de eventos: los dos ejecutan estas tareas con alta frecuencia e importancia, pero las registran en soportes distintos y sin conexión entre sí, lo que explica la duplicidad de información que ambos segmentos reportaron.
+La principal **coincidencia** es la evaluación del comportamiento animal, con frecuencia e importancia altas para ambos. Documentar eventos y revisar antecedentes también tiene importancia alta en los dos perfiles, pero su frecuencia es media para Cesar y alta para Leonardo. La identificación por arete es frecuente en ambos y tiene importancia media en esta valoración.
 
-La diferencia más marcada está en el alcance geográfico. Cesar Flores concentra todas sus tareas en una sola unidad productiva, mientras que Leonardo Rosales se desplaza entre varios predios, lo que convierte la portabilidad de la información en una necesidad exclusiva del Segmento 2. Una segunda diferencia es el eje económico: la evaluación de rentabilidad y el control de costos son tareas propias del administrador y resultan marginales para el profesional veterinario.
+Las **diferencias** se concentran en la responsabilidad operativa: Cesar prioriza inventario, costos y rentabilidad; Leonardo, atención clínica, informes y desplazamiento entre predios. La información de campo debe acompañar el trabajo de ambos perfiles; la movilidad entre unidades productivas tiene mayor peso para el veterinario, pero no convierte la portabilidad en una necesidad exclusiva de ese segmento.
 
 ### 2.3.3. User Journey Mapping.
 
@@ -525,7 +598,7 @@ Ambos mapas fueron elaborados en UXPressia y están vinculados a la ficha de Use
 
 *Figura 6. Elaboración de creación propia por datos recolectados, startup SmartFarm.*
 
-[User Journey Map de Cesar Flores en UXPressia](https://uxpressia.com/w/v8FzI/t/AIZ5N)
+User Journey Map de Cesar Flores en UXPressia ([https://uxpressia.com/w/v8FzI/t/AIZ5N](https://uxpressia.com/w/v8FzI/t/AIZ5N))
 
 **User Journey Map As-Is de Leonardo Rosales**
 
@@ -533,7 +606,7 @@ Ambos mapas fueron elaborados en UXPressia y están vinculados a la ficha de Use
 
 *Figura 7. Elaboración de creación propia por datos recolectados, startup SmartFarm.*
 
-[User Journey Map de Leonardo Rosales en UXPressia](https://uxpressia.com/w/v8FzI/t/AIZ5N)
+User Journey Map de Leonardo Rosales en UXPressia ([https://uxpressia.com/w/v8FzI/t/AIZ5N](https://uxpressia.com/w/v8FzI/t/AIZ5N))
 
 #### As-Is Mapping
 
@@ -561,7 +634,7 @@ Para la elaboración de los Empathy Maps, el equipo partió de las entrevistas y
 
 ![Empathy Map de Cesar Flores, arquetipo del Segmento 1](assets/images/empathy-map-segmento1-ganadero.jpg)
 
-[Empathy Map del Segmento 1 en UXPressia](https://uxpressia.com/w/v8FzI/t/AIZ5N)
+Empathy Map del Segmento 1 en UXPressia ([https://uxpressia.com/w/v8FzI/t/AIZ5N](https://uxpressia.com/w/v8FzI/t/AIZ5N))
 
 Se empatiza con un arquetipo de propietario o administrador ganadero. En esta muestra, los predios entrevistados se encuentran en Apurímac y Cusco y los tamaños declarados varían; no se toma la localización ni escala de un solo participante como requisito universal.
 
@@ -575,7 +648,7 @@ Los **Pains comunes documentados** son la fragmentación de registros y la conec
 
 ![Empathy Map de Leonardo Rosales, arquetipo del Segmento 2](assets/images/empathy-map-segmento2-veterinario.jpg)
 
-[Empathy Map del Segmento 2 en UXPressia](https://uxpressia.com/w/v8FzI/t/AIZ5N)
+Empathy Map del Segmento 2 en UXPressia ([https://uxpressia.com/w/v8FzI/t/AIZ5N](https://uxpressia.com/w/v8FzI/t/AIZ5N))
 
 Se empatiza con un arquetipo de zootecnista o médico veterinario que combina atención en campo con análisis y documentación clínica. Las entrevistas describen esta dinámica en Darwin, Eliseo y Dionisio, aunque las herramientas y tareas específicas varían entre ellos.
 
@@ -607,7 +680,7 @@ El inventario sin ordenar contiene 36 eventos candidatos del negocio. Las notas 
 
 *Figura 2.4.1. Exploración caótica: 36 eventos candidatos del negocio redactados en pasado, sin componentes de la solución futura. Fuente: tablero de SmartFarm en FigJam.*
 
-Tablero de figma del big picture event storming: https://tinyurl.com/BigPictureEventStorming
+Tablero de figma del big picture event storming: [https://tinyurl.com/BigPictureEventStorming](https://tinyurl.com/BigPictureEventStorming)
 
 **Etapa 2 — Ordenamiento temporal**
 
@@ -617,7 +690,7 @@ Los mismos 36 eventos candidatos se organizan en seis carriles del negocio, que 
 
 *Figura 2.4.2. Ordenamiento temporal: ciclo de vida del hato, observaciones durante el pastoreo, intervención sanitaria, reproducción, campañas preventivas y registros en campo e informes. Fuente: tablero de SmartFarm en FigJam.*
 
-Tablero de figma del big picture event storming: https://tinyurl.com/BigPictureEventStorming
+Tablero de figma del big picture event storming: [https://tinyurl.com/BigPictureEventStorming](https://tinyurl.com/BigPictureEventStorming)
 
 El carril de reproducción ilustra una secuencia exitosa, no una preñez o un parto garantizados. La revisión del historial de medicamentos y el diagnóstico pueden ocurrir en un orden distinto. Los períodos de retiro se aplican únicamente cuando el tratamiento administrado los requiere; las reglas efectivamente utilizadas, los criterios de cierre de campañas y los traspasos de información sobre costos e indicadores se mantienen pendientes de validación. No se define ningún umbral clínico ni política de software.
 
@@ -629,7 +702,7 @@ Las notas amarillas identifican roles del negocio: ganadero propietario, trabaja
 
 *Figura 2.4.3. Personas y medios de apoyo externos: roles actuales, herramientas de apoyo y registro externo de criadores, sin la infraestructura propuesta de ICHU. Fuente: tablero de SmartFarm en FigJam.*
 
-Tablero de figma del big picture event storming: https://tinyurl.com/BigPictureEventStorming
+Tablero de figma del big picture event storming: [https://tinyurl.com/BigPictureEventStorming](https://tinyurl.com/BigPictureEventStorming)
 
 ASCRIGAR Perú es un participante administrativo externo mencionado en las necesidades de Darwin sobre evidencia para el registro de gestación. No se representa como una integración mediante API que ya exista. La evidencia requerida, la responsabilidad de presentar la documentación y los pasos de aceptación permanecen como preguntas abiertas. Los actores del negocio no se sustituyen por collares, un dispositivo de borde ni un servicio central.
 
@@ -641,7 +714,7 @@ La revisión de la secuencia del negocio vincula cinco eventos de referencia con
 
 *Figura 2.4.4. Problemas y oportunidades: cinco dolores del negocio actual, cinco resultados deseados y cuatro preguntas explícitas de validación. Fuente: tablero de SmartFarm en FigJam.*
 
-Tablero de figma del big picture event storming: https://tinyurl.com/BigPictureEventStorming
+Tablero de figma del big picture event storming: [https://tinyurl.com/BigPictureEventStorming](https://tinyurl.com/BigPictureEventStorming)
 
 | Evento de referencia | Dolor actual o asunto pendiente | Resultado deseado y evidencia |
 |---|---|---|
@@ -666,7 +739,7 @@ Cuatro eventos pivote en morado marcan cambios en la responsabilidad o en el enf
 
 *Figura 2.4.5. Eventos pivote y áreas de negocio emergentes: cuatro eventos pivote y eventos de apoyo asociados con cinco áreas provisionales del negocio. Fuente: tablero de SmartFarm en FigJam.*
 
-Tablero de figma del big picture event storming: https://tinyurl.com/BigPictureEventStorming
+Tablero de figma del big picture event storming: [https://tinyurl.com/BigPictureEventStorming](https://tinyurl.com/BigPictureEventStorming)
 
 Las áreas provisionales son **Identificación y ciclo de vida del hato**, **Observación durante el pastoreo y respuesta**, **Salud animal y atención clínica**, **Reproducción y evidencia**, y **Campañas preventivas e informes**. *Campaña sanitaria cerrada* sirve de apoyo a la revisión administrativa, sujeta a la validación de las reglas de cierre. *Animal dado de baja después de un robo* pertenece a la gestión del ciclo de vida del hato, no exclusivamente a la elaboración de informes. El mantenimiento de registros de campo atraviesa estas áreas; no es un servicio de telemetría. Estas agrupaciones son hipótesis de exploración, no un mapa de contextos definitivo, una descomposición de servicios ni una asignación de responsabilidades de software.
 
@@ -683,114 +756,59 @@ La tabla presenta, traducidos al español, los mismos 36 eventos de las etapas 1
 | Campaña sanitaria preventiva (3) | Campaña sanitaria programada; Aplicación preventiva registrada; Campaña sanitaria cerrada. |
 | Registros de campo e informes (5) | Observación de campo registrada; Registro de campo ingresado en hoja de cálculo; Costo consolidado; Indicadores del período calculados; Informe entregado al propietario. |
 
-Tablero de figma del big picture event storming: https://tinyurl.com/BigPictureEventStorming
+Tablero de figma del big picture event storming: [https://tinyurl.com/BigPictureEventStorming](https://tinyurl.com/BigPictureEventStorming)
 
 ## 2.5. Ubiquitous Language.
 
-El Lenguaje Ubicuo (*Ubiquitous Language*) es el vocabulario riguroso, compartido y libre de ambigüedades utilizado por todos los miembros del equipo de desarrollo, los expertos del dominio y los usuarios ganaderos para modelar la realidad del negocio, tal como lo establece Eric Evans en *Domain-Driven Design: Tackling Complexity in the Heart of Software*.  
+El lenguaje ubicuo reúne los términos que comparten los ganaderos, los operarios de campo, los médicos veterinarios, los zootecnistas y el equipo para describir el negocio ganadero investigado en las secciones 2.2 y 2.3. Se presenta como un único glosario, ordenado alfabéticamente por el término en español. El equivalente en inglés facilita la lectura de los eventos de la sección 2.4 sin cambiar su significado.
 
-Para asegurar una comunicación técnica e interdisciplinaria coherente en la documentación, los diagramas de arquitectura C4, los *Bounded Contexts* y el código fuente, se han formalizado las siguientes reglas semánticas fundamentales sobre los términos principales del dominio ganadero:
+Las definiciones describen animales, personas, lugares, prácticas, registros y relaciones del negocio. Una ficha o un historial puede mantenerse en cuadernos, formularios u hojas de cálculo; su existencia no presupone una aplicación. Las reglas clínicas específicas y los procedimientos que las entrevistas no confirman requieren validación con los profesionales y responsables de cada unidad productiva.
 
-* **Cattle (Ganado Bovino):** Se utiliza exclusivamente para referirse a la especie bovina (vacas, toros, terneros, vaquillonas), que constituye la entidad central de monitoreo de la plataforma. No debe usarse para referirse a otras especies animales.
-* **Livestock (Ganado en sentido general / Sector Pecuario):** Se emplea para abarcar la actividad ganadera o pecuaria de forma general, el sector agropecuario o el conjunto de animales de granja de una región.
-* **Herd (Hato):** Designa el grupo, manada o conjunto total de ganado bovino administrado dentro de una unidad productiva ganadera específica (*Ranch*).
-* **Smart Collar (Collar Inteligente):** Denominación única y estandarizada para el dispositivo físico de telemetría IoT colocado en el cuello del animal. Se elimina el uso alternado de términos como *"Cattle Band"* o *"Collar GPS"* para evitar ambigüedades en el código y los diagramas de arquitectura.
-
-A continuación, se organiza el glosario del dominio distribuido por los *Bounded Contexts* clave que conforman el ecosistema **ICHU**. Todos los términos corresponden estrictamente a conceptos del negocio ganadero y omiten jerga técnica de ingeniería de software.  
-
-### 2.5.1\. Términos Transversales del Dominio (Cross-Domain Terms)
-
-| Término (Inglés)          | Equivalente en Español    | Definición y Regla del Dominio                                                                                                                                        |
-| ------------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Cattle**                | Ganado bovino             | Población de bovinos (vacas, toros, terneros) gestionados por la unidad productiva. Es la entidad central objeto de monitoreo biométrico y localización.              |
-| **Livestock**             | Ganado en sentido general | Término global para referirse a la actividad ganadera, el sector pecuario o la producción animal en general.                                                          |
-| **Herd**                  | Hato                      | Conjunto específico de ganado bovino que pertenece a una estancia o unidad productiva; constituye la unidad principal de gestión del ganadero.                        |
-| **Smart Collar**          | Collar inteligente        | Dispositivo físico IoT estandarizado que se instala en el cuello del bovino para capturar constantes biométricas (temperatura, rumia) y geolocalización.              |
-| **Ear Tag**               | Arete                     | Identificador visual físico o arete numérico colocado en la oreja del bovino para su identificación individual en el corral.                                          |
-| **Cattle Rustling**       | Abigeato                  | Delito de hurto o robo de ganado bovino; principal riesgo patrimonial en zonas de pastoreo extensivo.                                                                 |
-| **Silent Heat**           | Celo silencioso           | Evento reproductivo en el que la vaca no muestra signos externos visibles de celo, pero presenta variaciones térmicas y de actividad física detectables por sensores. |
-| **Days Open**             | Días abiertos             | Intervalo de tiempo transcurrido entre el parto de la vaca y su posterior concepción confirmada; indicador clave de eficiencia reproductiva del hato.                 |
-| **Bloat**                 | Timpanismo                | Trastorno digestivo grave causado por la acumulación anormal de gases en el rumen, con evolución rápida que requiere intervención médica urgente.                     |
-| **High Mountain Disease** | Mal de altura             | Alteración fisiológica en terneros criados en zonas andinas de altitud elevada; se manifiesta inicialmente mediante un letargo y marcada reducción de la actividad.   |
-| **Livestock Calendar**    | Calendario ganadero       | Programación sanitaria regional que establece las fechas óptimas para faenas de vacunación, desparasitación y vitaminación del hato.                                  |
-
-
-### 2.5.2\. Identity &amp; Access Management Domain
-
-| Término (Inglés)       | Equivalente en Español  | Definición y Regla del Dominio                                                                                                                                      |
-| ---------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Herd Advisory**      | Asesoría del hato       | Vínculo profesional por el cual un médico veterinario o zootecnista presta servicios de salud y supervisión técnica a un hato administrado por un tercero.          |
-| **Advisory Scope**     | Alcance de la asesoría  | Delimitación del conjunto de animales o potreros sobre los cuales un profesional sanitario tiene autorización para consultar antecedentes y registrar tratamientos. |
-| **Veterinary License** | Colegiatura veterinaria | Número de registro oficial expedido por el colegio profesional correspondiente que habilita al médico veterinario a prescribir tratamientos y emitir diagnósticos.  |  
-
-### 2.5.3\. Profiles &amp; Preferences Management Domain
-
-| Término (Inglés)                 | Equivalente en Español           | Definición y Regla del Dominio                                                                                                                         |
-| -------------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Cattle Rancher**               | Ganadero propietario             | Propietario de la unidad productiva ganadera que toma las decisiones financieras, evalúa la rentabilidad del hato y contrata la suscripción.           |
-| **Ranch Administrator**          | Administrador de estancia        | Responsable operativo de la gestión diaria del hato, supervisión de capataces, control de inventario de insumos y consolidación de reportes.           |
-| **Veterinarian / Zootechnician** | Médico Veterinario / Zootecnista | Profesional especialista de salud animal responsable del monitoreo de signos vitales, diagnóstico clínico y emisión de prescripciones para el hato.    |
-| **Field Operator**               | Capataz / Operario de campo      | Personal operativo de terreno encargado del manejo directo de los animales en el corral, recorrido de potreros y ejecución física de faenas ganaderas. |
-| **Ranch**                        | Fundo / Estancia / Hacienda      | Predio o unidad geográfica delimitada orientada a la explotación ganadera (ej. Fundo El Ganadero, Hacienda del Marqués).                               |  
-
-
-### 2.5.4\. Cattle Information Management Domain
-
-| Término (Inglés)           | Equivalente en Español              | Definición y Regla del Dominio                                                                                                              |
-| -------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Individual Record**      | Ficha individual                    | Expediente digital único de cada bovino que consolida su identificación por arete, raza, etapa productiva, linaje y estado de salud.        |
-| **Breed**                  | Raza                                | Clasificación genética del bovino (ej. Brown Swiss, Fleckvieh, Criollo, Cruzado).                                                           |
-| **Life Stage**             | Etapa productiva                    | Fase de desarrollo del bovino dentro del ciclo del hato (ej. ternero, vaquillona, vaca en producción, toro en engorde).                     |
-| **Lot**                    | Lote                                | Subgrupo de bovinos clasificados bajo criterios operativos comunes (edad, condición corporal, potrero de ubicación o propósito productivo). |
-| **Paddock**                | Potrero                             | Subdivisión geográfica de pastizal dentro de la estancia donde pastorea un lote específico de ganado bovino.                                |
-| **Genealogy**              | Genealogía                          | Registro de ascendencia del animal (macho progenitor y hembra progenitora) utilizado para la certificación de pureza racial.                |
-| **Pregnancy Status**       | Estado de gestación                 | Condición reproductiva de la hembra bovina (vaca vacía, preñada o en periodo de transición al parto).                                       |
-| **Physiological Baseline** | Constante fisiológica de referencia | Valores estándar de temperatura corporal (37.5 °C - 39.5 °C) y frecuencias fisiológicas correspondientes a un bovino sano en reposo.        |  
-
-### 2.5.5\. IoT Asset Management Domain
-
-| Término (Inglés)   | Equivalente en Español      | Definición y Regla del Dominio                                                                                                                              |
-| ------------------ | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Smart Collar**   | Collar inteligente          | Unidad electrónica IoT hermética equipada con sensores y transmisor de red, colocada en el bovino para captura continua de datos.                           |
-| **Device Band**    | Correa del collar           | Accesorio de sujeción ajustable que sostiene el collar inteligente en el cuello del animal y puede reemplazarse de forma independiente.                     |
-| **Device Pairing** | Vinculación del dispositivo | Asociación lógica entre un *Smart Collar* específico y la ficha individual de un bovino en el sistema.                                                      |
-| **Battery Life**   | Autonomía de batería        | Duración estimada de la fuente de energía del *Smart Collar* bajo perfiles de transmisión optimizados.                                                      |
-| **Blind Zone**     | Zona ciega                  | Área de pastoreo extensivo con ausencia temporal de cobertura de red celular o LoRaWAN, donde el dispositivo o el *Edge Service* almacena datos localmente. |  
-
-### 2.5.6\. Operations &amp; Monitoring Domain
-
-| Término (Inglés)         | Equivalente en Español | Definición y Regla del Dominio                                                                                                                                  |
-| ------------------------ | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Biotelemetry**         | Telemetría biométrica  | Conjunto de datos fisiológicos capturados por el *Smart Collar*, como temperatura corporal interna, índice de actividad y patrones de movimiento.               |
-| **Rumination**           | Rumia                  | Proceso fisiológico de masticación diferida en el bovino; la reducción sostenida de sus horas diarias constituye el principal indicador temprano de enfermedad. |
-| **Red Alert**            | Alerta roja            | Notificación prioritaria generada automáticamente al detectar que una constante biométrica sobrepasa los umbrales de riesgo (ej. fiebre &gt; 40.0 °C).             |
-| **Clinical Threshold**   | Umbral clínico         | Rango o límite cuantitativo de temperatura o inactividad calibrado por los veterinarios que desencadena las notificaciones de emergencia.                       |
-| **Geofence**             | Geocerca               | Perímetro virtual geográfico trazado alrededor del potrero; la salida no autorizada del bovino genera un aviso por posible extravío o abigeato.                 |
-| **Estrus Detection**     | Detección de celo      | Identificación algorítmica de la ventana fértil de la hembra bovina mediante el análisis combinado de picos de actividad física y variaciones térmicas.         |
-| **Gestation Ultrasound** | Ecografía de gestación | Examen de diagnóstico por imagen realizado por el veterinario para confirmar la preñez y adjuntar evidencia gráfica al historial del animal.                    |  
-
-### 2.5.7\. Health &amp; Reproductive Planning Domain
-
-| Término (Inglés)      | Equivalente en Español | Definición y Regla del Dominio                                                                                                                                   |
-| --------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Health Campaign**   | Campaña sanitaria      | Intervención profiláctica programada sobre el hato (vacunación masiva, desparasitación) alineada al calendario ganadero regional.                                |
-| **Withdrawal Period** | Tiempo de retiro       | Intervalo obligatorio posterior a la administración de un fármaco veterinario durante el cual la leche o carne del bovino no puede destinarse al consumo humano. |
-| **Quarantine**        | Cuarentena             | Aislamiento preventivo de animales enfermos o recién ingresados a la estancia para evitar la propagación de contagios en el hato.                                |
-| **Gestation Window**  | Ventana de parto       | Periodo estimado para el nacimiento del ternero, calculado automáticamente a partir de la fecha de inseminación o servicio confirmado.                           |  
-
-
-### 2.5.8\. Dashboard &amp; Analytics Domain
-
-| Término (Inglés)          | Equivalente en Español       | Definición y Regla del Dominio                                                                                                        |
-| ------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| **Executive Dashboard**   | Tablero de control ejecutivo | Vista resumida con indicadores cuantitativos consolidada para el propietario (mortalidad, tasa de preñez, distribución por potreros). |
-| **Epidemiological Curve** | Curva epidemiológica         | Representación gráfica del comportamiento y distribución de eventos de enfermedad en el hato a lo largo del tiempo.                   |
-| **Executive Report**      | Reporte ejecutivo            | Informe estructurado exportable en formatos estándar (PDF, Excel) con los registros sanitarios, reproductivos y operativos del hato.  |  
-
-
-### 2.5.9\. Subscriptions &amp; Payment Management Domain
-
-| Término (Inglés)        | Equivalente en Español | Definición y Regla del Dominio                                                                                                        |
-| ----------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| **Annual Subscription** | Suscripción anual      | Modalidad de contratación preferida por los ganaderos con tarifa fija por cabeza de ganado monitoreada.                               |
-| **Plan Coverage**       | Cobertura del plan     | Alcance de funcionalidades, almacenamiento histórico y número de dispositivos *Smart Collar* habilitados según la suscripción activa. |
+| Término del negocio | Equivalente en inglés | Significado compartido |
+|---|---|---|
+| Abigeato | Cattle rustling | Robo de ganado. Se distingue del extravío, en el que se desconoce la ubicación del animal sin que se haya confirmado un robo. |
+| Abrevadero | Water trough | Lugar o recipiente destinado a proporcionar agua de bebida al ganado. |
+| Administrador ganadero | Ranch administrator | Persona responsable de organizar la operación de la unidad productiva, mantener sus registros y coordinar las faenas y la atención del hato. Puede ser también su propietario. |
+| Alcance de la asesoría | Advisory scope | Animales, lotes, labores y responsabilidades que el propietario o administrador acuerda con el profesional que asesora a la unidad productiva. |
+| Arete | Ear tag | Identificador físico colocado en la oreja del bovino para reconocerlo individualmente y asociarlo con sus registros. |
+| Asesoría del hato | Herd advisory | Relación profesional mediante la cual un médico veterinario o zootecnista asesora a una unidad productiva sobre salud, reproducción, alimentación o manejo. |
+| Baja de un animal | Animal deregistration | Constancia de que un animal deja de formar parte del inventario activo del hato por muerte, venta o robo. No equivale a borrar sus antecedentes. |
+| Calendario ganadero | Livestock calendar | Organización de las labores sanitarias, reproductivas y de manejo de la unidad productiva según la época y las condiciones de la región. |
+| Campaña sanitaria | Health campaign | Conjunto planificado de intervenciones preventivas, como vacunación o desparasitación, dirigido a un grupo de animales. Sus responsables y reglas de cierre deben acordarse con la unidad productiva. |
+| Celo | Estrus | Periodo reproductivo de la hembra bovina que se considera para decidir el momento del servicio. Su identificación corresponde a la observación y valoración del responsable del manejo reproductivo. |
+| Celo silencioso | Silent heat | Celo cuyos signos externos son poco evidentes para quien observa al animal. Es una dificultad de detección mencionada en las entrevistas, independiente del medio utilizado para observarlo. |
+| Colegiatura veterinaria | Veterinary license | Registro profesional del médico veterinario que se consigna para identificar al responsable de una atención o informe clínico. |
+| Cuarentena | Quarantine | Separación temporal de animales por motivos sanitarios, bajo las indicaciones del profesional responsable. |
+| Diagnóstico | Diagnosis | Conclusión clínica que el médico veterinario establece tras evaluar al animal y los antecedentes disponibles. Se distingue de una observación de campo o una sospecha. |
+| Días abiertos | Days open | Intervalo entre el parto de una hembra y la concepción siguiente, utilizado en el seguimiento reproductivo. |
+| Ecografía de gestación | Gestation ultrasound | Examen por imagen que el profesional utiliza para evaluar la gestación y conservar evidencia de sus hallazgos. |
+| Etapa productiva | Production stage | Fase de desarrollo o función productiva del animal, como ternero, vaquillona o vaca en producción. |
+| Extravío | Missing animal | Situación en la que un animal no se encuentra donde se esperaba y se desconoce su ubicación. Requiere búsqueda; por sí sola no confirma abigeato. |
+| Faena ganadera | Livestock task | Jornada o labor de manejo realizada sobre uno o varios animales, como vacunación, desparasitación o revisión del hato. |
+| Ficha individual | Individual record | Registro que identifica a un animal y reúne sus datos de raza, etapa productiva, procedencia y otros antecedentes. El soporte puede ser físico o digital. |
+| Ganadero propietario | Cattle rancher | Persona propietaria de la unidad productiva o del ganado que decide sobre inversiones, contratación de servicios y objetivos de producción. |
+| Ganado bovino | Cattle | Conjunto de animales de la especie bovina, como vacas, toros, terneros y vaquillonas. En el informe, el término no incluye otras especies. |
+| Ganado en sentido general | Livestock | Conjunto de animales de producción pecuaria, que puede abarcar distintas especies. Se distingue del ganado bovino estudiado en el proyecto. |
+| Genealogía | Genealogy | Antecedentes de ascendencia de un animal utilizados para el seguimiento reproductivo y el mejoramiento genético. |
+| Gestación o preñez | Pregnancy | Estado reproductivo de la hembra que lleva una cría en desarrollo. La sospecha de preñez se distingue de la confirmación profesional documentada. |
+| Hato | Herd | Conjunto de bovinos administrado en una misma unidad productiva. Puede organizarse en varios lotes. |
+| Historial clínico | Clinical history | Secuencia de observaciones, diagnósticos, tratamientos, exámenes e intervenciones de un animal, con sus fechas y responsables cuando están disponibles. |
+| Informe de la unidad productiva | Ranch report | Documento que reúne resultados sanitarios, reproductivos, operativos o económicos de un periodo para informar al propietario y apoyar decisiones. |
+| Intervención clínica | Clinical intervention | Atención que realiza el médico veterinario sobre un animal, con el procedimiento o producto aplicado y su fecha. |
+| Lote | Lot | Subgrupo del hato reunido por criterios de manejo, como edad, condición productiva o potrero asignado. No equivale al terreno donde se encuentra. |
+| Mal de altura | High mountain disease | Denominación empleada por Grober para un problema de salud observado en terneros criados en altura. Su identificación requiere evaluación profesional. |
+| Médico veterinario | Veterinarian | Profesional que evalúa la salud animal, establece diagnósticos, indica tratamientos y documenta la atención clínica. |
+| Observación de campo | Field observation | Hecho advertido durante el manejo o recorrido del predio, como una conducta inusual o una disminución de actividad. No constituye por sí mismo un diagnóstico. |
+| Operario de campo | Field operator | Persona que realiza el manejo directo de los animales, recorre potreros y ejecuta las faenas asignadas. Puede comunicar y registrar observaciones. |
+| Parto | Calving | Nacimiento de la cría que cierra la gestación y forma parte del historial reproductivo de la hembra. |
+| Pastoreo | Grazing | Actividad de alimentación del ganado en áreas de pastos, acompañada por las labores de conducción y observación que corresponden al predio. |
+| Periodo de retiro | Withdrawal period | Plazo indicado para un medicamento veterinario durante el cual los productos del animal tratado no se destinan al consumo. Su aplicación depende del producto y de la indicación profesional. |
+| Potrero | Paddock | Área de pastos delimitada dentro del predio para organizar el pastoreo. Puede recibir distintos lotes en momentos diferentes. |
+| Raza | Breed | Clasificación del bovino por sus características de origen y crianza, registrada para su identificación y manejo. |
+| Registro de campo | Field record | Anotación de una observación o labor durante la faena, vinculada al animal y al momento del hecho. Puede incorporarse después a los registros de oficina. |
+| Rumia | Rumination | Proceso digestivo del bovino cuya observación aporta información al seguimiento de su estado general. Su valoración se interpreta junto con otros hallazgos. |
+| Servicio reproductivo | Breeding service | Monta o inseminación registrada para el seguimiento de la reproducción. Un servicio no garantiza una preñez. |
+| Timpanismo | Bloat | Problema digestivo del bovino mencionado por Darwin y Eliseo entre los casos sanitarios atendidos. Su diagnóstico corresponde al médico veterinario. |
+| Tratamiento | Treatment | Medida terapéutica indicada por el médico veterinario y aplicada al animal, con registro del producto o procedimiento, fecha y responsable. |
+| Unidad productiva ganadera | Ranch | Organización y predio donde se administra el hato; en las entrevistas también se denomina fundo, estancia o hacienda. |
+| Zootecnista | Zootechnician | Profesional que asesora sobre producción, alimentación, reproducción y manejo del ganado dentro de su ámbito de trabajo. Su rol se distingue del diagnóstico clínico veterinario. |

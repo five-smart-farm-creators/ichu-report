@@ -2,10 +2,10 @@
 
 **Ganadero**<br>
 Encuesta extensa del segmento de ganaderos.<br>
-[Abrir encuesta de ganaderos en Google Drive](https://drive.google.com/file/d/1WZdTKVgyGmAlKlI4ZXnRhkK2MJL7fO8D/view?usp=sharing)
+Abrir encuesta de ganaderos en Google Drive ([https://tinyurl.com/2bxh784s](https://tinyurl.com/2bxh784s))
 
 **Zootecnista / veterinario**<br>
 Encuesta extensa del segmento profesional.<br>
-[Abrir encuesta de profesionales en Google Drive](https://drive.google.com/file/d/15h2MLOWtvMBic0O97VnSMJxAeW9ZpUy2/view?usp=drive_link)
+Abrir encuesta de profesionales en Google Drive ([https://tinyurl.com/28t73nqb](https://tinyurl.com/28t73nqb))
 
 Estas evidencias complementan los resúmenes, análisis de entrevistas, User Personas y mapas incluidos en el Capítulo II.

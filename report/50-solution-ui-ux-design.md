@@ -49,7 +49,7 @@ La arquitectura de información de este capítulo corresponde al landing y a la 
 
 Los nombres de hatos, lotes y potreros se ordenan alfabéticamente; los animales se identifican por arete. Registro, vinculación de collar e intervención usan pasos breves: seleccionar, completar y confirmar. El veterinario selecciona primero un hato autorizado; el administrador trabaja sobre su unidad y el operario sobre las tareas habilitadas.
 
-El [landing de referencia](https://github.com/SmartFarm-8733/LandingPageSmartFarm) contiene Inicio, Quiénes somos, Ganaderos, Veterinarios, Tecnología y Contacto, además de las páginas Cómo funciona y Web y Media. La propuesta incorpora Planes y Términos (US-35–US-36) y accesos diferenciados a la aplicación (US-33), sin confundir el arete de identificación con el collar IoT.
+El landing de referencia ([https://tinyurl.com/27vbhfce](https://tinyurl.com/27vbhfce)) contiene Inicio, Quiénes somos, Ganaderos, Veterinarios, Tecnología y Contacto, además de las páginas Cómo funciona y Web y Media. La propuesta incorpora Planes y Términos (US-35–US-36) y accesos diferenciados a la aplicación (US-33), sin confundir el arete de identificación con el collar IoT.
 
 ### 5.2.2. Labeling Systems
 
@@ -312,7 +312,7 @@ Si ya existe una autorización o una solicitud pendiente, la Web Application con
 
 ## 5.5. Applications Prototyping
 
-El prototipo de alta fidelidad corresponde a la Web Application de ICHU, construida con Angular [9]. Se puede explorar en la [versión desplegada](https://web-frontend-smart-farm.vercel.app/login); el [repositorio del frontend](https://github.com/SmartFarm-8733/WebFrontend-SmartFarm) contiene su código fuente. Esta entrega cubre la aplicación web en navegadores de escritorio y en ventanas estrechas; no contempla una aplicación móvil nativa.
+El prototipo de alta fidelidad corresponde a la Web Application de ICHU, construida con Angular [9]. Se puede explorar en la versión desplegada ([https://web-frontend-smart-farm.vercel.app/login](https://web-frontend-smart-farm.vercel.app/login)); el repositorio del frontend ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) contiene su código fuente. Esta entrega cubre la aplicación web en navegadores de escritorio y en ventanas estrechas; no contempla una aplicación móvil nativa.
 
 La navegación sigue la arquitectura de información de 5.2.5: el menú lateral organiza las áreas de trabajo y la cabecera conserva visibles el rol y el hato activos. Los recorridos se relacionan con las metas de usuario de 5.4.4. En escritorio y en ventanas estrechas se muestran las mismas funciones, con una disposición adaptable; los formularios presentan validación y confirmación de las acciones disponibles.
 
@@ -442,4 +442,4 @@ En el alcance definido hoy, **solo el trayecto del collar al Edge está establec
 | Flujo BLE/Wi-Fi hacia Edge y sincronización con la nube | Decisión arquitectónica descrita en los capítulos III y IV; no se implementó ni probó con estos dispositivos. | Technical Stories TS-01–TS-06 y arquitectura de 4.1.3.3. |
 | Lecturas del controlador del agua y presentación de alertas | Contratos y comportamiento propuestos; no se enviaron lecturas reales ni se verificó una alerta de extremo a extremo. | TS-14 y diagramas conceptuales de esta sección. |
 
-El https://app.cirkitdesigner.com/project/a07ab13c-8ded-4672-a786-deecb40e13c2 conserva el lienzo completo.
+El proyecto editable de Cirkit Designer ([https://tinyurl.com/2bzhcwa7](https://tinyurl.com/2bzhcwa7)) conserva el lienzo completo.

@@ -10,26 +10,26 @@ La Landing Page de ICHU se desarrolla como un sitio estático con **HTML, CSS y 
 
 Para una revisión local, el README del repositorio permite abrir `index.html` directamente en un navegador o iniciar un servidor estático con `npx serve .` o `python -m http.server 8080`. El README también menciona una comprobación con jsdom para identificar IDs duplicados, recursos faltantes, anclas rotas y estilos inline; sin embargo, en la copia del proyecto revisada no se encontró el script ni un `package.json` que permita ejecutarla. Por tanto, esa comprobación no es reproducible con el material disponible y no se presenta como una prueba ejecutada.
 
-El frontend web de la plataforma es un segundo artefacto, desarrollado con Angular y TypeScript, con componentes de Angular Material. Su [repositorio de código](https://github.com/SmartFarm-8733/WebFrontend-SmartFarm) incluye el manifiesto de dependencias y los comandos del proyecto. En la revisión del manifiesto se observaron Angular y Angular Material 22.2.2, TypeScript 6.0.3 y Playwright 1.64.0; las versiones corresponden al estado del repositorio consultado y no implican que exista un backend conectado. Las capturas disponibles muestran la interfaz de inicio de sesión y un dashboard con datos de muestra.
+El frontend web de la plataforma es un segundo artefacto, desarrollado con Angular y TypeScript, con componentes de Angular Material. Su repositorio de código ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) incluye el manifiesto de dependencias y los comandos del proyecto. En la revisión del manifiesto se observaron Angular y Angular Material 22.2.2, TypeScript 6.0.3 y Playwright 1.64.0; las versiones corresponden al estado del repositorio consultado y no implican que exista un backend conectado. Las capturas disponibles muestran la interfaz de inicio de sesión y un dashboard con datos de muestra.
 
 | Elemento | Configuración documentada |
 |---|---|
 | Landing Page — lenguajes y ejecución | HTML, CSS y JavaScript; navegador web, con servidor estático opcional |
 | Landing Page — organización | Páginas HTML, `css/styles.css`, `js/i18n.js` y `js/main.js`; no utiliza framework ni proceso de compilación |
-| Web Application — tecnologías verificadas | Angular 22.2.2, TypeScript 6.0.3 y Angular Material 22.2.2, según el manifiesto del [repositorio](https://github.com/SmartFarm-8733/WebFrontend-SmartFarm) |
+| Web Application — tecnologías verificadas | Angular 22.2.2, TypeScript 6.0.3 y Angular Material 22.2.2, según el manifiesto del repositorio ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) |
 | Web Application — comandos del manifiesto | `npm start`, `npm run build`, `npm run typecheck` y `npm run test:e2e`; este último ejecuta Playwright |
 | Backend | No implementado en el alcance documentado; la interfaz web presenta datos de ejemplo |
 | Landing Page — validación automatizada | El README menciona jsdom, pero no se encontró el script ni su configuración en la copia revisada; no es reproducible desde esa copia |
 
-Fuente: README del repositorio LandingPageSmartFarm, https://github.com/SmartFarm-8733/LandingPageSmartFarm
+Fuente: README del repositorio LandingPageSmartFarm, [https://tinyurl.com/27vbhfce](https://tinyurl.com/27vbhfce)
 
 ### 6.1.2. Source Code Management
 
-El código de la Landing Page y el informe se mantienen en repositorios Git separados: https://github.com/SmartFarm-8733/LandingPageSmartFarm y https://github.com/SmartFarm-8733/Report-SmartFarm. Esta separación permite revisar la evolución del producto web y la documentación de manera independiente.
+El código de la Landing Page y el informe se mantienen en repositorios Git separados: [https://tinyurl.com/27vbhfce](https://tinyurl.com/27vbhfce) y [https://tinyurl.com/2dhmo9ou](https://tinyurl.com/2dhmo9ou). Esta separación permite revisar la evolución del producto web y la documentación de manera independiente.
 
 Para el repositorio del informe, la guía de contribución define `main` para entregas publicadas, `develop` para integración y ramas `feature/<alcance>` o `fix/<alcance>` para cambios de trabajo. Las contribuciones se integran mediante Pull Request con revisión de otro integrante, y los commits siguen Conventional Commits. El Capítulo VI se trabaja en la rama `feature/chapter-VI`, publicada en GitHub y aún no integrada en `main`.
 
-La captura del deployment de Vercel registra el frontend web en la rama `main`, en el commit `1d6994c`, integrado desde el Pull Request #10 de `feature/app-integration`. El código fuente se mantiene en el [repositorio WebFrontend-SmartFarm](https://github.com/SmartFarm-8733/WebFrontend-SmartFarm). Las convenciones de ramas y commits de ese repositorio no se infieren de las reglas de `Report-SmartFarm`.
+La captura del deployment de Vercel registra el frontend web en la rama `main`, en el commit `1d6994c`, integrado desde el Pull Request #10 de `feature/app-integration`. El código fuente se mantiene en el repositorio WebFrontend-SmartFarm ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)). Las convenciones de ramas y commits de ese repositorio no se infieren de las reglas de `Report-SmartFarm`.
 
 | Práctica | Convención del repositorio del informe |
 |---|---|
@@ -56,7 +56,7 @@ Estas convenciones resumen la guía del repositorio de la Landing Page. No se af
 
 La Landing Page se publicó como sitio estático en un preview administrado desde FPM Desk. Según la información proporcionada por el equipo, el servidor es privado, pertenece a FPM y fue creado por Flor de María Contreras. La consola muestra el proyecto `LandingPageSmartFarm`, el repositorio de GitHub conectado, la rama `main`, la receta `Static HTML` y el estado del preview como **Público**. El flujo separa el preview de Producción, que aparece como una etapa opcional; por ello, esta evidencia acredita un preview publicado, no una promoción a producción.
 
-URL completa del preview: https://smartfarm-ichu-preview.fpm.it.com/
+URL completa del preview: [https://smartfarm-ichu-preview.fpm.it.com/](https://smartfarm-ichu-preview.fpm.it.com/)
 
 El frontend de la aplicación web se despliega por separado en Vercel, que distingue entornos locales, de preview y de producción [11]; sus evidencias del entorno de producción y de la interfaz publicada se presentan en la sección 6.2.1.8.
 
@@ -82,21 +82,76 @@ La consola registra seis ejecuciones de despliegue. En la captura, la más recie
 
 ### 6.2.1. Sprint 1
 
-El Capítulo III asigna trece historias al Sprint 1, con un total estimado de 47 puntos. Este capítulo usa esa asignación como **línea base del backlog planificado**; no la presenta como trabajo ya terminado ni como velocidad validada del equipo. El alcance asignado es una Landing Page bilingüe y accesible, junto con las funciones iniciales de acceso a la plataforma y gestión de la ficha del animal.
+El Capítulo III asigna ocho historias al Sprint 1, con un total estimado de 33 puntos: siete para la Landing Page y una para la primera versión del frontend web. Esta selección es la **línea base del backlog planificado**, no trabajo aceptado ni velocidad validada del equipo. Los recorridos de acceso, perfil y ficha del animal de US-58 utilizan datos de ejemplo y validación local; no completan las historias de autenticación, autorización, persistencia ni contratación real previstas para la integración posterior.
 
 #### 6.2.1.1. Sprint Planning 1
 
-**Objetivo de producto planificado:** comunicar la propuesta de ICHU a los dos segmentos, permitir que los visitantes comprendan los planes y soliciten una demostración, y cubrir el primer flujo de acceso y registro/consulta de animales planteado para la plataforma.
+El Sprint 1 se orienta a presentar la propuesta de ICHU y habilitar los primeros recorridos de la plataforma web para ganaderos y médicos veterinarios.
 
-El alcance proviene del roadmap y la priorización registrados en el Capítulo III. Incluye la Landing Page con internacionalización y accesibilidad, el registro de unidad productiva, el acceso, el perfil profesional y la ficha del animal. La estimación inicial suma 47 puntos de historia; el propio roadmap indica que el equipo debe contrastar la velocidad real al cierre del Sprint 1 antes de ajustar los siguientes sprints.
-
-La fuente consultada no fija aquí las fechas, duración, capacidad comprometida ni el resultado de la reunión de planificación. Estos datos deben añadirse desde el Sprint Backlog vigente en Jira antes de presentar la planificación como acuerdo final del equipo.
+<table>
+  <colgroup>
+    <col style="width: 34%;"/>
+    <col style="width: 66%;"/>
+  </colgroup>
+  <tbody>
+    <tr>
+      <th align="left" scope="row" width="34%">Sprint #</th>
+      <td>Sprint 1</td>
+    </tr>
+    <tr>
+      <th align="left" colspan="2">Sprint Planning Background</th>
+    </tr>
+    <tr>
+      <td>Date</td>
+      <td>2026-10-02</td>
+    </tr>
+    <tr>
+      <td>Time</td>
+      <td>08:00 PM (hora de Lima, UTC-5)</td>
+    </tr>
+    <tr>
+      <td>Location</td>
+      <td>Lima, Perú.</td>
+    </tr>
+    <tr>
+      <td>Prepared By</td>
+      <td>Avalos Cordova, Diego Andres</td>
+    </tr>
+    <tr>
+      <td>Attendees (to planning meeting)</td>
+      <td>Arrieta Quispe, Alison Jimena<br/>Sanchez Arenas, Manuel Angel<br/>Contreras Leon, Flor de María<br/>Awad Vargas, Giorgio Marzouk<br/>Avalos Cordova, Diego Andres</td>
+    </tr>
+    <tr>
+      <td>Sprint 0 Review Summary</td>
+      <td>No aplica: es el primer Sprint del proyecto y no existe una revisión de un Sprint anterior.</td>
+    </tr>
+    <tr>
+      <td>Sprint 0 Retrospective Summary</td>
+      <td>No aplica: es el primer Sprint del proyecto y no existe una retrospectiva de un Sprint anterior.</td>
+    </tr>
+    <tr>
+      <th align="left" colspan="2">Sprint Goal &amp; User Stories</th>
+    </tr>
+    <tr>
+      <td>Sprint 1 Goal</td>
+      <td>Publicar la primera versión de la Landing Page y del frontend web para conocer ICHU, comparar planes, solicitar una demostración y recorrer la experiencia inicial con datos de ejemplo.<br/><strong>Métrica de cumplimiento:</strong> ambas interfaces publicadas y navegables, con verificación de los criterios de las ocho historias seleccionadas, sin requerir backend, aplicación móvil nativa ni dispositivos conectados.</td>
+    </tr>
+    <tr>
+      <td>Sprint 1 Velocity</td>
+      <td>33 Story Points propuestos para el alcance frontend. La capacidad real se contrasta con los puntos de las historias aceptadas al cierre; no se declara una velocidad observada.</td>
+    </tr>
+    <tr>
+      <td>Sum of Story Points</td>
+      <td>33 Story Points distribuidos en ocho historias del Sprint Backlog 1.</td>
+    </tr>
+  </tbody>
+</table>
 
 #### 6.2.1.2. Aspect Leaders and Collaborators
 
-La siguiente distribución es una **planificación simulada** agregada en Jira. Las 22 tareas SF-96 a SF-117 llevan la etiqueta `simulado` y permanecen en estado **Por hacer**. Los nombres de la tabla son responsables propuestos, no evidencia de asignación ni de trabajo completado. En el proyecto, SF-96 es la única de estas tareas asignada a una cuenta de integrante; las demás siguen sin asignar. Al intentar añadir integrantes, Jira confirmó la incorporación de una cuenta existente y notificó dos solicitudes de acceso pendientes de aprobación administrativa. El aviso no identificó a quiénes corresponden esas solicitudes ni confirmó individualmente el estado de las otras dos cuentas. No se inició un sprint. Esta planificación no modifica las 13 historias ni los 47 puntos de la línea base del Sprint 1.
+La siguiente distribución es una **planificación transversal simulada** agregada en Jira. Las 22 tareas SF-96 a SF-117 llevan la etiqueta `simulado` y permanecen en estado **Por hacer**. Los nombres de la tabla son responsables propuestos, no evidencia de asignación ni de trabajo completado. En el proyecto, SF-96 es la única de estas tareas asignada a una cuenta de integrante; las demás siguen sin asignar. Al intentar añadir integrantes, Jira confirmó la incorporación de una cuenta existente y notificó dos solicitudes de acceso pendientes de aprobación administrativa. El aviso no identificó a quiénes corresponden esas solicitudes ni confirmó individualmente el estado de las otras dos cuentas. No se inició un sprint. Este conjunto no equivale al Sprint Backlog 1: la selección de implementación del Sprint 1 es de ocho historias y 33 SP; las tareas de APIs, Edge, integración móvil y hardware quedan fuera de ella.
 
-Consulta del conjunto de tareas en Jira: https://upc-team-experimentos.atlassian.net/issues/?jql=issueKey%20in%20(SF-96%2CSF-97%2CSF-98%2CSF-99%2CSF-100%2CSF-101%2CSF-102%2CSF-103%2CSF-104%2CSF-105%2CSF-106%2CSF-107%2CSF-108%2CSF-109%2CSF-110%2CSF-111%2CSF-112%2CSF-113%2CSF-114%2CSF-115%2CSF-116%2CSF-117)
+Consulta del conjunto de tareas en Jira: [https://tinyurl.com/2xs98v8n](https://tinyurl.com/2xs98v8n)
 
 | Responsable propuesto | Tareas simuladas en Jira |
 |---|---|
@@ -107,30 +162,25 @@ Consulta del conjunto de tareas en Jira: https://upc-team-experimentos.atlassian
 | Awad Vargas, Giorgio Marzouk | SF-100 — correcciones de pruebas y despliegue; SF-108 — Subscription Plans; SF-111 — controlador de calentamiento del abrevadero; SF-115 — verificación de entornos y despliegues. |
 | Romero Meza, Jhimy Pool | SF-101 — correcciones de figuras; SF-104 — IoT Assets; SF-110 — prototipo conceptual del collar IoT; SF-117 — auditoría de criterios y evidencias de entrega. |
 
-Los siete Bounded Contexts de la arquitectura se reflejan como trabajo planificado del monolito modular; Portable Edge Gateway y los prototipos IoT se registran como tareas transversales. Las descripciones de Jira delimitan entregables propuestos y pruebas por ejecutar. Las capturas de diseño del Capítulo V no demuestran que los sensores, el Edge o las APIs estén implementados o conectados.
+Los siete Bounded Contexts de la arquitectura se reflejan como trabajo propuesto del monolito modular; Portable Edge Gateway y los prototipos IoT se registran como tareas transversales, no como implementación del Sprint 1. El diseño conceptual de dispositivos del Capítulo V se conserva como documentación de TB1 y no acredita sensores, Edge ni APIs implementados o conectados.
 
 #### 6.2.1.3. Sprint Backlog 1
 
-La tabla conserva el orden y la estimación de la priorización de historias del Capítulo III. La columna «Sprint» corresponde a la planificación documentada, no al estado actual de implementación.
+La tabla contiene únicamente las ocho historias seleccionadas del Product Backlog del Capítulo III, con el mismo orden y estimación. El resultado esperado se limita a la Landing Page y al primer frontend; no declara las historias como completadas ni acredita integración de servicios.
 
 | Prioridad | Historia | Resultado esperado | Puntos | Sprint asignado |
 |---:|---|---|---:|---|
-| 1 | US-32 — Conocer la propuesta de ICHU | Presentar el problema, la solución IoT, los beneficios por segmento y los productos digitales. | 3 | Sprint 1 |
-| 2 | US-33 — Acceder al destino correspondiente a mi segmento | Dirigir al visitante al producto digital o canal correspondiente. | 2 | Sprint 1 |
-| 3 | US-35 — Comparar los planes y estimar el costo | Presentar planes, límites de dispositivos y estimación según el tamaño del hato. | 5 | Sprint 1 |
-| 4 | US-34 — Solicitar una demostración | Registrar la solicitud con el segmento y contexto productivo del visitante. | 3 | Sprint 1 |
-| 5 | US-36 — Consultar los términos y condiciones del servicio | Exponer condiciones de uso y tratamiento de datos. | 2 | Sprint 1 |
-| 6 | US-06 — Registrar un animal en el hato | Incorporar identificación y datos productivos del animal. | 5 | Sprint 1 |
-| 26 | US-07 — Consultar la ficha de un animal | Mostrar identificación, etapa productiva, collar asignado y última lectura. | 3 | Sprint 1 |
-| 27 | US-01 — Registrar una cuenta de unidad productiva | Crear la cuenta con ubicación y escala de la unidad. | 3 | Sprint 1 |
-| 28 | US-02 — Acceder a la plataforma | Iniciar sesión según rol y alcance de las unidades productivas. | 3 | Sprint 1 |
-| 29 | US-04 — Autorizar a un médico veterinario sobre el hato | Conceder acceso temporal y acotado a la unidad productiva. | 5 | Sprint 1 |
-| 51 | US-37 — Consultar la experiencia en mi idioma | Presentar la experiencia en inglés o español y conservar la preferencia. | 5 | Sprint 1 |
-| 52 | US-38 — Acceder a la experiencia con tecnología de asistencia | Proveer nombres y funciones accesibles, alternativas textuales y recorrido por teclado. | 5 | Sprint 1 |
-| 63 | US-03 — Completar el perfil profesional | Registrar especialidad, colegiatura y experiencia del médico veterinario. | 3 | Sprint 1 |
-|  | **Total planificado** |  | **47** |  |
+| 1 | US-32 — Conocer la propuesta de ICHU | Presentar la propuesta, los beneficios por segmento y los productos digitales. | 3 | Sprint 1 |
+| 2 | US-33 — Acceder al destino correspondiente a mi segmento | Dirigir al registro o acceso del segmento y conservar la selección de plan, sin crear una cuenta ni activar permisos. | 2 | Sprint 1 |
+| 3 | US-35 — Comparar los planes y estimar el costo | Comparar planes y calcular una estimación informativa con valores publicados y validación local; sin cobro ni contratación. | 5 | Sprint 1 |
+| 4 | US-36 — Consultar los términos y condiciones del servicio | Publicar condiciones de uso, tratamiento de datos y fecha de actualización. | 2 | Sprint 1 |
+| 5 | US-59 — Solicitar una demostración desde la Landing Page | Validar los datos en el navegador y preparar la solicitud en el canal de contacto; el usuario decide enviarla. | 3 | Sprint 1 |
+| 6 | US-37 — Consultar la experiencia en mi idioma | Presentar el contenido en inglés o español latinoamericano y conservar la preferencia. | 5 | Sprint 1 |
+| 7 | US-38 — Acceder a la experiencia con tecnología de asistencia | Permitir el recorrido por teclado y lector de pantalla, con nombres y alternativas textuales accesibles. | 5 | Sprint 1 |
+| 8 | US-58 — Explorar la primera versión del frontend web | Ofrecer los recorridos iniciales del frontend web con datos de ejemplo y validación local, sin API ni dispositivos conectados. | 8 | Sprint 1 |
+|  | **Total planificado** |  | **33** |  |
 
-Fuente: archivo report/30-requirements-specification.md, sección Product Backlog y alcance comprometido y roadmap, Capítulo III.
+Fuente: Product Backlog y alcance por iteración y roadmap, Capítulo III.
 
 #### 6.2.1.4. Development Evidence for Sprint Review
 
@@ -185,14 +235,14 @@ El alcance de este incremento comprende interfaces frontend. La Landing Page es 
 | Interfaz o servicio | Documentación disponible | Límite comprobado |
 |---|---|---|
 | Landing Page | Páginas estáticas `index.html`, `media.html` y `como-funciona.html`; navegación, alternancia de idioma y tema, contenido informativo y formulario que abre WhatsApp. | Se verifican archivos y pantallas; las capturas no demuestran que se haya probado cada interacción ni que exista procesamiento en servidor. |
-| Frontend web de la plataforma | Dashboard con indicadores del hato y navegación a animales, ubicación, monitoreo, alertas e historial clínico. URL publicada: https://web-frontend-smart-farm.vercel.app/ | La captura muestra datos de ejemplo y señala que no hay conexión meteorológica en vivo. No demuestra persistencia ni consumo de una API. |
+| Frontend web de la plataforma | Dashboard con indicadores del hato y navegación a animales, ubicación, monitoreo, alertas e historial clínico. URL publicada: [https://web-frontend-smart-farm.vercel.app/](https://web-frontend-smart-farm.vercel.app/) | La captura muestra datos de ejemplo y señala que no hay conexión meteorológica en vivo. No demuestra persistencia ni consumo de una API. |
 | Backend y contratos de servicios | No se implementaron backend ni endpoints API dentro del alcance documentado; no hay contratos OpenAPI/Swagger que adjuntar para este incremento. | No se presentan servicios ni integración backend como implementados o probados. |
 
-El preview de la Landing Page está disponible en https://smartfarm-ichu-preview.fpm.it.com/. La aplicación frontend de Vercel está disponible en https://web-frontend-smart-farm.vercel.app/. Las capturas de despliegue correspondientes se encuentran en las Figuras 6.1–6.4 y 6.11–6.12.
+El preview de la Landing Page está disponible en [https://smartfarm-ichu-preview.fpm.it.com/](https://smartfarm-ichu-preview.fpm.it.com/). La aplicación frontend de Vercel está disponible en [https://web-frontend-smart-farm.vercel.app/](https://web-frontend-smart-farm.vercel.app/). Las capturas de despliegue correspondientes se encuentran en las Figuras 6.1–6.4 y 6.11–6.12.
 
 #### 6.2.1.8. Software Deployment Evidence for Sprint Review
 
-La aplicación web de ICHU tiene un despliegue de producción separado de la Landing Page alojada en el preview de FPM Desk. La consola de Vercel muestra el deployment como **Ready**, asociado a `main` y al commit `1d6994c` (`Merge pull request #10 from SmartFarm-8733/feature/app-integration`). El dominio de producción mostrado es https://web-frontend-smart-farm.vercel.app/; durante la verificación de este informe respondió con HTTP 200. La ruta de dashboard capturada en el navegador es https://web-frontend-smart-farm-5ml9ssa2v-flordemas-projects.vercel.app/dashboard y también respondió con HTTP 200.
+La aplicación web de ICHU tiene un despliegue de producción separado de la Landing Page alojada en el preview de FPM Desk. La consola de Vercel muestra el deployment como **Ready**, asociado a `main` y al commit `1d6994c` (`Merge pull request #10 from SmartFarm-8733/feature/app-integration`). El dominio de producción mostrado es [https://web-frontend-smart-farm.vercel.app/](https://web-frontend-smart-farm.vercel.app/); durante la verificación de este informe respondió con HTTP 200. La ruta de dashboard capturada en el navegador es [https://tinyurl.com/26dp62g7](https://tinyurl.com/26dp62g7) y también respondió con HTTP 200.
 
 ![Deployment de producción del frontend de ICHU en Vercel](assets/images/deployment/vercel-production-deployment.png)
 
@@ -204,11 +254,11 @@ La aplicación web de ICHU tiene un despliegue de producción separado de la Lan
 
 #### 6.2.1.9. Team Collaboration Insights during Sprint
 
-La evidencia disponible muestra coordinación mediante cambios versionados, despliegues y una distribución de tareas propuesta. En el historial del informe, Avalos Cordova, Diego Andres (`diegodev-22`) registró cambios de diseño para la Landing Page y los flujos de la aplicación; Contreras Leon, Flor de María (`FlorDeMa`) incorporó el diseño de dispositivos IoT y el avance de documentación. El historial se consulta en https://github.com/SmartFarm-8733/Report-SmartFarm/commits/feature/chapter-VI. La captura de Vercel registra la integración del frontend a `main` desde el Pull Request #10 de `feature/app-integration`.
+La evidencia disponible muestra coordinación mediante cambios versionados, despliegues y una distribución de tareas propuesta. En el historial del informe, Avalos Cordova, Diego Andres (`diegodev-22`) registró cambios de diseño para la Landing Page y los flujos de la aplicación; Contreras Leon, Flor de María (`FlorDeMa`) incorporó el diseño de dispositivos IoT y el avance de documentación. El historial se consulta en [https://tinyurl.com/2d28emyf](https://tinyurl.com/2d28emyf). La captura de Vercel registra la integración del frontend a `main` desde el Pull Request #10 de `feature/app-integration`.
 
 El plan documentado no fija las fechas oficiales ni la duración del Sprint 1. Por ello, estos commits y el deployment se presentan como evidencia de colaboración del proyecto, sin afirmar que ocurrieron dentro de un Sprint con fechas confirmadas.
 
-La distribución de 22 tareas SF-96 a SF-117 en Jira es simulada: las tareas siguen como **Por hacer** y los responsables de la tabla de 6.2.1.2 son propuestos. Por tanto, esa planificación no prueba que las tareas hayan sido completadas por esas personas. Tampoco hay actas o registros que acrediten reuniones diarias, una Sprint Review formal o una retrospectiva; no se reportan como celebradas.
+La distribución transversal de 22 tareas SF-96 a SF-117 en Jira es simulada y no equivale a las ocho historias seleccionadas para Sprint 1: las tareas siguen como **Por hacer** y los responsables de la tabla de 6.2.1.2 son propuestos. Por tanto, esa planificación no prueba que las tareas hayan sido completadas por esas personas. Tampoco hay actas o registros que acrediten reuniones diarias, una Sprint Review formal o una retrospectiva; no se reportan como celebradas.
 
 | Evidencia | Aporte a la coordinación | Alcance de lo que demuestra |
 |---|---|---|

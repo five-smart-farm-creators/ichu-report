@@ -1,0 +1,292 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:lang="en" width="5350" height="2540" viewBox="0 0 5350 2540" role="img" aria-labelledby="title description">
+<title id="title">SmartFarm | Design-Level EventStorming</title>
+<desc id="description">Nineteen flows across seven domain areas. Each row identifies an actor, command, domain event, policy, read model and aggregate. Arrows connect the actor to a command, a command to its event, an event to its policy and a policy to its resulting read model. Dashed arrows associate events with aggregates.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#58615a"/></marker></defs>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<g font-family="Arial, sans-serif" fill="#202b24">
+<text x="66" y="84" font-size="56" font-weight="700"><tspan x="66" dy="0">SmartFarm | Design-Level EventStorming</tspan></text>
+<rect x="66" y="120" width="36" height="36" fill="#fff094"/>
+<text x="117" y="147" font-size="26" font-weight="400"><tspan x="117" dy="0">Actor</tspan></text>
+<rect x="416" y="120" width="36" height="36" fill="#a5c7f3"/>
+<text x="467" y="147" font-size="26" font-weight="400"><tspan x="467" dy="0">Command</tspan></text>
+<rect x="766" y="120" width="36" height="36" fill="#ffc28d"/>
+<text x="817" y="147" font-size="26" font-weight="400"><tspan x="817" dy="0">Domain Event</tspan></text>
+<rect x="1116" y="120" width="36" height="36" fill="#cec0ef"/>
+<text x="1167" y="147" font-size="26" font-weight="400"><tspan x="1167" dy="0">Policy</tspan></text>
+<rect x="1466" y="120" width="36" height="36" fill="#a4ddb6"/>
+<text x="1517" y="147" font-size="26" font-weight="400"><tspan x="1517" dy="0">Read Model</tspan></text>
+<rect x="1816" y="120" width="36" height="36" fill="#f4aaa9"/>
+<text x="1867" y="147" font-size="26" font-weight="400"><tspan x="1867" dy="0">Aggregate</tspan></text>
+<g transform="translate(0,220)">
+<text x="66" y="0" font-size="36" font-weight="700"><tspan x="66" dy="0">Cattle Information</tspan></text>
+<text x="66" y="44" font-size="22" font-weight="700"><tspan x="66" dy="0">Actor</tspan></text>
+<text x="358" y="44" font-size="22" font-weight="700"><tspan x="358" dy="0">Command</tspan></text>
+<text x="650" y="44" font-size="22" font-weight="700"><tspan x="650" dy="0">Domain Event</tspan></text>
+<text x="942" y="44" font-size="22" font-weight="700"><tspan x="942" dy="0">Policy</tspan></text>
+<text x="1234" y="44" font-size="22" font-weight="700"><tspan x="1234" dy="0">Read Model</tspan></text>
+<text x="1526" y="44" font-size="22" font-weight="700"><tspan x="1526" dy="0">Aggregate</tspan></text>
+<path d="M326 168H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 168H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 168H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 168H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 269V285H1656V272" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="65" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="99" font-size="22" font-weight="400"><tspan x="81" dy="0">Livestock</tspan><tspan x="81" dy="27.06">administrator</tspan></text></g>
+<g><rect x="358" y="65" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="99" font-size="22" font-weight="400"><tspan x="373" dy="0">Register animal</tspan></text></g>
+<g><rect x="650" y="65" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="99" font-size="22" font-weight="400"><tspan x="665" dy="0">Animal registered</tspan></text></g>
+<g><rect x="942" y="65" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="99" font-size="22" font-weight="400"><tspan x="957" dy="0">None</tspan></text></g>
+<g><rect x="1234" y="65" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="99" font-size="22" font-weight="400"><tspan x="1249" dy="0">Current herd, ear tags</tspan><tspan x="1249" dy="27.06">in use</tspan></text></g>
+<g><rect x="1526" y="65" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="99" font-size="22" font-weight="400"><tspan x="1541" dy="0">Cattle</tspan></text></g>
+<path d="M326 408H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 408H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 408H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 408H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 509V525H1656V512" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="305" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="339" font-size="22" font-weight="400"><tspan x="81" dy="0">Livestock</tspan><tspan x="81" dy="27.06">administrator</tspan></text></g>
+<g><rect x="358" y="305" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="339" font-size="22" font-weight="400"><tspan x="373" dy="0">Deregister animal</tspan></text></g>
+<g><rect x="650" y="305" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="339" font-size="22" font-weight="400"><tspan x="665" dy="0">Animal deregistered</tspan></text></g>
+<g><rect x="942" y="305" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="339" font-size="22" font-weight="400"><tspan x="957" dy="0">Release the assigned</tspan><tspan x="957" dy="27.06">collar and exclude the</tspan><tspan x="957" dy="27.06">animal from indicators</tspan></text></g>
+<g><rect x="1234" y="305" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="339" font-size="22" font-weight="400"><tspan x="1249" dy="0">Animal record,</tspan><tspan x="1249" dy="27.06">assigned collar</tspan></text></g>
+<g><rect x="1526" y="305" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="339" font-size="22" font-weight="400"><tspan x="1541" dy="0">Cattle</tspan></text></g>
+</g>
+<g transform="translate(1760,220)">
+<text x="66" y="0" font-size="36" font-weight="700"><tspan x="66" dy="0">IoT Devices &amp; Telemetry</tspan></text>
+<text x="66" y="44" font-size="22" font-weight="700"><tspan x="66" dy="0">Actor</tspan></text>
+<text x="358" y="44" font-size="22" font-weight="700"><tspan x="358" dy="0">Command</tspan></text>
+<text x="650" y="44" font-size="22" font-weight="700"><tspan x="650" dy="0">Domain Event</tspan></text>
+<text x="942" y="44" font-size="22" font-weight="700"><tspan x="942" dy="0">Policy</tspan></text>
+<text x="1234" y="44" font-size="22" font-weight="700"><tspan x="1234" dy="0">Read Model</tspan></text>
+<text x="1526" y="44" font-size="22" font-weight="700"><tspan x="1526" dy="0">Aggregate</tspan></text>
+<path d="M326 168H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 168H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 168H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 168H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 269V285H1656V272" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="65" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="99" font-size="22" font-weight="400"><tspan x="81" dy="0">Livestock</tspan><tspan x="81" dy="27.06">administrator</tspan></text></g>
+<g><rect x="358" y="65" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="99" font-size="22" font-weight="400"><tspan x="373" dy="0">Assign collar to</tspan><tspan x="373" dy="27.06">animal</tspan></text></g>
+<g><rect x="650" y="65" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="99" font-size="22" font-weight="400"><tspan x="665" dy="0">Collar linked to</tspan><tspan x="665" dy="27.06">animal</tspan></text></g>
+<g><rect x="942" y="65" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="99" font-size="22" font-weight="400"><tspan x="957" dy="0">Check plan limit</tspan></text></g>
+<g><rect x="1234" y="65" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="99" font-size="22" font-weight="400"><tspan x="1249" dy="0">Collar inventory, plan</tspan><tspan x="1249" dy="27.06">limit</tspan></text></g>
+<g><rect x="1526" y="65" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="99" font-size="22" font-weight="400"><tspan x="1541" dy="0">IoTDevice</tspan></text></g>
+<path d="M326 408H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 408H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 408H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 408H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 509V525H1656V512" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="305" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="339" font-size="22" font-weight="400"><tspan x="81" dy="0">Cattle Band</tspan></text></g>
+<g><rect x="358" y="305" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="339" font-size="22" font-weight="400"><tspan x="373" dy="0">Transmit reading</tspan></text></g>
+<g><rect x="650" y="305" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="339" font-size="22" font-weight="400"><tspan x="665" dy="0">Biometric reading</tspan><tspan x="665" dy="27.06">captured</tspan></text></g>
+<g><rect x="942" y="305" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="339" font-size="22" font-weight="400"><tspan x="957" dy="0">Evaluate thresholds</tspan><tspan x="957" dy="27.06">for the production</tspan><tspan x="957" dy="27.06">stage</tspan></text></g>
+<g><rect x="1234" y="305" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="339" font-size="22" font-weight="400"><tspan x="1249" dy="0">Current thresholds</tspan></text></g>
+<g><rect x="1526" y="305" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="339" font-size="22" font-weight="400"><tspan x="1541" dy="0">TelemetryReading</tspan></text></g>
+<path d="M326 648H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 648H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 648H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 648H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 749V765H1656V752" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="545" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="579" font-size="22" font-weight="400"><tspan x="81" dy="0">Edge Gateway</tspan></text></g>
+<g><rect x="358" y="545" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="579" font-size="22" font-weight="400"><tspan x="373" dy="0">Synchronize reading</tspan><tspan x="373" dy="27.06">batch</tspan></text></g>
+<g><rect x="650" y="545" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="579" font-size="22" font-weight="400"><tspan x="665" dy="0">Readings synchronized</tspan></text></g>
+<g><rect x="942" y="545" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="579" font-size="22" font-weight="400"><tspan x="957" dy="0">Re-evaluate rules not</tspan><tspan x="957" dy="27.06">applied at the edge</tspan></text></g>
+<g><rect x="1234" y="545" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="579" font-size="22" font-weight="400"><tspan x="1249" dy="0">Synchronization status</tspan></text></g>
+<g><rect x="1526" y="545" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="579" font-size="22" font-weight="400"><tspan x="1541" dy="0">TelemetryReading</tspan></text></g>
+</g>
+<g transform="translate(3520,220)">
+<text x="66" y="0" font-size="36" font-weight="700"><tspan x="66" dy="0">Monitoring &amp; Alerts</tspan></text>
+<text x="66" y="44" font-size="22" font-weight="700"><tspan x="66" dy="0">Actor</tspan></text>
+<text x="358" y="44" font-size="22" font-weight="700"><tspan x="358" dy="0">Command</tspan></text>
+<text x="650" y="44" font-size="22" font-weight="700"><tspan x="650" dy="0">Domain Event</tspan></text>
+<text x="942" y="44" font-size="22" font-weight="700"><tspan x="942" dy="0">Policy</tspan></text>
+<text x="1234" y="44" font-size="22" font-weight="700"><tspan x="1234" dy="0">Read Model</tspan></text>
+<text x="1526" y="44" font-size="22" font-weight="700"><tspan x="1526" dy="0">Aggregate</tspan></text>
+<path d="M326 168H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 168H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 168H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 168H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 269V285H1656V272" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="65" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="99" font-size="22" font-weight="400"><tspan x="81" dy="0">System</tspan></text></g>
+<g><rect x="358" y="65" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="99" font-size="22" font-weight="400"><tspan x="373" dy="0">None (automatic)</tspan></text></g>
+<g><rect x="650" y="65" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="99" font-size="22" font-weight="400"><tspan x="665" dy="0">Temperature threshold</tspan><tspan x="665" dy="27.06">exceeded</tspan></text></g>
+<g><rect x="942" y="65" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="99" font-size="22" font-weight="400"><tspan x="957" dy="0">Generate an alert if</tspan><tspan x="957" dy="27.06">no alert of the same</tspan><tspan x="957" dy="27.06">type is open</tspan></text></g>
+<g><rect x="1234" y="65" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="99" font-size="22" font-weight="400"><tspan x="1249" dy="0">Open alerts for the</tspan><tspan x="1249" dy="27.06">animal</tspan></text></g>
+<g><rect x="1526" y="65" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="99" font-size="22" font-weight="400"><tspan x="1541" dy="0">MonitoringAlert</tspan></text></g>
+<path d="M326 408H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 408H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 408H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 408H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 509V525H1656V512" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="305" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="339" font-size="22" font-weight="400"><tspan x="81" dy="0">System</tspan></text></g>
+<g><rect x="358" y="305" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="339" font-size="22" font-weight="400"><tspan x="373" dy="0">None (automatic)</tspan></text></g>
+<g><rect x="650" y="305" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="339" font-size="22" font-weight="400"><tspan x="665" dy="0">Animal outside grazing</tspan><tspan x="665" dy="27.06">zone</tspan></text></g>
+<g><rect x="942" y="305" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="339" font-size="22" font-weight="400"><tspan x="957" dy="0">Generate a security</tspan><tspan x="957" dy="27.06">alert with distance to</tspan><tspan x="957" dy="27.06">the boundary</tspan></text></g>
+<g><rect x="1234" y="305" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="339" font-size="22" font-weight="400"><tspan x="1249" dy="0">Lot geofence</tspan></text></g>
+<g><rect x="1526" y="305" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="339" font-size="22" font-weight="400"><tspan x="1541" dy="0">MonitoringAlert</tspan></text></g>
+<path d="M326 648H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 648H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 648H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 648H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 749V765H1656V752" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="545" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="579" font-size="22" font-weight="400"><tspan x="81" dy="0">System</tspan></text></g>
+<g><rect x="358" y="545" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="579" font-size="22" font-weight="400"><tspan x="373" dy="0">None (automatic)</tspan></text></g>
+<g><rect x="650" y="545" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="579" font-size="22" font-weight="400"><tspan x="665" dy="0">Reproductive pattern</tspan><tspan x="665" dy="27.06">detected</tspan></text></g>
+<g><rect x="942" y="545" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="579" font-size="22" font-weight="400"><tspan x="957" dy="0">Record a possible</tspan><tspan x="957" dy="27.06">estrus indicator</tspan></text></g>
+<g><rect x="1234" y="545" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="579" font-size="22" font-weight="400"><tspan x="1249" dy="0">Animal baseline</tspan></text></g>
+<g><rect x="1526" y="545" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="579" font-size="22" font-weight="400"><tspan x="1541" dy="0">MonitoringAlert</tspan></text></g>
+<path d="M326 888H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 888H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 888H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 888H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 989V1005H1656V992" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="785" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="819" font-size="22" font-weight="400"><tspan x="81" dy="0">Livestock</tspan><tspan x="81" dy="27.06">administrator</tspan></text></g>
+<g><rect x="358" y="785" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="819" font-size="22" font-weight="400"><tspan x="373" dy="0">Respond to alert</tspan></text></g>
+<g><rect x="650" y="785" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="819" font-size="22" font-weight="400"><tspan x="665" dy="0">Alert addressed</tspan></text></g>
+<g><rect x="942" y="785" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="819" font-size="22" font-weight="400"><tspan x="957" dy="0">Record response time</tspan><tspan x="957" dy="27.06">and add the finding to</tspan><tspan x="957" dy="27.06">the history</tspan></text></g>
+<g><rect x="1234" y="785" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="819" font-size="22" font-weight="400"><tspan x="1249" dy="0">Alert details and</tspan><tspan x="1249" dy="27.06">associated telemetry</tspan></text></g>
+<g><rect x="1526" y="785" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="819" font-size="22" font-weight="400"><tspan x="1541" dy="0">MonitoringAlert</tspan></text></g>
+</g>
+<g transform="translate(0,1320)">
+<text x="66" y="0" font-size="36" font-weight="700"><tspan x="66" dy="0">Field Operations &amp; Clinical Care</tspan></text>
+<text x="66" y="44" font-size="22" font-weight="700"><tspan x="66" dy="0">Actor</tspan></text>
+<text x="358" y="44" font-size="22" font-weight="700"><tspan x="358" dy="0">Command</tspan></text>
+<text x="650" y="44" font-size="22" font-weight="700"><tspan x="650" dy="0">Domain Event</tspan></text>
+<text x="942" y="44" font-size="22" font-weight="700"><tspan x="942" dy="0">Policy</tspan></text>
+<text x="1234" y="44" font-size="22" font-weight="700"><tspan x="1234" dy="0">Read Model</tspan></text>
+<text x="1526" y="44" font-size="22" font-weight="700"><tspan x="1526" dy="0">Aggregate</tspan></text>
+<path d="M326 168H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 168H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 168H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 168H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 269V285H1656V272" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="65" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="99" font-size="22" font-weight="400"><tspan x="81" dy="0">Field operator</tspan></text></g>
+<g><rect x="358" y="65" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="99" font-size="22" font-weight="400"><tspan x="373" dy="0">Record field event</tspan></text></g>
+<g><rect x="650" y="65" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="99" font-size="22" font-weight="400"><tspan x="665" dy="0">Health event recorded</tspan></text></g>
+<g><rect x="942" y="65" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="99" font-size="22" font-weight="400"><tspan x="957" dy="0">Queue for</tspan><tspan x="957" dy="27.06">synchronization when</tspan><tspan x="957" dy="27.06">coverage is</tspan><tspan x="957" dy="27.06">unavailable</tspan></text></g>
+<g><rect x="1234" y="65" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="99" font-size="22" font-weight="400"><tspan x="1249" dy="0">Downloaded animal</tspan><tspan x="1249" dy="27.06">record</tspan></text></g>
+<g><rect x="1526" y="65" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="99" font-size="22" font-weight="400"><tspan x="1541" dy="0">LivestockOperation</tspan></text></g>
+<path d="M326 408H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 408H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 408H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 408H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 509V525H1656V512" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="305" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="339" font-size="22" font-weight="400"><tspan x="81" dy="0">Veterinarian</tspan></text></g>
+<g><rect x="358" y="305" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="339" font-size="22" font-weight="400"><tspan x="373" dy="0">Record clinical</tspan><tspan x="373" dy="27.06">intervention</tspan></text></g>
+<g><rect x="650" y="305" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="339" font-size="22" font-weight="400"><tspan x="665" dy="0">Intervention recorded</tspan></text></g>
+<g><rect x="942" y="305" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="339" font-size="22" font-weight="400"><tspan x="957" dy="0">Start the withdrawal</tspan><tspan x="957" dy="27.06">period for the</tspan><tspan x="957" dy="27.06">administered product</tspan></text></g>
+<g><rect x="1234" y="305" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="339" font-size="22" font-weight="400"><tspan x="1249" dy="0">Clinical history and</tspan><tspan x="1249" dy="27.06">active withdrawal</tspan><tspan x="1249" dy="27.06">periods</tspan></text></g>
+<g><rect x="1526" y="305" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="339" font-size="22" font-weight="400"><tspan x="1541" dy="0">LivestockOperation</tspan></text></g>
+<path d="M326 648H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 648H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 648H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 648H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 749V765H1656V752" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="545" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="579" font-size="22" font-weight="400"><tspan x="81" dy="0">System</tspan></text></g>
+<g><rect x="358" y="545" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="579" font-size="22" font-weight="400"><tspan x="373" dy="0">None (automatic)</tspan></text></g>
+<g><rect x="650" y="545" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="579" font-size="22" font-weight="400"><tspan x="665" dy="0">Treatment response</tspan><tspan x="665" dy="27.06">deadline reached</tspan></text></g>
+<g><rect x="942" y="545" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="579" font-size="22" font-weight="400"><tspan x="957" dy="0">Alert the veterinarian</tspan><tspan x="957" dy="27.06">if vital signs do not</tspan><tspan x="957" dy="27.06">return to range</tspan></text></g>
+<g><rect x="1234" y="545" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="579" font-size="22" font-weight="400"><tspan x="1249" dy="0">Post-intervention</tspan><tspan x="1249" dy="27.06">progress</tspan></text></g>
+<g><rect x="1526" y="545" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="579" font-size="22" font-weight="400"><tspan x="1541" dy="0">MonitoringAlert</tspan></text></g>
+</g>
+<g transform="translate(1760,1320)">
+<text x="66" y="0" font-size="36" font-weight="700"><tspan x="66" dy="0">Health Campaigns</tspan></text>
+<text x="66" y="44" font-size="22" font-weight="700"><tspan x="66" dy="0">Actor</tspan></text>
+<text x="358" y="44" font-size="22" font-weight="700"><tspan x="358" dy="0">Command</tspan></text>
+<text x="650" y="44" font-size="22" font-weight="700"><tspan x="650" dy="0">Domain Event</tspan></text>
+<text x="942" y="44" font-size="22" font-weight="700"><tspan x="942" dy="0">Policy</tspan></text>
+<text x="1234" y="44" font-size="22" font-weight="700"><tspan x="1234" dy="0">Read Model</tspan></text>
+<text x="1526" y="44" font-size="22" font-weight="700"><tspan x="1526" dy="0">Aggregate</tspan></text>
+<path d="M326 168H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 168H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 168H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 168H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 269V285H1656V272" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="65" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="99" font-size="22" font-weight="400"><tspan x="81" dy="0">Livestock</tspan><tspan x="81" dy="27.06">administrator</tspan></text></g>
+<g><rect x="358" y="65" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="99" font-size="22" font-weight="400"><tspan x="373" dy="0">Schedule health</tspan><tspan x="373" dy="27.06">campaign</tspan></text></g>
+<g><rect x="650" y="65" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="99" font-size="22" font-weight="400"><tspan x="665" dy="0">Campaign scheduled</tspan></text></g>
+<g><rect x="942" y="65" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="99" font-size="22" font-weight="400"><tspan x="957" dy="0">Detect overlap with</tspan><tspan x="957" dy="27.06">withdrawal periods</tspan></text></g>
+<g><rect x="1234" y="65" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="99" font-size="22" font-weight="400"><tspan x="1249" dy="0">Farm calendar, active</tspan><tspan x="1249" dy="27.06">withdrawal periods</tspan></text></g>
+<g><rect x="1526" y="65" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="99" font-size="22" font-weight="400"><tspan x="1541" dy="0">HealthCampaign</tspan></text></g>
+<path d="M326 408H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 408H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 408H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 408H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 509V525H1656V512" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="305" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="339" font-size="22" font-weight="400"><tspan x="81" dy="0">System</tspan></text></g>
+<g><rect x="358" y="305" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="339" font-size="22" font-weight="400"><tspan x="373" dy="0">None (automatic)</tspan></text></g>
+<g><rect x="650" y="305" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="339" font-size="22" font-weight="400"><tspan x="665" dy="0">Reminder time reached</tspan></text></g>
+<g><rect x="942" y="305" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="339" font-size="22" font-weight="400"><tspan x="957" dy="0">Issue campaign</tspan><tspan x="957" dy="27.06">reminder</tspan></text></g>
+<g><rect x="1234" y="305" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="339" font-size="22" font-weight="400"><tspan x="1249" dy="0">Scheduled campaigns</tspan><tspan x="1249" dy="27.06">and application</tspan><tspan x="1249" dy="27.06">progress</tspan></text></g>
+<g><rect x="1526" y="305" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="339" font-size="22" font-weight="400"><tspan x="1541" dy="0">HealthCampaign</tspan></text></g>
+<path d="M326 648H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 648H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 648H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 648H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 749V765H1656V752" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="545" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="579" font-size="22" font-weight="400"><tspan x="81" dy="0">Field operator</tspan></text></g>
+<g><rect x="358" y="545" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="579" font-size="22" font-weight="400"><tspan x="373" dy="0">Record application</tspan></text></g>
+<g><rect x="650" y="545" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="579" font-size="22" font-weight="400"><tspan x="665" dy="0">Application recorded</tspan></text></g>
+<g><rect x="942" y="545" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="579" font-size="22" font-weight="400"><tspan x="957" dy="0">Close campaign when</tspan><tspan x="957" dy="27.06">all animals have</tspan><tspan x="957" dy="27.06">received the</tspan><tspan x="957" dy="27.06">application</tspan></text></g>
+<g><rect x="1234" y="545" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="579" font-size="22" font-weight="400"><tspan x="1249" dy="0">Campaign progress</tspan></text></g>
+<g><rect x="1526" y="545" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="579" font-size="22" font-weight="400"><tspan x="1541" dy="0">HealthCampaign</tspan></text></g>
+</g>
+<g transform="translate(3520,1320)">
+<text x="66" y="0" font-size="36" font-weight="700"><tspan x="66" dy="0">Subscriptions &amp; Veterinary Advisory</tspan></text>
+<text x="66" y="44" font-size="22" font-weight="700"><tspan x="66" dy="0">Actor</tspan></text>
+<text x="358" y="44" font-size="22" font-weight="700"><tspan x="358" dy="0">Command</tspan></text>
+<text x="650" y="44" font-size="22" font-weight="700"><tspan x="650" dy="0">Domain Event</tspan></text>
+<text x="942" y="44" font-size="22" font-weight="700"><tspan x="942" dy="0">Policy</tspan></text>
+<text x="1234" y="44" font-size="22" font-weight="700"><tspan x="1234" dy="0">Read Model</tspan></text>
+<text x="1526" y="44" font-size="22" font-weight="700"><tspan x="1526" dy="0">Aggregate</tspan></text>
+<path d="M326 168H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 168H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 168H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 168H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 269V285H1656V272" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="65" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="99" font-size="22" font-weight="400"><tspan x="81" dy="0">Livestock</tspan><tspan x="81" dy="27.06">administrator</tspan></text></g>
+<g><rect x="358" y="65" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="99" font-size="22" font-weight="400"><tspan x="373" dy="0">Subscribe to plan</tspan></text></g>
+<g><rect x="650" y="65" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="99" font-size="22" font-weight="400"><tspan x="665" dy="0">Subscription activated</tspan></text></g>
+<g><rect x="942" y="65" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="99" font-size="22" font-weight="400"><tspan x="957" dy="0">Enable plan features</tspan><tspan x="957" dy="27.06">and device limit</tspan></text></g>
+<g><rect x="1234" y="65" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="99" font-size="22" font-weight="400"><tspan x="1249" dy="0">Available plans and</tspan><tspan x="1249" dy="27.06">coverage</tspan></text></g>
+<g><rect x="1526" y="65" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="99" font-size="22" font-weight="400"><tspan x="1541" dy="0">Subscription</tspan></text></g>
+<path d="M326 408H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 408H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 408H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 408H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 509V525H1656V512" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="305" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="339" font-size="22" font-weight="400"><tspan x="81" dy="0">Veterinarian</tspan></text></g>
+<g><rect x="358" y="305" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="339" font-size="22" font-weight="400"><tspan x="373" dy="0">Request access to a</tspan><tspan x="373" dy="27.06">herd</tspan></text></g>
+<g><rect x="650" y="305" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="339" font-size="22" font-weight="400"><tspan x="665" dy="0">Advisory access</tspan><tspan x="665" dy="27.06">requested</tspan></text></g>
+<g><rect x="942" y="305" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="339" font-size="22" font-weight="400"><tspan x="957" dy="0">Notify the</tspan><tspan x="957" dy="27.06">administrator for a</tspan><tspan x="957" dy="27.06">decision</tspan></text></g>
+<g><rect x="1234" y="305" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="339" font-size="22" font-weight="400"><tspan x="1249" dy="0">Applicant professional</tspan><tspan x="1249" dy="27.06">profile</tspan></text></g>
+<g><rect x="1526" y="305" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="339" font-size="22" font-weight="400"><tspan x="1541" dy="0">HerdAdvisory</tspan></text></g>
+<path d="M326 648H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 648H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 648H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 648H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 749V765H1656V752" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="545" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="579" font-size="22" font-weight="400"><tspan x="81" dy="0">Livestock</tspan><tspan x="81" dy="27.06">administrator</tspan></text></g>
+<g><rect x="358" y="545" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="579" font-size="22" font-weight="400"><tspan x="373" dy="0">Grant access</tspan></text></g>
+<g><rect x="650" y="545" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="579" font-size="22" font-weight="400"><tspan x="665" dy="0">Advisory access</tspan><tspan x="665" dy="27.06">granted</tspan></text></g>
+<g><rect x="942" y="545" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="579" font-size="22" font-weight="400"><tspan x="957" dy="0">Enable access</tspan><tspan x="957" dy="27.06">restricted to the</tspan><tspan x="957" dy="27.06">authorized herd</tspan></text></g>
+<g><rect x="1234" y="545" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="579" font-size="22" font-weight="400"><tspan x="1249" dy="0">Pending requests</tspan></text></g>
+<g><rect x="1526" y="545" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="579" font-size="22" font-weight="400"><tspan x="1541" dy="0">HerdAdvisory</tspan></text></g>
+</g>
+<g transform="translate(0,2200)">
+<text x="66" y="0" font-size="36" font-weight="700"><tspan x="66" dy="0">Water Trough Control</tspan></text>
+<text x="66" y="44" font-size="22" font-weight="700"><tspan x="66" dy="0">Actor</tspan></text>
+<text x="358" y="44" font-size="22" font-weight="700"><tspan x="358" dy="0">Command</tspan></text>
+<text x="650" y="44" font-size="22" font-weight="700"><tspan x="650" dy="0">Domain Event</tspan></text>
+<text x="942" y="44" font-size="22" font-weight="700"><tspan x="942" dy="0">Policy</tspan></text>
+<text x="1234" y="44" font-size="22" font-weight="700"><tspan x="1234" dy="0">Read Model</tspan></text>
+<text x="1526" y="44" font-size="22" font-weight="700"><tspan x="1526" dy="0">Aggregate</tspan></text>
+<path d="M326 168H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M618 168H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M910 168H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1202 168H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M780 269V285H1656V272" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<g><rect x="66" y="65" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="99" font-size="22" font-weight="400"><tspan x="81" dy="0">System</tspan></text></g>
+<g><rect x="358" y="65" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="99" font-size="22" font-weight="400"><tspan x="373" dy="0">None (automatic)</tspan></text></g>
+<g><rect x="650" y="65" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="99" font-size="22" font-weight="400"><tspan x="665" dy="0">Water temperature out</tspan><tspan x="665" dy="27.06">of range</tspan></text></g>
+<g><rect x="942" y="65" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="99" font-size="22" font-weight="400"><tspan x="957" dy="0">Activate heating and</tspan><tspan x="957" dy="27.06">alert if the</tspan><tspan x="957" dy="27.06">temperature does not</tspan><tspan x="957" dy="27.06">return to range</tspan></text></g>
+<g><rect x="1234" y="65" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="99" font-size="22" font-weight="400"><tspan x="1249" dy="0">Configured water</tspan><tspan x="1249" dy="27.06">trough temperature</tspan><tspan x="1249" dy="27.06">range</tspan></text></g>
+<g><rect x="1526" y="65" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="99" font-size="22" font-weight="400"><tspan x="1541" dy="0">MonitoringAlert</tspan></text></g>
+</g>
+</g></svg>
