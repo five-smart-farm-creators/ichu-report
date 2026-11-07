@@ -216,3 +216,33 @@ La distribución de 22 tareas SF-96 a SF-117 en Jira es simulada: las tareas sig
 | Deployment Vercel | Pull Request #10 de `feature/app-integration` integrado en `main`, commit `1d6994c`. | Acredita un artefacto frontend publicado; no acredita backend ni integración de datos. |
 | Backlog Jira SF-96 a SF-117 | Reparto propuesto de tareas para Flor, Diego y los demás integrantes. | Datos simulados, estado **Por hacer**; no son evidencia de asignación formal o finalización. |
 | Registros de ceremonias | No se encontraron actas de planificación, reuniones diarias, revisión ni retrospectiva. | La colaboración se describe solo desde artefactos verificables; no se infieren ceremonias. |
+
+### 6.2.2. Sprint 2
+
+#### 6.2.2.1. Sprint Planning 2
+
+#### 6.2.2.2. Aspect Leaders and Collaborators
+
+#### 6.2.2.3. Sprint Backlog 2
+
+#### 6.2.2.4. Development Evidence for Sprint Review
+
+#### 6.2.2.5. Testing Suite Evidence for Sprint Review
+
+#### 6.2.2.6. Execution Evidence for Sprint Review
+
+#### 6.2.2.7. Services Documentation Evidence for Sprint Review
+
+#### 6.2.2.8. Software Deployment Evidence for Sprint Review
+
+#### 6.2.2.9. Team Collaboration Insights during Sprint
+
+## 6.3. Validation Interviews
+
+### 6.3.1. Diseño de Entrevistas
+
+### 6.3.2. Registro de Entrevistas
+
+### 6.3.3. Evaluaciones según heurísticas
+
+## 6.4. Video About-the-Product
