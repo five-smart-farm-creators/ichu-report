@@ -1,4 +1,4 @@
-## Anexo I. Especificaciones de dispositivos IoT y sus conexiones
+## Anexo J. Especificaciones de dispositivos IoT y sus conexiones
 
 El primer diseño de ICHU reúne tres dispositivos de campo. El **collar** mide temperatura superficial, movimiento y ubicación del animal. El **controlador del abrevadero** mide la temperatura del agua y acciona el calefactor. El **receptor de alertas** presenta el estado del ganado mediante texto, luces y sonido. El **Portable Edge Gateway** recibe y almacena la telemetría y evalúa las reglas de alerta cerca de los dispositivos.
 
