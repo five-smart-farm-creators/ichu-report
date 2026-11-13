@@ -15,12 +15,12 @@ Los dos segmentos objetivo agrupan a los usuarios por su relación con el negoci
 | **Médico veterinario** | Segmento 2 | Profesional que diagnostica y prescribe. Corresponde a Darwin Carbajal, Eliseo Ramírez y Dionisio Rodríguez. |
 | **Visitante** | No aplica | Rol base para el sitio web estático, sin cuenta en la plataforma. |
 | **Fabricante o integrador de dispositivos** | No aplica | Fabricante o integrador del collar y del controlador; necesita contratos de captura, transmisión y confirmación para integrar el programa embebido. |
-| **Nodo de borde portátil** | No aplica | Sistema que recibe lecturas por BLE, las conserva y evalúa localmente y consume la API central al recuperar conectividad. |
+| **Nodo de borde portátil** | No aplica | Sistema que recibe lecturas por HTTP en la red Wi-Fi local (BLE previsto), las conserva y evalúa localmente y consume la API central al recuperar conectividad. |
 | **Aplicación web** | No aplica | Cliente de la API central para consultas del hato, indicadores y contratación. Actúa con la autorización del usuario. |
 | **Aplicación móvil** | No aplica | Cliente de la API central y del nodo de borde para consultas, alertas y registros de campo, con permisos y operación sin Internet. |
 | **Servicio central de ICHU** | No aplica | Sistema que consume proveedores externos y expone servicios a los clientes autorizados. |
 
-Los actores técnicos describen al consumidor o sistema responsable de una capacidad; no constituyen nuevos segmentos de mercado. Las rutas HTTP y los contratos de la sección 3.1 son requisitos propuestos, no evidencias de servicios ya implementados. El flujo obligatorio del collar es **collar inteligente → BLE → nodo de borde portátil → API central**. El adaptador BLE del nodo de borde entrega los paquetes al servicio de borde local; el collar no invoca rutas HTTP ni se conecta directamente a la nube.
+Los actores técnicos describen al consumidor o sistema responsable de una capacidad; no constituyen nuevos segmentos de mercado. Las rutas HTTP y los contratos de la sección 3.1 son requisitos propuestos, no evidencias de servicios ya implementados. El flujo obligatorio del collar es **collar inteligente → Wi-Fi local → nodo de borde portátil → API central**. El collar invoca solo la ruta local del nodo de borde (`POST /api/v1/monitoring/telemetry-readings`) y no se conecta directamente a la nube. El enlace por BLE queda previsto: un adaptador BLE del nodo de borde entregaría el mismo cuerpo JSON al servicio de borde local.
 
 El operario de campo no constituye un tercer segmento objetivo. Es un rol operativo dentro del Segmento 1, cuya adopción del producto depende de la decisión de compra del administrador, por lo que no se le construye un arquetipo propio.
 
@@ -60,7 +60,7 @@ Los requisitos se organizan en doce épicas. La siguiente relación con los cont
 - Los criterios de aceptación describen comportamientos comprobables: nombran la entidad del dominio afectada, los datos que quedan registrados y el estado resultante.
 - Ningún criterio de aceptación hace referencia a controles, pantallas, colores ni gestos de interacción.
 - Las historias que admiten un flujo alternativo incluyen al menos un escenario de error o de excepción.
-- Las historias técnicas identifican al consumidor o sistema responsable. Los contratos HTTP especifican método, ruta, autorización y respuesta; los contratos embebidos o BLE especifican datos, confirmación y fallos sin inventar una ruta HTTP en el collar.
+- Las historias técnicas identifican al consumidor o sistema responsable. Los contratos HTTP especifican método, ruta, autorización y respuesta; los contratos embebidos especifican datos, confirmación y fallos; el collar solo consume la ruta HTTP local del nodo de borde.
 - Las historias informativas y de contacto de la página de presentación forman parte de la primera iteración; la contratación integrada de US-34 requiere servicios y se planifica después de TB1.
 - Las historias de internacionalización (US-37) y accesibilidad (US-38) cubren los requisitos de i18n y a11y exigidos para la página de presentación y las aplicaciones web.
 
