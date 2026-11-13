@@ -133,7 +133,7 @@ Abrir tablero Figma de Domain Message Flows ([https://tinyurl.com/BigPictureEven
 
 | # | Actor | Actividad | Objeto de trabajo | Destinatario | Contexto |
 |---|---|---|---|---|---|
-| 1 | Cattle Band | transmite por BLE | la lectura de temperatura y posición | Portable Edge Gateway | Borde |
+| 1 | Cattle Band | transmite por Wi-Fi local | la lectura de temperatura y posición | Portable Edge Gateway | Borde |
 | 2 | Portable Edge Gateway | almacena | la lectura con su estado de sincronización | base local | Borde |
 | 3 | Portable Edge Gateway | evalúa | la lectura contra los umbrales en caché | regla local | Borde |
 | 4 | Portable Edge Gateway | genera | la alerta local de severidad crítica | Mobile Application | Borde |
@@ -435,9 +435,9 @@ El Container Diagram descompone la solución en aplicaciones, servicios y almace
 | Web Application Hosting | Alojamiento web estático | Entrega por HTTPS los archivos HTML, CSS y JavaScript compilados de la SPA |
 | Web Application | Angular con TypeScript | SPA ejecutada en el navegador para gestionar ganado, dispositivos, planificación, analítica y suscripciones |
 | Mobile Application | Flutter con Dart | Monitoreo, alertas y operación de campo, con funcionamiento sin cobertura |
-| Cattle Band Embedded Application | C++ sobre ESP32 | Captura de temperatura, movimiento y posición, con transmisión BLE al Portable Edge Gateway |
+| Cattle Band Embedded Application | C++ sobre ESP32 | Captura de temperatura, movimiento y posición, con transmisión HTTP por Wi-Fi al Portable Edge Gateway; la ruta BLE está prevista |
 | Water Controller Embedded Application | C++ sobre ESP32 | Medición de la temperatura del agua y accionamiento del calentador |
-| Portable Edge Gateway | Flask con Peewee ORM sobre Python | Recepción por BLE, almacenamiento local, evaluación de reglas críticas y sincronización |
+| Portable Edge Gateway | Flask con Peewee ORM sobre Python | Recepción HTTP de los collares por la red local (receptor BLE previsto), almacenamiento local, evaluación de reglas críticas y sincronización periódica |
 | Edge Database | SQLite | Telemetría sin conexión, estado de alertas, umbrales y geocercas en caché |
 | ICHU Web Service | ASP.NET Core Web API | API REST en la nube implementada como un monolito modular, con los siete contextos como módulos internos |
 | ICHU Cloud Database | PostgreSQL | Persistencia relacional con un esquema por contexto acotado |
@@ -448,9 +448,9 @@ El icono de navegador se utiliza únicamente para Landing Page Browser Client y 
 
 El backend se denomina ICHU Web Service para expresar su responsabilidad funcional. «Monolito modular» describe la decisión arquitectónica y no forma parte de su nombre. Sigue siendo un único container de backend; los contextos acotados son módulos internos, no microservicios desplegados por separado. Las tecnologías de estas cuatro vistas se presentan sin números de versión, de manera uniforme y sin atribuir versiones que el proyecto no haya establecido.
 
-El Cattle Band transmite por BLE al Portable Edge Gateway, que persiste y evalúa localmente las lecturas y sincroniza con la API central cuando dispone de salida a Internet. Este flujo se mantiene también cuando hay cobertura: el collar no invoca directamente el Cloud. La disponibilidad de Wi-Fi no demuestra acceso a Internet. La Mobile Application consulta y atiende alertas del Edge por la red local (TS-16), y consulta lecturas locales mediante TS-17. El backend accede a PostgreSQL mediante Entity Framework Core con el proveedor Npgsql.
+El Cattle Band transmite por Wi-Fi al Portable Edge Gateway con `POST /api/v1/monitoring/telemetry-readings`, autenticado con la cabecera `X-API-Key` del collar y con un `event_id` estable que hace idempotentes los reintentos. El gateway persiste las lecturas en SQLite, las evalúa con los umbrales, geocercas y asignaciones descargados de la API central, y un proceso aparte (`flask --app app synchronize`) envía cada 15 s los registros pendientes a `POST /api/v1/telemetry/batch`; tras un fallo, la espera se duplica hasta un máximo de 5 min. Este flujo se mantiene también cuando hay cobertura: el collar no invoca directamente el Cloud. La transmisión por BLE al gateway se mantiene como alternativa prevista: el firmware incluye la ruta, pero el gateway aún no tiene receptor BLE. La disponibilidad de Wi-Fi no demuestra acceso a Internet. La Mobile Application consulta y atiende alertas del Edge por la red local (TS-16), y consulta lecturas locales mediante TS-17. El backend accede a PostgreSQL mediante Entity Framework Core con el proveedor Npgsql.
 
-La revisión de requisitos del 8 de octubre de 2026 actualiza estos contratos en el Capítulo III. Las vistas C4 y los flujos gráficos de AV1 muestran el diseño anterior; sus fuentes y exportaciones todavía no representan el Edge como intermediario obligatorio ni todos los contratos Web y Mobile revisados. Por tanto, esas imágenes documentan AV1 y no constituyen evidencia de implementación de las historias corregidas.
+La revisión de requisitos del 8 de octubre de 2026 actualiza estos contratos en el Capítulo III. La fuente Structurizr `workspace-ichu-c4.dsl` ya representa al Edge como intermediario obligatorio del collar, con Wi-Fi HTTP implementado y BLE previsto. Las imágenes exportadas de las vistas C4 y los flujos gráficos todavía corresponden a AV1 y deben volver a exportarse desde esa fuente; mientras tanto, documentan el diseño anterior y no constituyen evidencia de implementación de las historias corregidas.
 
 ![Container Diagram de ICHU](assets/images/diagrams/c4/c4-container.png)
 
@@ -577,7 +577,7 @@ Los diagramas dinámicos ilustran la secuencia de colaboración entre componente
 
 ![Flujo de telemetría con cobertura](assets/images/diagrams/c4/c4-flow-connected-telemetry.png)
 
-*Figura 4.11. Flujo completo cuando el collar tiene cobertura. Elaboración propia con Structurizr.*
+*Figura 4.11. Flujo completo cuando el gateway tiene Internet. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 

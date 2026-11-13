@@ -23,8 +23,7 @@ rectangle "Firebase Cloud\nMessaging" as FCM #ECEFF1
 rectangle "Map Provider" as MAP #ECEFF1
 rectangle "Payment\nProvider" as PAY #ECEFF1
 
-BAND -down-> EDGE : BLE
-BAND -down-> MON : OHS\nTelemetry API
+BAND -down-> EDGE : Wi-Fi HTTP\n(BLE previsto)
 WATER -down-> MON : OHS\nTelemetry API
 EDGE -down-> MON : ACL\nCloud API ACL
 MON -up-> EDGE : OHS\nEdge Configuration API
