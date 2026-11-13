@@ -13,7 +13,7 @@ La investigación realizada en el Capítulo II (*Requirements Elicitation &amp; 
 
 La investigación comprende seis entrevistas, tres por segmento, y cuestionarios con dos ganaderos y tres profesionales. Estos resultados describen esta muestra y no representan porcentajes de todo el mercado. Los capataces y operarios son actores operativos de la solución, no un tercer segmento entrevistado.
 
-**Arquitectura propuesta:** El collar transmite por BLE al *Portable Edge Gateway*, que procesa y almacena las lecturas en SQLite y evalúa reglas locales. El Edge sincroniza con la RESTful API central cuando dispone de Internet; la presencia de Wi-Fi no garantiza esa conectividad. La aplicación móvil consulta y atiende alertas por la red local. Esta ruta se mantiene también cuando hay cobertura y no contempla que el collar invoque directamente la nube.
+**Arquitectura propuesta:** El collar transmite por HTTP sobre Wi-Fi local al *Portable Edge Gateway* (la ruta BLE queda prevista), que procesa y almacena las lecturas en SQLite y evalúa reglas locales. El Edge sincroniza con la RESTful API central cuando dispone de Internet; la presencia de Wi-Fi no garantiza esa conectividad. La aplicación móvil consulta y atiende alertas por la red local. Esta ruta se mantiene también cuando hay cobertura y no contempla que el collar invoque directamente la nube.
 
 **Alcance de la evidencia:** Los hallazgos respaldan la relevancia del problema y el interés declarado por la propuesta dentro de la muestra. No demuestran todavía aceptación comercial ni resultados de negocio o impacto operativo en producción; esos resultados requieren mediciones en pilotos.
 
