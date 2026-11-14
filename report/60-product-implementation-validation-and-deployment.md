@@ -293,7 +293,7 @@ La distribución transversal de 22 tareas SF-96 a SF-117 en Jira es simulada y n
 
 A continuación, se presenta la relación de preguntas principales y tareas de validación estructuradas para cada uno de los dos segmentos objetivo identificados. Se sigue la organización del diseño de entrevistas del Capítulo II: presentación del segmento, bloques temáticos, objetivos y preguntas numeradas. A diferencia del needfinding, estas sesiones observan la interacción del participante con la Landing Page y las aplicaciones web y móvil de ICHU.
 
-El guion se adapta del documento **«Versión corta (7–10 min).docx»**. Se prevén tres participantes por segmento y una duración de siete a diez minutos por sesión. Cada participante realiza cuatro tareas: una en la Landing Page, dos en la aplicación web y una en la aplicación móvil. Los tiempos de los bloques son orientativos y reservan el cierre antes de los diez minutos.
+Se prevén tres participantes por segmento y una duración de siete a diez minutos por sesión. Cada participante realiza cuatro tareas: una en la Landing Page, dos en la aplicación web y una en la aplicación móvil.
 
 Antes de comenzar, se preparan los datos del Fundo Demo ICHU, las cuentas de prueba, los enlaces de acceso, la aplicación móvil instalada y la disponibilidad de los servicios necesarios. El moderador explica: «Evaluamos la herramienta, no a usted. Cuénteme en voz alta lo que piensa mientras la usa. ¿Me autoriza a grabar esta sesión y utilizar fragmentos en el video del curso?». La grabación se realiza únicamente con autorización. Las preguntas se formulan sin anticipar respuestas ni indicar las rutas de navegación; si el participante necesita ayuda o una tarea no está disponible, se deja constancia de esa condición.
 
@@ -301,7 +301,7 @@ Antes de comenzar, se preparan los datos del Fundo Demo ICHU, las cuentas de pru
 
 Este segmento representa al comprador principal y responsable de la gestión del predio. El objetivo es evaluar si comprende la propuesta de ICHU, puede priorizar una alerta, consultar la información de un animal y registrar una observación en campo sin conexión, además de conocer las condiciones bajo las cuales consideraría utilizar el servicio.
 
-#### BLOQUE 1: Datos Demográficos y de Perfil (0:00–1:30)
+#### BLOQUE 1: Datos Demográficos y de Perfil
 
 **Objetivo:** Identificar al participante, su responsabilidad sobre el hato y los dispositivos que utiliza para trabajar.
 
@@ -311,7 +311,7 @@ Este segmento representa al comprador principal y responsable de la gestión del
 
 ---
 
-#### BLOQUE 2: Comprensión de la Landing Page y Acceso a la Plataforma (1:30–3:00)
+#### BLOQUE 2: Comprensión de la Landing Page y Acceso a la Plataforma
 
 **Objetivo:** Evaluar si la propuesta para ganaderos resulta comprensible y si el participante identifica cómo acceder al producto.
 
@@ -320,7 +320,7 @@ Este segmento representa al comprador principal y responsable de la gestión del
 
 ---
 
-#### BLOQUE 3: Atención de Alertas y Consulta del Animal en la Aplicación Web (3:00–6:30)
+#### BLOQUE 3: Atención de Alertas y Consulta del Animal en la Aplicación Web
 
 **Objetivo:** Evaluar la priorización de alertas, el registro de una atención y la comprensión de los datos individuales del ganado.
 
@@ -331,7 +331,7 @@ Este segmento representa al comprador principal y responsable de la gestión del
 
 ---
 
-#### BLOQUE 4: Registro de Campo sin Conexión en la Aplicación Móvil (6:30–8:30)
+#### BLOQUE 4: Registro de Campo sin Conexión en la Aplicación Móvil
 
 **Objetivo:** Evaluar si el participante puede registrar una observación sin señal y comprende el estado de ese registro.
 
@@ -341,7 +341,7 @@ Este segmento representa al comprador principal y responsable de la gestión del
 
 ---
 
-#### BLOQUE 5: Valor Percibido y Cierre (8:30–10:00)
+#### BLOQUE 5: Valor Percibido y Cierre
 
 **Objetivo:** Conocer la utilidad percibida, las condiciones de adopción y la opinión final del participante.
 
@@ -353,7 +353,7 @@ Este segmento representa al comprador principal y responsable de la gestión del
 
 Este segmento reúne a los profesionales que asesoran fundos desde la perspectiva de la atención clínica. El objetivo es evaluar si comprenden la propuesta de ICHU para su trabajo, pueden consultar las variables de un animal, registrar una intervención y solicitar acceso a una unidad productiva desde la aplicación móvil.
 
-#### BLOQUE 1: Datos Demográficos y Ecosistema de Trabajo (0:00–1:30)
+#### BLOQUE 1: Datos Demográficos y Ecosistema de Trabajo
 
 **Objetivo:** Identificar al participante, su experiencia de asesoría y las herramientas que utiliza para registrar sus atenciones.
 
@@ -363,7 +363,7 @@ Este segmento reúne a los profesionales que asesoran fundos desde la perspectiv
 
 ---
 
-#### BLOQUE 2: Comprensión de la Landing Page y Acceso Profesional (1:30–3:00)
+#### BLOQUE 2: Comprensión de la Landing Page y Acceso Profesional
 
 **Objetivo:** Evaluar si el profesional se reconoce en la propuesta y encuentra cómo iniciar su acceso al servicio.
 
@@ -372,7 +372,7 @@ Este segmento reúne a los profesionales que asesoran fundos desde la perspectiv
 
 ---
 
-#### BLOQUE 3: Consulta de Parámetros y Registro Clínico en la Aplicación Web (3:00–6:30)
+#### BLOQUE 3: Consulta de Parámetros y Registro Clínico en la Aplicación Web
 
 **Objetivo:** Evaluar la selección del fundo, la interpretación de las variables disponibles y el registro de una intervención en el historial del animal.
 
@@ -383,7 +383,7 @@ Este segmento reúne a los profesionales que asesoran fundos desde la perspectiv
 
 ---
 
-#### BLOQUE 4: Solicitud de Acceso desde la Aplicación Móvil (6:30–8:30)
+#### BLOQUE 4: Solicitud de Acceso desde la Aplicación Móvil
 
 **Objetivo:** Evaluar si el profesional puede solicitar autorización sobre un fundo y comprende cómo consultar el estado de su solicitud.
 
@@ -393,7 +393,7 @@ Este segmento reúne a los profesionales que asesoran fundos desde la perspectiv
 
 ---
 
-#### BLOQUE 5: Valor Percibido y Cierre (8:30–10:00)
+#### BLOQUE 5: Valor Percibido y Cierre
 
 **Objetivo:** Conocer la utilidad percibida para la asesoría profesional y las condiciones bajo las cuales recomendaría la herramienta.
 
