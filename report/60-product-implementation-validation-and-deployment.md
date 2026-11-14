@@ -291,12 +291,6 @@ La distribución transversal de 22 tareas SF-96 a SF-117 en Jira es simulada y n
 
 ### 6.3.1. Diseño de Entrevistas
 
-A continuación, se presenta la relación de preguntas principales y tareas de validación estructuradas para cada uno de los dos segmentos objetivo identificados. Se sigue la organización del diseño de entrevistas del Capítulo II: presentación del segmento, bloques temáticos, objetivos y preguntas numeradas. A diferencia del needfinding, estas sesiones observan la interacción del participante con la Landing Page y las aplicaciones web y móvil de ICHU.
-
-Se prevén tres participantes por segmento y una duración de siete a diez minutos por sesión. Cada participante realiza cuatro tareas: una en la Landing Page, dos en la aplicación web y una en la aplicación móvil.
-
-Antes de comenzar, se preparan los datos del Fundo Demo ICHU, las cuentas de prueba, los enlaces de acceso, la aplicación móvil instalada y la disponibilidad de los servicios necesarios. El moderador explica: «Evaluamos la herramienta, no a usted. Cuénteme en voz alta lo que piensa mientras la usa. ¿Me autoriza a grabar esta sesión y utilizar fragmentos en el video del curso?». La grabación se realiza únicamente con autorización. Las preguntas se formulan sin anticipar respuestas ni indicar las rutas de navegación; si el participante necesita ayuda o una tarea no está disponible, se deja constancia de esa condición.
-
 **Segmento 1:** Medianos y Grandes Ganaderos (Propietarios y Administradores de Estancias)
 
 Este segmento representa al comprador principal y responsable de la gestión del predio. El objetivo es evaluar si comprende la propuesta de ICHU, puede priorizar una alerta, consultar la información de un animal y registrar una observación en campo sin conexión, además de conocer las condiciones bajo las cuales consideraría utilizar el servicio.
