@@ -291,6 +291,118 @@ La distribución transversal de 22 tareas SF-96 a SF-117 en Jira es simulada y n
 
 ### 6.3.1. Diseño de Entrevistas
 
+A continuación, se presenta la relación de preguntas principales y tareas de validación estructuradas para cada uno de los dos segmentos objetivo identificados. Se sigue la organización del diseño de entrevistas del Capítulo II: presentación del segmento, bloques temáticos, objetivos y preguntas numeradas. A diferencia del needfinding, estas sesiones observan la interacción del participante con la Landing Page y las aplicaciones web y móvil de ICHU.
+
+El guion se adapta del documento **«Versión corta (7–10 min).docx»**. Se prevén tres participantes por segmento y una duración de siete a diez minutos por sesión. Cada participante realiza cuatro tareas: una en la Landing Page, dos en la aplicación web y una en la aplicación móvil. Los tiempos de los bloques son orientativos y reservan el cierre antes de los diez minutos.
+
+Antes de comenzar, se preparan los datos del Fundo Demo ICHU, las cuentas de prueba, los enlaces de acceso, la aplicación móvil instalada y la disponibilidad de los servicios necesarios. El moderador explica: «Evaluamos la herramienta, no a usted. Cuénteme en voz alta lo que piensa mientras la usa. ¿Me autoriza a grabar esta sesión y utilizar fragmentos en el video del curso?». La grabación se realiza únicamente con autorización. Las preguntas se formulan sin anticipar respuestas ni indicar las rutas de navegación; si el participante necesita ayuda o una tarea no está disponible, se deja constancia de esa condición.
+
+**Segmento 1:** Medianos y Grandes Ganaderos (Propietarios y Administradores de Estancias)
+
+Este segmento representa al comprador principal y responsable de la gestión del predio. El objetivo es evaluar si comprende la propuesta de ICHU, puede priorizar una alerta, consultar la información de un animal y registrar una observación en campo sin conexión, además de conocer las condiciones bajo las cuales consideraría utilizar el servicio.
+
+#### BLOQUE 1: Datos Demográficos y de Perfil (0:00–1:30)
+
+**Objetivo:** Identificar al participante, su responsabilidad sobre el hato y los dispositivos que utiliza para trabajar.
+
+1. ¿Cuál es su nombre completo, edad y distrito de residencia?
+2. ¿Cuántos animales maneja y cuál es su rol en el predio?
+3. ¿Su celular es Android o iPhone? En la computadora, ¿qué navegador utiliza habitualmente?
+
+---
+
+#### BLOQUE 2: Comprensión de la Landing Page y Acceso a la Plataforma (1:30–3:00)
+
+**Objetivo:** Evaluar si la propuesta para ganaderos resulta comprensible y si el participante identifica cómo acceder al producto.
+
+1. **Tarea 1 — Landing Page:** Abra el enlace proporcionado, cambie el idioma a español y explore la información dirigida a ganaderos. Con sus propias palabras, ¿qué le ofrece ICHU?
+2. Si quisiera entrar ahora a la plataforma, ¿por dónde lo haría?
+
+---
+
+#### BLOQUE 3: Atención de Alertas y Consulta del Animal en la Aplicación Web (3:00–6:30)
+
+**Objetivo:** Evaluar la priorización de alertas, el registro de una atención y la comprensión de los datos individuales del ganado.
+
+1. **Tarea 2 — Atención de una alerta:** Ingrese con la cuenta de prueba proporcionada, cambie el idioma a español y atienda la alerta que considere más urgente de su hato. Deje registrado qué encontró y qué hizo.
+2. ¿Por qué eligió esa alerta? Del uno al siete, donde uno es muy difícil y siete es muy fácil, ¿qué tan fácil le resultó la tarea? ¿Qué facilitó o dificultó completarla?
+3. **Tarea 3 — Consulta del animal:** El capataz indica que la vaca AR-012 está decaída. Encuéntrela en la plataforma y revise cómo ha cambiado su temperatura. ¿Qué interpreta de la información que ve?
+4. ¿Esta herramienta le serviría para reemplazar o complementar su cuaderno o Excel? ¿Qué información o función le faltaría?
+
+---
+
+#### BLOQUE 4: Registro de Campo sin Conexión en la Aplicación Móvil (6:30–8:30)
+
+**Objetivo:** Evaluar si el participante puede registrar una observación sin señal y comprende el estado de ese registro.
+
+1. **Tarea 4 — Registro sin conexión:** Abra la aplicación móvil y, con señal, busque la vaca AR-027 de su fundo. Luego active el modo avión y registre que observó al animal en celo.
+2. ¿Cómo sabe si el registro quedó guardado y dónde cree que se encuentra?
+3. ¿Qué cree que ocurrirá con ese registro cuando vuelva la señal?
+
+---
+
+#### BLOQUE 5: Valor Percibido y Cierre (8:30–10:00)
+
+**Objetivo:** Conocer la utilidad percibida, las condiciones de adopción y la opinión final del participante.
+
+1. ¿Qué fue lo más útil de la experiencia y qué cambiaría?
+2. ¿Consideraría pagar un plan anual por ICHU? ¿Hasta qué monto y bajo qué condiciones? Si no lo contrataría, ¿por qué?
+3. En una frase, ¿qué le pareció ICHU? ¿Autoriza que utilicemos esta opinión en el video del producto?
+
+**Segmento 2:** Zootecnistas y Médicos Veterinarios
+
+Este segmento reúne a los profesionales que asesoran fundos desde la perspectiva de la atención clínica. El objetivo es evaluar si comprenden la propuesta de ICHU para su trabajo, pueden consultar las variables de un animal, registrar una intervención y solicitar acceso a una unidad productiva desde la aplicación móvil.
+
+#### BLOQUE 1: Datos Demográficos y Ecosistema de Trabajo (0:00–1:30)
+
+**Objetivo:** Identificar al participante, su experiencia de asesoría y las herramientas que utiliza para registrar sus atenciones.
+
+1. ¿Cuál es su nombre completo, edad y distrito de residencia?
+2. ¿Cuántos años lleva ejerciendo y cuántos fundos asesora? ¿Qué responsabilidad tiene en ellos?
+3. ¿Su celular es Android o iPhone? ¿Qué navegador utiliza y dónde anota actualmente lo que realiza en cada atención?
+
+---
+
+#### BLOQUE 2: Comprensión de la Landing Page y Acceso Profesional (1:30–3:00)
+
+**Objetivo:** Evaluar si el profesional se reconoce en la propuesta y encuentra cómo iniciar su acceso al servicio.
+
+1. **Tarea 1 — Landing Page:** Abra el enlace proporcionado, cambie el idioma a español y explore la información dirigida a veterinarios. Con sus propias palabras, ¿qué le ofrece ICHU para su trabajo?
+2. Si quisiera registrarse ahora, ¿por dónde lo haría?
+
+---
+
+#### BLOQUE 3: Consulta de Parámetros y Registro Clínico en la Aplicación Web (3:00–6:30)
+
+**Objetivo:** Evaluar la selección del fundo, la interpretación de las variables disponibles y el registro de una intervención en el historial del animal.
+
+1. **Tarea 2 — Consulta de parámetros:** Ingrese con la cuenta de prueba proporcionada, cambie el idioma a español, seleccione el Fundo Demo ICHU y revise la temperatura, actividad y rumia de la vaca AR-012 durante los últimos siete días.
+2. ¿Qué interpreta de estos datos y qué necesitaría comprobar durante una visita? ¿Qué le genera confianza o desconfianza en la información presentada?
+3. **Tarea 3 — Registro clínico:** En el entorno de prueba, registre la intervención que consideraría para este caso, incluyendo producto, dosis y días de retiro de leche.
+4. ¿Encontró los campos que necesita para documentar una atención? ¿Qué agregaría o cambiaría?
+
+---
+
+#### BLOQUE 4: Solicitud de Acceso desde la Aplicación Móvil (6:30–8:30)
+
+**Objetivo:** Evaluar si el profesional puede solicitar autorización sobre un fundo y comprende cómo consultar el estado de su solicitud.
+
+1. **Tarea 4 — Solicitud de asesoría:** Un ganadero del fundo Los Andes lo ha contratado y le ha proporcionado un código de acceso de prueba. Desde la aplicación móvil, busque esa unidad productiva y envíe una solicitud de acceso indicando el motivo.
+2. ¿Cómo sabe si la solicitud fue enviada?
+3. ¿Cómo comprobaría si el ganadero aceptó su solicitud?
+
+---
+
+#### BLOQUE 5: Valor Percibido y Cierre (8:30–10:00)
+
+**Objetivo:** Conocer la utilidad percibida para la asesoría profesional y las condiciones bajo las cuales recomendaría la herramienta.
+
+1. ¿Qué fue lo más útil de la experiencia y qué cambiaría?
+2. ¿Recomendaría ICHU a los ganaderos que asesora? ¿Por qué y bajo qué condiciones?
+3. En una frase, ¿qué le pareció ICHU? ¿Autoriza que utilicemos esta opinión en el video del producto?
+
+Con esta estructura, cada entrevista comienza con el perfil del participante, continúa con tareas sobre la Landing Page y las aplicaciones, y termina con su valoración de la experiencia. Las respuestas y dificultades se recogen tal como ocurran, sin asumir que las funciones se completarán correctamente ni que la opinión final será favorable.
+
 ### 6.3.2. Registro de Entrevistas
 
 ### 6.3.3. Evaluaciones según heurísticas
