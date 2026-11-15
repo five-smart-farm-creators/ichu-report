@@ -488,6 +488,46 @@ La tabla reúne los commits de mayor impacto a nivel técnico:
 | ichu-web-app | 22af0b5 | refactor(iam): sign in with firebase only and scope advisories by ranch | Usa Firebase para autenticar y limita asesorías al rancho activo. | 2026-11-11 |
 | ichu-web-app | b7e5041 | feat(i18n): add english and spanish runtime translations | Añade traducciones en tiempo de ejecución en inglés y español. | 2026-11-11 |
 | ichu-web-app | 757222b | feat(iam): add Firebase authentication and account API adapters | Añade adaptadores de autenticación Firebase y API de cuenta. | 2026-11-06 |
+| ichu-mobile-app | 4065dda | feat: authentication for client | Añade autenticación para el cliente móvil. | 2026-11-13 |
+| ichu-mobile-app | 05d0abe | feat(iam): expose session-bound authorized ranch context | Expone el contexto de ranchos autorizados vinculado a la sesión. | 2026-11-12 |
+| ichu-mobile-app | 19533fb | feat(iam): bind explicit ranch selection to validated sessions | Vincula la selección explícita de rancho con sesiones validadas. | 2026-11-12 |
+| ichu-mobile-app | a2bed33 | feat(iam): add accessible authorized ranch selection screens | Añade pantallas accesibles para seleccionar un rancho autorizado. | 2026-11-12 |
+| ichu-mobile-app | fea6555 | feat(iam): add secure account creation and reconciliation adapters | Añade adaptadores seguros para crear y reconciliar cuentas. | 2026-11-12 |
+| ichu-mobile-app | 8b80924 | feat(iam): add localized account registration and verification flows | Incorpora registro localizado y verificación de cuenta. | 2026-11-12 |
+| ichu-mobile-app | 7641636 | feat: herd advisory implemented | Define modelos de asesoría ganadera para el repositorio. | 2026-11-13 |
+| ichu-mobile-app | aa5713a | feat: infrastructure herd advisory implemented | Implementa la integración de infraestructura para asesorías. | 2026-11-13 |
+| ichu-mobile-app | cff299e | test: repository test updated with iam account authentication | Integra los flujos de asesoría por rancho en la app. | 2026-11-13 |
+| ichu-mobile-app | 884cae0 | feat(cattle-information): adapt ranch-scoped animal reads | Adapta consultas de animales delimitadas por rancho. | 2026-11-12 |
+| ichu-mobile-app | ce92a29 | feat(cattle-information): add accessible animal read views | Añade vistas accesibles de solo lectura para animales. | 2026-11-12 |
+| ichu-mobile-app | 2396358 | feat(cattle-information): add animal management screens | Añade pantallas para gestionar animales. | 2026-11-13 |
+| ichu-mobile-app | a7e7c41 | feat(cattle-information): send version-checked animal writes | Envía cambios de animales con control de versión. | 2026-11-13 |
+| ichu-mobile-app | 1dd7522 | feat(operations-monitoring): adapt authorized latest telemetry reads | Adapta consultas autorizadas de telemetría reciente. | 2026-11-12 |
+| ichu-mobile-app | 5277f17 | feat(operations-monitoring): add accessible monitoring snapshots | Añade vistas accesibles para resúmenes de monitoreo. | 2026-11-12 |
+| ichu-mobile-app | 855409a | feat(operations-monitoring): present paginated telemetry history | Presenta historial de telemetría paginado. | 2026-11-13 |
+| ichu-mobile-app | 55ee6cc | feat(operations-monitoring): define paginated ranch alert reads | Define consultas paginadas de alertas por rancho. | 2026-11-12 |
+| ichu-mobile-app | 276fd26 | feat(operations-monitoring): fetch authorized ranch alert pages | Obtiene páginas de alertas del rancho autorizado. | 2026-11-12 |
+| ichu-mobile-app | 63c8b22 | feat(operations-monitoring): add accessible alert event views | Añade vistas accesibles de eventos de alerta. | 2026-11-12 |
+| ichu-mobile-app | f9a5278 | feat(operations-monitoring): add cloud alert acknowledgement | Permite registrar la atención de alertas en la nube. | 2026-11-13 |
+| ichu-mobile-app | b37731e | feat(operations-monitoring): model synchronized edge alerts | Modela alertas sincronizadas desde Edge. | 2026-11-14 |
+| ichu-mobile-app | 1e35c12 | feat(operations-monitoring): adapt authorized edge alert reads | Adapta consultas autorizadas de alertas Edge. | 2026-11-14 |
+| ichu-mobile-app | 0dc89c6 | feat(operations-monitoring): fence edge reads by ranch session | Limita las consultas Edge a la sesión y rancho activos. | 2026-11-14 |
+| ichu-mobile-app | 42a0dcc | feat(operations-monitoring): show edge alert read states | Muestra los estados de lectura de alertas Edge. | 2026-11-14 |
+| ichu-mobile-app | 3bb0914 | feat(operations-monitoring): add edge alert account route | Añade la ruta de alertas Edge dentro de la cuenta. | 2026-11-14 |
+| ichu-mobile-app | 771ba70 | feat(operations-monitoring): add field record domain model | Define el modelo de dominio para registros de campo. | 2026-11-13 |
+| ichu-mobile-app | ade1a8e | feat(operations-monitoring): persist field records in preferences | Persiste registros de campo en las preferencias locales. | 2026-11-13 |
+| ichu-mobile-app | ec02340 | feat(operations-monitoring): coordinate offline field record saves | Coordina el guardado local de eventos de campo. | 2026-11-13 |
+| ichu-mobile-app | d581019 | feat(operations-monitoring): add localized field record page | Añade una pantalla localizada para registros de campo. | 2026-11-13 |
+| ichu-mobile-app | 8099bf7 | feat(operations-monitoring): wire offline field records into app | Integra los registros de campo offline en la aplicación. | 2026-11-13 |
+| ichu-mobile-app | 5d10b2d | feat(operations-monitoring): add authorized mobile sync transport | Añade transporte autorizado para sincronización móvil. | 2026-11-13 |
+| ichu-mobile-app | 2a58548 | feat(operations-monitoring): synchronize pending field records | Sincroniza registros de campo pendientes. | 2026-11-13 |
+| ichu-mobile-app | 79c3440 | feat(operations-monitoring): integrate waterer navigation | Integra la navegación hacia los bebederos. | 2026-11-14 |
+| ichu-mobile-app | cbfe03e | feat(operations-monitoring): add waterer list and detail views | Añade vistas de lista y detalle de bebederos. | 2026-11-14 |
+| ichu-mobile-app | b9cecf8 | feat(operations-monitoring): add paginated waterer history panel | Añade historial paginado de lecturas de agua. | 2026-11-14 |
+| ichu-mobile-app | 584909c | feat(operations-monitoring): add waterer status widgets | Añade indicadores visuales del estado del bebedero. | 2026-11-14 |
+| ichu-mobile-app | a43979a | feat(operations-monitoring): add session-bound waterer reads | Vincula las lecturas de bebederos con la sesión activa. | 2026-11-14 |
+| ichu-mobile-app | 53035d6 | test(operations-monitoring): add waterer api contract coverage | Cubre los contratos API de bebederos con pruebas. | 2026-11-14 |
+| ichu-mobile-app | f195f2d | test(operations-monitoring): cover edge alert route integration | Cubre con pruebas la integración de rutas de alertas Edge. | 2026-11-14 |
+| ichu-mobile-app | 4eed777 | feat: align mobile clients with backend contracts | Alinea los clientes móviles con los contratos del backend. | 2026-11-14 |
 
 #### 6.2.2.5. Testing Suite Evidence for Sprint Review
 
