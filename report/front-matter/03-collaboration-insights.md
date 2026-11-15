@@ -111,49 +111,24 @@ Se verificaron identificadores únicos, criterios Given–When–Then, correspon
 
 ## AV2
 
-### Corte y criterio de atribución
+### Organización del trabajo
 
-Esta actualización considera únicamente el historial integrado en `feature/second-progress-update` hasta [f4e78d5](https://github.com/five-smart-farm-creators/ichu-report/commit/f4e78d5), merge del [PR #44](https://github.com/five-smart-farm-creators/ichu-report/pull/44), al 15 de noviembre de 2026. Se seleccionan los commits cuya fecha de autor es posterior al 8 de octubre de 2026, interpretada en hora de Lima (UTC-5). La actividad del periodo comienza el 19 de octubre. Las entradas de AV1 y TB1 conservan sus cortes históricos; esta medición incluye correcciones posteriores a TB1 y preparación de AV2, no solo trabajo realizado dentro del periodo del Sprint 2.
-
-Se consolida la identidad del autor mediante `.mailmap`. Los commits con más de un padre se cuentan como merges, separados de los cambios de contenido; no se atribuye el contenido integrado a la persona que hizo el merge. Se excluyen otras ramas pendientes y los commits de esta actualización documental. Las cantidades describen actividad en el repositorio del informe y no miden esfuerzo, aceptación de historias ni participación en otros repositorios.
-
-| Métrica | Valor |
-|---|---:|
-| Commits de contenido, sin merges | 73 |
-| Merges de integración | 26 |
-| Total de commits del periodo | 99 |
-| Commits acumulados en el historial al corte | 333 |
+Durante AV2, el equipo revisó la relación entre investigación, requisitos, arquitectura, diseño IoT y planificación. Los ajustes del informe permitieron precisar el alcance del producto y mantener una descripción coherente de las aplicaciones, los servicios y los dispositivos de campo.
 
 ### Aportes por integrante
 
-| Integrante | Commits de contenido | Merges | Cambios verificables y evidencias |
-|---|---:|---:|---|
-| Avalos Cordova, Diego Andres | 22 | 14 | Estructura AV2, carátula, Sprint 1, User Task Matrix y EventStorming; guías del repositorio y alineación de requisitos, arquitectura, diseño, anexos e índice. Conservación de exportaciones históricas. [7650c94](https://github.com/five-smart-farm-creators/ichu-report/commit/7650c94), [586aa74](https://github.com/five-smart-farm-creators/ichu-report/commit/586aa74), [7c91fe6](https://github.com/five-smart-farm-creators/ichu-report/commit/7c91fe6), [3f01452](https://github.com/five-smart-farm-creators/ichu-report/commit/3f01452), [9f2c776](https://github.com/five-smart-farm-creators/ichu-report/commit/9f2c776), [0d438d7](https://github.com/five-smart-farm-creators/ichu-report/commit/0d438d7). |
-| Awad Vargas, Giorgio Marzouk | 17 | 1 | Vocabulario del negocio, historias y trazabilidad, distinción entre negocio actual y diseño propuesto, guion de validación y planificación del Sprint 2. [7f3afb4](https://github.com/five-smart-farm-creators/ichu-report/commit/7f3afb4), [b36ff9d](https://github.com/five-smart-farm-creators/ichu-report/commit/b36ff9d), [a216172](https://github.com/five-smart-farm-creators/ichu-report/commit/a216172), [03ca151](https://github.com/five-smart-farm-creators/ichu-report/commit/03ca151), [bd53607](https://github.com/five-smart-farm-creators/ichu-report/commit/bd53607). |
-| Contreras Leon, Flor de María | 17 | 9 | Especificaciones y límites IoT, enlace Wi-Fi collar–Edge y coherencia entre capítulos; convenciones GitFlow, validación de commits e identidades. [f4fcb34](https://github.com/five-smart-farm-creators/ichu-report/commit/f4fcb34), [93abc99](https://github.com/five-smart-farm-creators/ichu-report/commit/93abc99), [bdc1de6](https://github.com/five-smart-farm-creators/ichu-report/commit/bdc1de6), [87e32f0](https://github.com/five-smart-farm-creators/ichu-report/commit/87e32f0), [0c5e95d](https://github.com/five-smart-farm-creators/ichu-report/commit/0c5e95d), [73c8955](https://github.com/five-smart-farm-creators/ichu-report/commit/73c8955). |
-| Arrieta Quispe, Alison Jimena | 15 | 2 | Revisión del modelo C4: relaciones, tecnologías, nombres, iconos, base de datos móvil y captura de contenedores. [98a8197](https://github.com/five-smart-farm-creators/ichu-report/commit/98a8197), [6a44c6f](https://github.com/five-smart-farm-creators/ichu-report/commit/6a44c6f), [0664064](https://github.com/five-smart-farm-creators/ichu-report/commit/0664064), [482eab8](https://github.com/five-smart-farm-creators/ichu-report/commit/482eab8), [6391627](https://github.com/five-smart-farm-creators/ichu-report/commit/6391627). |
-| Sanchez Arenas, Manuel Angel | 2 | 0 | Ampliación de los resúmenes de entrevistas y de las hipótesis Lean UX. [4d4b25c](https://github.com/five-smart-farm-creators/ichu-report/commit/4d4b25c), [dade8ce](https://github.com/five-smart-farm-creators/ichu-report/commit/dade8ce). |
-| Romero Meza, Jhimy Pool | 0 | 0 | No aparecen nuevos commits de su autoría en este periodo del historial integrado. Sus aportes de AV1 y TB1 se conservan como antecedentes. No se deduce su participación fuera de este repositorio. |
-| **Total** | **73** | **26** | **99 commits del periodo.** |
-
-El [Registro de Versiones](02-version-history.md) agrupa los 73 commits de contenido por autor, fecha y propósito. [Student Outcome](05-student-outcome.md) relaciona esas evidencias con los dos criterios de trabajo en equipo del curso.
-
-### Integración y revisión
-
-| Integración | Aporte incorporado |
+| Integrante | Aporte |
 |---|---|
-| PR [#25](https://github.com/five-smart-farm-creators/ichu-report/pull/25) y [#26](https://github.com/five-smart-farm-creators/ichu-report/pull/26) | Resúmenes de entrevistas e hipótesis Lean UX de Manuel. |
-| PR [#27](https://github.com/five-smart-farm-creators/ichu-report/pull/27), [#28](https://github.com/five-smart-farm-creators/ichu-report/pull/28) y [#29](https://github.com/five-smart-farm-creators/ichu-report/pull/29) | Correcciones de Giorgio a EventStorming, vocabulario e historias. |
-| PR [#24](https://github.com/five-smart-farm-creators/ichu-report/pull/24), [#30](https://github.com/five-smart-farm-creators/ichu-report/pull/30) y [#32](https://github.com/five-smart-farm-creators/ichu-report/pull/32) | Revisiones C4 de Alison. |
-| PR [#33](https://github.com/five-smart-farm-creators/ichu-report/pull/33), [#34](https://github.com/five-smart-farm-creators/ichu-report/pull/34) y [#36](https://github.com/five-smart-farm-creators/ichu-report/pull/36) | Convenciones de contribución y sus validaciones, trabajadas por Flor. |
-| PR [#38](https://github.com/five-smart-farm-creators/ichu-report/pull/38), [#40](https://github.com/five-smart-farm-creators/ichu-report/pull/40) y [#42](https://github.com/five-smart-farm-creators/ichu-report/pull/42) | Especificaciones IoT, alineación collar–Edge y límites de alerta documentados por Flor. |
-| PR [#41](https://github.com/five-smart-farm-creators/ichu-report/pull/41) | Diseño de entrevistas de validación de Giorgio para los dos segmentos. |
-| PR [#43](https://github.com/five-smart-farm-creators/ichu-report/pull/43) | Revisión de alcance de Diego: backlog de 72 historias y 334 SP, arquitectura, diseño y referencias. |
-| PR [#44](https://github.com/five-smart-farm-creators/ichu-report/pull/44) | Planificación de Giorgio para Sprint 2: 30 historias confirmadas y 164 SP estimados. |
+| Avalos Cordova, Diego Andres | Organizó la estructura de AV2, ajustó la carátula y la planificación del Sprint 1, revisó la User Task Matrix y el Design-Level EventStorming. Alineó los requisitos, la arquitectura, el diseño, los anexos y el índice con el alcance vigente, conservó los recursos gráficos originales e integró los aportes del equipo. |
+| Awad Vargas, Giorgio Marzouk | Consolidó el vocabulario del negocio, unificó las épicas e historias y organizó su trazabilidad. Precisó la diferencia entre las actividades actuales del negocio y las automatizaciones propuestas. Preparó el guion de validación para los dos segmentos y documentó la planificación, el reparto y el backlog del Sprint 2. |
+| Contreras Leon, Flor de María | Desarrolló las especificaciones del collar y del receptor de alertas, sus conexiones y límites de funcionamiento. Alineó el flujo Wi-Fi entre el collar y Edge con los requisitos y el diseño. También organizó las pautas de contribución y las validaciones para integrar el trabajo del equipo. |
+| Arrieta Quispe, Alison Jimena | Revisó los modelos C4 y corrigió las relaciones entre actores, aplicaciones y servicios. Afinó las tecnologías, los nombres y los iconos, incorporó la base de datos móvil al diseño y actualizó la representación de los contenedores. |
+| Sanchez Arenas, Manuel Angel | Amplió los resúmenes de entrevistas con información sobre los participantes, las tecnologías utilizadas y sus necesidades. Extendió las hipótesis Lean UX para relacionar los beneficios esperados, las funcionalidades y los objetivos del producto. |
+| Romero Meza, Jhimy Pool | Sus aportes de las entregas anteriores al Needfinding, los perfiles de usuario y el vocabulario del dominio proporcionaron una base común para la investigación y la definición de requisitos. |
 
-### Organización del Sprint 2
+### Planificación y coordinación
 
-La planificación de [6.2.2.1](../60-product-implementation-validation-and-deployment.md#6221-sprint-planning-2) registra una reunión virtual el 4 de noviembre de 2026 a las 10:00 PM (Lima), preparada por Diego, con Giorgio, Manuel, Flor, Alison y Diego como asistentes. El periodo del sprint es del 4 al 14 de noviembre. El reparto confirmado en [6.2.2.2](../60-product-implementation-validation-and-deployment.md#6222-aspect-leaders-and-collaborators) es:
+La reunión de planificación se realizó de forma virtual el 4 de noviembre de 2026 a las 10:00 PM, hora de Lima. Diego preparó la planificación y participaron Giorgio, Manuel, Flor, Alison y Diego. El periodo del Sprint 2 se estableció del 4 al 14 de noviembre, con 30 historias y una estimación total de 164 SP.
 
 | Entregable | Líder | Colaboradores |
 |---|---|---|
@@ -161,8 +136,6 @@ La planificación de [6.2.2.1](../60-product-implementation-validation-and-deplo
 | Project Report | Manuel Sanchez | Alison Arrieta y Giorgio Awad |
 | Website | Giorgio Awad | Alison Arrieta y Manuel Sanchez |
 
-El rol de líder o colaborador es una asignación por entregable y se presenta separado de la autoría de los commits. Los 30 elementos del Sprint Backlog 2 suman 164 SP estimados; esa suma no constituye velocidad observada ni prueba de historias completadas. El historial respalda cambios de planificación, diseño y documentación. Las entrevistas de validación ejecutadas, las pruebas del producto y la aceptación del incremento necesitan evidencia propia.
-
-Como aprendizaje del periodo, las revisiones muestran la necesidad de comprobar la correspondencia entre alcance, backlog, modelos y anexos antes de integrar. La conservación de imágenes y exportaciones originales en [9f2c776](https://github.com/five-smart-farm-creators/ichu-report/commit/9f2c776), [0d438d7](https://github.com/five-smart-farm-creators/ichu-report/commit/0d438d7) también exige distinguir las fuentes actualizadas de las capturas históricas que aún requieren sincronización.
+La revisión del alcance mantuvo las 30 historias del Sprint 2 y organizó el backlog completo en 72 historias y 334 SP. El trabajo conjunto permitió relacionar las necesidades de los usuarios con los requisitos, el diseño técnico y la planificación. La distribución por entregable ayudó a definir quién coordina cada área y con quién colabora para mantener alineados los avances del producto y del informe.
 
 <div style="break-after: page; page-break-after: always;"></div>
