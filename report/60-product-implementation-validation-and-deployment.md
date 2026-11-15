@@ -448,6 +448,46 @@ La tabla reúne los commits de mayor impacto a nivel técnico:
 | ichu-web-service | 86a95ee | feat: add cattle and iot schemas and register both modules | Crea esquemas de ganado e IoT y registra ambos módulos. | 2026-11-07 |
 | ichu-web-service | 885a8d6 | feat(shared): add the application database context with audit timestamps | Añade el contexto de base de datos compartido con marcas de auditoría. | 2026-11-06 |
 | ichu-web-service | de4aca4 | ci: run unit and integration tests against postgresql | Configura CI para ejecutar pruebas unitarias y de integración con PostgreSQL. | 2026-11-09 |
+| ichu-web-app | 9997c3f | feat(operations-monitoring): add methane alerts and two-level ranges | Añade alertas de metano con rangos de severidad de dos niveles. | 2026-11-14 |
+| ichu-web-app | 79da639 | feat(operations-monitoring): show heart rate and methane index readings | Muestra lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
+| ichu-web-app | 163d7c3 | revert(iot-assets): drop the water trough status and history | Revierte la visualización web del estado e historial de bebederos. | 2026-11-14 |
+| ichu-web-app | 7997479 | feat(iot-assets): hide water troughs and water controllers from the web | Oculta bebederos y controladores de agua en la aplicación web. | 2026-11-14 |
+| ichu-web-app | 8fac6e7 | fix(planning): call the lot, activity and campaign routes now served | Conecta la planificación con las rutas disponibles para lotes, actividades y campañas. | 2026-11-14 |
+| ichu-web-app | 88c0cbc | feat(dashboard): read recent alerts, collars and lot temperature | Incorpora alertas recientes, collares y temperatura de lotes al dashboard. | 2026-11-13 |
+| ichu-web-app | f80be83 | fix(iam): drop the head-count min attribute that blocked vets | Corrige el mínimo de tamaño de hato que impedía registrar veterinarios. | 2026-11-12 |
+| ichu-web-app | 7f5e4d7 | fix(iam): let veterinarians register without ranch details | Permite que veterinarios se registren sin ingresar datos de rancho. | 2026-11-12 |
+| ichu-web-app | 52789bd | fix(shared): revalidate the page served for every route | Revalida la página servida para cada ruta del sitio. | 2026-11-12 |
+| ichu-web-app | 138f508 | fix(shared): wait for a sleeping api to start | Espera a que la API vuelva a estar disponible antes de iniciar solicitudes. | 2026-11-12 |
+| ichu-web-app | 225f0b7 | fix(shared): unwrap leaflet from its production module | Ajusta Leaflet para su carga en el entorno de producción. | 2026-11-12 |
+| ichu-web-app | bf8b6ff | build: deploy the web app to firebase hosting | Despliega la aplicación web en Firebase Hosting. | 2026-11-12 |
+| ichu-web-app | 96312b0 | ci: build and test the web app on pull requests | Configura CI para compilar y probar la aplicación en Pull Requests. | 2026-11-12 |
+| ichu-web-app | 0883f2b | fix(iam): harden session lifecycle and request handling | Refuerza el ciclo de vida de sesión y el manejo de solicitudes. | 2026-11-06 |
+| ichu-web-app | 1e94738 | feat(planning): show each lot's nutrition plan and rumination | Muestra el plan nutricional de cada lote y sus datos de rumia. | 2026-11-12 |
+| ichu-web-app | 119ac06 | feat(operations-monitoring): follow the reproductive history of females | Presenta el historial reproductivo de las hembras. | 2026-11-12 |
+| ichu-web-app | a56e98c | feat(shared): expose animal sex and lot trends through acl facades | Expone sexo del animal y tendencias de lotes mediante fachadas ACL. | 2026-11-12 |
+| ichu-web-app | f1ff78d | feat(shared): mark dated events on line charts | Marca eventos con fecha en los gráficos de líneas. | 2026-11-12 |
+| ichu-web-app | 2c812d9 | feat(subscription-plans): contract plans per collar and pay with stripe | Permite contratar planes por collar y pagar con Stripe. | 2026-11-12 |
+| ichu-web-app | 8c7146e | feat(subscription-plans): add plan, quote and subscription adapters | Añade adaptadores para planes, cotizaciones y suscripciones. | 2026-11-12 |
+| ichu-web-app | 756db12 | feat(dashboard-analytics): show herd indicators, trends and reports | Presenta indicadores del hato, tendencias e informes. | 2026-11-11 |
+| ichu-web-app | 72fc308 | feat(dashboard-analytics): add indicator, trend and report adapters | Integra adaptadores de indicadores, tendencias e informes. | 2026-11-11 |
+| ichu-web-app | da1aa21 | feat(shared): expose lot members and upcoming work through acl facades | Comparte integrantes de lotes y actividades próximas con otros contextos. | 2026-11-11 |
+| ichu-web-app | 77a713e | feat(operations-monitoring): keep the clinical history of each animal | Presenta el historial clínico de cada animal. | 2026-11-11 |
+| ichu-web-app | b398a8c | feat(planning): plan campaigns, calendar work and withdrawal periods | Planifica campañas, actividades del calendario y periodos de retiro. | 2026-11-11 |
+| ichu-web-app | db961e2 | feat(operations-monitoring): monitor the herd, alerts and grazing zones | Permite monitorear el hato, las alertas y las zonas de pastoreo. | 2026-11-11 |
+| ichu-web-app | 2eb3560 | feat(operations-monitoring): add telemetry, alert and geofence adapters | Integra adaptadores de telemetría, alertas y geocercas. | 2026-11-11 |
+| ichu-web-app | 0877476 | feat(iot-assets): manage devices, water troughs and edge gateways | Permite gestionar dispositivos, bebederos y gateways Edge. | 2026-11-11 |
+| ichu-web-app | caf1cf1 | feat(cattle-information): manage the herd inventory, profiles and lots | Permite gestionar inventario, perfiles de animales y lotes. | 2026-11-11 |
+| ichu-web-app | bf8ab58 | feat(cattle-information): add cattle and lot api adapters | Añade adaptadores API para animales y lotes. | 2026-11-11 |
+| ichu-web-app | 3190a01 | feat(iam): request and decide herd advisories by ranch | Permite solicitar y decidir asesorías vinculadas a ranchos. | 2026-11-11 |
+| ichu-web-app | dcad8bd | feat(iam): show ranches, access codes and the professional profile | Muestra ranchos, códigos de acceso y el perfil profesional. | 2026-11-11 |
+| ichu-web-app | 736ea75 | feat(iam): find a ranch by its access code | Permite encontrar un rancho mediante su código de acceso. | 2026-11-11 |
+| ichu-web-app | d5e5025 | feat(i18n): translate the account and advisory pages | Traduce las páginas de cuenta y asesorías. | 2026-11-11 |
+| ichu-web-app | 22ae075 | feat(shared): add localized dates and a confirmation dialog | Añade fechas localizadas y un diálogo de confirmación. | 2026-11-11 |
+| ichu-web-app | 5f7b8dc | feat(i18n): translate sign-in, registration and legal pages | Traduce inicio de sesión, registro y páginas legales. | 2026-11-11 |
+| ichu-web-app | 0832831 | feat(shared): add the application shell and translated page titles | Añade el shell de la aplicación y títulos de página traducidos. | 2026-11-11 |
+| ichu-web-app | 22af0b5 | refactor(iam): sign in with firebase only and scope advisories by ranch | Usa Firebase para autenticar y limita asesorías al rancho activo. | 2026-11-11 |
+| ichu-web-app | b7e5041 | feat(i18n): add english and spanish runtime translations | Añade traducciones en tiempo de ejecución en inglés y español. | 2026-11-11 |
+| ichu-web-app | 757222b | feat(iam): add Firebase authentication and account API adapters | Añade adaptadores de autenticación Firebase y API de cuenta. | 2026-11-06 |
 
 #### 6.2.2.5. Testing Suite Evidence for Sprint Review
 
