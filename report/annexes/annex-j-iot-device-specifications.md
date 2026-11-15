@@ -2,9 +2,9 @@
 
 El primer diseño de ICHU reúne dos dispositivos de campo y el Portable Edge Gateway. El **collar** mide temperatura superficial, movimiento, ubicación del animal, frecuencia cardiaca (**SP-203**) y un índice relativo de metano (**MQ-2**). El **receptor de alertas** presenta el estado del ganado mediante texto, luces y sonido. El **Portable Edge Gateway** recibe y almacena la telemetría y evalúa las reglas de alerta cerca de los dispositivos.
 
-![Diseño IoT de ICHU en Cirkit Designer con el circuito del collar y el receptor de alertas](../assets/images/iot/system-circuit-overview.png)
+![Diseño IoT de ICHU en Cirkit Designer con el circuito del collar y el receptor de alertas; incluye un bloque de bebedero fuera del alcance del prototipo](../assets/images/iot/system-circuit-overview.png)
 
-*Vista general de los circuitos conceptuales del collar y el receptor de alertas. Los enlaces de datos se describen en J.4.*
+*Vista general de los circuitos conceptuales del collar y el receptor de alertas. La captura también muestra un bloque de bebedero, fuera del alcance del prototipo. Los enlaces de datos se describen en J.4.*
 
 Las tablas distinguen las conexiones leídas en la captura, los valores documentados por los fabricantes y las propuestas para completar el montaje. `3V3` identifica un riel de 3,3 V, `5V` uno de 5 V y `GND` el retorno común del bloque. Las flechas indican el sentido de una señal o el recorrido de la alimentación.
 
@@ -259,6 +259,14 @@ El ESP32-S3 calcula el índice de actividad a partir de la ventana local y entre
 **Firmware del panel (`ichu-alert-panel-embedded-app`)**
 
 <https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app>
+
+**Proyecto Wokwi del collar**
+
+<https://wokwi.com/projects/480787162969005057>
+
+**Proyecto Wokwi del panel de alertas**
+
+<https://wokwi.com/projects/480787196915608577>
 
 **Capítulo III. Historias técnicas y criterios de aceptación**
 

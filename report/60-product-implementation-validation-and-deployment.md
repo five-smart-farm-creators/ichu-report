@@ -18,27 +18,44 @@ El frontend web de la plataforma es un segundo artefacto, desarrollado con Angul
 | Landing Page — organización | Páginas HTML, `css/styles.css`, `js/i18n.js` y `js/main.js`; no utiliza framework ni proceso de compilación |
 | Web Application — tecnologías verificadas | Angular 22.2.2, TypeScript 6.0.3 y Angular Material 22.2.2, según el manifiesto del repositorio ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) |
 | Web Application — comandos del manifiesto | `npm start`, `npm run build`, `npm run typecheck` y `npm run test:e2e`; este último ejecuta Playwright |
-| Backend en el Sprint 1 | El incremento se centró en las interfaces frontend con datos de ejemplo. La documentación de la API central del Sprint 2 se presenta en 6.2.2.7. |
+| Backend — API central | ASP.NET Core 10, EF Core y PostgreSQL; contrato OpenAPI 3.1 con Swagger UI. |
+| Edge API | Flask 3.1, Peewee 4.5 y SQLite con Python 3.13. |
+| Embedded Applications | C++ (Arduino) para ESP32-S3 (collar) y ESP32 (panel), compilado con arduino-cli. |
+| Simulación | Wokwi web, Wokwi para VS Code y Wokwi CI (GitHub Actions). |
+| Diseño de circuitos | Cirkit Designer. |
 | Landing Page — validación automatizada | El README menciona jsdom, pero no se encontró el script ni su configuración en la copia revisada; no es reproducible desde esa copia |
 
 Fuente: README del repositorio LandingPageSmartFarm, [https://tinyurl.com/27vbhfce](https://tinyurl.com/27vbhfce)
+
+Fuente: READMEs de los repositorios `ichu-web-service`, `ichu-web-app`, `ichu-edge-service`, `ichu-cattle-band-embedded-app` e `ichu-alert-panel-embedded-app`, en la organización `five-smart-farm-creators`.
 
 ### 6.1.2. Source Code Management
 
 El código de la Landing Page y el informe se mantienen en repositorios Git separados: [https://tinyurl.com/27vbhfce](https://tinyurl.com/27vbhfce) y [https://tinyurl.com/2dhmo9ou](https://tinyurl.com/2dhmo9ou). Esta separación permite revisar la evolución del producto web y la documentación de manera independiente.
 
-Para el repositorio del informe, la guía de contribución define `main` para entregas publicadas, `develop` para integración y ramas `feature/<alcance>` o `fix/<alcance>` para cambios de trabajo. Las contribuciones se integran mediante Pull Request con revisión de otro integrante, y los commits siguen Conventional Commits. El Capítulo VI se trabaja en la rama `feature/chapter-VI`, publicada en GitHub y aún no integrada en `main`.
+| Repositorio | Producto | URL |
+|---|---|---|
+| `ichu-website` | Landing Page | [https://github.com/five-smart-farm-creators/ichu-website](https://github.com/five-smart-farm-creators/ichu-website) |
+| `ichu-web-app` | Aplicación web (Angular) | [https://github.com/five-smart-farm-creators/ichu-web-app](https://github.com/five-smart-farm-creators/ichu-web-app) |
+| `ichu-web-service` | API central (ASP.NET Core) | [https://github.com/five-smart-farm-creators/ichu-web-service](https://github.com/five-smart-farm-creators/ichu-web-service) |
+| `ichu-mobile-app` | Aplicación móvil (Flutter) | [https://github.com/five-smart-farm-creators/ichu-mobile-app](https://github.com/five-smart-farm-creators/ichu-mobile-app) |
+| `ichu-edge-service` | Edge API (Flask) | [https://github.com/five-smart-farm-creators/ichu-edge-service](https://github.com/five-smart-farm-creators/ichu-edge-service) |
+| `ichu-cattle-band-embedded-app` | Firmware del collar (ESP32-S3) | [https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app](https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app) |
+| `ichu-alert-panel-embedded-app` | Firmware del panel de alertas (ESP32) | [https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app](https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app) |
+| `ichu-report` | Informe del proyecto | [https://github.com/five-smart-farm-creators/ichu-report](https://github.com/five-smart-farm-creators/ichu-report) |
 
-La captura del deployment de Vercel registra el frontend web en la rama `main`, en el commit `1d6994c`, integrado desde el Pull Request #10 de `feature/app-integration`. El código fuente se mantiene en el repositorio WebFrontend-SmartFarm ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)). Las convenciones de ramas y commits de ese repositorio no se infieren de las reglas de `Report-SmartFarm`.
+Los ocho repositorios siguen GitFlow (`main`, `develop`, `feature/*`, `bugfix/*`, `release/vX.Y.Z` y `hotfix/vX.Y.Z`), Conventional Commits y Semantic Versioning. Un flujo de GitHub Actions valida el nombre de la rama y los mensajes de commit en cada pull request.
+
+Para el repositorio del informe, la guía de contribución define `main` para entregas publicadas, `develop` para integración y ramas `feature/<alcance>` o `bugfix/<alcance>` para cambios de trabajo. Las contribuciones se integran mediante Pull Request con revisión de otro integrante, y los commits siguen Conventional Commits. El Capítulo VI se trabaja en la rama `feature/chapter-VI`, publicada en GitHub y aún no integrada en `main`.
 
 | Práctica | Convención del repositorio del informe |
 |---|---|
-| Ramas de trabajo | `feature/<alcance>` o `fix/<alcance>`, creadas desde `develop` |
+| Ramas de trabajo | `feature/<alcance>` o `bugfix/<alcance>`, creadas desde `develop` |
 | Integración | Pull Request hacia la rama correspondiente y revisión por otro integrante |
 | Mensajes de commit | Conventional Commits, en minúsculas, con alcance opcional |
 | Rama de entrega | `main` |
 
-Fuente: archivo CONTRIBUTING.md del repositorio Report-SmartFarm. La convención anterior describe el repositorio del informe; cualquier diferencia en el flujo del repositorio de la Landing Page debe confirmarse con su configuración y responsables.
+Fuente: archivo CONTRIBUTING.md del repositorio ichu-report. La convención anterior describe el repositorio del informe; cualquier diferencia en el flujo del repositorio de la Landing Page debe confirmarse con su configuración y responsables.
 
 ### 6.1.3. Source Code Style Guide & Conventions
 
@@ -54,29 +71,17 @@ Estas convenciones resumen la guía del repositorio de la Landing Page. No se af
 
 ### 6.1.4. Software Deployment Configuration
 
-La Landing Page se publicó como sitio estático en un preview administrado desde FPM Desk. Según la información proporcionada por el equipo, el servidor es privado, pertenece a FPM y fue creado por Flor de María Contreras. La consola muestra el proyecto `LandingPageSmartFarm`, el repositorio de GitHub conectado, la rama `main`, la receta `Static HTML` y el estado del preview como **Público**. El flujo separa el preview de Producción, que aparece como una etapa opcional; por ello, esta evidencia acredita un preview publicado, no una promoción a producción.
+Cada producto se despliega en un servicio distinto. La tabla indica el destino y el comando o la dirección de cada uno.
 
-URL completa del preview: [https://smartfarm-ichu-preview.fpm.it.com/](https://smartfarm-ichu-preview.fpm.it.com/)
+| Producto | Despliegue | Dirección o comando |
+|---|---|---|
+| Landing Page (`ichu-website`) | GitHub Pages, publicada desde la rama `main`. | [https://five-smart-farm-creators.github.io/ichu-website/](https://five-smart-farm-creators.github.io/ichu-website/) |
+| Web Application (`ichu-web-app`) | Firebase Hosting. El script compila Angular en modo de producción, escribe `config.json` con la URL de la API y publica el resultado. | [https://ichu-smartfarm.web.app](https://ichu-smartfarm.web.app) · `scripts/deploy-hosting.ps1` |
+| API central (`ichu-web-service`) | Render, con la imagen Docker construida desde `main` y el Blueprint `render.yaml`. Swagger UI en `/swagger`. | [https://ichu-web-service.onrender.com](https://ichu-web-service.onrender.com) |
+| Edge API (`ichu-edge-service`) | Gateway local con variables de entorno y base de datos SQLite. El sincronizador corre como proceso aparte. | `python app.py` y `flask --app app synchronize` |
+| Aplicaciones embebidas (`ichu-cattle-band-embedded-app` y `ichu-alert-panel-embedded-app`) | Firmware compilado con arduino-cli (core `esp32:esp32` 3.3.4) y cargado en la placa o ejecutado en Wokwi. | `arduino-cli compile --fqbn esp32:esp32:esp32s3` (collar) y `--fqbn esp32:esp32:esp32` (panel) |
 
-El frontend de la aplicación web se despliega por separado en Vercel, que distingue entornos locales, de preview y de producción [11]; sus evidencias del entorno de producción y de la interfaz publicada se presentan en la sección 6.2.1.8.
-
-La consola registra seis ejecuciones de despliegue. En la captura, la más reciente figura como lista, construida desde el commit `23c4793` de `main` el 9 de septiembre de 2026, con la receta `Static HTML` y una duración de cuatro segundos. La URL respondió con HTTP 200 durante la verificación de este informe el 8 de octubre de 2026.
-
-![Panel FPM Desk con la lista de proyectos y el proyecto LandingPageSmartFarm](assets/images/deployment/fpm-projects.png)
-
-*Figura 6.1. Lista de proyectos en FPM Desk; se identifica LandingPageSmartFarm con un preview disponible.*
-
-![Configuración del preview en FPM Desk](assets/images/deployment/fpm-preview-configuration.png)
-
-*Figura 6.2. Detalle del preview: repositorio GitHub conectado, rama `main`, receta Static HTML, URL completa visible y estado público. El panel indica Producción como una etapa opcional.*
-
-![Historial de ejecuciones de despliegue en FPM Desk](assets/images/deployment/fpm-deployment-history.png)
-
-*Figura 6.3. Historial de seis ejecuciones, con la más reciente en estado «Listo».*
-
-![Landing Page de ICHU abierta desde la URL publicada](assets/images/deployment/published-preview.png)
-
-*Figura 6.4. Portada en español cargada desde el preview público; la barra del navegador muestra smartfarm-ichu-preview.fpm.it.com.*
+El diagrama de despliegue C4 de la arquitectura de producción se presenta en la Figura 4.6, en la sección 4.1.3.4.
 
 ## 6.2. Landing Page, Services & Applications Implementation
 
@@ -226,7 +231,7 @@ Se realizó una comprobación manual preliminar de renderizado con Chrome DevToo
 
 #### 6.2.1.6. Execution Evidence for Sprint Review
 
-Las Figuras 6.6 y 6.8 muestran la Landing Page cargada localmente; la primera deja visible la ruta del archivo y la segunda la emulación de un viewport móvil. La Figura 6.4 muestra la portada abierta desde el preview de FPM Desk, cuya URL respondió con HTTP 200 durante la verificación del 8 de octubre de 2026. La Figura 6.12 muestra el dashboard del frontend web de Vercel; su URL también respondió con HTTP 200 en esa fecha. Estas evidencias acreditan renderizado y disponibilidad de las interfaces en ese momento; no demuestran una prueba en teléfono físico, la conexión con servicios backend ni el funcionamiento integral de idioma, tema o formulario.
+Las Figuras 6.6 y 6.8 muestran la Landing Page cargada localmente; la primera deja visible la ruta del archivo y la segunda la emulación de un viewport móvil. La Figura 6.12 muestra el dashboard del frontend web de Vercel; su URL también respondió con HTTP 200 en esa fecha. Estas evidencias acreditan renderizado y disponibilidad de las interfaces en ese momento; no demuestran una prueba en teléfono físico, la conexión con servicios backend ni el funcionamiento integral de idioma, tema o formulario.
 
 #### 6.2.1.7. Services Documentation Evidence for Sprint Review
 
@@ -405,6 +410,8 @@ La tabla reúne los commits de mayor impacto a nivel técnico:
 - 40 commits de `ichu-mobile-app`
 - 40 commits de `ichu-website`
 - 40 commits de `ichu-edge-service`
+- 21 commits de `ichu-cattle-band-embedded-app`
+- 9 commits de `ichu-alert-panel-embedded-app`
 
 | Repositorio | ID de Commit | Mensaje de Commit | Descripción de Commit | Fecha |
 |---|---|---|---|---|
@@ -608,6 +615,36 @@ La tabla reúne los commits de mayor impacto a nivel técnico:
 | ichu-edge-service | 5240f7d | feat(iam): add device aggregate with salted api credentials | Añade un agregado de dispositivo con credenciales API cifradas con sal. | 2026-11-07 |
 | ichu-edge-service | 3a34ee1 | build(config): add environment settings and shared sqlite database | Configura las variables de entorno y una base de datos SQLite compartida. | 2026-11-07 |
 | ichu-edge-service | 01eae1a | chore: initialize repository with contribution standards | Inicializa el repositorio con estándares de contribución. | 2026-11-07 |
+| ichu-cattle-band-embedded-app | c6ca890 | docs: link the published wokwi project | Enlaza el proyecto publicado de Wokwi. | 2026-11-15 |
+| ichu-cattle-band-embedded-app | bd4f1bd | refactor: read the collar device id from the secrets file | Lee el identificador del collar desde el archivo de secretos. | 2026-11-15 |
+| ichu-cattle-band-embedded-app | e0f988a | chore(release): prepare v0.1.1 | Prepara la versión v0.1.1. | 2026-11-14 |
+| ichu-cattle-band-embedded-app | a7830ef | ci: run the collar firmware against a real edge api in wokwi | Ejecuta el firmware del collar contra un Edge API real en Wokwi. | 2026-11-14 |
+| ichu-cattle-band-embedded-app | c4ce846 | chore(release): prepare v0.1.0 | Prepara la versión v0.1.0. | 2026-11-14 |
+| ichu-cattle-band-embedded-app | 5c1dbbd | ci: simulate the collar sensors in wokwi ci | Simula los sensores del collar en Wokwi CI. | 2026-11-14 |
+| ichu-cattle-band-embedded-app | baa875e | docs(readme): note the pulse sampling gap during blocking calls | Documenta el hueco de muestreo del pulso durante las llamadas bloqueantes. | 2026-11-14 |
+| ichu-cattle-band-embedded-app | d78b3a0 | chore(wokwi): add the pulse sensor chip and the mq-2 gas sensor | Añade a Wokwi el chip del sensor de pulso y el sensor de gas MQ-2. | 2026-11-14 |
+| ichu-cattle-band-embedded-app | a40f5a7 | feat(sensors): add heart rate and methane index readings | Añade lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
+| ichu-cattle-band-embedded-app | 8f2b68c | fix(wokwi): commit the compiled gps chip so a fresh clone simulates it | Incluye el chip GPS compilado para que un clon nuevo lo simule. | 2026-11-14 |
+| ichu-cattle-band-embedded-app | fc633f9 | fix(telemetry): report out-of-range temperature as an invalid reason | Reporta la temperatura fuera de rango como motivo inválido. | 2026-11-13 |
+| ichu-cattle-band-embedded-app | f2cb5e0 | chore: start the wokwi temperature sensor at body temperature | Inicia el sensor de temperatura de Wokwi en temperatura corporal. | 2026-11-13 |
+| ichu-cattle-band-embedded-app | 135fa03 | docs: document secrets, the nvs queue and invalid readings | Documenta los secretos, la cola en NVS y las lecturas inválidas. | 2026-11-13 |
+| ichu-cattle-band-embedded-app | f3c3ea5 | ci: compile the firmware on every pull request | Compila el firmware en cada pull request. | 2026-11-13 |
+| ichu-cattle-band-embedded-app | a22a7f0 | feat(telemetry): persist the queue and report failed sensors | Persiste la cola de envío e informa los sensores que fallan. | 2026-11-13 |
+| ichu-cattle-band-embedded-app | f8d2bb2 | feat(config): move device secrets to a git-ignored header | Mueve los secretos del dispositivo a un encabezado ignorado por Git. | 2026-11-13 |
+| ichu-cattle-band-embedded-app | 4175556 | docs: document the collar firmware | Documenta el firmware del collar. | 2026-11-09 |
+| ichu-cattle-band-embedded-app | 4aab8e2 | feat(simulation): add the wokwi circuit and gps chip | Añade el circuito de Wokwi y el chip GPS. | 2026-11-09 |
+| ichu-cattle-band-embedded-app | aca0e19 | feat(connectivity): send readings over ble or wi-fi http | Envía lecturas por BLE o por HTTP sobre Wi-Fi. | 2026-11-09 |
+| ichu-cattle-band-embedded-app | 6115b01 | feat(sensors): read temperature, motion, position and battery | Lee temperatura, movimiento, posición y batería. | 2026-11-09 |
+| ichu-cattle-band-embedded-app | b1fd284 | feat(telemetry): add the reading model, activity index and buffer | Añade el modelo de lectura, el índice de actividad y el búfer. | 2026-11-09 |
+| ichu-alert-panel-embedded-app | 8243b08 | docs: link the published wokwi project | Enlaza el proyecto publicado de Wokwi. | 2026-11-15 |
+| ichu-alert-panel-embedded-app | 4f49e27 | chore(release): prepare v0.1.1 | Prepara la versión v0.1.1. | 2026-11-14 |
+| ichu-alert-panel-embedded-app | b5aa932 | ci: set the edge database path inside a step | Define la ruta de la base de datos del Edge dentro de un paso del flujo. | 2026-11-14 |
+| ichu-alert-panel-embedded-app | 3dc8eab | ci: run the panel against a real edge api in wokwi | Ejecuta el panel contra un Edge API real en Wokwi. | 2026-11-14 |
+| ichu-alert-panel-embedded-app | d872f6c | ci: simulate the offline panel in wokwi on every pull request | Simula el panel sin Edge en Wokwi en cada pull request. | 2026-11-14 |
+| ichu-alert-panel-embedded-app | afe7180 | chore(release): prepare v0.1.0 | Prepara la versión v0.1.0. | 2026-11-14 |
+| ichu-alert-panel-embedded-app | f8c9fec | docs: document the alert panel firmware | Documenta el firmware del panel de alertas. | 2026-11-13 |
+| ichu-alert-panel-embedded-app | f6f2264 | ci: compile the panel firmware on every pull request | Compila el firmware del panel en cada pull request. | 2026-11-13 |
+| ichu-alert-panel-embedded-app | 17798a2 | feat: show edge alerts on the ranch alert panel | Muestra en el panel las alertas del Edge. | 2026-11-13 |
 
 #### 6.2.2.5. Testing Suite Evidence for Sprint Review
 
@@ -889,6 +926,17 @@ La identificación y registro de los commits incluyen cambios a pruebas unitaria
 | ichu-edge-service | feature/device-authentication | 5240f7d | feat(iam): add device aggregate with salted api credentials | 2026-11-07 |
 | ichu-edge-service | feature/device-authentication | 3a34ee1 | build(config): add environment settings and shared sqlite database | 2026-11-07 |
 
+##### Pruebas de simulación en Wokwi CI
+
+| Repositorio | Escenario | Qué verifica |
+|---|---|---|
+| `ichu-cattle-band-embedded-app` | `tests/collar-sensors.test.yaml` | Calentamiento del MQ-2 y pulso sin contacto o fuera de rango. |
+| `ichu-cattle-band-embedded-app` | `tests/collar-edge.test.yaml` (job `end-to-end`) | El firmware entrega lecturas a un Edge API real; a 41 °C el Edge genera una alerta crítica de temperatura. |
+| `ichu-alert-panel-embedded-app` | `tests/panel-offline.test.yaml` | Sin Edge, el panel queda en Sin comunicación con los LED apagados. |
+| `ichu-alert-panel-embedded-app` | `tests/panel-urgent.test.yaml` (job `end-to-end`) | Con una alerta crítica en el Edge, el panel pasa a Urgencia, enciende el LED rojo y activa el buzzer. |
+
+Las pruebas se ejecutan en cada pull request. Los trabajos `end-to-end` inician un Edge API real, como se muestra en las Figuras 6.18 y 6.19.
+
 #### 6.2.2.6. Execution Evidence for Sprint Review
 
 A continuación, se presentan las evidencias de la ejecución de la aplicación web ICHU durante el sprint, mostrando las principales vistas y funcionalidades implementadas por segmento objetivo:
@@ -986,6 +1034,13 @@ Las rutas son relativas a `https://ichu-web-service.onrender.com`. Los identific
 | TS-18, US-21, US-22 | `POST /api/v1/mobile-sync/batch` | Envía `operations` con las entradas de la cola móvil. Cada entrada conserva su `operationId`, `cattleId`, `type`, `occurredAt` y los detalles según el tipo. El servidor resuelve la unidad desde el animal y verifica permisos. | `200` con `results` por operación. La prueba devuelve una entrada `Accepted` y otra `Rejected`. Los casos de reintento devuelven `Duplicate` o `Conflict`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Livestock_Operations-post_api_v1_mobile_sync_batch) |
 
 El servicio local del Edge v0.2.0 describe en su README la recepción de lecturas del collar, el listado de alertas para el panel y la sincronización. La revisión de esa versión encontró el contrato HTTP en Markdown. Los permisos locales móviles de TS-15, las operaciones móviles locales de TS-16 y TS-17 y el envío a un proveedor de TS-11 quedan fuera de la cobertura OpenAPI verificada. TS-01 y TS-03 corresponden a la captura de lecturas y a la cola de reintentos en el firmware del collar. [Contrato HTTP del Edge](https://github.com/five-smart-farm-creators/ichu-edge-service/blob/d85e43368614dadcb0013e285ece8c69a32aa67d/README.md#api-contract)
+
+| Endpoint | Uso | Respuesta |
+|---|---|---|
+| `POST /api/v1/monitoring/telemetry-readings` | Recibe una lectura del collar con `X-API-Key`. | `201` si la lectura es nueva; `200` si es un reenvío idéntico; `409` si el `event_id` ya se usó con otra telemetría. |
+| `GET /api/v1/monitoring/alerts?device_id=…&limit=…` | Lista las alertas recientes para el panel, con `X-API-Key`. | `200` con `alerts`; `400` si `limit` no está entre 1 y 100; `401` si las credenciales no coinciden. |
+| `GET /api/v1/status` | Informa el estado del servicio, la revisión de reglas y los registros pendientes. No requiere autenticación. | `200` con `status`, `rulesRevision`, `pendingReadings` y `pendingAlerts`. |
+| `POST /api/v1/synchronizations` | Sincroniza reglas, asignaciones y registros pendientes con la API central. Es una acción local sin credenciales de dispositivo. | `200` con el resultado; `502` si la nube rechaza las credenciales del gateway; `503` si no está configurada o no responde. |
 
 ##### Evidencia de interacción con Swagger UI
 
