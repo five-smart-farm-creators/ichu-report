@@ -697,6 +697,78 @@ La identificación y registro de los commits incluyen cambios a pruebas unitaria
 | ichu-web-service | feature/subscription-plans | c6341cb | test(subscription-plans): cover pricing, lifecycle and requests | 2026-11-07 |
 | ichu-web-service |  | 3225a19 | build: swashbuckle package for swagger ui (endpoint test) | 2026-11-06 |
 | ichu-web-service |  | dbbe333 | chore: initial commit | 2026-10-23 |
+| ichu-web-app | feature/hide-water-troughs | 16ca591 | Merge pull request #24 from five-smart-farm-creators/feature/hide-water-troughs | 2026-11-14 |
+| ichu-web-app | feature/hide-water-troughs | 7997479 | feat(iot-assets): hide water troughs and water controllers from the web | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 9961b2d | Merge pull request #23 from five-smart-farm-creators/feature/heart-rate-and-routes | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 163d7c3 | revert(iot-assets): drop the water trough status and history | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 9997c3f | feat(operations-monitoring): add methane alerts and two-level ranges | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 3a3cc2b | feat(iot-assets): show water trough status and its reading history | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 79da639 | feat(operations-monitoring): show heart rate and methane index readings | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 8fac6e7 | fix(planning): call the lot, activity and campaign routes now served | 2026-11-14 |
+| ichu-web-app | feature/visual-redesign | 06e5e3f | Merge pull request #20 from five-smart-farm-creators/feature/visual-redesign | 2026-11-13 |
+| ichu-web-app | feature/visual-redesign | b3b70dd | feat(dashboard): add toned cards, period chips and overview panels | 2026-11-13 |
+| ichu-web-app | feature/visual-redesign | 88c0cbc | feat(dashboard): read recent alerts, collars and lot temperature | 2026-11-13 |
+| ichu-web-app | feature/visual-redesign | a332319 | feat(ui): add puna tokens, dark theme and dialog motion | 2026-11-12 |
+| ichu-web-app | bugfix/register-head-count-min | 32d7b8b | Merge pull request #19 from five-smart-farm-creators/bugfix/register-head-count-min | 2026-11-12 |
+| ichu-web-app | bugfix/register-head-count-min | f80be83 | fix(iam): drop the head-count min attribute that blocked vets | 2026-11-12 |
+| ichu-web-app | bugfix/hosting-html-cache | 432031c | Merge pull request #18 from five-smart-farm-creators/bugfix/hosting-html-cache | 2026-11-12 |
+| ichu-web-app | bugfix/hosting-html-cache | 7f5e4d7 | fix(iam): let veterinarians register without ranch details | 2026-11-12 |
+| ichu-web-app | bugfix/leaflet-production-import | f756d4c | Merge pull request #17 from five-smart-farm-creators/bugfix/leaflet-production-import | 2026-11-12 |
+| ichu-web-app | bugfix/leaflet-production-import | 225f0b7 | fix(shared): unwrap leaflet from its production module | 2026-11-12 |
+| ichu-web-app | feature/release-hardening | 96d49a2 | Merge pull request #15 from five-smart-farm-creators/feature/release-hardening | 2026-11-12 |
+| ichu-web-app | feature/release-hardening | 96312b0 | ci: build and test the web app on pull requests | 2026-11-12 |
+| ichu-web-app | feature/release-hardening | d03c6a7 | fix(i18n): pluralize counts and translate the date picker | 2026-11-12 |
+| ichu-web-app | feature/release-hardening | 7009857 | perf(iam): load the firebase sdk on demand | 2026-11-12 |
+| ichu-web-app | feature/reproduction-and-nutrition | cd3cb1e | Merge pull request #14 from five-smart-farm-creators/feature/reproduction-and-nutrition | 2026-11-12 |
+| ichu-web-app | feature/reproduction-and-nutrition | 1e94738 | feat(planning): show each lot's nutrition plan and rumination | 2026-11-12 |
+| ichu-web-app | feature/reproduction-and-nutrition | 119ac06 | feat(operations-monitoring): follow the reproductive history of females | 2026-11-12 |
+| ichu-web-app | feature/reproduction-and-nutrition | a56e98c | feat(shared): expose animal sex and lot trends through acl facades | 2026-11-12 |
+| ichu-web-app | feature/reproduction-and-nutrition | f1ff78d | feat(shared): mark dated events on line charts | 2026-11-12 |
+| ichu-web-app | feature/subscription-plans | cc6c6e9 | Merge pull request #13 from five-smart-farm-creators/feature/subscription-plans | 2026-11-12 |
+| ichu-web-app | feature/subscription-plans | 2c812d9 | feat(subscription-plans): contract plans per collar and pay with stripe | 2026-11-12 |
+| ichu-web-app | feature/subscription-plans | 8c7146e | feat(subscription-plans): add plan, quote and subscription adapters | 2026-11-12 |
+| ichu-web-app | feature/subscription-plans | f3178b6 | refactor(shared): share the pdf libraries and expose the account email | 2026-11-12 |
+| ichu-web-app | feature/subscription-plans | c7d4cf5 | feat(iam): change the account password | 2026-11-12 |
+| ichu-web-app | feature/dashboard-analytics | 9093d06 | Merge pull request #12 from five-smart-farm-creators/feature/dashboard-analytics | 2026-11-11 |
+| ichu-web-app | feature/dashboard-analytics | 756db12 | feat(dashboard-analytics): show herd indicators, trends and reports | 2026-11-11 |
+| ichu-web-app | feature/dashboard-analytics | 72fc308 | feat(dashboard-analytics): add indicator, trend and report adapters | 2026-11-11 |
+| ichu-web-app | feature/dashboard-analytics | da1aa21 | feat(shared): expose lot members and upcoming work through acl facades | 2026-11-11 |
+| ichu-web-app | feature/dashboard-analytics | 9d83d72 | feat(shared): add bar charts and blob downloads | 2026-11-11 |
+| ichu-web-app | feature/health-and-planning | 98cc952 | Merge pull request #11 from five-smart-farm-creators/feature/health-and-planning | 2026-11-11 |
+| ichu-web-app | feature/health-and-planning | 77a713e | feat(operations-monitoring): keep the clinical history of each animal | 2026-11-11 |
+| ichu-web-app | feature/health-and-planning | b398a8c | feat(planning): plan campaigns, calendar work and withdrawal periods | 2026-11-11 |
+| ichu-web-app | feature/health-and-planning | 7db1bd3 | feat(planning): add campaign, activity and withdrawal adapters | 2026-11-11 |
+| ichu-web-app | feature/health-and-planning | 5b0ad05 | refactor(shared): share bounded concurrency and date-time input | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | b65fa19 | Merge pull request #10 from five-smart-farm-creators/feature/operations-monitoring | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | 8fc48c4 | refactor(operations-monitoring): draw geofences on openstreetmap | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | 8e31c18 | refactor(shared): load leaflet maps instead of google maps | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | db961e2 | feat(operations-monitoring): monitor the herd, alerts and grazing zones | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | 2eb3560 | feat(operations-monitoring): add telemetry, alert and geofence adapters | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | 2ffb50b | feat(shared): load google maps and line charts on demand | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | 04c8508 | Merge pull request #9 from five-smart-farm-creators/feature/cattle-and-devices | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | 0877476 | feat(iot-assets): manage devices, water troughs and edge gateways | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | cada385 | feat(cattle-information): expose lot summaries to other contexts | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | caf1cf1 | feat(cattle-information): manage the herd inventory, profiles and lots | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | bf8ab58 | feat(cattle-information): add cattle and lot api adapters | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | 2cd12b5 | feat(shared): translate the paginator and the date picker | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | b8bf830 | feat(shared): download tables as excel or pdf | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | 632fd7c | Merge pull request #8 from five-smart-farm-creators/feature/iam-workspace | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | 7b497e9 | test(iam): load ranches after the account in the stale-user case | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | 3190a01 | feat(iam): request and decide herd advisories by ranch | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | dcad8bd | feat(iam): show ranches, access codes and the professional profile | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | 22ae075 | feat(shared): add localized dates and a confirmation dialog | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | 736ea75 | feat(iam): find a ranch by its access code | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | b458540 | Merge pull request #7 from five-smart-farm-creators/feature/app-foundation | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | 0832831 | feat(shared): add the application shell and translated page titles | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | 32de4af | feat(iam): publish the current ranch to other contexts | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | 22af0b5 | refactor(iam): sign in with firebase only and scope advisories by ranch | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | 463a5be | feat(shared): map api problem details and send the interface language | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | b7e5041 | feat(i18n): add english and spanish runtime translations | 2026-11-11 |
+| ichu-web-app | feature/iam | 3c5621f | Merge pull request #4 from five-smart-farm-creators/feature/iam | 2026-11-07 |
+| ichu-web-app | feature/iam | 0883f2b | fix(iam): harden session lifecycle and request handling | 2026-11-06 |
+| ichu-web-app | feature/iam | 757222b | feat(iam): add Firebase authentication and account API adapters | 2026-11-06 |
+| ichu-web-app | feature/iam | 9fb8026 | build(web): configure application foundation and runtime settings | 2026-11-06 |
+| ichu-web-app |  | 0b3b1b8 | chore: initial commit | 2026-10-30 |
 
 #### 6.2.2.6. Execution Evidence for Sprint Review
 
