@@ -338,30 +338,25 @@ El Sprint 2 propone integrar los recorridos del frontend con los servicios de cu
 
 La selección debe respetar las dependencias del Capítulo III: registro, acceso y permisos antes de consumir datos del hato; solicitud y confirmación de suscripción antes de habilitar capacidades del plan; asignaciones y configuración antes de evaluar telemetría; persistencia y confirmación antes de retirar registros pendientes. El enlace del collar al Edge se plantea por Wi-Fi local; BLE permanece como alternativa prevista.
 
-El periodo de la iteración está confirmado; queda por precisar la distribución de líderes y colaboradores por aspecto y el recorrido que cabe en la capacidad del equipo. Si se reduce la propuesta de 164 SP, se actualizarán la selección de 6.2.2.3 y su correspondencia con el Capítulo III, conservando las dependencias del recorrido elegido. Esta planificación no acredita ejecución ni cierre de historias.
+El periodo de la iteración y la distribución de líderes y colaboradores por entregable están confirmados. El compromiso de ejecución de las 30 historias y 164 SP permanece sujeto a la capacidad del equipo. Si se reduce esta propuesta, se actualizarán la selección de 6.2.2.3 y su correspondencia con el Capítulo III, conservando las dependencias del recorrido elegido. Esta planificación no acredita ejecución ni cierre de historias.
 
 Fuente: [Product Backlog del Capítulo III](30-requirements-specification.md#33-product-backlog) y [evidencias del Sprint 1](#621-sprint-1).
 
 #### 6.2.2.2. Aspect Leaders and Collaborators
 
-La distribución siguiente toma como referencia las áreas propuestas en 6.2.1.2 y las adapta al alcance del Sprint 2. Los líderes y colaboradores son una **propuesta pendiente de confirmación**; no representan asignaciones verificadas en Jira ni trabajo completado. Cada líder coordinaría su aspecto y cada colaborador apoyaría la integración y revisión de los entregables relacionados.
+Para el Sprint 2, el equipo confirmó la siguiente distribución de líderes y colaboradores por entregable. Cada líder coordina el trabajo de su aspecto con el apoyo de los colaboradores indicados.
 
-| Aspecto | Líder propuesto | Colaboradores propuestos | Responsabilidad para Sprint 2 |
-|---|---|---|---|
-| Experiencia de usuario y continuidad de la Landing Page | Contreras Leon, Flor de María | Avalos Cordova, Diego Andres; Arrieta Quispe, Alison Jimena | Revisar la continuidad entre selección de plan, registro y solicitud de suscripción, y la presentación de fichas, telemetría, alertas y estados sin conexión en los recorridos integrados. |
-| Operations & Monitoring, Portable Edge Gateway y clientes web/móvil | Avalos Cordova, Diego Andres | Romero Meza, Jhimy Pool; Sanchez Arenas, Manuel Angel | Coordinar geocercas, configuración local, evaluación y atención de alertas, sincronización Edge–API y consumo desde los clientes. Conservar origen, hora de captura y estado de sincronización. |
-| Identity & Access Management, Cattle Information y trazabilidad | Arrieta Quispe, Alison Jimena | Sanchez Arenas, Manuel Angel; Contreras Leon, Flor de María | Coordinar registro, acceso, perfil profesional, autorizaciones y registro y consulta del animal; revisar permisos por unidad productiva y la correspondencia entre historias, servicios y evidencia. |
-| Contratos de servicios y pruebas de integración | Sanchez Arenas, Manuel Angel | Avalos Cordova, Diego Andres; Awad Vargas, Giorgio Marzouk | Revisar los contratos de las historias técnicas seleccionadas, incluidas las notificaciones externas, y preparar verificaciones de autorización, persistencia, duplicados, conflictos y recuperación de conectividad. |
-| Subscription Plans, entornos y despliegue | Awad Vargas, Giorgio Marzouk | Contreras Leon, Flor de María; Sanchez Arenas, Manuel Angel | Coordinar catálogo, estimación y solicitud de suscripción; distinguir solicitud pendiente de activación confirmada y revisar configuración y despliegue del recorrido integrado. |
-| IoT Assets y collar inteligente | Romero Meza, Jhimy Pool | Avalos Cordova, Diego Andres; Arrieta Quispe, Alison Jimena | Coordinar asignación de collares, captura y validez de lecturas, cola pendiente y confirmación de recepción en Edge por Wi-Fi local; revisar que los reintentos conserven la identidad del registro. |
+| Aspecto | Líder | Colaboradores |
+|---|---|---|
+| Mobile Application | Avalos Cordova, Diego Andres | Arrieta Quispe, Alison Jimena; Sanchez Arenas, Manuel Angel; Awad Vargas, Giorgio Marzouk |
+| Project Report | Sanchez Arenas, Manuel Angel | Arrieta Quispe, Alison Jimena; Awad Vargas, Giorgio Marzouk |
+| Website | Awad Vargas, Giorgio Marzouk | Arrieta Quispe, Alison Jimena; Sanchez Arenas, Manuel Angel |
 
-Las áreas se cruzan en los recorridos de integración: cuenta y permisos habilitan las consultas; suscripción y asignación habilitan el uso del collar; Edge y API conservan los registros; los clientes presentan sus resultados. La revisión entre responsables debe comprobar esos puntos de unión con los criterios del Capítulo III antes de proponer la aceptación de una historia.
-
-Las tareas simuladas SF-96 a SF-117 del Sprint 1 se mantienen como antecedente; esta tabla no les atribuye nuevos estados ni identificadores. Al confirmar la selección, el equipo deberá registrar en Jira las historias y tareas de Sprint 2 con sus responsables y estimaciones. Dashboard & Analytics, Planning y el controlador del abrevadero permanecen en las iteraciones posteriores previstas por el Product Backlog.
+El Sprint 1 registraba responsables propuestos por tareas y áreas técnicas; esta distribución organiza la colaboración del Sprint 2 por entregable. Las tareas simuladas SF-96 a SF-117 se conservan como antecedente. La confirmación de estos roles no acredita estados de Jira ni la aceptación de las historias del backlog.
 
 #### 6.2.2.3. Sprint Backlog 2
 
-La tabla reúne las 30 historias propuestas para Sprint 2 en el Product Backlog del Capítulo III, conservando sus identificadores, títulos, orden de prioridad y estimaciones. Los resultados esperados resumen el alcance; la aceptación debe comprobar todos los criterios de cada historia en 3.1. La selección y los responsables se confirmarán durante Sprint Planning antes de registrar el compromiso de ejecución en Jira.
+La tabla reúne las 30 historias propuestas para Sprint 2 en el Product Backlog del Capítulo III, conservando sus identificadores, títulos, orden de prioridad y estimaciones. Los resultados esperados resumen el alcance; la aceptación debe comprobar todos los criterios de cada historia en 3.1. El reparto por entregable está confirmado en 6.2.2.2; el compromiso de ejecución y la asignación de tareas en Jira requieren validar la capacidad del equipo.
 
 | Prioridad | Historia | Resultado esperado | Puntos | Sprint asignado |
 |---:|---|---|---:|---|
