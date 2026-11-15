@@ -304,7 +304,7 @@ El Sprint 2 propone integrar los recorridos del frontend con los servicios de cu
     </tr>
     <tr>
       <td>Attendees (to planning meeting)</td>
-      <td>Awad Vargas, Giorgio Marzouk<br/>Sanchez Arenas, Manuel Angel<br/>Contreras Leon, Flor de María<br/>Arrieta Quispe, Alison Jimena</td>
+      <td>Awad Vargas, Giorgio Marzouk<br/>Sanchez Arenas, Manuel Angel<br/>Contreras Leon, Flor de María<br/>Arrieta Quispe, Alison Jimena<br/>Avalos Cordova, Diego Andres</td>
     </tr>
     <tr>
       <td>Sprint Period</td>
