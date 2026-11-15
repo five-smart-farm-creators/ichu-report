@@ -891,6 +891,20 @@ La identificación y registro de los commits incluyen cambios a pruebas unitaria
 
 #### 6.2.2.6. Execution Evidence for Sprint Review
 
+A continuación, se presentan las evidencias de la ejecución de la aplicación web ICHU durante el sprint, mostrando las principales vistas y funcionalidades implementadas por segmento objetivo:
+
+**Vistas de Ganadero:**
+
+<ul>
+  <li><strong>Dashboard</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-dashboard.png" alt="Dashboard View"></li>
+  <li><strong>Animales</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-animals.png" alt="Animales View"></li>
+  <li><strong>Alertas</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-alerts.png" alt="Alertas View"></li>
+  <li><strong>Monitoreo</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-monitoring.png" alt="Monitoring View"></li>
+  <li><strong>Collares</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-iot-devices.png" alt="IoT Devices View"></li>
+  <li><strong>Lotes</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-lots.png" alt="Lots View"></li>
+  <li><strong>Ubicación</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-location.png" alt="Settings View"></li>
+</ul>
+
 #### 6.2.2.7. Services Documentation Evidence for Sprint Review
 
 #### 6.2.2.8. Software Deployment Evidence for Sprint Review
