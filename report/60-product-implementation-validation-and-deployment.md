@@ -905,6 +905,13 @@ A continuación, se presentan las evidencias de la ejecución de la aplicación 
   <li><strong>Ubicación</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-location.png" alt="Settings View"></li>
 </ul>
 
+**Vistas de Veterinario:**
+
+<ul>
+  <li><strong>Historial Clínico</strong><br><img src="./assets/images/web-app-evidence/web-app-veterinarian-clinical-history.png" alt="Clinical History View"></li>
+  <li><strong>Reproducción</strong><br><img src="./assets/images/web-app-evidence/web-app-veterinarian-reproduction.png" alt="Reproduction View"></li>
+</ul>
+
 #### 6.2.2.7. Services Documentation Evidence for Sprint Review
 
 #### 6.2.2.8. Software Deployment Evidence for Sprint Review
