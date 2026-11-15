@@ -398,6 +398,57 @@ Fuente: [Product Backlog](30-requirements-specification.md#33-product-backlog) y
 
 #### 6.2.2.4. Development Evidence for Sprint Review
 
+La tabla reúne los commits de mayor impacto a nivel técnico:
+
+- 40 commits de `ichu-web-service`
+- 40 commits de `ichu-web-app`
+- 40 commits de `ichu-mobile-app`
+- 40 commits de `ichu-website`
+- 40 commits de `ichu-edge-service`
+
+| Repository | ID de Commit | Mensaje de Commit | Descripción de Commit | Fecha de Commit |
+|---|---|---|---|---|
+| ichu-web-service | 7052e84 | feat(monitoring): add methane alerts and critical threshold levels | Añade alertas de metano y niveles de umbral crítico. | 2026-11-14 |
+| ichu-web-service | 8ae5aa6 | feat(monitoring): record heart rate and methane index readings | Registra lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
+| ichu-web-service | edd29fa | feat: change water monitoring endpoints | Actualiza los endpoints de monitoreo de bebederos. | 2026-11-14 |
+| ichu-web-service | bc3adcc | feat: change water monitoring query service | Actualiza el servicio de consultas de monitoreo de agua. | 2026-11-14 |
+| ichu-web-service | f94a225 | feat: change iot water monitoring facade | Integra la fachada de monitoreo de agua con IoT Assets. | 2026-11-14 |
+| ichu-web-service | 7964a99 | feat: change water reading repository implementation | Implementa el repositorio de lecturas de agua. | 2026-11-14 |
+| ichu-web-service | 8201f2b | feat: change water reading database mapping | Configura el mapeo de lecturas de agua a persistencia. | 2026-11-14 |
+| ichu-web-service | ccbabcb | feat: change water reading request validation | Valida las solicitudes de registro de lecturas de agua. | 2026-11-14 |
+| ichu-web-service | 53660b3 | feat: change water reading domain validation | Añade validaciones de dominio para lecturas de agua. | 2026-11-14 |
+| ichu-web-service | 506b1c1 | feat(subscription-plans): expose plan catalog, quotes and subscriptions | Expone el catálogo de planes, cotizaciones y suscripciones. | 2026-11-07 |
+| ichu-web-service | 63000ce | feat(subscription-plans): pay subscriptions with stripe checkout | Integra el pago de suscripciones mediante Stripe Checkout. | 2026-11-10 |
+| ichu-web-service | 079380c | feat: add subscription plan quotes endpoint | Añade el endpoint de cotización de planes. | 2026-11-12 |
+| ichu-web-service | 3fe5a39 | feat(iam): add persistence and Firebase identity adapters | Añade persistencia IAM y adaptadores de identidad Firebase. | 2026-11-05 |
+| ichu-web-service | 6745002 | feat(iam): expose REST resources and register module services | Expone recursos REST de IAM y registra sus servicios. | 2026-11-05 |
+| ichu-web-service | 4da544b | feat: add veterinary access request endpoints | Añade endpoints para solicitar acceso veterinario a ranchos. | 2026-11-12 |
+| ichu-web-service | 658a010 | feat(iam): find a ranch by its access code | Permite localizar ranchos mediante código de acceso. | 2026-11-11 |
+| ichu-web-service | 600d67d | feat(iam): issue a unique access code for each ranch | Emite un código de acceso único para cada rancho. | 2026-11-11 |
+| ichu-web-service | 2b74959 | feat(cattle-information): add services API and persistence | Añade API y persistencia para información del ganado. | 2026-11-05 |
+| ichu-web-service | 2a5d518 | feat(cattle-information): model cattle lifecycle and lot membership | Modela el ciclo de vida de animales y su pertenencia a lotes. | 2026-11-05 |
+| ichu-web-service | 9552620 | feat(iot-assets): connect cattle, collar limits and collar release | Vincula animales y collares, aplica límites y libera asignaciones. | 2026-11-07 |
+| ichu-web-service | d451ff9 | feat(iot-assets): add edge gateway registry with one-time keys | Registra gateways Edge con claves de uso único. | 2026-11-08 |
+| ichu-web-service | 2313f54 | feat: add validated partial cattle update resource | Define un recurso validado para actualizar parcialmente un animal. | 2026-11-13 |
+| ichu-web-service | bbf3545 | feat: support atomic partial cattle updates | Implementa actualizaciones parciales atómicas del ganado. | 2026-11-13 |
+| ichu-web-service | 0c7342e | feat: expose cattle patch endpoint by unique identifier | Expone el endpoint PATCH de ganado por identificador único. | 2026-11-13 |
+| ichu-web-service | 8251d9c | feat(cattle-information): expose animal placements to trusted code | Expone ubicaciones de animales para integraciones autorizadas. | 2026-11-12 |
+| ichu-web-service | c67f662 | feat(iot-assets): list open collar assignments for trusted callers | Lista asignaciones de collar abiertas para clientes confiables. | 2026-11-12 |
+| ichu-web-service | ada0ae9 | feat(operations-monitoring): publish collar assignments to edge gateways | Publica asignaciones de collar hacia gateways Edge. | 2026-11-12 |
+| ichu-web-service | 4b5f8c7 | feat: base controller and planning controllers (activities, calendar, campaigns and periods) added | Añade controladores base para actividades, calendario, campañas y periodos. | 2026-11-06 |
+| ichu-web-service | 6a24522 | feat(planning): plan lot nutrition with ration changes | Planifica nutrición por lote y cambios de ración. | 2026-11-12 |
+| ichu-web-service | c4c884d | feat(operations-monitoring): record reproductive events and history | Registra eventos reproductivos e historial asociado. | 2026-11-12 |
+| ichu-web-service | 4addf07 | feat: expose herd and ranch monitoring reads for analytics | Provee lecturas de monitoreo de hato y rancho para analítica. | 2026-11-08 |
+| ichu-web-service | d1018e6 | feat(dashboard-analytics): expose analytics REST endpoints | Expone endpoints REST para analítica del dashboard. | 2026-11-06 |
+| ichu-web-service | bbb0d8d | feat(monitoring): authorize ranch operations through the IAM context facade | Autoriza operaciones sobre ranchos mediante la fachada IAM. | 2026-11-06 |
+| ichu-web-service | d90693d | feat(monitoring): add EF Core repositories and entity configurations | Añade repositorios Entity Framework Core y configuración de entidades para monitoreo. | 2026-11-05 |
+| ichu-web-service | 4dd2bcb | feat(monitoring): add command services | Añade servicios de comandos para operaciones de monitoreo. | 2026-11-05 |
+| ichu-web-service | 3b15a51 | feat(monitoring): add query services | Añade servicios de consulta para operaciones de monitoreo. | 2026-11-05 |
+| ichu-web-service | be74bfd | feat(monitoring): add REST controllers and service registration | Añade controladores REST y registro del contexto de monitoreo. | 2026-11-05 |
+| ichu-web-service | 86a95ee | feat: add cattle and iot schemas and register both modules | Crea esquemas de ganado e IoT y registra ambos módulos. | 2026-11-07 |
+| ichu-web-service | 885a8d6 | feat(shared): add the application database context with audit timestamps | Añade el contexto de base de datos compartido con marcas de auditoría. | 2026-11-06 |
+| ichu-web-service | de4aca4 | ci: run unit and integration tests against postgresql | Configura CI para ejecutar pruebas unitarias y de integración con PostgreSQL. | 2026-11-09 |
+
 #### 6.2.2.5. Testing Suite Evidence for Sprint Review
 
 #### 6.2.2.6. Execution Evidence for Sprint Review
