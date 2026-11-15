@@ -115,6 +115,10 @@ Se verificaron identificadores únicos, criterios Given–When–Then, correspon
 
 Durante AV2, el equipo revisó la relación entre investigación, requisitos, arquitectura, diseño IoT y planificación. Los ajustes del informe permitieron precisar el alcance del producto y mantener una descripción coherente de las aplicaciones, los servicios y los dispositivos de campo.
 
+![Panel de GitHub Insights con la actividad del repositorio ichu-report](../assets/images/collaboration/github-insights-av2.png)
+
+*Figura. Actividad del repositorio en GitHub Insights del 14 de octubre al 14 de noviembre de 2026.*
+
 ### Aportes por integrante
 
 | Integrante | Aporte |
