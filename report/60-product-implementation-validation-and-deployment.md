@@ -406,7 +406,7 @@ La tabla reúne los commits de mayor impacto a nivel técnico:
 - 40 commits de `ichu-website`
 - 40 commits de `ichu-edge-service`
 
-| Repository | ID de Commit | Mensaje de Commit | Descripción de Commit | Fecha de Commit |
+| Repositorio | ID de Commit | Mensaje de Commit | Descripción de Commit | Fecha de Commit |
 |---|---|---|---|---|
 | ichu-web-service | 7052e84 | feat(monitoring): add methane alerts and critical threshold levels | Añade alertas de metano y niveles de umbral crítico. | 2026-11-14 |
 | ichu-web-service | 8ae5aa6 | feat(monitoring): record heart rate and methane index readings | Registra lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
@@ -610,6 +610,93 @@ La tabla reúne los commits de mayor impacto a nivel técnico:
 | ichu-edge-service | 01eae1a | chore: initialize repository with contribution standards | Inicializa el repositorio con estándares de contribución. | 2026-11-07 |
 
 #### 6.2.2.5. Testing Suite Evidence for Sprint Review
+
+La identificación y registro de los commits incluyen cambios a pruebas unitarias e integración; componentes de soporte, fixtures, mocks y stubs; configuración o CI que habilita pruebas; y guías explícitas de pruebas locales. Los merges se incluyen cuando su diff respecto al primer padre incorpora o modifica artefactos de testing. La rama se informa cuando puede inferirse del mensaje o de la relación con un merge; las celdas vacías indican que el historial no permite determinarla con suficiente certeza.
+
+| Repositorio | Rama | ID de Commit | Mensaje de Commit | Fecha de Commit |
+|---|---|---|---|---|
+| ichu-web-service | feature/methane-alerts | a9a36f2 | Merge pull request #54 from five-smart-farm-creators/feature/methane-alerts | 2026-11-14 |
+| ichu-web-service | feature/methane-alerts | 7052e84 | feat(monitoring): add methane alerts and critical threshold levels | 2026-11-14 |
+| ichu-web-service | feature/heart-rate-and-methane | 05b1c26 | Merge pull request #51 from five-smart-farm-creators/feature/heart-rate-and-methane | 2026-11-14 |
+| ichu-web-service | bugfix/water-trough-error-messages | 87f5f1f | Merge branch 'bugfix/water-trough-error-messages' into feature/heart-rate-and-methane | 2026-11-14 |
+| ichu-web-service | feature/heart-rate-and-methane | 8ae5aa6 | feat(monitoring): record heart rate and methane index readings | 2026-11-14 |
+| ichu-web-service | fix/rest-endpoint-paths | b96dacb | Merge pull request #50 from five-smart-farm-creators/fix/rest-endpoint-paths | 2026-11-14 |
+| ichu-web-service |  | d7540f3 | feat: update api contract test | 2026-11-14 |
+| ichu-web-service |  | 04c0ebf | fix: update water monitoring openapi contract tests | 2026-11-14 |
+| ichu-web-service |  | f94a225 | feat: change iot water monitoring facade | 2026-11-14 |
+| ichu-web-service |  | 2369ddc | fix: update planning api regression tests | 2026-11-14 |
+| ichu-web-service |  | b9f0faa | fix: update planned activity regression tests | 2026-11-14 |
+| ichu-web-service | fix/rest-endpoint-paths | 18f2883 | Merge pull request #49 from five-smart-farm-creators/fix/rest-endpoint-paths | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 12a1cfc | fix: add missing lot lookup method to test double | 2026-11-13 |
+| ichu-web-service | develop | a986f58 | Merge pull request #48 from five-smart-farm-creators/develop | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 1420d94 | fix: verify reviewed openapi contracts and compatibility routes | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 4a03d16 | fix: verify calendar requests require both time bounds | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 8ca2059 | fix: verify lot permissions and openapi contract | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 5ec4cca | fix: verify lot criterion normalization and length limits | 2026-11-13 |
+| ichu-web-service | bugfix/planning | 36fb6de | Merge pull request #47 from five-smart-farm-creators/bugfix/planning | 2026-11-13 |
+| ichu-web-service | develop | a0ac5fe | Merge remote-tracking branch 'origin/develop' into fix/planning | 2026-11-13 |
+| ichu-web-service |  | 2554bc8 | test(planning): update nutrition plan routes | 2026-11-13 |
+| ichu-web-service |  | 5965e58 | test: planning services integral test update | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 5d43f91 | fix: verify partial cattle updates and concurrent requests | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | f7114ed | fix: verify cattle patch permissions and save behavior | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 3abc9a8 | fix: verify atomic cattle updates and stage history | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 67c387a | fix: add regression coverage for swagger quotes and bearer authorization | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | e87c8e5 | fix: verify veterinary access permissions and request conflicts | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | ccd8570 | fix: use explicit access request routes in acceptance scenarios | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | fa29e57 | fix: use veterinary access request routes in test setup | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | 61e51fa | fix: verify quotes do not create subscriptions or start checkout | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | 2ce4ecf | fix: verify quote pricing equivalence and parameter validation | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | 5d41bb9 | fix: use quotes endpoint in subscription acceptance scenarios | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | d3a4672 | fix: use quotes endpoint when preparing subscriptions | 2026-11-12 |
+| ichu-web-service | feature/edge-device-assignments | 8e92053 | Merge pull request #46 from five-smart-farm-creators/feature/edge-device-assignments | 2026-11-12 |
+| ichu-web-service |  | ada0ae9 | feat(operations-monitoring): publish collar assignments to edge gateways | 2026-11-12 |
+| ichu-web-service |  | c67f662 | feat(iot-assets): list open collar assignments for trusted callers | 2026-11-12 |
+| ichu-web-service |  | 8251d9c | feat(cattle-information): expose animal placements to trusted code | 2026-11-12 |
+| ichu-web-service | feature/reproduction-and-nutrition | b79619a | Merge pull request #43 from five-smart-farm-creators/feature/reproduction-and-nutrition | 2026-11-12 |
+| ichu-web-service | feature/reproduction-and-nutrition | 6a24522 | feat(planning): plan lot nutrition with ration changes | 2026-11-12 |
+| ichu-web-service | feature/reproduction-and-nutrition | c4c884d | feat(operations-monitoring): record reproductive events and history | 2026-11-12 |
+| ichu-web-service | feature/itemized-checkout | f870149 | Merge pull request #42 from five-smart-farm-creators/feature/itemized-checkout | 2026-11-12 |
+| ichu-web-service | feature/itemized-checkout | cb2e412 | feat(subscription-plans): itemize checkout by collar and annual fee | 2026-11-12 |
+| ichu-web-service | bugfix/pending-account-activation-conflict | ddbb584 | Merge pull request #41 from five-smart-farm-creators/bugfix/pending-account-activation-conflict | 2026-11-11 |
+| ichu-web-service | bugfix/pending-account-activation-conflict | 9d78134 | fix(iam): tolerate parallel activation of a pending account | 2026-11-11 |
+| ichu-web-service | feature/ranch-display-details | 3c4daaf | Merge pull request #40 from five-smart-farm-creators/feature/ranch-display-details | 2026-11-11 |
+| ichu-web-service | feature/ranch-display-details | 658a010 | feat(iam): find a ranch by its access code | 2026-11-11 |
+| ichu-web-service | feature/ranch-display-details | 7235aa7 | feat(iam): return ranch details in the account ranches | 2026-11-11 |
+| ichu-web-service | feature/ranch-display-details | 600d67d | feat(iam): issue a unique access code for each ranch | 2026-11-11 |
+| ichu-web-service | feature/render-deployment | 05c1ba6 | Merge pull request #37 from five-smart-farm-creators/feature/render-deployment | 2026-11-10 |
+| ichu-web-service | feature/render-deployment | b8dc73f | build(shared): deploy the api to render with docker | 2026-11-10 |
+| ichu-web-service | feature/stripe-checkout | 1b1bd7b | Merge pull request #36 from five-smart-farm-creators/feature/stripe-checkout | 2026-11-10 |
+| ichu-web-service | feature/stripe-checkout | 63000ce | feat(subscription-plans): pay subscriptions with stripe checkout | 2026-11-10 |
+| ichu-web-service | feature/development-demo-account | 8448034 | Merge pull request #35 from five-smart-farm-creators/feature/development-demo-account | 2026-11-10 |
+| ichu-web-service | feature/development-demo-account | 4cc0ac6 | feat(iam): seed a development demo account for a firebase user | 2026-11-10 |
+| ichu-web-service | feature/ranch-scoped-routes | 36503e7 | Merge pull request #34 from five-smart-farm-creators/feature/ranch-scoped-routes | 2026-11-10 |
+| ichu-web-service | feature/ranch-scoped-routes | 0d9e8d2 | refactor(shared)!: scope ranch resources under the ranch route | 2026-11-10 |
+| ichu-web-service | feature/iam-alignment | e477fd1 | Merge pull request #33 from five-smart-farm-creators/feature/iam-alignment | 2026-11-10 |
+| ichu-web-service | feature/iam-alignment | b5af21b | refactor(iam): align with shared patterns and localize failures | 2026-11-09 |
+| ichu-web-service | feature/bdd-acceptance-tests | 4203f33 | Merge pull request #32 from five-smart-farm-creators/feature/bdd-acceptance-tests | 2026-11-09 |
+| ichu-web-service | feature/bdd-acceptance-tests | df4383f | test(shared): add gherkin acceptance tests for the report user stories | 2026-11-09 |
+| ichu-web-service | feature/api-integration-tests | a8ea9e1 | Merge pull request #31 from five-smart-farm-creators/feature/api-integration-tests | 2026-11-09 |
+| ichu-web-service | feature/api-integration-tests | de4aca4 | ci: run unit and integration tests against postgresql | 2026-11-09 |
+| ichu-web-service | feature/api-integration-tests | 5f5ce4e | test(shared): add http integration tests for every bounded context | 2026-11-09 |
+| ichu-web-service | feature/demo-monitoring-rules | 6a61140 | Merge pull request #30 from five-smart-farm-creators/feature/demo-monitoring-rules | 2026-11-09 |
+| ichu-web-service | feature/demo-monitoring-rules | e6f5d56 | feat(operations-monitoring): seed demonstration monitoring rules | 2026-11-08 |
+| ichu-web-service | feature/analytics-wiring | f9ddb93 | Merge pull request #27 from five-smart-farm-creators/feature/analytics-wiring | 2026-11-08 |
+| ichu-web-service | feature/analytics-wiring | 3e8f58c | refactor(dashboard-analytics): align with shared patterns and wire data | 2026-11-08 |
+| ichu-web-service | feature/analytics-wiring | 4addf07 | feat: expose herd and ranch monitoring reads for analytics | 2026-11-08 |
+| ichu-web-service | feature/planning-alignment | 5d2e59d | Merge pull request #24 from five-smart-farm-creators/feature/planning-alignment | 2026-11-08 |
+| ichu-web-service | feature/planning-alignment | ae8516d | refactor(planning): align with shared patterns and wire contexts | 2026-11-08 |
+| ichu-web-service | feature/planning-alignment | c36dd52 | feat(operations-monitoring): expose clinical interventions to planning | 2026-11-08 |
+| ichu-web-service | feature/edge-gateway-registry | c1616bd | Merge pull request #23 from five-smart-farm-creators/feature/edge-gateway-registry | 2026-11-08 |
+| ichu-web-service | feature/edge-gateway-registry | e607106 | feat(operations-monitoring): resolve cattle and devices via facades | 2026-11-08 |
+| ichu-web-service | feature/edge-gateway-registry | d451ff9 | feat(iot-assets): add edge gateway registry with one-time keys | 2026-11-08 |
+| ichu-web-service | feature/operations-monitoring-quality | 4775158 | Merge pull request #22 from five-smart-farm-creators/feature/operations-monitoring-quality | 2026-11-07 |
+| ichu-web-service | feature/operations-monitoring-quality | 48e54a0 | test(operations-monitoring): cover alerts, rules, readings and sync | 2026-11-07 |
+| ichu-web-service | feature/cattle-iot-wiring | 92bc2f2 | Merge pull request #21 from five-smart-farm-creators/feature/cattle-iot-wiring | 2026-11-07 |
+| ichu-web-service | feature/cattle-iot-wiring | 40c0c9d | test: cover cattle, iot rules and module composition | 2026-11-07 |
+| ichu-web-service | feature/subscription-plans | bc4bfa2 | Merge pull request #20 from five-smart-farm-creators/feature/subscription-plans | 2026-11-07 |
+| ichu-web-service | feature/subscription-plans | c6341cb | test(subscription-plans): cover pricing, lifecycle and requests | 2026-11-07 |
+| ichu-web-service |  | 3225a19 | build: swashbuckle package for swagger ui (endpoint test) | 2026-11-06 |
+| ichu-web-service |  | dbbe333 | chore: initial commit | 2026-10-23 |
 
 #### 6.2.2.6. Execution Evidence for Sprint Review
 
