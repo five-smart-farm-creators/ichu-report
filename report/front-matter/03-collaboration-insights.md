@@ -109,4 +109,37 @@ El 8 de octubre se creó `fix/user-and-technical-stories` a partir del estado ac
 
 Se verificaron identificadores únicos, criterios Given–When–Then, correspondencia de títulos con el backlog, prioridades relacionadas del Capítulo II, enlaces locales y sumas por sprint. El resultado contiene 76 historias y 352 SP como propuesta para Sprint Planning; no acredita implementación ni cierre de sprints. Las capturas y tableros de Jira y UXPressia y los diagramas de arquitectura de AV1 requieren sincronización con esta especificación. El cambio se integró en `develop` mediante el PR #12, registrado en el merge `9cae532` ([https://tinyurl.com/2y6l5g8z](https://tinyurl.com/2y6l5g8z)).
 
+## AV2
+
+### Organización del trabajo
+
+Durante AV2, el equipo revisó la relación entre investigación, requisitos, arquitectura, diseño IoT y planificación. Los ajustes del informe permitieron precisar el alcance del producto y mantener una descripción coherente de las aplicaciones, los servicios y los dispositivos de campo.
+
+![Panel de GitHub Insights con la actividad del repositorio ichu-report](../assets/images/collaboration/github-insights-av2.png)
+
+*Figura. Actividad del repositorio en GitHub Insights del 14 de octubre al 14 de noviembre de 2026.*
+
+### Aportes por integrante
+
+| Integrante | Aporte |
+|---|---|
+| Avalos Cordova, Diego Andres | Organizó la estructura de AV2, ajustó la carátula y la planificación del Sprint 1, revisó la User Task Matrix y el Design-Level EventStorming. Alineó los requisitos, la arquitectura, el diseño, los anexos y el índice con el alcance vigente, conservó los recursos gráficos originales e integró los aportes del equipo. |
+| Awad Vargas, Giorgio Marzouk | Consolidó el vocabulario del negocio, unificó las épicas e historias y organizó su trazabilidad. Precisó la diferencia entre las actividades actuales del negocio y las automatizaciones propuestas. Preparó el guion de validación para los dos segmentos y documentó la planificación, el reparto y el backlog del Sprint 2. |
+| Contreras Leon, Flor de María | Desarrolló las especificaciones del collar y del receptor de alertas, sus conexiones y límites de funcionamiento. Alineó el flujo Wi-Fi entre el collar y Edge con los requisitos y el diseño. También organizó las pautas de contribución y las validaciones para integrar el trabajo del equipo. |
+| Arrieta Quispe, Alison Jimena | Revisó los modelos C4 y corrigió las relaciones entre actores, aplicaciones y servicios. Afinó las tecnologías, los nombres y los iconos, incorporó la base de datos móvil al diseño y actualizó la representación de los contenedores. |
+| Sanchez Arenas, Manuel Angel | Amplió los resúmenes de entrevistas con información sobre los participantes, las tecnologías utilizadas y sus necesidades. Extendió las hipótesis Lean UX para relacionar los beneficios esperados, las funcionalidades y los objetivos del producto. |
+| Romero Meza, Jhimy Pool | Sus aportes de las entregas anteriores al Needfinding, los perfiles de usuario y el vocabulario del dominio proporcionaron una base común para la investigación y la definición de requisitos. |
+
+### Planificación y coordinación
+
+La reunión de planificación se realizó de forma virtual el 4 de noviembre de 2026 a las 10:00 PM, hora de Lima. Diego preparó la planificación y participaron Giorgio, Manuel, Flor, Alison y Diego. El periodo del Sprint 2 se estableció del 4 al 14 de noviembre, con 30 historias y una estimación total de 164 SP.
+
+| Entregable | Líder | Colaboradores |
+|---|---|---|
+| Mobile Application | Diego Avalos | Alison Arrieta, Manuel Sanchez y Giorgio Awad |
+| Project Report | Manuel Sanchez | Alison Arrieta y Giorgio Awad |
+| Website | Giorgio Awad | Alison Arrieta y Manuel Sanchez |
+
+La revisión del alcance mantuvo las 30 historias del Sprint 2 y organizó el backlog completo en 72 historias y 334 SP. El trabajo conjunto permitió relacionar las necesidades de los usuarios con los requisitos, el diseño técnico y la planificación. La distribución por entregable ayudó a definir quién coordina cada área y con quién colabora para mantener alineados los avances del producto y del informe.
+
 <div style="break-after: page; page-break-after: always;"></div>
