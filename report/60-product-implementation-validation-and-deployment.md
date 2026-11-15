@@ -344,6 +344,21 @@ Fuente: [Product Backlog del Capítulo III](30-requirements-specification.md#33-
 
 #### 6.2.2.2. Aspect Leaders and Collaborators
 
+La distribución siguiente toma como referencia las áreas propuestas en 6.2.1.2 y las adapta al alcance del Sprint 2. Los líderes y colaboradores son una **propuesta pendiente de confirmación**; no representan asignaciones verificadas en Jira ni trabajo completado. Cada líder coordinaría su aspecto y cada colaborador apoyaría la integración y revisión de los entregables relacionados.
+
+| Aspecto | Líder propuesto | Colaboradores propuestos | Responsabilidad para Sprint 2 |
+|---|---|---|---|
+| Experiencia de usuario y continuidad de la Landing Page | Contreras Leon, Flor de María | Avalos Cordova, Diego Andres; Arrieta Quispe, Alison Jimena | Revisar la continuidad entre selección de plan, registro y solicitud de suscripción, y la presentación de fichas, telemetría, alertas y estados sin conexión en los recorridos integrados. |
+| Operations & Monitoring, Portable Edge Gateway y clientes web/móvil | Avalos Cordova, Diego Andres | Romero Meza, Jhimy Pool; Sanchez Arenas, Manuel Angel | Coordinar geocercas, configuración local, evaluación y atención de alertas, sincronización Edge–API y consumo desde los clientes. Conservar origen, hora de captura y estado de sincronización. |
+| Identity & Access Management, Cattle Information y trazabilidad | Arrieta Quispe, Alison Jimena | Sanchez Arenas, Manuel Angel; Contreras Leon, Flor de María | Coordinar registro, acceso, perfil profesional, autorizaciones y registro y consulta del animal; revisar permisos por unidad productiva y la correspondencia entre historias, servicios y evidencia. |
+| Contratos de servicios y pruebas de integración | Sanchez Arenas, Manuel Angel | Avalos Cordova, Diego Andres; Awad Vargas, Giorgio Marzouk | Revisar los contratos de las historias técnicas seleccionadas, incluidas las notificaciones externas, y preparar verificaciones de autorización, persistencia, duplicados, conflictos y recuperación de conectividad. |
+| Subscription Plans, entornos y despliegue | Awad Vargas, Giorgio Marzouk | Contreras Leon, Flor de María; Sanchez Arenas, Manuel Angel | Coordinar catálogo, estimación y solicitud de suscripción; distinguir solicitud pendiente de activación confirmada y revisar configuración y despliegue del recorrido integrado. |
+| IoT Assets y collar inteligente | Romero Meza, Jhimy Pool | Avalos Cordova, Diego Andres; Arrieta Quispe, Alison Jimena | Coordinar asignación de collares, captura y validez de lecturas, cola pendiente y confirmación de recepción en Edge por Wi-Fi local; revisar que los reintentos conserven la identidad del registro. |
+
+Las áreas se cruzan en los recorridos de integración: cuenta y permisos habilitan las consultas; suscripción y asignación habilitan el uso del collar; Edge y API conservan los registros; los clientes presentan sus resultados. La revisión entre responsables debe comprobar esos puntos de unión con los criterios del Capítulo III antes de proponer la aceptación de una historia.
+
+Las tareas simuladas SF-96 a SF-117 del Sprint 1 se mantienen como antecedente; esta tabla no les atribuye nuevos estados ni identificadores. Al confirmar la selección, el equipo deberá registrar en Jira las historias y tareas de Sprint 2 con sus responsables y estimaciones. Dashboard & Analytics, Planning y el controlador del abrevadero permanecen en las iteraciones posteriores previstas por el Product Backlog.
+
 #### 6.2.2.3. Sprint Backlog 2
 
 #### 6.2.2.4. Development Evidence for Sprint Review
