@@ -79,7 +79,6 @@ enum AlertType {
   Geofence
   Activity
   Reproductive
-  WaterTemperature
 }
 enum AlertSeverity {
   Informative

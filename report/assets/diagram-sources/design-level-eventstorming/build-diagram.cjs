@@ -1,7 +1,7 @@
 /**
  * Rebuild the English Design-Level EventStorming board and its PNG export.
  * Requires Node.js and sharp. Run this file from any working directory.
- * The nineteen flows mirror the model table in section 4.1.1.
+ * The eighteen flows mirror the model table in section 4.1.1.
  */
 const fs = require('node:fs');
 const path = require('node:path');
@@ -39,9 +39,6 @@ const groups = [
     ['Request access to a herd', 'Veterinarian', 'Advisory access requested', 'Notify the administrator for a decision', 'Applicant professional profile', 'HerdAdvisory'],
     ['Grant access', 'Livestock administrator', 'Advisory access granted', 'Enable access restricted to the authorized herd', 'Pending requests', 'HerdAdvisory'],
   ]],
-  ['Water Trough Control', [
-    ['None (automatic)', 'System', 'Water temperature out of range', 'Activate heating and alert if the temperature does not return to range', 'Configured water trough temperature range', 'MonitoringAlert'],
-  ]],
 ];
 
 const palette = { actor: '#fff094', command: '#a5c7f3', event: '#ffc28d', policy: '#cec0ef', read: '#a4ddb6', aggregate: '#f4aaa9' };
@@ -69,7 +66,7 @@ const nodes = [0, 1, 2, 3, 4, 5].map(i => 66 + i * 292);
 const parts = [
   `<svg xmlns="http://www.w3.org/2000/svg" xml:lang="en" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">`,
   '<title id="title">SmartFarm | Design-Level EventStorming</title>',
-  '<desc id="description">Nineteen flows across seven domain areas. Each row identifies an actor, command, domain event, policy, read model and aggregate. Arrows connect the actor to a command, a command to its event, an event to its policy and a policy to its resulting read model. Dashed arrows associate events with aggregates.</desc>',
+  '<desc id="description">Eighteen flows across six domain areas. Each row identifies an actor, command, domain event, policy, read model and aggregate. Arrows connect the actor to a command, a command to its event, an event to its policy and a policy to its resulting read model. Dashed arrows associate events with aggregates.</desc>',
   '<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#58615a"/></marker></defs>',
   '<rect width="100%" height="100%" fill="#ffffff"/>',
   '<g font-family="Arial, sans-serif" fill="#202b24">',

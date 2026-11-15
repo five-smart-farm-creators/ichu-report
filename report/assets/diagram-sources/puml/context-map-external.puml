@@ -11,7 +11,6 @@ skinparam ArrowFontSize 11
 title ICHU - Context Map: integraciones con el borde y con sistemas externos
 
 rectangle "Cattle Band\nEmbedded App" as BAND #FFFDE7
-rectangle "Water Controller\nEmbedded App" as WATER #FFFDE7
 rectangle "Portable Edge\nGateway" as EDGE #FFFDE7
 
 rectangle "Operations & Monitoring\n<<Core Domain>>" as MON #FFE0B2
@@ -24,7 +23,6 @@ rectangle "Map Provider" as MAP #ECEFF1
 rectangle "Payment\nProvider" as PAY #ECEFF1
 
 BAND -down-> EDGE : Wi-Fi HTTP\n(BLE previsto)
-WATER -down-> MON : OHS\nTelemetry API
 EDGE -down-> MON : ACL\nCloud API ACL
 MON -up-> EDGE : OHS\nEdge Configuration API
 

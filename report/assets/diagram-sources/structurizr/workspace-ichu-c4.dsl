@@ -27,10 +27,6 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             tags "External,Hardware"
         }
 
-        waterControllerHardware = softwareSystem "Water Temperature Controller Hardware" {
-            description "ESP32 water-temperature sensor and heating actuator"
-            tags "External,Hardware"
-        }
 
         ledHardwareDisplay = softwareSystem "LED Hardware Display" {
             description "External LED indicator connected to the Portable Edge Gateway for visible local alerts"
@@ -155,61 +151,6 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                 }
             }
 
-            waterControllerEmbeddedApp = container "Water Controller Embedded Application" {
-                technology "C++ on ESP32"
-                description "Water-trough firmware for measurement and heating"
-                tags "IoT"
-
-                // Figura 4.10: componentes añadidos desde la captura.
-
-                waterControlInterface = component "Water Control Interface" {
-                    technology "C++"
-                    description "Interfaz de arranque del ciclo de medición"
-                    tags "Interface"
-                }
-
-                waterControlApplicationService = component "Water Control Application Service" {
-                    technology "C++"
-                    description "Servicio de aplicación que coordina la medición"
-                    tags "Application"
-                }
-
-                temperatureRegulationService = component "Temperature Regulation Service" {
-                    technology "C++"
-                    description "Servicio de dominio que decide el accionamiento"
-                    tags "DomainService"
-                }
-
-                waterControllerAggregate = component "Water Controller Aggregate" {
-                    technology "C++"
-                    description "Agregado del estado del controlador"
-                    tags "DomainAggregate"
-                }
-
-                waterControllerHal = component "Water Controller HAL" {
-                    technology "C++"
-                    description "Capa de abstracción del hardware del controlador"
-                    tags "Infrastructure"
-                }
-
-                waterControllerHardwareAcl = component "Water Controller Hardware ACL" {
-                    technology "C++"
-                    description "ACL hacia los controladores del fabricante"
-                    tags "ACL"
-                }
-
-                waterControllerLocalBuffer = component "Water Controller Local Buffer" {
-                    technology "ESP32 Flash / NVS"
-                    description "Memoria local para lecturas no transmitidas"
-                    tags "Infrastructure"
-                }
-
-                waterCloudAdapter = component "Water Cloud Adapter" {
-                    technology "C++ / HTTPS"
-                    description "Adaptador de envío al backend"
-                    tags "Infrastructure"
-                }
-            }
 
             edgeGateway = container "Portable Edge Service" {
                 technology "Flask + Peewee ORM on Python, running on Raspberry Pi or similar Edge Device"
@@ -390,7 +331,6 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         visitor -> ichu "Reviews the value proposition and plans"
 
         cattleBandHardware -> ichu "Provides temperature, movement and position"
-        waterControllerHardware -> ichu "Provides water temperature and actuator status"
 
         ichu -> firebaseMessaging "Sends push notifications"
         ichu -> mapProvider "Displays positions and geofences"
@@ -432,8 +372,6 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         edgeGateway -> ledHardwareDisplay "Activates visual warnings for critical local events" "GPIO"
         edgeGateway -> fieldOperator "Notifies the operator about critical local alerts" "Visual LED signal"
 
-        waterControllerEmbeddedApp -> waterControllerHardware "Measures water and controls the heater"
-        waterControllerEmbeddedApp -> backend "Reports temperature and actuator events" "HTTPS / JSON"
 
         backend -> cloudDatabase "Reads and writes cloud data" "Entity Framework Core / Npgsql"
         backend -> firebaseMessaging "Requests push notifications" "Firebase Admin SDK"
@@ -506,31 +444,15 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         edgeRepository -> edgeDatabase "Persists telemetry, rules, mappings and synchronization state" "SQLite"
         ichuCloudApiAcl -> backend "Synchronizes telemetry, assignments, thresholds and geofences" "HTTPS / JSON"
 
-        // Figura 4.10: firmware del controlador del abrevadero.
 
-        waterControlInterface -> waterControlApplicationService "Starts temperature monitoring"
-        waterControlApplicationService -> waterControllerAggregate "Updates controller state"
-        waterControlApplicationService -> temperatureRegulationService "Requests temperature regulation evaluation"
-        waterControlApplicationService -> waterControllerLocalBuffer "Buffers events while cloud connectivity is unavailable"
-        waterControlApplicationService -> waterCloudAdapter "Reports temperature and actuator events"
 
-        temperatureRegulationService -> waterControllerAggregate "Updates heating state"
-        temperatureRegulationService -> waterControllerHal "Reads temperature and controls heating actuator"
-        waterControllerAggregate -> waterControllerHal "Executes device state changes"
-        waterControllerHal -> waterControllerHardwareAcl "Uses hardware-specific drivers"
-        waterControllerHardwareAcl -> waterControllerHardware "Reads temperature sensor and operates heating actuator"
-        waterCloudAdapter -> backend "Reports water telemetry and actuator events" "HTTPS / JSON"
 
         production = deploymentEnvironment "Production" {
             deploymentNode "Ranch / Grazing Environment" {
+
                 deploymentNode "Cattle Band Device" {
                     technology "ESP32-S3 + Wi-Fi (BLE planned)"
                     containerInstance cattleBandEmbeddedApp
-                }
-
-                deploymentNode "Water Temperature Controller Device" {
-                    technology "ESP32 + Wi-Fi"
-                    containerInstance waterControllerEmbeddedApp
                 }
 
                 deploymentNode "Portable Edge Gateway Device" {
@@ -608,7 +530,6 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             include veterinarian
             include visitor
             include cattleBandHardware
-            include waterControllerHardware
             include ledHardwareDisplay
             include firebaseMessaging
             include mapProvider
@@ -635,7 +556,7 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             autoLayout lr
         }
 
-        // Figuras 4.7 a 4.13: vistas añadidas desde las siete capturas.
+        // Figuras 4.7 a 4.12: seis vistas de componentes y flujos dinámicos.
 
         component backend "OperationsMonitoringComponents" {
             title "Figura 4.7. Componentes del módulo Operations & Monitoring"
@@ -706,27 +627,9 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             autoLayout lr
         }
 
-        component waterControllerEmbeddedApp "WaterControllerComponents" {
-            title "Figura 4.10. Componentes del firmware del controlador del abrevadero"
-            description "Elaboración propia con Structurizr."
-
-            include waterControlInterface
-            include waterControlApplicationService
-            include temperatureRegulationService
-            include waterControllerAggregate
-            include waterControllerHal
-            include waterControllerHardwareAcl
-            include waterControllerLocalBuffer
-            include waterCloudAdapter
-
-            include waterControllerHardware
-            include backend
-
-            autoLayout lr
-        }
 
         dynamic ichu "ConnectedCattleMonitoringFlow" {
-            title "Figura 4.11. Flujo completo cuando el gateway tiene Internet"
+            title "Figura 4.10. Flujo completo cuando el gateway tiene Internet"
             description "Elaboración propia con Structurizr."
 
             cattleBandEmbeddedApp -> edgeGateway "1. Sends temperature, movement and GPS telemetry over local Wi-Fi"
@@ -740,7 +643,7 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         }
 
         dynamic ichu "OfflineGrazingFlow" {
-            title "Figura 4.12. Flujo completo durante el pastoreo sin cobertura"
+            title "Figura 4.11. Flujo completo durante el pastoreo sin cobertura"
             description "Elaboración propia con Structurizr."
 
             cattleBandEmbeddedApp -> edgeGateway "1. Sends telemetry over local Wi-Fi"
@@ -751,7 +654,7 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         }
 
         dynamic ichu "EdgeGatewaySynchronization" {
-            title "Figura 4.13. Sincronización al recuperar la conexión"
+            title "Figura 4.12. Sincronización al recuperar la conexión"
             description "Elaboración propia con Structurizr."
 
             edgeGateway -> backend "1. Uploads pending readings and alerts in batches and downloads rules and collar assignments"
