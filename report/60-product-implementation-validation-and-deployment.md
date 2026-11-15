@@ -1099,7 +1099,7 @@ El historial de Firebase Hosting registra las publicaciones del **12 de noviembr
 
 ![Historial de Firebase Hosting con los hashes y las fechas de publicación de ICHU](assets/images/deployment/sprint-2-firebase-hosting.png)
 
-*Figura 6.12. Historial de versiones del sitio Ichu-SmartFarm en Firebase Hosting. La captura conserva las fechas, los hashes y el total de archivos de cada versión. Se ocultó el correo de la cuenta.*
+*Figura 6.12. Historial de versiones del sitio Ichu-SmartFarm en Firebase Hosting. La captura conserva las fechas, los hashes y el total de archivos de cada versión.*
 
 ##### API central y PostgreSQL en Render
 
@@ -1127,10 +1127,10 @@ Durante el Sprint 2, del **4 al 14 de noviembre de 2026**, los cinco integrantes
 
 ##### Actividad por repositorio e integrante
 
-El recuento usa la fecha de autoría entre el 4 y el 14 de noviembre, en hora de Lima (UTC−5). En cada repositorio se contaron los hashes distintos de `main` y `develop` accesibles al 15 de noviembre, con atribución al autor principal de Git y excluyendo los commits de fusión. Un cero indica que la consulta no identificó commits de autoría para esa combinación de integrante y repositorio.
+Commits de autoría de cada integrante por repositorio, contados en `main` y `develop` sin incluir los commits de fusión. Un cero indica que no se registraron commits de ese integrante en el repositorio.
 
 | Producto o entregable | Alison Arrieta | Diego Avalos | Flor Contreras | Giorgio Awad | Manuel Sanchez | Total |
-|---|---:|---:|---:|---:|---:|---:|---:|
+|---|---:|---:|---:|---:|---:|---:|
 | Landing Page | 4 | 2 | 9 | 4 | 0 | 19 |
 | API central | 96 | 14 | 125 | 6 | 23 | 264 |
 | Aplicación web | 0 | 9 | 91 | 0 | 0 | 100 |
