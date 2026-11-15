@@ -528,6 +528,46 @@ La tabla reúne los commits de mayor impacto a nivel técnico:
 | ichu-mobile-app | 53035d6 | test(operations-monitoring): add waterer api contract coverage | Cubre los contratos API de bebederos con pruebas. | 2026-11-14 |
 | ichu-mobile-app | f195f2d | test(operations-monitoring): cover edge alert route integration | Cubre con pruebas la integración de rutas de alertas Edge. | 2026-11-14 |
 | ichu-mobile-app | 4eed777 | feat: align mobile clients with backend contracts | Alinea los clientes móviles con los contratos del backend. | 2026-11-14 |
+| ichu-website | be9e6bd | chore: configura el repositorio | Configura la estructura inicial del repositorio. | 2026-10-28 |
+| ichu-website | fa6b2ab | feat: agrega la portada y su estructura visual | Implementa la portada y su estructura visual. | 2026-10-28 |
+| ichu-website | bbd08e1 | feat: habilita idioma e interacciones del sitio | Incorpora selector de idioma e interacciones del sitio. | 2026-10-28 |
+| ichu-website | 7f4de18 | feat: añade páginas de funcionamiento y medios | Añade páginas de funcionamiento y contenido multimedia. | 2026-10-28 |
+| ichu-website | a210501 | docs: documenta estructura y puesta en marcha | Documenta la estructura del proyecto y su puesta en marcha. | 2026-10-28 |
+| ichu-website | a57bb22 | refactor(paths): use English names for pages and assets | Renombra páginas y recursos con nombres en inglés. | 2026-10-29 |
+| ichu-website | c362812 | feat(i18n): add English and Spanish locale resources | Añade recursos de idioma en inglés y español. | 2026-10-29 |
+| ichu-website | 0fc640f | fix(i18n): support standalone pages and nested routes | Adapta la localización a páginas independientes y rutas anidadas. | 2026-10-29 |
+| ichu-website | 30f5a4f | feat(404): add a localized recovery page | Añade una página 404 localizada. | 2026-10-29 |
+| ichu-website | 1c6cd4b | refactor(i18n): use semantic translation keys | Estandariza las claves de traducción con nombres semánticos. | 2026-10-29 |
+| ichu-website | 0d5810d | ci(i18n): validate locale resources and references | Valida recursos de idioma y sus referencias mediante CI. | 2026-10-29 |
+| ichu-website | 4b47ca8 | docs(i18n): document locale conventions | Documenta convenciones para los recursos de idioma. | 2026-10-29 |
+| ichu-website | 944c66b | refactor(i18n): move locale catalogs to root directory | Traslada los catálogos de idioma al directorio raíz. | 2026-10-29 |
+| ichu-website | af4b8fe | docs(website): document locale layout and directory policy | Documenta la estructura de idiomas y la política de directorios. | 2026-10-29 |
+| ichu-website | f81ac9a | fix(navigation): close the drawer after contact actions | Cierra el menú lateral después de acciones de contacto. | 2026-10-30 |
+| ichu-website | 47777e2 | fix(chat): prioritize selected and specific topics | Prioriza temas específicos en el chat de contacto. | 2026-10-30 |
+| ichu-website | f7fbdf9 | fix(forms): validate phone digits and formatting | Valida los dígitos y el formato telefónico en los formularios. | 2026-10-30 |
+| ichu-website | b19abff | fix(layout): prevent overflow on narrow screens | Evita desbordamientos de diseño en pantallas estrechas. | 2026-10-30 |
+| ichu-website | 55bbd40 | fix(a11y): add main headings to secondary pages | Añade encabezados principales accesibles a las páginas secundarias. | 2026-10-30 |
+| ichu-website | 27ab5dc | fix(docs): clarify WhatsApp contact form behavior | Aclara el comportamiento del formulario de contacto por WhatsApp. | 2026-10-30 |
+| ichu-website | 167fa6a | refactor(i18n): simplify locale rendering and validation | Simplifica el renderizado de idiomas y su validación. | 2026-10-30 |
+| ichu-website | 58faa92 | refactor(interactions): reuse page state and response handlers | Reutiliza el estado de página y los manejadores de respuesta. | 2026-10-30 |
+| ichu-website | 243d378 | fix(partials): resolve shared links from the site root | Corrige la resolución de enlaces compartidos desde la raíz del sitio. | 2026-10-30 |
+| ichu-website | dc18d3b | refactor(ui): reuse shared layout and stylesheet | Reutiliza la estructura y la hoja de estilos comunes. | 2026-10-30 |
+| ichu-website | 6cccaad | refactor(dom): standardize element IDs in kebab-case | Estandariza los identificadores de elementos del DOM. | 2026-10-30 |
+| ichu-website | c305a9b | fix(i18n): keep image alt fallback in English | Mantiene en inglés el texto alternativo cuando falta una traducción. | 2026-10-30 |
+| ichu-website | fcb2b04 | fix(rendering): keep content visible when scripts fail | Mantiene visible el contenido cuando fallan los scripts. | 2026-11-06 |
+| ichu-website | d9f5b97 | fix(partials): resolve shared components from page base | Resuelve componentes compartidos desde la ruta base de cada página. | 2026-11-06 |
+| ichu-website | 3a4db83 | ci: enforce git flow branches and conventional commits | Configura CI para ramas Gitflow y commits Conventional. | 2026-11-07 |
+| ichu-website | e952fa8 | fix(seo): add keywords meta tag to every page | Añade metadatos de palabras clave SEO a todas las páginas. | 2026-11-07 |
+| ichu-website | 0b8a2ea | ci: validate only release branch commits on release pull requests | Limita la validación de commits a la rama release en sus pull requests. | 2026-11-07 |
+| ichu-website | b70cfc2 | ci: enforce commit conventions from their adoption date | Aplica la convención de commits desde su fecha de adopción. | 2026-11-07 |
+| ichu-website | 6c82be2 | fix(assets): publish shared fragments on GitHub Pages | Publica fragmentos compartidos en GitHub Pages. | 2026-11-13 |
+| ichu-website | 2a68500 | fix(layout): resolve recovery assets under the Pages project path | Corrige las rutas de recursos de recuperación bajo la ruta del proyecto Pages. | 2026-11-13 |
+| ichu-website | 10513a6 | refactor(layout): keep recovery navigation in shared scripts | Centraliza la navegación de recuperación en los scripts compartidos. | 2026-11-14 |
+| ichu-website | 1329a2e | fix: replace media video with team placeholder | Sustituye el video de medios por un marcador del equipo. | 2026-11-14 |
+| ichu-website | 32be741 | feat: update team video content in english | Actualiza el contenido del video del equipo en inglés. | 2026-11-14 |
+| ichu-website | 3197ba1 | feat: update video content in spanish | Actualiza el contenido del video del equipo en español. | 2026-11-14 |
+| ichu-website | f5b8b69 | feat: style disabled media links | Aplica estilos a los enlaces multimedia deshabilitados. | 2026-11-14 |
+| ichu-website | de0ae91 | docs(contributing): document the team Gitflow workflow | Documenta el flujo Gitflow del equipo. | 2026-10-29 |
 
 #### 6.2.2.5. Testing Suite Evidence for Sprint Review
 
