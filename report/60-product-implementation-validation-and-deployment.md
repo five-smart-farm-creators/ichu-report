@@ -568,6 +568,46 @@ La tabla reúne los commits de mayor impacto a nivel técnico:
 | ichu-website | 3197ba1 | feat: update video content in spanish | Actualiza el contenido del video del equipo en español. | 2026-11-14 |
 | ichu-website | f5b8b69 | feat: style disabled media links | Aplica estilos a los enlaces multimedia deshabilitados. | 2026-11-14 |
 | ichu-website | de0ae91 | docs(contributing): document the team Gitflow workflow | Documenta el flujo Gitflow del equipo. | 2026-10-29 |
+| ichu-edge-service | 2a585b3 | Merge pull request #14 from five-smart-farm-creators/feature/collar-and-panel-scope | Integra en develop el PR sobre el alcance del collar y el panel de alertas. | 2026-11-14 |
+| ichu-edge-service | b7307a6 | docs: limit the edge scope to the collar and the alert panel | Delimita el alcance de Edge al collar y al panel de alertas. | 2026-11-14 |
+| ichu-edge-service | ba444a8 | Merge pull request #13 from five-smart-farm-creators/feature/methane-alerts | Integra en develop el PR de alertas de metano. | 2026-11-14 |
+| ichu-edge-service | 86cc9b0 | feat(monitoring): raise methane alerts and escalate to critical levels | Genera alertas de metano y escala su severidad hasta el nivel crítico. | 2026-11-14 |
+| ichu-edge-service | 4e4473d | Merge pull request #12 from five-smart-farm-creators/feature/heart-rate-and-methane | Integra en develop el PR de lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
+| ichu-edge-service | 112eaa9 | feat(monitoring): accept heart rate and methane index readings | Acepta lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
+| ichu-edge-service | ab11b0a | Merge pull request #11 from five-smart-farm-creators/feature/local-e2e-guide | Integra en develop la guía de demostración end-to-end local. | 2026-11-13 |
+| ichu-edge-service | c60215f | docs: add a local end-to-end demo guide with troubleshooting | Añade una guía local de demostración end-to-end con solución de problemas. | 2026-11-13 |
+| ichu-edge-service | fb5ad72 | Merge pull request #10 from five-smart-farm-creators/feature/collar-simulator | Integra en develop el simulador de collar para pruebas end-to-end locales. | 2026-11-13 |
+| ichu-edge-service | fe94df5 | docs: explain how to run the collar simulator | Explica cómo ejecutar el simulador de collar. | 2026-11-13 |
+| ichu-edge-service | ecb5cd0 | feat(tools): add a collar simulator for local end-to-end tests | Añade un simulador de collar para pruebas end-to-end locales. | 2026-11-13 |
+| ichu-edge-service | 0322f28 | Merge pull request #9 from five-smart-farm-creators/feature/measurement-validity | Integra en develop la validación de mediciones y geocercas según precisión. | 2026-11-12 |
+| ichu-edge-service | b86bbfe | docs: document sensor failures and accuracy-aware geofences | Documenta fallos de sensores y geocercas que consideran la precisión. | 2026-11-12 |
+| ichu-edge-service | 3576156 | feat(monitoring): accept per-field sensor failures and gps accuracy | Registra fallos por sensor y precisión GPS para cada medición. | 2026-11-12 |
+| ichu-edge-service | 52e3517 | Merge pull request #8 from five-smart-farm-creators/feature/device-assignments | Integra en develop la asignación de dispositivos. | 2026-11-12 |
+| ichu-edge-service | 18bcaa2 | docs: document collar assignments and collar registration | Documenta la asignación y el registro de collares. | 2026-11-12 |
+| ichu-edge-service | 4445f69 | feat(iam): register cloud collars from the command line | Permite registrar collares en la nube mediante la CLI. | 2026-11-12 |
+| ichu-edge-service | 0866d1a | feat(monitoring): refresh collar assignments from the cloud | Actualiza desde la nube las asignaciones de collares. | 2026-11-12 |
+| ichu-edge-service | e99794b | Merge pull request #7 from five-smart-farm-creators/feature/sync-worker | Integra en develop el worker de sincronización. | 2026-11-12 |
+| ichu-edge-service | 9a1dfac | docs: document periodic synchronization and bounded retries | Documenta la sincronización periódica y los reintentos acotados. | 2026-11-12 |
+| ichu-edge-service | 515eaac | feat(monitoring): add the periodic synchronizer command | Añade un comando de sincronización periódica. | 2026-11-12 |
+| ichu-edge-service | d3a7730 | feat(monitoring): retry conflicts and isolate refused batches | Reintenta conflictos y separa los lotes rechazados. | 2026-11-12 |
+| ichu-edge-service | 3c5b00a | Merge pull request #6 from five-smart-farm-creators/feature/cloud-configuration | Integra en develop la configuración de la nube. | 2026-11-12 |
+| ichu-edge-service | e644e5b | ci: run the test suite on pull requests | Ejecuta la suite de pruebas en pull requests. | 2026-11-12 |
+| ichu-edge-service | 6cd0d5f | build(persistence): run sqlite in wal mode | Configura SQLite en modo WAL para la persistencia. | 2026-11-12 |
+| ichu-edge-service | ff1c116 | Merge pull request #5 from five-smart-farm-creators/feature/gateway-key-format | Integra en develop el formato de claves de gateway. | 2026-11-08 |
+| ichu-edge-service | 0191d26 | refactor(config): derive the gateway id from the issued key | Deriva el ID del gateway a partir de la clave emitida. | 2026-11-12 |
+| ichu-edge-service | e4ee5ed | docs: document the backend gateway key format | Documenta el formato de la clave de gateway del backend. | 2026-11-08 |
+| ichu-edge-service | 7b3f6b3 | Merge pull request #2 from five-smart-farm-creators/feature/telemetry-monitoring | Integra en develop el monitoreo de telemetría. | 2026-11-07 |
+| ichu-edge-service | d23f7ab | docs: document edge architecture, api contract and decisions | Documenta la arquitectura Edge, el contrato API y las decisiones técnicas. | 2026-11-07 |
+| ichu-edge-service | 12eb506 | test(monitoring): cover cloud synchronization outcomes | Prueba los resultados de sincronización con la nube. | 2026-11-07 |
+| ichu-edge-service | f8fba66 | feat(monitoring): ingest telemetry and sync pending records | Ingiere telemetría y sincroniza registros pendientes. | 2026-11-07 |
+| ichu-edge-service | f315b13 | feat(monitoring): persist readings, alerts and cached rules | Persiste lecturas, alertas y reglas en caché. | 2026-11-07 |
+| ichu-edge-service | b9654bd | feat(monitoring): evaluate thresholds and geofences at the edge | Evalúa umbrales y geocercas localmente en Edge. | 2026-11-07 |
+| ichu-edge-service | 7e5620d | feat(monitoring): add telemetry reading and alert domain model | Define el modelo de dominio para lecturas y alertas. | 2026-11-07 |
+| ichu-edge-service | b18b590 | Merge pull request #1 from five-smart-farm-creators/feature/device-authentication | Integra en develop la autenticación de dispositivos. | 2026-11-07 |
+| ichu-edge-service | 3e03bdb | feat(iam): persist devices and expose device authentication | Persiste dispositivos y expone su autenticación. | 2026-11-07 |
+| ichu-edge-service | 5240f7d | feat(iam): add device aggregate with salted api credentials | Añade un agregado de dispositivo con credenciales API cifradas con sal. | 2026-11-07 |
+| ichu-edge-service | 3a34ee1 | build(config): add environment settings and shared sqlite database | Configura las variables de entorno y una base de datos SQLite compartida. | 2026-11-07 |
+| ichu-edge-service | 01eae1a | chore: initialize repository with contribution standards | Inicializa el repositorio con estándares de contribución. | 2026-11-07 |
 
 #### 6.2.2.5. Testing Suite Evidence for Sprint Review
 
