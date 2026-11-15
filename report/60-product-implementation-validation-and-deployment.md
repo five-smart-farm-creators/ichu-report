@@ -1,6 +1,6 @@
 # Capítulo VI: Product Implementation, Validation & Deployment
 
-Este capítulo registra la configuración del software y las evidencias disponibles del Sprint 1. El alcance desarrollado y documentado aquí comprende dos interfaces: la Landing Page de ICHU y el frontend web de la plataforma. No se implementó un backend; por ello, las pantallas, cifras de ejemplo y respuestas visuales descritas no acreditan persistencia de datos ni servicios conectados.
+Este capítulo registra la configuración del software y las evidencias de implementación y despliegue de ICHU. En el Sprint 1, las evidencias corresponden a la Landing Page y al frontend web con datos de muestra. En el Sprint 2, la sección 6.2.2.7 documenta el contrato OpenAPI de la API central desplegada.
 
 ## 6.1. Software Configuration Management
 
@@ -18,7 +18,7 @@ El frontend web de la plataforma es un segundo artefacto, desarrollado con Angul
 | Landing Page — organización | Páginas HTML, `css/styles.css`, `js/i18n.js` y `js/main.js`; no utiliza framework ni proceso de compilación |
 | Web Application — tecnologías verificadas | Angular 22.2.2, TypeScript 6.0.3 y Angular Material 22.2.2, según el manifiesto del repositorio ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) |
 | Web Application — comandos del manifiesto | `npm start`, `npm run build`, `npm run typecheck` y `npm run test:e2e`; este último ejecuta Playwright |
-| Backend | No implementado en el alcance documentado; la interfaz web presenta datos de ejemplo |
+| Backend en el Sprint 1 | El incremento se centró en las interfaces frontend con datos de ejemplo. La documentación de la API central del Sprint 2 se presenta en 6.2.2.7. |
 | Landing Page — validación automatizada | El README menciona jsdom, pero no se encontró el script ni su configuración en la copia revisada; no es reproducible desde esa copia |
 
 Fuente: README del repositorio LandingPageSmartFarm, [https://tinyurl.com/27vbhfce](https://tinyurl.com/27vbhfce)
@@ -404,9 +404,228 @@ Fuente: [Product Backlog](30-requirements-specification.md#33-product-backlog) y
 
 #### 6.2.2.7. Services Documentation Evidence for Sprint Review
 
+Durante el Sprint 2, ICHU configuró la publicación del contrato OpenAPI 3.1 de la API central en Render y habilitó Swagger UI para consultar y ejecutar las operaciones. El contrato documenta el acceso con Firebase y con la clave del Edge Gateway, los resultados individuales de los lotes de sincronización y las rutas de compatibilidad en desuso. La documentación desplegada se consultó el 15 de noviembre de 2026. [Swagger UI](https://ichu-web-service.onrender.com/swagger/index.html) · [OpenAPI](https://ichu-web-service.onrender.com/openapi/v1.json)
+
+##### Endpoints documentados con OpenAPI
+
+Las rutas son relativas a `https://ichu-web-service.onrender.com`. Los identificadores de ruta son UUID. Las operaciones requieren un token Bearer de Firebase salvo donde se indica acceso público u otra credencial. Los cuerpos de solicitud usan JSON. Los ejemplos muestran campos de las respuestas del contrato y de los casos de prueba versionados. Las capturas del catálogo y la cotización muestran las respuestas obtenidas directamente en Swagger UI. [Pruebas de integración en v0.6.0](https://github.com/five-smart-farm-creators/ichu-web-service/tree/v0.6.0/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests)
+
+**Identidad, perfil y acceso al hato**
+
+| Historia | Verbo y sintaxis de llamada | Acción y parámetros | Ejemplo y explicación de la respuesta | Documentación |
+|---|---|---|---|---|
+| US-01 | `POST /api/v1/accounts` | Registra la cuenta con `role` y, para `RanchManager`, `ranchName`, `region`, `district` y `estimatedHeadCount`. La identidad de Firebase aporta el correo. | `201` con `account.status: "PendingVerification"` y `ranchId` de la unidad creada. `409` con `Iam.AccountAlreadyExists` si la cuenta ya existe. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Accounts-post_api_v1_accounts) |
+| US-02 | `POST /api/v1/accounts/sessions` | Inicia sesión con `email` y `password` en el cuerpo. Operación pública. | `200` con `tokenType: "Bearer"` e `idToken` de Firebase para las llamadas protegidas. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Accounts-post_api_v1_accounts_sessions) |
+| US-02 | `GET /api/v1/accounts/me` | Consulta la cuenta autenticada y activa la cuenta pendiente cuando el correo ya está verificado. | `200` con `role: "RanchManager"` y `status: "Active"` en el caso de una cuenta verificada. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Accounts-get_api_v1_accounts_me) |
+| US-02, US-04 | `GET /api/v1/accounts/me/ranches` | Lista las unidades a las que puede acceder la cuenta autenticada. | `200` con una lista de unidades, por ejemplo `name: "Los Andes"`, `scope: "Manage"` y `expiresAt: null` para el propietario. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Accounts-get_api_v1_accounts_me_ranches) |
+| US-03 | `GET /api/v1/profiles/me` | Consulta la cuenta y su perfil profesional. | `200` con `profile: null` para una cuenta sin perfil profesional. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Profiles-get_api_v1_profiles_me) |
+| US-03 | `PUT /api/v1/profiles/me` | Completa el perfil veterinario con `specialty`, `licenseNumber` y `yearsOfExperience`. | `200` con el perfil de la cuenta, por ejemplo `profile.specialty: "Bovine health"`. `409` si la colegiatura pertenece a otra cuenta. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Profiles-put_api_v1_profiles_me) |
+| US-04 | `POST /api/v1/ranches/{ranchId}/herd-advisories/grants` | El propietario autoriza a un veterinario con perfil completo. El cuerpo incluye `veterinarianId`, `scope` (`Read` o `ClinicalWrite`) y `expiresAt` futuro. | `201` con `status: "Granted"`, el alcance y el vencimiento. `409` si ya existe una autorización activa. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Veterinary_Access_Requests-post_api_v1_ranches__ranchId__herd_advisories_grants) |
+
+**Planes y suscripciones**
+
+| Historia | Verbo y sintaxis de llamada | Acción y parámetros | Ejemplo y explicación de la respuesta | Documentación |
+|---|---|---|---|---|
+| TS-10, US-34 | `GET /api/v1/plans` | Lista el catálogo público. La llamada no requiere parámetros. | `200` con Basic, Standard y Pro. Basic incluye `deviceLimit: 50`, la tarifa anual y el precio unitario del collar. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Subscription_Plans-get_api_v1_plans) |
+| TS-10, US-34 | `GET /api/v1/plans/{planId}` | Consulta un plan por su identificador. Operación pública. | `200` con el plan, por ejemplo `name: "Basic"` y `features: ["Alerts", "Monitoring"]`. `404` si el plan no existe. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Subscription_Plans-get_api_v1_plans__planId_) |
+| TS-10, US-34 | `GET /api/v1/quotes?planId={planId}&headCount={headCount}` | Calcula una cotización pública. Ambos parámetros de consulta son obligatorios. `planId` es un UUID y `headCount` un entero admitido por el plan. | `200` con `headCount: 10`, `devicesCost.amount: 1200` y `total.amount: 1800` en `PEN` para Basic. Es una estimación anual. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Subscription_Plans-get_api_v1_quotes) |
+| TS-10, US-34 | `GET /api/v1/plans/{planId}/quote?headCount={headCount}` | Conserva la cotización pública anterior para clientes existentes. Recibe `planId` en la ruta y `headCount` en la consulta. OpenAPI la marca en desuso. | `200` con el mismo contrato de cotización, incluidos `annualFee`, `devicesCost`, `total` y `periodicity: "Annual"`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Subscription_Plans-get_api_v1_plans__planId__quote) |
+| TS-10, US-34 | `POST /api/v1/ranches/{ranchId}/subscriptions` | Registra la solicitud con `planId`, `headCount`, `expectedTotal`, `termsVersion`, `operationId` y `acquisitionSource` opcional. | `201` con `status: "Pending"` y `activatedAt: null`. El escenario Standard de 10 cabezas registra `total.amount: 3000` en `PEN`. El reintento idéntico devuelve el registro guardado con `200`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Subscriptions-post_api_v1_ranches__ranchId__subscriptions) |
+| TS-10 | `GET /api/v1/ranches/{ranchId}/subscriptions` | Consulta la suscripción de la unidad. | `200` con `status: "Pending"` tras la solicitud, además del plan, los importes y la vigencia. `404` si aún no hay suscripción. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Subscriptions-get_api_v1_ranches__ranchId__subscriptions) |
+| TS-10 | `POST /api/v1/ranches/{ranchId}/subscriptions/{subscriptionId}/checkout-sessions` | Genera una sesión de Stripe Checkout para una suscripción pendiente. Recibe los dos UUID en la ruta y no requiere cuerpo. | `201` con `sessionId: "cs_test_fake"` en la prueba con el proveedor simulado. El contrato también entrega `url` y `expiresAt`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Subscriptions-post_api_v1_ranches__ranchId__subscriptions__subscriptionId__checkout_sessions) |
+| TS-10 | `POST /api/v1/payments/stripe/webhooks` | Recibe el JSON original del evento y valida `Stripe-Signature`. Una confirmación aplicable activa la suscripción pendiente. | `200` sin cuerpo como acuse del webhook. La prueba comprueba `status: "Active"` al consultar posteriormente la suscripción cuyo pago se confirmó. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Payments-post_api_v1_payments_stripe_webhooks) |
+
+**Hato, collares y reglas de monitoreo**
+
+| Historia | Verbo y sintaxis de llamada | Acción y parámetros | Ejemplo y explicación de la respuesta | Documentación |
+|---|---|---|---|---|
+| US-06 | `POST /api/v1/ranches/{ranchId}/cattle` | Registra el animal con `earTag`, `breed`, `sex`, `birthDate` y `lifeStage`. | `201` con el identificador y los datos del animal, por ejemplo `earTag: "PE-0001"`, `currentStage: "Heifer"` y `status: "Active"`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Cattle_Information-post_api_v1_ranches__ranchId__cattle) |
+| US-07, TS-18, US-22 | `GET /api/v1/ranches/{ranchId}/cattle` | Busca animales autorizados. Admite `earTag`, `status`, `lotId`, `page` y `pageSize`. | `200` con la lista de coincidencias. La prueba por arete devuelve un animal con `earTag: "PE-0011"`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Cattle_Information-get_api_v1_ranches__ranchId__cattle) |
+| US-07, TS-18, US-22 | `GET /api/v1/ranches/{ranchId}/cattle/{cattleId}` | Obtiene la ficha de un animal y su relación con el collar. | `200` con `cattle.earTag: "PE-0002"` y `device.collarId: null` en el caso sin collar. `device.lastReadingReceivedAt` indica la última recepción cuando está disponible. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Cattle_Information-get_api_v1_ranches__ranchId__cattle__cattleId_) |
+| US-10 | `POST /api/v1/ranches/{ranchId}/devices` | Registra el collar antes de asignarlo. Recibe `serial`, `type` (`SmartCollar` para el collar) y `firmwareVersion` cuando se conoce. | `201` con `type: "SmartCollar"`, `status: "Available"` y `currentAssignment: null`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-IoT_Devices-post_api_v1_ranches__ranchId__devices) |
+| US-10 | `GET /api/v1/ranches/{ranchId}/devices` | Lista el inventario autorizado para seleccionar el collar. | `200` con la lista de dispositivos y sus estados. El caso de inventario vacío devuelve `[]`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-IoT_Devices-get_api_v1_ranches__ranchId__devices) |
+| US-10 | `GET /api/v1/ranches/{ranchId}/devices/{deviceId}` | Consulta el dispositivo y obtiene su `version` para la asignación. | `200` con el estado, la versión y `currentAssignment`, que es `null` si el collar está sin asignar. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-IoT_Devices-get_api_v1_ranches__ranchId__devices__deviceId_) |
+| US-10 | `POST /api/v1/ranches/{ranchId}/devices/{deviceId}/assignments` | Asigna el collar al animal `targetId`. El cuerpo requiere `expectedVersion` del dispositivo. | `201` con `status: "InService"` y `currentAssignment.targetType: "Cattle"`. La asignación incluye su fecha de inicio y el animal de destino. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Device_Assignments-post_api_v1_ranches__ranchId__devices__deviceId__assignments) |
+| US-10 | `GET /api/v1/ranches/{ranchId}/devices/{deviceId}/assignments` | Consulta el historial de asignaciones del dispositivo. | `200` con la lista de asignaciones, sus destinos y los campos `startedAt` y `endedAt`. El ejemplo cerrado conserva `releaseReason: "Collar maintenance"`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Device_Assignments-get_api_v1_ranches__ranchId__devices__deviceId__assignments) |
+| US-15 | `GET /api/v1/ranches/{ranchId}/lots` | Lista los lotes autorizados para seleccionar el lote de una geocerca. | `200` con una lista de lotes, por ejemplo `name: "Calving pen"` y su identificador. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Cattle_Lots-get_api_v1_ranches__ranchId__lots) |
+| US-15 | `POST /api/v1/ranches/{ranchId}/geofences` | Crea la zona para `lotId` con `name`, `toleranceMeters`, `severity` y `vertices` con `latitude` y `longitude`. | `201` con la zona y su lote, por ejemplo `name: "North boundary"`. `400` con `OperationsMonitoring.GeofenceBoundaryCrossing` si el perímetro se cruza. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Geofences-post_api_v1_ranches__ranchId__geofences) |
+| US-15 | `GET /api/v1/ranches/{ranchId}/geofences` | Lista las zonas configuradas, con sus lotes y límites. | `200` con una lista de zonas. Tras rechazar un polígono cruzado en una unidad sin geocercas, el escenario comprueba `[]`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Geofences-get_api_v1_ranches__ranchId__geofences) |
+| US-15 | `PUT /api/v1/ranches/{ranchId}/geofences/{geofenceId}` | Reemplaza `name`, `toleranceMeters`, `severity` y `vertices` de la zona identificada. | `200` con la geocerca actualizada, incluidos `lotId`, `vertices` y la `revision` de las reglas. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Geofences-put_api_v1_ranches__ranchId__geofences__geofenceId_) |
+| TS-15, US-16 | `PUT /api/v1/ranches/{ranchId}/monitoring-thresholds` | Crea o reemplaza un umbral con `lifeStage`, `metric`, `minValue`, `maxValue` y `severity`. | `200` con `metric: "BodyTemperature"`, `minValue: 37.5`, `maxValue: 39.5` y `severity: "Warning"` en la prueba. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Monitoring_Thresholds-put_api_v1_ranches__ranchId__monitoring_thresholds) |
+| TS-15, US-16 | `GET /api/v1/ranches/{ranchId}/monitoring-thresholds` | Consulta los umbrales de la unidad autorizada. | `200` con la lista de umbrales por etapa y métrica. La prueba devuelve una regla con `lifeStage: "MilkingCow"`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Monitoring_Thresholds-get_api_v1_ranches__ranchId__monitoring_thresholds) |
+
+**Edge Gateway, telemetría, alertas y sincronización móvil**
+
+| Historia | Verbo y sintaxis de llamada | Acción y parámetros | Ejemplo y explicación de la respuesta | Documentación |
+|---|---|---|---|---|
+| TS-06, TS-15 | `POST /api/v1/ranches/{ranchId}/edge-gateways` | Registra el nodo con `name` para aprovisionar su clave de enlace con la API central. | `201` con `status: "Active"` y `key` en formato `{gatewayId}.{secret}`, devuelta una sola vez. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-IoT_Edge_Gateways-post_api_v1_ranches__ranchId__edge_gateways) |
+| TS-15 | `GET /api/v1/edge-gateways/{gatewayId}/monitoring-rules` | Descarga umbrales y geocercas. Requiere `X-Gateway-Key` y admite `afterRevision` en la consulta. | `200` con `revision: 2`, `thresholds` y `geofences` en la prueba. `304` sin cuerpo si la revisión local sigue vigente. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Edge_Gateways-get_api_v1_edge_gateways__gatewayId__monitoring_rules) |
+| TS-15 | `GET /api/v1/edge-gateways/{gatewayId}/device-assignments` | Descarga las asignaciones de collares a animales activos. Requiere `X-Gateway-Key`. | `200` con `ranchId` y `assignments`. Cada entrada identifica dispositivo, animal, lote y etapa, por ejemplo `lifeStage: "MilkingCow"`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Edge_Gateways-get_api_v1_edge_gateways__gatewayId__device_assignments) |
+| TS-06, TS-07, TS-05, US-16, US-17 | `POST /api/v1/telemetry/batch` | Recibe `readings`, `alerts` y `alertChanges` con `X-Gateway-Key`. La lectura usa `readingId`, `deviceId`, `recordedAt` y las mediciones capturadas. Las alertas usan `alertId` y los cambios usan `operationId`. Los reintentos conservan los identificadores. | `200` con resultados por entrada, por ejemplo `kind: "Reading"` y `status: "Accepted"`. Cada entrada puede indicar `Accepted`, `Duplicate`, `Rejected` o `Conflict`, con el motivo cuando aplica. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Telemetry-post_api_v1_telemetry_batch) |
+| TS-08, US-13 | `GET /api/v1/ranches/{ranchId}/cattle/{cattleId}/telemetry?from={from}&to={to}` | Consulta el intervalo `[from, to)` con ambos límites de fecha y hora y paginación opcional con `page` y `pageSize`. | `200` con `totalCount` e `items` que incluyen captura, recepción, origen y estado de los indicadores. La prueba incluye `bodyTemperature.value: 38.6` y `bodyTemperature.status: "Valid"`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Telemetry-get_api_v1_ranches__ranchId__cattle__cattleId__telemetry) |
+| US-13, US-20 | `GET /api/v1/ranches/{ranchId}/cattle/{cattleId}/telemetry/latest` | Recupera los últimos valores válidos y la última posición conocida con sus tiempos de captura. | `200` con `bodyTemperature.value: 38.6` y `bodyTemperature.unit: "celsius"` en el caso con una lectura. `lastKnownPosition.status: "Unavailable"` indica ausencia de una posición utilizable. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Telemetry-get_api_v1_ranches__ranchId__cattle__cattleId__telemetry_latest) |
+| TS-09, US-16, US-17 | `GET /api/v1/ranches/{ranchId}/alerts` | Consulta las alertas del hato en orden del evento más reciente. Admite `status` (`Pending` o `Acknowledged`), `cattleId`, `page` y `pageSize`. | `200` con `items` y `totalCount`. La alerta de temperatura de la prueba incluye `status: "Pending"`, `detectedValue: 40.2` y `thresholdMaxValue: 39.5`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Alerts-get_api_v1_ranches__ranchId__alerts) |
+| TS-09, US-19 | `PATCH /api/v1/ranches/{ranchId}/alerts/{alertId}` | Registra la atención con `status: "Acknowledged"`, `finding`, `action`, `operationId` y `expectedVersion`. | `200` con `status: "Acknowledged"`, `acknowledgedBy` y `version: 2` en la prueba. `409` devuelve la alerta vigente si la versión quedó desactualizada. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Alerts-patch_api_v1_ranches__ranchId__alerts__alertId_) |
+| US-21 | `POST /api/v1/ranches/{ranchId}/field-events` | Registra el evento con `operationId`, `cattleId`, `type`, `occurredAt` y los detalles del tipo, como `observation`. | `201` con `type: "HealthEvent"`, `observation: "Mild lameness"` y el autor. Un reintento con la misma operación devuelve el registro guardado con `200`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Livestock_Operations-post_api_v1_ranches__ranchId__field_events) |
+| US-21, US-22 | `GET /api/v1/ranches/{ranchId}/cattle/{cattleId}/livestock-operations?from={from}&to={to}` | Consulta los eventos e intervenciones del animal entre dos fechas y horas en el intervalo `[from, to)`. | `200` con una lista de operaciones. El escenario de faena recupera el evento `type: "HealthEvent"` registrado previamente. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Livestock_Operations-get_api_v1_ranches__ranchId__cattle__cattleId__livestock_operations) |
+| TS-18, US-21, US-22 | `POST /api/v1/mobile-sync/batch` | Envía `operations` con las entradas de la cola móvil. Cada entrada conserva su `operationId`, `cattleId`, `type`, `occurredAt` y los detalles según el tipo. El servidor resuelve la unidad desde el animal y verifica permisos. | `200` con `results` por operación. La prueba devuelve una entrada `Accepted` y otra `Rejected`. Los casos de reintento devuelven `Duplicate` o `Conflict`. | [Swagger](https://ichu-web-service.onrender.com/swagger/index.html#operations-Livestock_Operations-post_api_v1_mobile_sync_batch) |
+
+El servicio local del Edge v0.2.0 describe en su README la recepción de lecturas del collar, el listado de alertas para el panel y la sincronización. La revisión de esa versión encontró el contrato HTTP en Markdown. Los permisos locales móviles de TS-15, las operaciones móviles locales de TS-16 y TS-17 y el envío a un proveedor de TS-11 quedan fuera de la cobertura OpenAPI verificada. TS-01 y TS-03 corresponden a la captura de lecturas y a la cola de reintentos en el firmware del collar. [Contrato HTTP del Edge](https://github.com/five-smart-farm-creators/ichu-edge-service/blob/d85e43368614dadcb0013e285ece8c69a32aa67d/README.md#api-contract)
+
+##### Evidencia de interacción con Swagger UI
+
+![Swagger UI muestra HTTP 200 y el plan Basic en la respuesta del catálogo](assets/images/implementation/sprint-2-swagger-plan-catalog.jpg)
+
+*Figura 6.13. Desde Swagger UI se ejecutó `GET /api/v1/plans`. El servidor devolvió HTTP 200. El primer elemento muestra el identificador de Basic, su límite de 50 collares, la tarifa anual de 600 PEN y el precio unitario de 120 PEN. El identificador de este resultado se usó para la consulta siguiente.*
+
+![Swagger UI muestra HTTP 200 y el desglose de la cotización Basic para diez cabezas](assets/images/implementation/sprint-2-swagger-plan-quote.jpg)
+
+*Figura 6.14. Se ejecutó `GET /api/v1/quotes` en Swagger UI con el `planId` de Basic y `headCount=10` como dato de muestra. El servidor devolvió HTTP 200 con una tarifa anual de 600 PEN y 1 200 PEN por los diez collares, para un total de 1 800 PEN.*
+
+##### Repositorio y commits de documentación del Sprint 2
+
+Los commits registran los cambios de documentación, publicación y verificación del contrato en el repositorio de servicios. [five-smart-farm-creators/ichu-web-service](https://github.com/five-smart-farm-creators/ichu-web-service)
+
+| Commit | Fecha | Aporte a la documentación |
+|---|---|---|
+| [a6adf29](https://github.com/five-smart-farm-creators/ichu-web-service/commit/a6adf29135b2aa93e26b0991b407fa1ada2c6796) | 06/11/2026 | Sustituyó Scalar por Swagger UI para consultar el contrato. |
+| [a823ea0](https://github.com/five-smart-farm-creators/ichu-web-service/commit/a823ea07564d433cebf7913554cfc752c8f6ce46) | 06/11/2026 | Incorporó el esquema Bearer de Firebase a OpenAPI. |
+| [9601dd7](https://github.com/five-smart-farm-creators/ichu-web-service/commit/9601dd7db2d9e87c2717153d87096c57a6598ea8) | 06/11/2026 | Declaró `X-Gateway-Key` en el contrato de las operaciones del Edge. |
+| [3e84cc3](https://github.com/five-smart-farm-creators/ichu-web-service/commit/3e84cc34fe583feebade15737a8ff713c3c02978) | 06/11/2026 | Explicó en el README cómo ingresar la clave del nodo en Swagger UI. |
+| [b8dc73f](https://github.com/five-smart-farm-creators/ichu-web-service/commit/b8dc73fd1e0c0cc0cd69af297071895937c33057) | 10/11/2026 | Configuró la publicación del servicio y habilitó Swagger UI en Render. |
+| [ada0ae9](https://github.com/five-smart-farm-creators/ichu-web-service/commit/ada0ae963a0e5b4fead2d145d87bb12120d2105e) | 12/11/2026 | Publicó el contrato de descarga de asignaciones de collares para el Edge Gateway. |
+| [eaa7d60](https://github.com/five-smart-farm-creators/ichu-web-service/commit/eaa7d60be4cb7a21ff9b509ecc3d83c8f86681f6) | 12/11/2026 | Corrigió el parámetro entero de cotización en Swagger y preservó la autorización Bearer. |
+| [67c387a](https://github.com/five-smart-farm-creators/ichu-web-service/commit/67c387a1b2de6f83d05e07d5b49a7341bde7e48b) | 12/11/2026 | Añadió pruebas de regresión para las cotizaciones y la autorización en Swagger. |
+| [c9b5a12](https://github.com/five-smart-farm-creators/ichu-web-service/commit/c9b5a12eb3e3baa3ba53e5960faee995565a0686) | 13/11/2026 | Aclaró los contratos de creación y consulta de lotes en Swagger. |
+| [d754c50](https://github.com/five-smart-farm-creators/ichu-web-service/commit/d754c5007bc0bf9a9e6fa06af43b4dff99f93341) | 13/11/2026 | Especificó los datos de entrada y los resultados por entrada de la sincronización móvil. |
+| [1fa7dbc](https://github.com/five-smart-farm-creators/ichu-web-service/commit/1fa7dbc06c1f16c7192889ae057ac7f676571926) | 13/11/2026 | Detalló la autenticación del Edge y los resultados del lote de telemetría. |
+| [57e621f](https://github.com/five-smart-farm-creators/ichu-web-service/commit/57e621f4ecb4d34e2eab8c2f8434e5728d41fe9e) | 13/11/2026 | Declaró las operaciones públicas sin requisito Bearer en el contrato. |
+| [b2a9c05](https://github.com/five-smart-farm-creators/ichu-web-service/commit/b2a9c0515bc5deea5ff88ea9a48cb4d0c80fc0b5) | 13/11/2026 | Declaró la firma de Stripe y el cuerpo original del webhook. |
+| [b1603d3](https://github.com/five-smart-farm-creators/ichu-web-service/commit/b1603d3a666fd39fefd307a03700ebab0dc8a0e6) | 13/11/2026 | Expuso en OpenAPI qué operaciones están en desuso. |
+| [74cdc32](https://github.com/five-smart-farm-creators/ichu-web-service/commit/74cdc32468c3ed310a839f418d1602309af03aef) | 13/11/2026 | Registró los transformadores de autenticación y deprecación de OpenAPI. |
+| [1420d94](https://github.com/five-smart-farm-creators/ichu-web-service/commit/1420d94fd5717f71e382ef17780983baca11b6a9) | 13/11/2026 | Añadió comprobaciones de los contratos revisados y las rutas de compatibilidad. |
+
+El 13 de noviembre de 2026, hora de Lima, el repositorio del servicio Edge incorporó la guía local del flujo collar, Edge y nube. [five-smart-farm-creators/ichu-edge-service](https://github.com/five-smart-farm-creators/ichu-edge-service) · [c60215f](https://github.com/five-smart-farm-creators/ichu-edge-service/commit/c60215f62384d297a4e3067667fd1ce7c3003d26)
+
 #### 6.2.2.8. Software Deployment Evidence for Sprint Review
 
+Durante el Sprint 2, del 4 al 14 de noviembre de 2026, el equipo publicó una actualización de la Landing Page en GitHub Pages y nuevas versiones de la aplicación web en Firebase Hosting. También configuró el despliegue de la API central en Render con PostgreSQL y automatizó el arranque del Edge en GitHub Actions para las pruebas de integración del collar y el panel de alertas.
+
+##### Landing Page en GitHub Pages
+
+GitHub Pages publicó los archivos estáticos desde la raíz de la rama `main` del repositorio `ichu-website`. El ajuste de publicación incorporó `.nojekyll` para que GitHub Pages sirviera los fragmentos compartidos del encabezado y pie de página. El 14 de noviembre, la ejecución n.º 6 construyó el artefacto y lo desplegó con estado **Success** desde el commit `78d2120`. El sitio publicado respondió HTTP 200 al consultarlo el 15 de noviembre. [Ajustes de publicación del sitio](https://github.com/five-smart-farm-creators/ichu-website/blob/78d21204efd8f07f699d6573396d7da1c2840ab8/README.md#deployment) · [Ejecución de GitHub Actions](https://github.com/five-smart-farm-creators/ichu-website/actions/runs/43562156744) · [Landing Page publicada](https://five-smart-farm-creators.github.io/ichu-website/)
+
+![GitHub Actions muestra el despliegue exitoso de la Landing Page desde main](assets/images/deployment/sprint-2-github-pages.jpg)
+
+*Figura 6.15. Ejecución de GitHub Pages para el commit `78d2120`. Los trabajos `build`, `report-build-status` y `deploy` finalizaron correctamente.*
+
+##### Aplicación web en Firebase Hosting
+
+El 12 de noviembre se incorporaron `firebase.json` y `scripts/deploy-hosting.ps1` al repositorio `ichu-web-app`. El script compila la aplicación Angular, escribe la configuración de producción en el directorio de salida y publica `dist/ichu-web-app/browser` mediante Firebase CLI. Hosting sirve `index.html` para las rutas de la aplicación. En la verificación del 15 de noviembre, el sitio respondió HTTP 200 y su configuración publicada apuntó a la API de Render. [Commit de configuración](https://github.com/five-smart-farm-creators/ichu-web-app/commit/bf8b6ff837ffdcbef67b5ed22e9c07635be7a195) · [Aplicación web publicada](https://ichu-smartfarm.web.app/)
+
+El historial de Firebase Hosting registra las publicaciones del **12 de noviembre** con hash `c5bbff` a las 12:21 p. m. y `536113` a las 12:33 p. m., y la del **13 de noviembre** con hash `638a24` a la 1:17 a. m. La primera fila de la captura muestra la publicación posterior al cierre del sprint, del 15 de noviembre.
+
+![Historial de Firebase Hosting con los hashes y las fechas de publicación de ICHU](assets/images/deployment/sprint-2-firebase-hosting.png)
+
+*Figura 6.16. Historial de versiones del sitio Ichu-SmartFarm en Firebase Hosting. La captura conserva las fechas, los hashes y el total de archivos de cada versión. Se ocultó el correo de la cuenta.*
+
+##### API central y PostgreSQL en Render
+
+El 10 de noviembre, el commit `b8dc73f` incorporó el `Dockerfile` y el Blueprint `render.yaml`. El Dockerfile compila la API en una etapa con el SDK de .NET y ejecuta el artefacto publicado en una imagen de ASP.NET Core, con un usuario sin privilegios y en el puerto `8080`. El Blueprint define el servicio web `ichu-web-service` y la base PostgreSQL 17 `ichu-db` en la región de Oregon. Render quedó configurado para desplegar los cambios de `main`, consultar `/health` y habilitar la documentación OpenAPI en el entorno de producción. El 11 de noviembre, GitHub registró como exitosa la operación asociada a `main - ichu-db`. El 15 de noviembre, `GET /health` devolvió **HTTP 200** y `Healthy`, lo que acredita que la API desplegada pudo conectarse a su base de datos en esa comprobación. [Configuración y contenedor en GitHub](https://github.com/five-smart-farm-creators/ichu-web-service/commit/b8dc73fd1e0c0cc0cd69af297071895937c33057) · [Registro de estado de la base](https://api.github.com/repos/five-smart-farm-creators/ichu-web-service/deployments/7702886599/statuses) · [Estado de la API](https://ichu-web-service.onrender.com/health)
+
+![Blueprint de Render con el Dockerfile, el health check y el despliegue automático desde main](assets/images/deployment/sprint-2-render-blueprint.jpg)
+
+*Figura 6.17. Blueprint versionado para construir en Render con `Dockerfile`, verificar `/health` y desplegar automáticamente desde `main`.*
+
+##### Entorno de integración del Edge, collar y panel
+
+El 14 de noviembre, hora de Lima, los trabajos `end-to-end` de ambos repositorios de firmware prepararon un entorno temporal en GitHub Actions. Instalaron las dependencias del Edge, cargaron las reglas y la asignación del collar para la prueba y arrancaron la API local en el ejecutor. El trabajo del collar compiló el firmware, lo ejecutó en Wokwi contra el Edge y comprobó una alerta crítica de temperatura. El trabajo del panel generó una alerta crítica con el simulador del collar y ejecutó en Wokwi el firmware del panel conectado al mismo entorno de prueba de ese trabajo. Ambos trabajos finalizaron correctamente. [Ejecución del collar](https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app/actions/runs/43678278990/job/132703971532) · [Ejecución del panel](https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app/actions/runs/43678289266/job/132703645150)
+
+![GitHub Actions muestra el arranque del Edge, la simulación del collar y la verificación de una alerta crítica](assets/images/deployment/sprint-2-edge-collar-ci.jpg)
+
+*Figura 6.18. Registro del trabajo del collar. Se observa el arranque de la API del Edge, la simulación en Wokwi y la comprobación de la alerta crítica de temperatura.*
+
+![GitHub Actions muestra el arranque del Edge, la generación de una alerta y la simulación del panel](assets/images/deployment/sprint-2-edge-panel-ci.jpg)
+
+*Figura 6.19. Registro del trabajo del panel de alertas. Se observa la generación de la alerta de prueba y la ejecución del firmware en Wokwi contra el Edge.*
+
 #### 6.2.2.9. Team Collaboration Insights during Sprint
+
+Durante el Sprint 2, del **4 al 14 de noviembre de 2026**, los cinco integrantes trabajaron sobre ramas de funcionalidad y corrección. Los pull requests del sitio, la API y las aplicaciones muestran cómo se incorporaron los cambios a `develop` y cómo se ajustaron las aplicaciones a los contratos del backend. La publicación del sitio siguió su rama de release hacia `main`, según la evidencia de la sección 6.2.2.8. [Integración del sitio](https://github.com/five-smart-farm-creators/ichu-website/pull/17) · [Correcciones de rutas de la API](https://github.com/five-smart-farm-creators/ichu-web-service/pull/49) · [Alineación del cliente móvil](https://github.com/five-smart-farm-creators/ichu-mobile-app/pull/24)
+
+##### Actividad por repositorio e integrante
+
+El recuento usa la fecha de autoría entre el 4 y el 14 de noviembre, en hora de Lima (UTC−5). En cada repositorio se contaron los hashes distintos de `main` y `develop` accesibles al 15 de noviembre, con atribución al autor principal de Git y excluyendo los commits de fusión. Un cero indica que la consulta no identificó commits de autoría para esa combinación de integrante y repositorio.
+
+| Producto o entregable | Alison Arrieta | Diego Avalos | Flor Contreras | Giorgio Awad | Manuel Sanchez | Total |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Landing Page | 4 | 2 | 9 | 4 | 0 | 19 |
+| API central | 96 | 14 | 125 | 6 | 23 | 264 |
+| Aplicación web | 0 | 9 | 91 | 0 | 0 | 100 |
+| Aplicación móvil | 13 | 67 | 14 | 0 | 32 | 126 |
+| Edge Service | 0 | 0 | 30 | 0 | 0 | 30 |
+| Firmware del collar | 0 | 0 | 20 | 0 | 0 | 20 |
+| Firmware del panel | 0 | 0 | 9 | 0 | 0 | 9 |
+| Informe | 1 | 0 | 17 | 3 | 0 | 21 |
+| **Total** | **114** | **92** | **315** | **13** | **55** | **589** |
+
+<details>
+<summary>Referencias de GitHub utilizadas para el recuento</summary>
+
+| Repositorio | main | develop |
+|---|---|---|
+| [`ichu-website`](https://github.com/five-smart-farm-creators/ichu-website) | [78d2120](https://github.com/five-smart-farm-creators/ichu-website/commits/78d21204efd8f07f699d6573396d7da1c2840ab8/) | [95add4a](https://github.com/five-smart-farm-creators/ichu-website/commits/95add4abe6acc3bc6b6221ed725a4965a44d5dca/) |
+| [`ichu-web-service`](https://github.com/five-smart-farm-creators/ichu-web-service) | [5633425](https://github.com/five-smart-farm-creators/ichu-web-service/commits/56334256512d342913b7edf770ac500e4fa72033/) | [e17e23a](https://github.com/five-smart-farm-creators/ichu-web-service/commits/e17e23aae7250a0053e5fe276b7abd295e1c7216/) |
+| [`ichu-web-app`](https://github.com/five-smart-farm-creators/ichu-web-app) | [34ada2b](https://github.com/five-smart-farm-creators/ichu-web-app/commits/34ada2b19de6213014669e1d2fe1ec35c2f6d09d/) | [b67c4fc](https://github.com/five-smart-farm-creators/ichu-web-app/commits/b67c4fcccc03bb800b85fd760a35581ef836bd15/) |
+| [`ichu-mobile-app`](https://github.com/five-smart-farm-creators/ichu-mobile-app) | [24b1520](https://github.com/five-smart-farm-creators/ichu-mobile-app/commits/24b1520105eb49c291a5b1f860c24a43e36336df/) | [abb688e](https://github.com/five-smart-farm-creators/ichu-mobile-app/commits/abb688e128217846e8aa0f73d0b43eeafb20b2ab/) |
+| [`ichu-edge-service`](https://github.com/five-smart-farm-creators/ichu-edge-service) | [d85e433](https://github.com/five-smart-farm-creators/ichu-edge-service/commits/d85e43368614dadcb0013e285ece8c69a32aa67d/) | [3bc6a67](https://github.com/five-smart-farm-creators/ichu-edge-service/commits/3bc6a67d12efa85099f807b25ff94a31918664cd/) |
+| [`ichu-cattle-band-embedded-app`](https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app) | [8a9671f](https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app/commits/8a9671f6ba5c62a7425d760d64eef6a3d7870bc2/) | [4c6031e](https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app/commits/4c6031edc7683dbb0a2185262d51c999839964f7/) |
+| [`ichu-alert-panel-embedded-app`](https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app) | [353039b](https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app/commits/353039bc2211a2d0b9a7c2539f864828e76574b5/) | [144393b](https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app/commits/144393ba403744744b4b4981af5dd872f0318a3c/) |
+| [`ichu-report`](https://github.com/five-smart-farm-creators/ichu-report) | [6ae1982](https://github.com/five-smart-farm-creators/ichu-report/commits/6ae1982b319224018c59c2f57938c50a6bfd334a/) | [10dee2b](https://github.com/five-smart-farm-creators/ichu-report/commits/10dee2bf7ee026d9da9fd961e24a34e93196e8ae/) |
+
+</details>
+
+##### Aportes verificables por integrante
+
+- **Arrieta Quispe, Alison Jimena.** Actualizó el contenido de la página del equipo, precisó en OpenAPI la autenticación y las respuestas del lote de telemetría del Edge, y conectó la navegación de las vistas de bebederos en la aplicación móvil. [Commit del sitio](https://github.com/five-smart-farm-creators/ichu-website/commit/3197ba128f9f393df601801e47ac3e8b58268bca) · [Commit del contrato de telemetría](https://github.com/five-smart-farm-creators/ichu-web-service/commit/1fa7dbc06c1f16c7192889ae057ac7f676571926) · [Commit de navegación móvil](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/79c34409715b1de3ccab4c75a5d2c355bbb7f70d)
+- **Avalos Cordova, Diego Andres.** Corrigió la carga de componentes compartidos en la Landing Page, aportó los adaptadores de persistencia e identidad Firebase de la API y desarrolló pantallas de cuenta y asesoría en la aplicación web. En la aplicación móvil integró la sincronización de registros de campo y la alineación de los clientes de alertas y telemetría con el backend. [Commit del sitio](https://github.com/five-smart-farm-creators/ichu-website/commit/d9f5b977291810c6fca013de7f7bc5772023496e) · [Commit de identidad en la API](https://github.com/five-smart-farm-creators/ichu-web-service/commit/3fe5a39a14e8b58841a367fad8b908adfce7c6d9) · [Commit de pantallas web](https://github.com/five-smart-farm-creators/ichu-web-app/commit/285667923abcfcd48f8c353aa82e5dfe6f1c5969) · [Commit de sincronización móvil](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/2a5854836a991e29d0d727d118f43b923da0a847)
+- **Awad Vargas, Giorgio Marzouk.** Corrigió la publicación de los fragmentos compartidos en GitHub Pages y la carga de recursos de la página de recuperación. En la API aportó los servicios y la persistencia de Cattle Information. En el informe incorporó el diseño de las entrevistas de validación. [Commit de publicación](https://github.com/five-smart-farm-creators/ichu-website/commit/6c82be20cad7ac723e197562e01c25d926e8fc5b) · [Commit de Cattle Information](https://github.com/five-smart-farm-creators/ichu-web-service/commit/2b749597230c0545c6fc93f98606065bd6f4a1c4) · [Commit del informe](https://github.com/five-smart-farm-creators/ichu-report/commit/03ca151628df67b1d9af8210ff5b231e6cd918ed)
+- **Contreras Leon, Flor de María.** Incorporó la consulta de asignaciones de collares para el Edge en la API central, conectó el dashboard web con alertas y datos del hato, y añadió las pantallas móviles de gestión de animales. En el Edge implementó la recepción y sincronización de telemetría y automatizó la integración de ambos firmwares con el servicio en Wokwi. [Commit de asignaciones](https://github.com/five-smart-farm-creators/ichu-web-service/commit/ada0ae963a0e5b4fead2d145d87bb12120d2105e) · [Commit del dashboard web](https://github.com/five-smart-farm-creators/ichu-web-app/commit/88c0cbc78a3f05615b6b4eb9e56fe12147b1c232) · [Commit de gestión móvil](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/2396358843efded6df5bce8d764685d698ac2c9b) · [Commit del Edge](https://github.com/five-smart-farm-creators/ichu-edge-service/commit/f8fba664dd03ce07812468979933617a971ec0d3) · [Integración del collar](https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app/commit/a7830effba656d2937b4dcf46381ab095447e115) · [Integración del panel](https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app/commit/3dc8eabe6f7b0749ca25af45ef7ae401bdf65998)
+- **Sanchez Arenas, Manuel Angel.** Ajustó rutas y pruebas de integración de Planning en la API. En la aplicación móvil desarrolló el modelo y la consulta autorizada de alertas del Edge y cubrió la integración de la ruta con pruebas. [Commits de Planning](https://github.com/five-smart-farm-creators/ichu-web-service/pull/47/commits) · [Commits de alertas del Edge](https://github.com/five-smart-farm-creators/ichu-mobile-app/pull/22/commits) · [Commit de pruebas móviles](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/f195f2df12bb688ecfb7aeec254683806fd5f84a)
+
+##### Capturas de GitHub Insights y commits
+
+Las Figuras 6.20 y 6.21 muestran la actividad semanal que GitHub Insights presenta para `main` con el intervalo del sprint. La tabla utiliza además `develop` para incluir el trabajo de desarrollo integrado en esa rama. [Alcance del gráfico de colaboradores de GitHub](https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/viewing-a-projects-contributors)
+
+![GitHub Insights del sitio web con contribuciones semanales a main del 4 al 14 de noviembre de 2026](assets/images/collaboration/commits/sprint-2-insights-website.jpg)
+
+*Figura 6.20. GitHub Insights de la Landing Page. Se observa la actividad semanal de commits en `main` para el intervalo seleccionado. [Gráfico del sitio](https://github.com/five-smart-farm-creators/ichu-website/graphs/contributors?from=2026-11-04T05%3A00%3A00Z&to=2026-11-15T04%3A59%3A59Z)*
+
+![GitHub Insights de la aplicación web con contribuciones semanales a main del 4 al 14 de noviembre de 2026](assets/images/collaboration/commits/sprint-2-insights-web-app.jpg)
+
+*Figura 6.21. GitHub Insights de la aplicación web. En el intervalo seleccionado, la barra de la segunda semana de noviembre concentra la mayor actividad visible. [Gráfico de la aplicación web](https://github.com/five-smart-farm-creators/ichu-web-app/graphs/contributors?from=2026-11-04T05%3A00%3A00Z&to=2026-11-15T04%3A59%3A59Z)*
+
+![Historial de commits del sitio web con cambios de contenido de Alison y ajustes de publicación de Giorgio](assets/images/collaboration/commits/sprint-2-commits-website.jpg)
+
+*Figura 6.22. Historial de `develop` de la Landing Page. Se identifican los cambios de Alison en contenidos y las correcciones e integraciones de Giorgio en los recursos publicados. [Historial del sitio](https://github.com/five-smart-farm-creators/ichu-website/commits/95add4abe6acc3bc6b6221ed725a4965a44d5dca/)*
+
+![Pull request 47 de la API central con commits registrados para las correcciones de Planning](assets/images/collaboration/commits/sprint-2-commits-api-planning.jpg)
+
+*Figura 6.23. Commits del PR 47 de la API central. GitHub muestra los ajustes de rutas realizados por Manuel y la integración a `develop` efectuada por Diego. [Historial del PR 47](https://github.com/five-smart-farm-creators/ichu-web-service/pull/47/commits)*
+
+![Pull request 8 de la aplicación web con commits sobre cuentas, perfiles y acceso al hato](assets/images/collaboration/commits/sprint-2-commits-web-app.jpg)
+
+*Figura 6.24. Commits del PR 8 de la aplicación web. Los cambios de Flor incorporan la búsqueda de unidades por código de acceso, las traducciones y las vistas de cuenta y asesoría. [Historial del PR 8](https://github.com/five-smart-farm-creators/ichu-web-app/pull/8/commits)*
+
+![Pull request 22 de la aplicación móvil con commits de la vista de alertas del Edge](assets/images/collaboration/commits/sprint-2-commits-mobile-edge-alerts.jpg)
+
+*Figura 6.25. Commits del PR 22 de la aplicación móvil. El listado muestra el modelo y la lectura autorizada de alertas desarrollados por Manuel. Diego integró la rama en `develop`. [Historial del PR 22](https://github.com/five-smart-farm-creators/ichu-mobile-app/pull/22/commits)*
+
+##### Interpretación de la colaboración
+
+La API central reunió commits de los cinco integrantes. Junto con las aplicaciones web y móvil sumó **490 de los 568 commits** registrados en repositorios de software. La colaboración también se observa dentro de cambios concretos. En el PR 47 de la API, Manuel ajustó las rutas de Planning y Diego actualizó las pruebas de planes de nutrición. En el PR 22 de la aplicación móvil, el modelo y la lectura autorizada de alertas del Edge se integraron en la misma rama que la vista que las presenta. El PR 24 registró después los ajustes a los contratos de telemetría, alertas y asesoría del backend. [Pruebas de Planning](https://github.com/five-smart-farm-creators/ichu-web-service/commit/2554bc8) · [Integración móvil de alertas](https://github.com/five-smart-farm-creators/ichu-mobile-app/pull/22) · [Alineación de contratos](https://github.com/five-smart-farm-creators/ichu-mobile-app/pull/24)
+
+En el Edge, el collar y el panel, la autoría de los commits revisados se concentró en Flor. Los flujos de GitHub Actions enlazaron el trabajo de esos tres repositorios mediante ejecuciones del Edge y simulaciones de los firmwares, documentadas en la sección 6.2.2.8. Los recuentos reflejan actividad de versionado y se interpretan junto con el contenido de los cambios y las integraciones observadas.
 
 ## 6.3. Validation Interviews
 
@@ -519,6 +738,72 @@ Este segmento reúne a los profesionales que asesoran fundos desde la perspectiv
 Con esta estructura, cada entrevista comienza con el perfil del participante, continúa con tareas sobre la Landing Page y las aplicaciones, y termina con su valoración de la experiencia. Las respuestas y dificultades se recogen tal como ocurran, sin asumir que las funciones se completarán correctamente ni que la opinión final será favorable.
 
 ### 6.3.2. Registro de Entrevistas
+
+Las sesiones de validación recogieron las apreciaciones de los ganaderos sobre la Landing Page y la aplicación web de ICHU, y de los médicos veterinarios sobre la consulta de fichas, el monitoreo y el registro de atenciones clínicas. El video consolidado dura **00:41:31**. Las marcas de inicio y las duraciones corresponden a los cortes del video, expresados al segundo. [Ver video consolidado en Clipchamp](https://tinyurl.com/validation-interviews-ichu)
+
+#### Segmento 1. Medianos y grandes ganaderos
+
+##### Entrevista a Alberto Pérez
+
+| Edad | Distrito de residencia | Inicio en el video | Duración |
+|---|---|---|---|
+| 40 años | Olmos | 00:13:31 | 00:07:31 |
+
+Al revisar la Landing Page, Alberto identificó con rapidez qué ofrece ICHU y valoró que el contenido pudiera consultarse en español e inglés. Durante la revisión de la aplicación web destacó el monitoreo de la salud del ganado y la posibilidad de obtener indicadores a partir de los dispositivos. Explicó que en su empresa cada área mantiene archivos de Excel o Word por separado y que reunirlos demora la consulta. Consideró que centralizar la información facilitaría la atención oportuna de los animales.
+
+[![Alberto Pérez durante la revisión del historial clínico en la aplicación web](assets/images/validation-interviews/alberto-perez.jpg)](https://tinyurl.com/validation-interviews-ichu)
+
+*Figura 6.26. Alberto Pérez durante la revisión de la aplicación web. El fotograma de 00:17:14 muestra la vista de historial clínico.*
+
+##### Entrevista a Zahir Sánchez
+
+| Edad | Distrito de residencia | Inicio en el video | Duración |
+|---|---|---|---|
+| 24 años | Lurín | 00:21:02 | 00:08:05 |
+
+Zahir identificó en la Landing Page el seguimiento individual mediante collares y destacó la utilidad de consultar la temperatura, el movimiento y los eventos de cada animal frente a los registros manuales que usa en el predio. Para ingresar a la aplicación verificó su correo y volvió a iniciar sesión. Ya en el panel, reconoció los filtros por periodo, las alertas y la opción de exportar información. Planteó migrar sus registros de manera gradual y probar el sistema en su trabajo diario.
+
+[![Zahir Sánchez revisa el panel Mi hato en la aplicación web](assets/images/validation-interviews/zahir-sanchez.jpg)](https://tinyurl.com/validation-interviews-ichu)
+
+*Figura 6.27. Zahir Sánchez durante la revisión del panel «Mi hato» después de ingresar a la aplicación. Fotograma de 00:26:42.*
+
+##### Entrevista a Jorge Chumpitaz
+
+| Edad | Distrito de residencia | Inicio en el video | Duración |
+|---|---|---|---|
+| 24 años | Oxapampa | 00:29:07 | 00:12:24 |
+
+Durante la demostración, Jorge valoró el seguimiento de los animales por etapa y mostró interés en las cercas virtuales. Preguntó cómo se conectaría la ubicación con los dispositivos y cómo se repartiría con el veterinario el registro de la información clínica. Consideró que la aplicación ayudaría a ordenar los procesos del predio y señaló que conversaría con los demás propietarios para evaluar su viabilidad.
+
+[![Jorge Chumpitaz observa la vista Ubicación y cercas durante la demostración](assets/images/validation-interviews/jorge-chumpitaz.jpg)](https://tinyurl.com/validation-interviews-ichu)
+
+*Figura 6.28. Demostración de la vista «Ubicación y cercas» durante la entrevista a Jorge Chumpitaz. Fotograma de 00:32:54.*
+
+#### Segmento 2. Médicos veterinarios
+
+##### Entrevista a Mia Acosta
+
+| Edad | Distrito de residencia | Inicio en el video | Duración |
+|---|---|---|---|
+| 26 años | Cuñumbuqui | 00:00:00 | 00:07:13 |
+
+En la demostración se buscó un animal por arete, se abrió su ficha y se mostró cómo registrar una intervención clínica. Ante el caso de una vaca decaída, Mia indicó que primero compararía la temperatura con los días anteriores y después revisaría la actividad y la rumia. Para la siguiente visita, le sería útil recuperar qué se administró, en qué dosis y cuándo. Propuso un campo para programar el próximo control.
+
+[![Formulario de intervención clínica mostrado durante la entrevista a Mia Acosta](assets/images/validation-interviews/mia-acosta.jpg)](https://tinyurl.com/validation-interviews-ichu)
+
+*Figura 6.29. Formulario de registro de una intervención clínica en la sesión con Mia Acosta. Fotograma de 00:03:55.*
+
+##### Entrevista a Manuel Merino
+
+| Edad | Distrito de residencia | Inicio en el video | Duración |
+|---|---|---|---|
+| 32 años | Ayaviri | 00:07:13 | 00:06:18 |
+
+La demostración recorrió la ficha del animal, el historial clínico y la consulta del monitoreo por periodo para preparar una visita de seguimiento. Manuel señaló que, si otro profesional había atendido al animal, quisiera saber qué encontró, cuándo lo registró y qué dejó indicado para el siguiente control. Ante una caída hipotética de actividad, preguntaría al ganadero desde cuándo ocurre, si cambió el apetito y qué otros signos observó. Sugirió facilitar el acceso a la observación más reciente al abrir la ficha.
+
+[![Vista del historial clínico mostrada en la entrevista a Manuel Merino](assets/images/validation-interviews/manuel-merino.jpg)](https://tinyurl.com/validation-interviews-ichu)
+
+*Figura 6.30. Resumen de salud y línea de tiempo del historial clínico en la sesión con Manuel Merino. Fotograma de 00:10:44.*
 
 ### 6.3.3. Evaluaciones según heurísticas
 
