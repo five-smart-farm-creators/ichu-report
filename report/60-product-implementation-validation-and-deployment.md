@@ -739,6 +739,72 @@ Con esta estructura, cada entrevista comienza con el perfil del participante, co
 
 ### 6.3.2. Registro de Entrevistas
 
+Las sesiones de validación recogieron las apreciaciones de los ganaderos sobre la Landing Page y la aplicación web de ICHU, y de los médicos veterinarios sobre la consulta de fichas, el monitoreo y el registro de atenciones clínicas. El video consolidado dura **00:41:31**. Las marcas de inicio y las duraciones corresponden a los cortes del video, expresados al segundo. [Ver video consolidado en Clipchamp](https://tinyurl.com/validation-interviews-ichu)
+
+#### Segmento 1. Medianos y grandes ganaderos
+
+##### Entrevista a Alberto Pérez
+
+| Edad | Distrito de residencia | Inicio en el video | Duración |
+|---|---|---|---|
+| 40 años | Olmos | 00:13:31 | 00:07:31 |
+
+Al revisar la Landing Page, Alberto identificó con rapidez qué ofrece ICHU y valoró que el contenido pudiera consultarse en español e inglés. Durante la revisión de la aplicación web destacó el monitoreo de la salud del ganado y la posibilidad de obtener indicadores a partir de los dispositivos. Explicó que en su empresa cada área mantiene archivos de Excel o Word por separado y que reunirlos demora la consulta. Consideró que centralizar la información facilitaría la atención oportuna de los animales.
+
+[![Alberto Pérez durante la revisión del historial clínico en la aplicación web](assets/images/validation-interviews/alberto-perez.jpg)](https://tinyurl.com/validation-interviews-ichu)
+
+*Figura 6.26. Alberto Pérez durante la revisión de la aplicación web. El fotograma de 00:17:14 muestra la vista de historial clínico.*
+
+##### Entrevista a Zahir Sánchez
+
+| Edad | Distrito de residencia | Inicio en el video | Duración |
+|---|---|---|---|
+| 24 años | Lurín | 00:21:02 | 00:08:05 |
+
+Zahir identificó en la Landing Page el seguimiento individual mediante collares y destacó la utilidad de consultar la temperatura, el movimiento y los eventos de cada animal frente a los registros manuales que usa en el predio. Para ingresar a la aplicación verificó su correo y volvió a iniciar sesión. Ya en el panel, reconoció los filtros por periodo, las alertas y la opción de exportar información. Planteó migrar sus registros de manera gradual y probar el sistema en su trabajo diario.
+
+[![Zahir Sánchez revisa el panel Mi hato en la aplicación web](assets/images/validation-interviews/zahir-sanchez.jpg)](https://tinyurl.com/validation-interviews-ichu)
+
+*Figura 6.27. Zahir Sánchez durante la revisión del panel «Mi hato» después de ingresar a la aplicación. Fotograma de 00:26:42.*
+
+##### Entrevista a Jorge Chumpitaz
+
+| Edad | Distrito de residencia | Inicio en el video | Duración |
+|---|---|---|---|
+| 24 años | Oxapampa | 00:29:07 | 00:12:24 |
+
+Durante la demostración, Jorge valoró el seguimiento de los animales por etapa y mostró interés en las cercas virtuales. Preguntó cómo se conectaría la ubicación con los dispositivos y cómo se repartiría con el veterinario el registro de la información clínica. Consideró que la aplicación ayudaría a ordenar los procesos del predio y señaló que conversaría con los demás propietarios para evaluar su viabilidad.
+
+[![Jorge Chumpitaz observa la vista Ubicación y cercas durante la demostración](assets/images/validation-interviews/jorge-chumpitaz.jpg)](https://tinyurl.com/validation-interviews-ichu)
+
+*Figura 6.28. Demostración de la vista «Ubicación y cercas» durante la entrevista a Jorge Chumpitaz. Fotograma de 00:32:54.*
+
+#### Segmento 2. Médicos veterinarios
+
+##### Entrevista a Mia Acosta
+
+| Edad | Distrito de residencia | Inicio en el video | Duración |
+|---|---|---|---|
+| 26 años | Cuñumbuqui | 00:00:00 | 00:07:13 |
+
+En la demostración se buscó un animal por arete, se abrió su ficha y se mostró cómo registrar una intervención clínica. Ante el caso de una vaca decaída, Mia indicó que primero compararía la temperatura con los días anteriores y después revisaría la actividad y la rumia. Para la siguiente visita, le sería útil recuperar qué se administró, en qué dosis y cuándo. Propuso un campo para programar el próximo control.
+
+[![Formulario de intervención clínica mostrado durante la entrevista a Mia Acosta](assets/images/validation-interviews/mia-acosta.jpg)](https://tinyurl.com/validation-interviews-ichu)
+
+*Figura 6.29. Formulario de registro de una intervención clínica en la sesión con Mia Acosta. Fotograma de 00:03:55.*
+
+##### Entrevista a Manuel Merino
+
+| Edad | Distrito de residencia | Inicio en el video | Duración |
+|---|---|---|---|
+| 32 años | Ayaviri | 00:07:13 | 00:06:18 |
+
+La demostración recorrió la ficha del animal, el historial clínico y la consulta del monitoreo por periodo para preparar una visita de seguimiento. Manuel señaló que, si otro profesional había atendido al animal, quisiera saber qué encontró, cuándo lo registró y qué dejó indicado para el siguiente control. Ante una caída hipotética de actividad, preguntaría al ganadero desde cuándo ocurre, si cambió el apetito y qué otros signos observó. Sugirió facilitar el acceso a la observación más reciente al abrir la ficha.
+
+[![Vista del historial clínico mostrada en la entrevista a Manuel Merino](assets/images/validation-interviews/manuel-merino.jpg)](https://tinyurl.com/validation-interviews-ichu)
+
+*Figura 6.30. Resumen de salud y línea de tiempo del historial clínico en la sesión con Manuel Merino. Fotograma de 00:10:44.*
+
 ### 6.3.3. Evaluaciones según heurísticas
 
 ## 6.4. Video About-the-Product
