@@ -288,27 +288,27 @@ El Sprint 2 propone integrar los recorridos del frontend con los servicios de cu
     </tr>
     <tr>
       <td>Date</td>
-      <td>Pendiente de confirmar por el equipo.</td>
+      <td>2026-11-04</td>
     </tr>
     <tr>
       <td>Time</td>
-      <td>Pendiente de confirmar; se registrará en hora de Lima (UTC-5).</td>
+      <td>10:00 PM (hora de Lima, UTC-5)</td>
     </tr>
     <tr>
       <td>Location</td>
-      <td>Lugar o modalidad de reunión pendiente de confirmar.</td>
+      <td>Virtual.</td>
     </tr>
     <tr>
       <td>Prepared By</td>
-      <td>Responsable de la planificación pendiente de confirmar.</td>
+      <td>Avalos Cordova, Diego Andres</td>
     </tr>
     <tr>
       <td>Attendees (to planning meeting)</td>
-      <td>Asistentes pendientes de confirmar; la distribución propuesta en 6.2.2.2 no acredita asistencia a una reunión.</td>
+      <td>Awad Vargas, Giorgio Marzouk<br/>Sanchez Arenas, Manuel Angel<br/>Contreras Leon, Flor de María<br/>Arrieta Quispe, Alison Jimena</td>
     </tr>
     <tr>
       <td>Sprint Period</td>
-      <td>Fechas de inicio y cierre y duración pendientes de confirmar.</td>
+      <td>Del 4 al 14 de noviembre de 2026.</td>
     </tr>
     <tr>
       <td>Sprint 1 Review Summary</td>
@@ -338,7 +338,7 @@ El Sprint 2 propone integrar los recorridos del frontend con los servicios de cu
 
 La selección debe respetar las dependencias del Capítulo III: registro, acceso y permisos antes de consumir datos del hato; solicitud y confirmación de suscripción antes de habilitar capacidades del plan; asignaciones y configuración antes de evaluar telemetría; persistencia y confirmación antes de retirar registros pendientes. El enlace del collar al Edge se plantea por Wi-Fi local; BLE permanece como alternativa prevista.
 
-Antes de iniciar el sprint, el equipo confirmará el periodo, los responsables y el recorrido que cabe en su capacidad. Si se reduce la propuesta de 164 SP, se actualizarán la selección de 6.2.2.3 y su correspondencia con el Capítulo III, conservando las dependencias del recorrido elegido. Esta planificación no acredita ejecución ni cierre de historias.
+El periodo de la iteración está confirmado; queda por precisar la distribución de líderes y colaboradores por aspecto y el recorrido que cabe en la capacidad del equipo. Si se reduce la propuesta de 164 SP, se actualizarán la selección de 6.2.2.3 y su correspondencia con el Capítulo III, conservando las dependencias del recorrido elegido. Esta planificación no acredita ejecución ni cierre de historias.
 
 Fuente: [Product Backlog del Capítulo III](30-requirements-specification.md#33-product-backlog) y [evidencias del Sprint 1](#621-sprint-1).
 
