@@ -440,8 +440,8 @@ En el alcance actual, **ambos trayectos están implementados y verificados en Wo
 
 | Elemento | Estado | Evidencia disponible |
 |---|---|---|
-| Forma del collar, carcasa, ubicación de componentes y correa | Propuesta conceptual; no fabricada ni probada en un animal. | Lámina conceptual generada con Gemini, Figura 5.6.2. |
-| Carcasa y disposición del panel de alertas | Propuesta conceptual; no se probó con usuarios. Integrado con el Edge API en simulación. | Lámina generada con Gemini, Figura 5.6.6; simulación en Wokwi, Figuras 5.6.8 y 5.6.9. Sus pines ilustrados no son referencia eléctrica. |
+| Forma del collar, carcasa, ubicación de componentes y correa | Propuesta conceptual; no fabricada ni probada en un animal. | Lámina simulada, Figura 5.6.2. |
+| Carcasa y disposición del panel de alertas | Propuesta conceptual; no se probó con usuarios. Integrado con el Edge API en simulación. | Lámina de simulacion, Figura 5.6.6; simulación en Wokwi, Figuras 5.6.8 y 5.6.9. Sus pines ilustrados no son referencia eléctrica. |
 | Circuitos del collar y el receptor | Simulados en Wokwi: el firmware compila y se ejecuta (Figuras 5.6.4, 5.6.5, 5.6.8 y 5.6.9); el cableado con hardware real está pendiente. | Figuras 5.6.1, 5.6.3, 5.6.4, 5.6.5, 5.6.7, 5.6.8 y 5.6.9. |
 | Flujo Wi-Fi hacia Edge y sincronización con la nube | Implementado y verificado en Wokwi CI: el collar envía lecturas al Edge API, que genera una alerta crítica de temperatura, y el panel consulta el Edge y pasa a Urgencia. El Edge API almacena, evalúa y sincroniza con la API central. Ni el collar ni el panel se han probado en hardware. La ruta BLE está prevista y no implementada en Edge. | Repositorios `ichu-edge-service`, `ichu-cattle-band-embedded-app` y `ichu-alert-panel-embedded-app`, TS-01–TS-06, arquitectura de 4.1.3.3, Figuras 6.14 y 6.15, y capturas de ejecución en Wokwi, Figuras 5.6.5 y 5.6.9. |
 
