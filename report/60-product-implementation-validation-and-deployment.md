@@ -406,7 +406,7 @@ La tabla reúne los commits de mayor impacto a nivel técnico:
 - 40 commits de `ichu-website`
 - 40 commits de `ichu-edge-service`
 
-| Repositorio | ID de Commit | Mensaje de Commit | Descripción de Commit | Fecha de Commit |
+| Repositorio | ID de Commit | Mensaje de Commit | Descripción de Commit | Fecha |
 |---|---|---|---|---|
 | ichu-web-service | 7052e84 | feat(monitoring): add methane alerts and critical threshold levels | Añade alertas de metano y niveles de umbral crítico. | 2026-11-14 |
 | ichu-web-service | 8ae5aa6 | feat(monitoring): record heart rate and methane index readings | Registra lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
@@ -613,7 +613,7 @@ La tabla reúne los commits de mayor impacto a nivel técnico:
 
 La identificación y registro de los commits incluyen cambios a pruebas unitarias e integración; componentes de soporte, fixtures, mocks y stubs; configuración o CI que habilita pruebas; y guías explícitas de pruebas locales. Los merges se incluyen cuando su diff respecto al primer padre incorpora o modifica artefactos de testing. La rama se informa cuando puede inferirse del mensaje o de la relación con un merge; las celdas vacías indican que el historial no permite determinarla con suficiente certeza.
 
-| Repositorio | Rama | ID de Commit | Mensaje de Commit | Fecha de Commit |
+| Repositorio | Rama | ID de Commit | Mensaje | Fecha |
 |---|---|---|---|---|
 | ichu-web-service | feature/methane-alerts | a9a36f2 | Merge pull request #54 from five-smart-farm-creators/feature/methane-alerts | 2026-11-14 |
 | ichu-web-service | feature/methane-alerts | 7052e84 | feat(monitoring): add methane alerts and critical threshold levels | 2026-11-14 |
@@ -860,6 +860,34 @@ La identificación y registro de los commits incluyen cambios a pruebas unitaria
 | ichu-mobile-app | feature/mobile-foundation | 3ee9073 | build(shared): bundle brand assets and localization catalogs | 2026-11-11 |
 | ichu-mobile-app | feature/mobile-foundation | 85120c1 | feat(shared): validate mobile API build configuration | 2026-11-11 |
 | ichu-mobile-app |  | ecd7add | chore: initialize Flutter app for Android and iOS | 2026-11-06 |
+| ichu-edge-service | feature/methane-alerts | ba444a8 | Merge pull request #13 from five-smart-farm-creators/feature/methane-alerts | 2026-11-14 |
+| ichu-edge-service | feature/methane-alerts | 86cc9b0 | feat(monitoring): raise methane alerts and escalate to critical levels | 2026-11-14 |
+| ichu-edge-service | feature/heart-rate-and-methane | 4e4473d | Merge pull request #12 from five-smart-farm-creators/feature/heart-rate-and-methane | 2026-11-14 |
+| ichu-edge-service | feature/heart-rate-and-methane | 112eaa9 | feat(monitoring): accept heart rate and methane index readings | 2026-11-14 |
+| ichu-edge-service | feature/local-e2e-guide | c60215f | docs: add a local end-to-end demo guide with troubleshooting | 2026-11-13 |
+| ichu-edge-service | feature/collar-simulator | fb5ad72 | Merge pull request #10 from five-smart-farm-creators/feature/collar-simulator | 2026-11-13 |
+| ichu-edge-service | feature/collar-simulator | fe94df5 | docs: explain how to run the collar simulator | 2026-11-13 |
+| ichu-edge-service | feature/collar-simulator | ecb5cd0 | feat(tools): add a collar simulator for local end-to-end tests | 2026-11-13 |
+| ichu-edge-service | feature/measurement-validity | 0322f28 | Merge pull request #9 from five-smart-farm-creators/feature/measurement-validity | 2026-11-12 |
+| ichu-edge-service | feature/measurement-validity | 3576156 | feat(monitoring): accept per-field sensor failures and gps accuracy | 2026-11-12 |
+| ichu-edge-service | feature/device-assignments | 52e3517 | Merge pull request #8 from five-smart-farm-creators/feature/device-assignments | 2026-11-12 |
+| ichu-edge-service | feature/device-assignments | 4445f69 | feat(iam): register cloud collars from the command line | 2026-11-12 |
+| ichu-edge-service | feature/device-assignments | 0866d1a | feat(monitoring): refresh collar assignments from the cloud | 2026-11-12 |
+| ichu-edge-service | feature/sync-worker | e99794b | Merge pull request #7 from five-smart-farm-creators/feature/sync-worker | 2026-11-12 |
+| ichu-edge-service | feature/sync-worker | 515eaac | feat(monitoring): add the periodic synchronizer command | 2026-11-12 |
+| ichu-edge-service | feature/sync-worker | d3a7730 | feat(monitoring): retry conflicts and isolate refused batches | 2026-11-12 |
+| ichu-edge-service | feature/cloud-configuration | 3c5b00a | Merge pull request #6 from five-smart-farm-creators/feature/cloud-configuration | 2026-11-12 |
+| ichu-edge-service | feature/cloud-configuration | e644e5b | ci: run the test suite on pull requests | 2026-11-12 |
+| ichu-edge-service | feature/cloud-configuration | 6cd0d5f | build(persistence): run sqlite in wal mode | 2026-11-12 |
+| ichu-edge-service | feature/cloud-configuration | 0191d26 | refactor(config): derive the gateway id from the issued key | 2026-11-12 |
+| ichu-edge-service | feature/telemetry-monitoring | 7b3f6b3 | Merge pull request #2 from five-smart-farm-creators/feature/telemetry-monitoring | 2026-11-07 |
+| ichu-edge-service | feature/telemetry-monitoring | 12eb506 | test(monitoring): cover cloud synchronization outcomes | 2026-11-07 |
+| ichu-edge-service | feature/telemetry-monitoring | f8fba66 | feat(monitoring): ingest telemetry and sync pending records | 2026-11-07 |
+| ichu-edge-service | feature/telemetry-monitoring | b9654bd | feat(monitoring): evaluate thresholds and geofences at the edge | 2026-11-07 |
+| ichu-edge-service | feature/telemetry-monitoring | 7e5620d | feat(monitoring): add telemetry reading and alert domain model | 2026-11-07 |
+| ichu-edge-service | feature/device-authentication | b18b590 | Merge pull request #1 from five-smart-farm-creators/feature/device-authentication | 2026-11-07 |
+| ichu-edge-service | feature/device-authentication | 5240f7d | feat(iam): add device aggregate with salted api credentials | 2026-11-07 |
+| ichu-edge-service | feature/device-authentication | 3a34ee1 | build(config): add environment settings and shared sqlite database | 2026-11-07 |
 
 #### 6.2.2.6. Execution Evidence for Sprint Review
 
