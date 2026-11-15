@@ -769,6 +769,97 @@ La identificación y registro de los commits incluyen cambios a pruebas unitaria
 | ichu-web-app | feature/iam | 757222b | feat(iam): add Firebase authentication and account API adapters | 2026-11-06 |
 | ichu-web-app | feature/iam | 9fb8026 | build(web): configure application foundation and runtime settings | 2026-11-06 |
 | ichu-web-app |  | 0b3b1b8 | chore: initial commit | 2026-10-30 |
+| ichu-mobile-app | feature/backend-contract-alignment | abb688e | Merge pull request #24 from five-smart-farm-creators/feature/backend-contract-alignment | 2026-11-14 |
+| ichu-mobile-app | feature/backend-contract-alignment | 4eed777 | feat: align mobile clients with backend contracts | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | 33417f9 | Merge pull request #23 from five-smart-farm-creators/feature/tasks-reminders-waterers | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | 79c3440 | feat(operations-monitoring): integrate waterer navigation | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | cbfe03e | feat(operations-monitoring): add waterer list and detail views | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | a43979a | feat(operations-monitoring): add session-bound waterer reads | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | 53035d6 | test(operations-monitoring): add waterer api contract coverage | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | e8f52a4 | feat(operations-monitoring): add water history query validation | 2026-11-14 |
+| ichu-mobile-app | feature/edge-alerts-notifications | 1ddf4ea | Merge pull request #22 from five-smart-farm-creators/feature/edge-alerts-notifications | 2026-11-14 |
+| ichu-mobile-app |  | 04be18d | chore: merge develop into edge alerts notifications | 2026-11-14 |
+| ichu-mobile-app | feature/edge-alerts-notifications | f195f2d | test(operations-monitoring): cover edge alert route integration | 2026-11-14 |
+| ichu-mobile-app | feature/edge-alerts-notifications | cc3d8d7 | test(operations-monitoring): cover edge alert page states | 2026-11-14 |
+| ichu-mobile-app | feature/edge-alerts-notifications | e923ba5 | test(operations-monitoring): cover edge read session boundaries | 2026-11-14 |
+| ichu-mobile-app | feature/edge-alerts-notifications | 06cfd2d | test(operations-monitoring): verify edge alert response mapping | 2026-11-14 |
+| ichu-mobile-app | feature/offline-field-record-sync | 58b6288 | Merge pull request #21 from five-smart-farm-creators/feature/offline-field-record-sync | 2026-11-13 |
+| ichu-mobile-app | feature/offline-field-record-sync | 2a58548 | feat(operations-monitoring): synchronize pending field records | 2026-11-13 |
+| ichu-mobile-app | feature/offline-field-record-sync | 5d10b2d | feat(operations-monitoring): add authorized mobile sync transport | 2026-11-13 |
+| ichu-mobile-app | feature/offline-field-record-sync | c70b16a | feat(operations-monitoring): persist field sync decisions safely | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | baf4732 | Merge pull request #20 from five-smart-farm-creators/feature/field-offline-records | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 8099bf7 | feat(operations-monitoring): wire offline field records into app | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 37e6d5e | test(operations-monitoring): cover localized field record page | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 115566d | test(operations-monitoring): verify offline field record service | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 0e57c02 | test(operations-monitoring): add in-memory field record repository | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | d60f274 | test(operations-monitoring): cover preferences persistence | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 293a477 | test(operations-monitoring): cover field record domain rules | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 7d4120d | test(iam): verify account id in authorized ranch context | 2026-11-13 |
+| ichu-mobile-app | feature/historical-telemetry | 3d0e954 | Merge pull request #19 from five-smart-farm-creators/feature/historical-telemetry | 2026-11-13 |
+| ichu-mobile-app | feature/historical-telemetry | 855409a | feat(operations-monitoring): present paginated telemetry history | 2026-11-13 |
+| ichu-mobile-app | feature/historical-telemetry | 9e25548 | test(operations-monitoring): verify historical telemetry REST mapping | 2026-11-13 |
+| ichu-mobile-app | feature/historical-telemetry | e9db620 | feat(operations-monitoring): add historical telemetry contract | 2026-11-13 |
+| ichu-mobile-app | bugfix/cattle-management-wiring | d919c9c | Merge pull request #18 from five-smart-farm-creators/bugfix/cattle-management-wiring | 2026-11-13 |
+| ichu-mobile-app | bugfix/cattle-management-wiring | 91f457e | fix(cattle-information): wire management service into app | 2026-11-13 |
+| ichu-mobile-app | feature/ranch-administration-ready | f4beb37 | Merge pull request #17 from five-smart-farm-creators/feature/ranch-administration-ready | 2026-11-13 |
+| ichu-mobile-app | feature/ranch-administration-ready | a040eb6 | feat(iam): integrate ranch advisory flows | 2026-11-13 |
+| ichu-mobile-app | feature/ranch-administration-ready | cff299e | test: repository test updated with iam account authentication | 2026-11-13 |
+| ichu-mobile-app | feature/ranch-administration-ready | 9d34b15 | test: unit tests for herd advisory | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | 65cf851 | Merge pull request #16 from five-smart-farm-creators/feature/cattle-management | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | 2396358 | feat(cattle-information): add animal management screens | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | 9da6bc3 | feat(cattle-information): coordinate animal management requests | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | a7e7c41 | feat(cattle-information): send version-checked animal writes | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | e30f56d | feat(cattle-information): add animal management contracts | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | 85ed0d1 | feat(iam): expose server-issued manage grant on ranch context | 2026-11-13 |
+| ichu-mobile-app | feature/operations-alert-actions | 82de673 | Merge pull request #15 from five-smart-farm-creators/feature/operations-alert-actions | 2026-11-13 |
+| ichu-mobile-app | feature/operations-alert-actions | f9a5278 | feat(operations-monitoring): add cloud alert acknowledgement | 2026-11-13 |
+| ichu-mobile-app |  | 2985132 | feat(operations-monitoring): merge ranch alerts (#14) | 2026-11-12 |
+| ichu-mobile-app |  | a8ce581 | feat(operations-monitoring): guard ranch alert navigation | 2026-11-12 |
+| ichu-mobile-app |  | 63c8b22 | feat(operations-monitoring): add accessible alert event views | 2026-11-12 |
+| ichu-mobile-app |  | ee2b812 | feat(operations-monitoring): isolate alert query lifecycles | 2026-11-12 |
+| ichu-mobile-app |  | 276fd26 | feat(operations-monitoring): fetch authorized ranch alert pages | 2026-11-12 |
+| ichu-mobile-app |  | 55ee6cc | feat(operations-monitoring): define paginated ranch alert reads | 2026-11-12 |
+| ichu-mobile-app |  | 96d522c | feat(operations-monitoring): merge latest telemetry reads (#13) | 2026-11-12 |
+| ichu-mobile-app |  | 1d31f17 | feat(operations-monitoring): guard animal monitoring navigation | 2026-11-12 |
+| ichu-mobile-app |  | 5277f17 | feat(operations-monitoring): add accessible monitoring snapshots | 2026-11-12 |
+| ichu-mobile-app |  | b255a9d | feat(operations-monitoring): isolate latest summary lifecycles | 2026-11-12 |
+| ichu-mobile-app |  | 1dd7522 | feat(operations-monitoring): adapt authorized latest telemetry reads | 2026-11-12 |
+| ichu-mobile-app |  | 9bc16da | feat(operations-monitoring): add latest observation contracts | 2026-11-12 |
+| ichu-mobile-app |  | d2b5342 | feat(cattle-information): merge authorized animal reads (#12) | 2026-11-12 |
+| ichu-mobile-app |  | 12ed557 | feat(cattle-information): guard selected-ranch animal navigation | 2026-11-12 |
+| ichu-mobile-app |  | ce92a29 | feat(cattle-information): add accessible animal read views | 2026-11-12 |
+| ichu-mobile-app |  | e8aa09c | feat(cattle-information): isolate animal query lifecycles | 2026-11-12 |
+| ichu-mobile-app |  | 884cae0 | feat(cattle-information): adapt ranch-scoped animal reads | 2026-11-12 |
+| ichu-mobile-app |  | 05d0abe | feat(iam): expose session-bound authorized ranch context | 2026-11-12 |
+| ichu-mobile-app |  | 8999c86 | feat(cattle-information): add read-only animal contracts | 2026-11-12 |
+| ichu-mobile-app | feature/iam-ranch-selection | 39eb97f | Merge pull request #11 from five-smart-farm-creators/feature/iam-ranch-selection | 2026-11-12 |
+| ichu-mobile-app | feature/iam-ranch-selection | a2bed33 | feat(iam): add accessible authorized ranch selection screens | 2026-11-12 |
+| ichu-mobile-app | feature/iam-ranch-selection | 19533fb | feat(iam): bind explicit ranch selection to validated sessions | 2026-11-12 |
+| ichu-mobile-app | feature/iam-ranch-selection | 9ac2e83 | feat(iam): validate authorized ranch metadata and expiry | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | fa84dad | Merge pull request #10 from five-smart-farm-creators/feature/iam-professional-profile | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | 81a1c1f | feat(iam): add accessible read-only mobile profile screens | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | 73e5bdb | feat(iam): isolate profile reads within validated sessions | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | 3746246 | feat(iam): add authenticated own-profile read adapters | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | d3d8463 | fix(iam): restrict mobile professional profiles to reads | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | 47f5f90 | feat(iam): define own-account professional profile contracts | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | 196f80d | Merge pull request #9 from five-smart-farm-creators/feature/iam-registration | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | 8b80924 | feat(iam): add localized account registration and verification flows | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | f40b65c | feat(iam): coordinate verified registration and safe recovery | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | fea6555 | feat(iam): add secure account creation and reconciliation adapters | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | 8791a8d | feat(iam): add isolated native registration and verification | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | ae00b64 | feat(iam): define backend-aligned account registration contracts | 2026-11-12 |
+| ichu-mobile-app | feature/iam-authentication | 7170858 | Merge pull request #8 from five-smart-farm-creators/feature/iam-authentication | 2026-11-11 |
+| ichu-mobile-app | feature/iam-authentication | 23c307b | fix(iam): preserve cleanup and honor backend access decisions | 2026-11-11 |
+| ichu-mobile-app | feature/iam-authentication | db1c059 | feat(iam): add localized authentication screens and guarded routes | 2026-11-11 |
+| ichu-mobile-app | feature/iam-authentication | a9cdadc | feat(iam): coordinate verified sessions and safe sign-out | 2026-11-11 |
+| ichu-mobile-app | feature/iam-authentication | e1908f5 | feat(iam): add native Firebase and secure account API adapters | 2026-11-11 |
+| ichu-mobile-app | feature/iam-authentication | 95468b3 | feat(iam): define identity and account validation contracts | 2026-11-11 |
+| ichu-mobile-app | feature/mobile-foundation | c34ea3d | Merge pull request #7 from five-smart-farm-creators/feature/mobile-foundation | 2026-11-11 |
+| ichu-mobile-app | feature/mobile-foundation | 8b56997 | feat(iam): add branded public mobile preview and terms | 2026-11-11 |
+| ichu-mobile-app | feature/mobile-foundation | 093dd82 | feat(i18n): persist device language selection with safe fallbacks | 2026-11-11 |
+| ichu-mobile-app | feature/mobile-foundation | 3ee9073 | build(shared): bundle brand assets and localization catalogs | 2026-11-11 |
+| ichu-mobile-app | feature/mobile-foundation | 85120c1 | feat(shared): validate mobile API build configuration | 2026-11-11 |
+| ichu-mobile-app |  | ecd7add | chore: initialize Flutter app for Android and iOS | 2026-11-06 |
 
 #### 6.2.2.6. Execution Evidence for Sprint Review
 
