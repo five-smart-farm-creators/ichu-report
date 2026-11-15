@@ -401,4 +401,96 @@ Con esta estructura, cada entrevista comienza con el perfil del participante, co
 
 ### 6.3.3. Evaluaciones según heurísticas
 
+En esta sección se evalúa la experiencia de usuario de las versiones implementadas, considerando usabilidad, arquitectura de información y diseño inclusivo. La siguiente inspección es preliminar y estática: revisa el código de la aplicación móvil y los contratos del servicio web que condicionan sus flujos principales. No se ejecutó la aplicación en un dispositivo ni se realizaron entrevistas para esta inspección. Por ello, las severidades son provisionales y los hallazgos deben contrastarse en las sesiones de validación de 6.3.1 y 6.3.2. El servicio web no tiene interfaz visual; sus endpoints se consideran únicamente cuando afectan la comprensión, priorización o recuperación desde el cliente móvil.
+
+#### ESCALA DE SEVERIDAD:
+
+<table border="1" cellspacing="0" cellpadding="6">
+    <thead>
+        <tr align="center">
+          <td><strong>Nivel</strong></td>
+          <td><strong>Descripción</strong></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Problema superficial: puede ser fácilmente superado por el usuario u ocurre con muy poca frecuencia. No necesita ser arreglado a no ser que exista disponibilidad de tiempo.</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Problema menor: puede ocurrir un poco más frecuentemente o es un poco más difícil de superar para el usuario. Se le debería asignar una prioridad baja resolverlo de cara al siguiente reléase</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Problema mayor: ocurre frecuentemente o los usuarios no son capaces de resolverlos. Es importante que sean corregidos y se les debe asignar una prioridad alta.</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Problema muy grave: un error de gran impacto que impide al usuario continuar con el uso de la herramienta. Es imperativo que sea corregido antes del lanzamiento.</td>
+        </tr>
+    </tbody>
+</table>
+
+#### TABLA RESUMEN:
+
+| # | Problema | Severidad provisional | Heurística / principio | Tarea core relacionada |
+|---|---|---:|---|---|
+| 1 | La tarjeta de alerta identifica al animal con su UUID interno y no permite abrir directamente su ficha. | 3 | Correspondencia con el mundo real; reconocimiento antes que recuerdo. | Priorizar una alerta e identificar al animal afectado. |
+| 2 | Las alertas se muestran por fecha descendente y la aplicación solo permite filtrar por estado; no hay filtro ni agrupación por severidad. | 2 | Flexibilidad y eficiencia de uso; reconocimiento antes que recuerdo. | Encontrar la alerta más urgente entre muchas alertas. |
+| 3 | Los registros offline rechazados o en conflicto quedan pendientes sin una acción para corregirlos o resolverlos desde la aplicación. | 3 | Ayuda para reconocer, diagnosticar y recuperarse de errores; control y libertad del usuario. | Sincronizar y resolver registros de campo. |
+| 4 | La preparación para trabajar sin conexión exige buscar cada animal por arete exacto mientras hay conexión; no se identifica un flujo de precarga por lote o hato. | 2 | Flexibilidad y eficiencia de uso. | Preparar el teléfono antes de registrar eventos en campo. |
+| 5 | Las solicitudes y concesiones de acceso usan UUID de rancho y de veterinario en vez de nombres o búsqueda de personas/ranchos. | 3 | Correspondencia con el mundo real; prevención de errores. | Solicitar o conceder acceso a un rancho. |
+| 6 | Revocar un permiso ejecuta la acción de inmediato, sin confirmación ni opción de deshacer en la interfaz. | 2 | Prevención de errores; control y libertad del usuario. | Revocar el acceso de un veterinario. |
+
+#### DESCRIPCIÓN DE PROBLEMAS:
+
+##### PROBLEMA #1: El animal de la alerta solo aparece como identificador técnico
+
+* **Severidad:** 3
+* **Heurística violada:** Correspondencia entre el sistema y el mundo real; reconocimiento antes que recuerdo.
+* **Tarea relacionada:** Tarea 2 — Atención de una alerta; Tarea 3 — Consulta del animal.
+* **Descripción del problema:** La tarjeta principal muestra `cattleId`, que es un UUID, bajo la etiqueta de identificación del animal. No muestra el arete ni un nombre reconocible, y la tarjeta no ofrece una acción directa para abrir la ficha del animal. Para decidir a quién atender, el usuario tendría que recordar o buscar por separado a qué animal corresponde el UUID. Esto añade pasos y puede retrasar la respuesta ante una alerta.
+* **Recomendación:** Mostrar el arete como identificador principal, acompañarlo con el nombre o descripción disponible y permitir abrir la ficha del animal y su monitoreo desde la alerta. Conservar el UUID en los detalles técnicos.
+
+##### PROBLEMA #2: La lista no ayuda a priorizar alertas por gravedad
+
+* **Severidad:** 2
+* **Heurística violada:** Flexibilidad y eficiencia de uso; reconocimiento antes que recuerdo.
+* **Tarea relacionada:** Tarea 2 — Atención de una alerta.
+* **Descripción del problema:** El servicio devuelve las alertas de más reciente a más antigua. La aplicación móvil carga 20 por página y permite filtrar por estado, pero no por severidad ni por animal. La gravedad aparece en cada tarjeta, de modo que el usuario puede leerla, pero una alerta crítica más antigua puede quedar en una página posterior entre alertas menos urgentes. La tarea de elegir la alerta más urgente requiere inspeccionar y comparar la lista manualmente.
+* **Recomendación:** Dar prioridad visible a las alertas pendientes críticas y permitir filtrar o agrupar por severidad. Mantener la fecha, el estado y la paginación visibles para conservar contexto.
+
+##### PROBLEMA #3: No hay una ruta de recuperación para registros rechazados o en conflicto
+
+* **Severidad:** 3.
+* **Heurística violada:** Ayuda para reconocer, diagnosticar y recuperarse de errores; control y libertad del usuario.
+* **Tarea relacionada:** Tarea 4 — Registro de campo sin conexión.
+* **Descripción del problema:** La sincronización conserva los registros rechazados o en conflicto, pero la lista de pendientes solo presenta un mensaje de estado. El elemento no ofrece acciones para editar, corregir, descartar o volver a crear el registro. El aviso general indica que la sincronización no los modifica, por lo que el usuario puede comprender que existe un problema sin tener una forma de resolverlo desde la aplicación.
+* **Recomendación:** Explicar el motivo en términos comprensibles y ofrecer una acción segura de corrección o resolución, conservando la trazabilidad de la operación original y evitando duplicados. Si el registro no puede corregirse, explicar cómo registrar una operación nueva.
+
+##### PROBLEMA #4: La preparación offline requiere precargar animales uno por uno
+
+* **Severidad:** 2.
+* **Heurística violada:** Flexibilidad y eficiencia de uso.
+* **Tarea relacionada:** Tarea 4 — Registro de campo sin conexión.
+* **Descripción del problema:** Para poder seleccionar un animal sin conexión, primero hay que localizarlo por su arete exacto cuando hay red; la aplicación guarda esa opción localmente. Si el animal no está en caché y el teléfono no tiene conectividad, la búsqueda depende del servicio y no puede completarse. El texto de ayuda informa esta condición, pero la preparación se realiza animal por animal y no se encontró un flujo para precargar un lote o todo el hato.
+* **Recomendación:** Ofrecer una acción explícita para descargar los animales de un lote o hato antes de salir a campo, mostrar cuántos quedaron disponibles sin conexión y confirmar su vigencia.
+
+##### PROBLEMA #5: Los flujos de acceso dependen de UUID difíciles de reconocer
+
+* **Severidad:** 3.
+* **Heurística violada:** Correspondencia con el mundo real; prevención de errores.
+* **Tarea relacionada:** Solicitar acceso a un rancho; otorgar o revisar acceso de un veterinario.
+* **Descripción del problema:** Para solicitar acceso, el veterinario debe conocer e ingresar el UUID del rancho. Para otorgar acceso directo, el administrador elige un rancho mostrado por UUID e ingresa manualmente el UUID de la cuenta veterinaria. La actividad de permisos también identifica al veterinario por ese UUID. La interfaz valida el formato, pero no ayuda a encontrar ni confirmar que se eligió la persona o el rancho correctos; esto obliga a obtener y comparar identificadores fuera de la aplicación y deja margen para errores de destino.
+* **Recomendación:** Permitir buscar por nombre de rancho y por correo/nombre del veterinario, mostrar detalles legibles para confirmar la selección y conservar el UUID en una vista técnica o secundaria.
+
+##### PROBLEMA #6: Revocar acceso no pide confirmación
+
+* **Severidad:** 2.
+* **Heurística violada:** Prevención de errores; control y libertad del usuario.
+* **Tarea relacionada:** Revocar el acceso de un veterinario.
+* **Descripción del problema:** El botón “Revoke access” llama directamente a la operación de revocación. En la interfaz revisada no aparece un diálogo de confirmación ni una acción para deshacer. Un clic por accidente puede retirar el permiso del veterinario y obligar al administrador a concederlo nuevamente.
+* **Recomendación:** Solicitar confirmación indicando el veterinario, rancho, alcance y fecha de expiración que se revocarán; comunicar el resultado y facilitar la restauración del acceso autorizado.
+
 ## 6.4. Video About-the-Product
