@@ -271,7 +271,7 @@ La distribución transversal de 22 tareas SF-96 a SF-117 en Jira es simulada y n
 
 #### 6.2.2.1. Sprint Planning 2
 
-El Sprint 2 propone integrar los recorridos del frontend con los servicios de cuenta, acceso, gestión del hato y suscripción, y habilitar el flujo de telemetría y alertas entre el collar, el Portable Edge Gateway, la API central y las aplicaciones. El Product Backlog del Capítulo III agrupa **30 historias y 164 Story Points** para esta iteración. Esta es la base propuesta para la planificación; el compromiso definitivo depende de la capacidad y disponibilidad que confirme el equipo.
+El Sprint 2 tiene como objetivo integrar los recorridos del frontend con los servicios de cuenta, acceso, gestión del hato y suscripción, y habilitar el flujo de telemetría y alertas entre el collar, el Portable Edge Gateway, la API central y las aplicaciones. El equipo confirmó como alcance de esta iteración las **30 historias** agrupadas para Sprint 2 en el Product Backlog del Capítulo III, con una estimación total de **164 Story Points**.
 
 <table>
   <colgroup>
@@ -323,22 +323,22 @@ El Sprint 2 propone integrar los recorridos del frontend con los servicios de cu
     </tr>
     <tr>
       <td>Sprint 2 Goal</td>
-      <td>Habilitar un recorrido integrado y autorizado de gestión del hato, desde el registro y acceso hasta la consulta de telemetría y atención de alertas, con captura local y sincronización al recuperar conectividad.<br/><strong>Métrica de cumplimiento propuesta:</strong> verificar los criterios de aceptación del Capítulo III para las historias que el equipo comprometa, con registros persistidos, control de acceso y evidencia del recorrido entre collar, Edge, API y clientes; comprobar los reintentos y la operación sin Internet de las historias seleccionadas. La cantidad de historias y puntos aceptados se registrará al cierre.</td>
+      <td>Habilitar un recorrido integrado y autorizado de gestión del hato, desde el registro y acceso hasta la consulta de telemetría y atención de alertas, con captura local y sincronización al recuperar conectividad.<br/><strong>Métrica de cumplimiento propuesta:</strong> verificar los criterios de aceptación del Capítulo III para las 30 historias seleccionadas, con registros persistidos, control de acceso y evidencia del recorrido entre collar, Edge, API y clientes; comprobar los reintentos y la operación sin Internet de las historias correspondientes. La cantidad de historias y puntos aceptados se registrará al cierre.</td>
     </tr>
     <tr>
       <td>Sprint 2 Velocity</td>
-      <td>Pendiente de validar con la capacidad del equipo y las historias aceptadas al cierre. Los 164 SP son una estimación propuesta; los 33 SP planificados del Sprint 1 no constituyen velocidad observada.</td>
+      <td>Se calculará a partir de los puntos de las historias aceptadas al cierre. Los 164 SP corresponden al esfuerzo estimado del alcance confirmado; los 33 SP planificados del Sprint 1 no constituyen velocidad observada.</td>
     </tr>
     <tr>
       <td>Sum of Story Points</td>
-      <td>164 Story Points distribuidos en las 30 historias propuestas de 6.2.2.3; sujetos a la selección definitiva de Sprint Planning.</td>
+      <td>164 Story Points estimados, distribuidos en las 30 historias seleccionadas del Sprint Backlog 2.</td>
     </tr>
   </tbody>
 </table>
 
 La selección debe respetar las dependencias del Capítulo III: registro, acceso y permisos antes de consumir datos del hato; solicitud y confirmación de suscripción antes de habilitar capacidades del plan; asignaciones y configuración antes de evaluar telemetría; persistencia y confirmación antes de retirar registros pendientes. El enlace del collar al Edge se plantea por Wi-Fi local; BLE permanece como alternativa prevista.
 
-El periodo de la iteración y la distribución de líderes y colaboradores por entregable están confirmados. El compromiso de ejecución de las 30 historias y 164 SP permanece sujeto a la capacidad del equipo. Si se reduce esta propuesta, se actualizarán la selección de 6.2.2.3 y su correspondencia con el Capítulo III, conservando las dependencias del recorrido elegido. Esta planificación no acredita ejecución ni cierre de historias.
+El periodo de la iteración, la distribución de líderes y colaboradores por entregable y el alcance de 30 historias están confirmados. Los 164 SP expresan la estimación del trabajo planificado. La ejecución y la aceptación de las historias se documentarán con sus evidencias de revisión.
 
 Fuente: [Product Backlog del Capítulo III](30-requirements-specification.md#33-product-backlog) y [evidencias del Sprint 1](#621-sprint-1).
 
@@ -356,7 +356,7 @@ El Sprint 1 registraba responsables propuestos por tareas y áreas técnicas; es
 
 #### 6.2.2.3. Sprint Backlog 2
 
-La tabla reúne las 30 historias propuestas para Sprint 2 en el Product Backlog del Capítulo III, conservando sus identificadores, títulos, orden de prioridad y estimaciones. Los resultados esperados resumen el alcance; la aceptación debe comprobar todos los criterios de cada historia en 3.1. El reparto por entregable está confirmado en 6.2.2.2; el compromiso de ejecución y la asignación de tareas en Jira requieren validar la capacidad del equipo.
+La tabla reúne las 30 historias seleccionadas y confirmadas para Sprint 2 a partir del Product Backlog del Capítulo III, conservando sus identificadores, títulos, orden de prioridad y estimaciones. Los resultados esperados resumen el alcance; la aceptación debe comprobar todos los criterios de cada historia en 3.1. El reparto de líderes y colaboradores por entregable está confirmado en 6.2.2.2.
 
 | Prioridad | Historia | Resultado esperado | Puntos | Sprint asignado |
 |---:|---|---|---:|---|
@@ -390,7 +390,7 @@ La tabla reúne las 30 historias propuestas para Sprint 2 en el Product Backlog 
 | 36 | TS-18 — Sincronizar los registros sin conexión de la aplicación móvil | Descargar fichas autorizadas y sincronizar eventos persistidos con resultados individuales, sin duplicados y conservando rechazos y conflictos. | 8 | Sprint 2 |
 | 37 | US-21 — Registrar un evento de salud durante la faena | Conservar animal, tipo de evento, observación, fecha, autor y estado de sincronización, validando los datos obligatorios. | 3 | Sprint 2 |
 | 38 | US-22 — Operar sin cobertura y sincronizar al recuperarla | Consultar fichas descargadas y conservar eventos sin Internet con permisos vigentes; sincronizar al recuperar conectividad sin perder conflictos. | 8 | Sprint 2 |
-|  | **Total propuesto** | **30 historias, sujetas a confirmación de capacidad.** | **164** |  |
+|  | **Total planificado** | **30 historias confirmadas.** | **164** |  |
 
 La persistencia de la cola del collar y las autorizaciones locales acotadas se incluyen como resultados por completar según TS-03 y TS-15; no se consideran resueltas por esta planificación. El alcance no incorpora las historias de Sprint 3 ni del roadmap, y la presencia de una historia en esta tabla no acredita su aceptación.
 
