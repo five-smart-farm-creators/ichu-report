@@ -15,15 +15,12 @@ Abrir fuentes PlantUML en GitHub ([https://tinyurl.com/269tsdqs](https://tinyurl
 Clases, context maps y esquemas.<br>
 Ver diagramas UML y esquemas en GitHub ([https://tinyurl.com/2cvd4xc3](https://tinyurl.com/2cvd4xc3))
 
-**Diseño de dispositivos IoT — proyecto editable en Cirkit Designer**<br>
-[https://tinyurl.com/2bzhcwa7](https://tinyurl.com/2bzhcwa7)
-
 **Diseño de dispositivos IoT — capturas versionadas**<br>
-Vista general, circuitos del collar, controlador del abrevadero y receptor de alertas.<br>
+Vista general y circuitos del collar y del receptor de alertas.<br>
 `report/assets/images/iot/`
 
 **Diseños físicos conceptuales de dispositivos IoT**<br>
-Collar, panel de alertas y controlador de calentamiento del abrevadero; ilustraciones generadas con Gemini.<br>
+Collar y panel de alertas; ilustraciones generadas con Gemini.<br>
 `report/assets/images/iot/`
 
-Las capturas y fuentes locales indicadas en este anexo están versionadas en el repositorio. Los enlaces de Cirkit Designer, Figma, Miro, UXPressia, Drive y SharePoint llevan a los espacios externos donde se elaboran o almacenan artefactos editables.
+Las capturas y fuentes locales indicadas en este anexo están versionadas en el repositorio. Los enlaces de Figma, Miro, UXPressia, Drive y SharePoint llevan a los espacios externos donde se elaboran o almacenan artefactos editables.

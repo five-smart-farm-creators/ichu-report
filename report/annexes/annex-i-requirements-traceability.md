@@ -34,7 +34,7 @@ Los criterios de aceptación siguen la estructura Dado-Cuando-Entonces y se reda
 
 ## Relación de las épicas con el diseño
 
-Los requisitos se organizan en doce épicas. La siguiente relación con los contextos de software del capítulo IV facilita la trazabilidad hacia el diseño propuesto; estos contextos no organizan el glosario del negocio de la sección 2.5.
+Los requisitos se organizan en once épicas. La siguiente relación con los contextos de software del capítulo IV facilita la trazabilidad hacia el diseño propuesto; estos contextos no organizan el glosario del negocio de la sección 2.5.
 
 | Épica | Contexto de software asociado | Producto digital principal |
 |---|---|---|
@@ -49,7 +49,6 @@ Los requisitos se organizan en doce épicas. La siguiente relación con los cont
 | EP-09 Análisis para la toma de decisiones | `Dashboard & Analytics` | Aplicación web |
 | EP-10 Página de presentación y suscripciones | `Subscription Plans` | Página de presentación |
 | EP-11 Plataforma IoT e integración de servicios | Transversal (técnico) | Aplicación embebida, API local y API REST |
-| EP-12 Control del abrevadero | `Operations & Monitoring` | Aplicación embebida, web y móvil |
 
 ## Calidad, cobertura y trazabilidad
 
@@ -70,26 +69,26 @@ Cada arquetipo de usuario cuenta con al menos 21 historias de usuario redactadas
 
 | Rol en la redacción | Arquetipo de usuario asociado | Segmento | Historias de usuario |
 |---|---|---|---|
-| Administrador ganadero | Cesar Flores | Segmento 1 | 23 |
-| Médico veterinario | Leonardo Rosales | Segmento 2 | 22 |
-| Operario de campo | No aplica, es un rol operativo | Segmento 1 | 5 |
+| Administrador ganadero | Cesar Flores | Segmento 1 | 21 |
+| Médico veterinario | Leonardo Rosales | Segmento 2 | 21 |
+| Operario de campo | No aplica, es un rol operativo | Segmento 1 | 4 |
 | Visitante | No aplica, es el rol base del sitio web estático | No aplica | 7 |
 | Usuario registrado | No aplica, es un rol transversal de acceso | No aplica | 1 |
 | Ganadero o médico veterinario | Ambos segmentos, recorrido inicial de la interfaz (US-58) | Segmentos 1 y 2 | 1 |
-| Actores técnicos | fabricante o integrador de dispositivos, nodo de borde portátil, aplicación web, aplicación móvil y servicio central de ICHU | No aplica | 19 |
+| Actores técnicos | fabricante o integrador de dispositivos, nodo de borde portátil, aplicación web, aplicación móvil y servicio central de ICHU | No aplica | 17 |
 
 **Cobertura por producto digital**
 
-La cobertura es compartida: una historia puede habilitar más de un producto. Las 59 historias de usuario describen necesidades de personas; las 19 historias técnicas especifican contratos de dispositivos, nodo de borde, nube y clientes. No se suman las filas siguientes para obtener el total.
+La cobertura es compartida: una historia puede habilitar más de un producto. Las 55 historias de usuario describen necesidades de personas; las 17 historias técnicas especifican contratos de dispositivos, nodo de borde, nube y clientes. No se suman las filas siguientes para obtener el total.
 
 | Producto digital | Historias de usuario relacionadas | Historias técnicas habilitadoras |
 |---|---|---|
 | Página de presentación | US-32 a US-38, US-59 | Ninguna API propia para la primera versión; TS-10 habilita la contratación integrada de US-34 en una iteración posterior. |
-| Aplicación web | US-01 a US-19, US-23 a US-31, US-39 a US-54, US-57, US-58 | US-58 no requiere servicio central; TS-08, TS-10, TS-14 y TS-19 habilitan la integración funcional posterior. |
-| Aplicación móvil | US-07, US-13, US-16, US-19 a US-22, US-27, US-40, US-47, US-54 a US-56 | TS-09, TS-14, TS-16, TS-17, TS-18 |
-| API REST central | Soporta acceso, suscripción, monitoreo, atención e indicadores | TS-06 a TS-12, TS-14, TS-15, TS-18, TS-19 |
-| API local / nodo de borde portátil | US-13, US-16, US-17, US-19, US-20, US-54, US-56 | TS-04, TS-05, TS-06, TS-14, TS-15, TS-16, TS-17 |
-| Aplicaciones embebidas | Habilitan captura del collar y control local del abrevadero | TS-01, TS-02, TS-03, TS-13 |
+| Aplicación web | US-01 a US-19, US-23 a US-31, US-39 a US-53, US-58 | US-58 no requiere servicio central; TS-08, TS-10 y TS-19 habilitan la integración funcional posterior. |
+| Aplicación móvil | US-07, US-13, US-16, US-19 a US-22, US-27, US-40, US-47 | TS-09, TS-16, TS-17, TS-18 |
+| API REST central | Soporta acceso, suscripción, monitoreo, atención e indicadores | TS-06 a TS-12, TS-15, TS-18, TS-19 |
+| API local / nodo de borde portátil | US-13, US-16, US-17, US-19, US-20 | TS-04, TS-05, TS-06, TS-15, TS-16, TS-17 |
+| Aplicaciones embebidas | Habilitan captura de telemetría en el collar | TS-01, TS-02, TS-03 |
 
 **Dependencias técnicas añadidas por la revisión**
 
@@ -121,8 +120,6 @@ La tabla remite al registro y análisis de entrevistas del Capítulo II ([https:
 | Campañas sanitarias según el calendario andino: carbúnculo, desparasitación (Próspero, Meikoll) | US-26, US-27, US-28 |
 | Preferencia de pago declarada en el cuestionario; disposición de contratación pendiente de validación | US-34, US-35, TS-10 |
 | Control de costos y rentabilidad por cabeza (Próspero, Meikoll, Grober) | US-29, US-31 |
-| Verificación manual de pastos y agua durante el recorrido diario del predio (mapa de empatía de Cesar Flores) | US-54, US-55, US-56, TS-13, TS-14 |
-| Caída del consumo y de la rumia como signo previo a un cuadro clínico (Darwin, Eliseo, Dionisio) | US-57 |
 | Riesgo de intoxicación por dosificación repetida y de fallo de preñez por vacunación omitida | US-41, US-43, US-51 |
 | Darwin describe seguimiento de constantes tras el tratamiento; los plazos de cada caso deben ser configurados y validados por el profesional, no asumidos como una regla universal | US-40, US-42 |
 | Uso de exámenes de laboratorio en casos complejos (Eliseo, Dionisio) | US-44 |
