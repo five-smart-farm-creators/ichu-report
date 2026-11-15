@@ -893,7 +893,7 @@ La identificación y registro de los commits incluyen cambios a pruebas unitaria
 
 A continuación, se presentan las evidencias de la ejecución de la aplicación web ICHU durante el sprint, mostrando las principales vistas y funcionalidades implementadas por segmento objetivo:
 
-**Vistas de Ganadero:**
+**A. Vistas de Ganadero:**
 
 <ul>
   <li><strong>Dashboard</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-dashboard.png" alt="Dashboard View"></li>
@@ -905,12 +905,17 @@ A continuación, se presentan las evidencias de la ejecución de la aplicación 
   <li><strong>Ubicación</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-location.png" alt="Settings View"></li>
 </ul>
 
-**Vistas de Veterinario:**
+**B. Vistas de Veterinario:**
 
 <ul>
   <li><strong>Historial Clínico</strong><br><img src="./assets/images/web-app-evidence/web-app-veterinarian-clinical-history.png" alt="Clinical History View"></li>
   <li><strong>Reproducción</strong><br><img src="./assets/images/web-app-evidence/web-app-veterinarian-reproduction.png" alt="Reproduction View"></li>
 </ul>
+
+**C. Despliegue de la Aplicación Web:**
+
+El despliegue de la aplicación web ICHU se realizó en un entorno de producción accesible a través del siguiente enlace:
+<a href="https://ichu-smartfarm.web.app/">ICHU Web Application</a></p>
 
 #### 6.2.2.7. Services Documentation Evidence for Sprint Review
 
