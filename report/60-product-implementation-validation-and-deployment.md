@@ -398,9 +398,524 @@ Fuente: [Product Backlog](30-requirements-specification.md#33-product-backlog) y
 
 #### 6.2.2.4. Development Evidence for Sprint Review
 
+La tabla reúne los commits de mayor impacto a nivel técnico:
+
+- 40 commits de `ichu-web-service`
+- 40 commits de `ichu-web-app`
+- 40 commits de `ichu-mobile-app`
+- 40 commits de `ichu-website`
+- 40 commits de `ichu-edge-service`
+
+| Repositorio | ID de Commit | Mensaje de Commit | Descripción de Commit | Fecha |
+|---|---|---|---|---|
+| ichu-web-service | 7052e84 | feat(monitoring): add methane alerts and critical threshold levels | Añade alertas de metano y niveles de umbral crítico. | 2026-11-14 |
+| ichu-web-service | 8ae5aa6 | feat(monitoring): record heart rate and methane index readings | Registra lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
+| ichu-web-service | edd29fa | feat: change water monitoring endpoints | Actualiza los endpoints de monitoreo de bebederos. | 2026-11-14 |
+| ichu-web-service | bc3adcc | feat: change water monitoring query service | Actualiza el servicio de consultas de monitoreo de agua. | 2026-11-14 |
+| ichu-web-service | f94a225 | feat: change iot water monitoring facade | Integra la fachada de monitoreo de agua con IoT Assets. | 2026-11-14 |
+| ichu-web-service | 7964a99 | feat: change water reading repository implementation | Implementa el repositorio de lecturas de agua. | 2026-11-14 |
+| ichu-web-service | 8201f2b | feat: change water reading database mapping | Configura el mapeo de lecturas de agua a persistencia. | 2026-11-14 |
+| ichu-web-service | ccbabcb | feat: change water reading request validation | Valida las solicitudes de registro de lecturas de agua. | 2026-11-14 |
+| ichu-web-service | 53660b3 | feat: change water reading domain validation | Añade validaciones de dominio para lecturas de agua. | 2026-11-14 |
+| ichu-web-service | 506b1c1 | feat(subscription-plans): expose plan catalog, quotes and subscriptions | Expone el catálogo de planes, cotizaciones y suscripciones. | 2026-11-07 |
+| ichu-web-service | 63000ce | feat(subscription-plans): pay subscriptions with stripe checkout | Integra el pago de suscripciones mediante Stripe Checkout. | 2026-11-10 |
+| ichu-web-service | 079380c | feat: add subscription plan quotes endpoint | Añade el endpoint de cotización de planes. | 2026-11-12 |
+| ichu-web-service | 3fe5a39 | feat(iam): add persistence and Firebase identity adapters | Añade persistencia IAM y adaptadores de identidad Firebase. | 2026-11-05 |
+| ichu-web-service | 6745002 | feat(iam): expose REST resources and register module services | Expone recursos REST de IAM y registra sus servicios. | 2026-11-05 |
+| ichu-web-service | 4da544b | feat: add veterinary access request endpoints | Añade endpoints para solicitar acceso veterinario a ranchos. | 2026-11-12 |
+| ichu-web-service | 658a010 | feat(iam): find a ranch by its access code | Permite localizar ranchos mediante código de acceso. | 2026-11-11 |
+| ichu-web-service | 600d67d | feat(iam): issue a unique access code for each ranch | Emite un código de acceso único para cada rancho. | 2026-11-11 |
+| ichu-web-service | 2b74959 | feat(cattle-information): add services API and persistence | Añade API y persistencia para información del ganado. | 2026-11-05 |
+| ichu-web-service | 2a5d518 | feat(cattle-information): model cattle lifecycle and lot membership | Modela el ciclo de vida de animales y su pertenencia a lotes. | 2026-11-05 |
+| ichu-web-service | 9552620 | feat(iot-assets): connect cattle, collar limits and collar release | Vincula animales y collares, aplica límites y libera asignaciones. | 2026-11-07 |
+| ichu-web-service | d451ff9 | feat(iot-assets): add edge gateway registry with one-time keys | Registra gateways Edge con claves de uso único. | 2026-11-08 |
+| ichu-web-service | 2313f54 | feat: add validated partial cattle update resource | Define un recurso validado para actualizar parcialmente un animal. | 2026-11-13 |
+| ichu-web-service | bbf3545 | feat: support atomic partial cattle updates | Implementa actualizaciones parciales atómicas del ganado. | 2026-11-13 |
+| ichu-web-service | 0c7342e | feat: expose cattle patch endpoint by unique identifier | Expone el endpoint PATCH de ganado por identificador único. | 2026-11-13 |
+| ichu-web-service | 8251d9c | feat(cattle-information): expose animal placements to trusted code | Expone ubicaciones de animales para integraciones autorizadas. | 2026-11-12 |
+| ichu-web-service | c67f662 | feat(iot-assets): list open collar assignments for trusted callers | Lista asignaciones de collar abiertas para clientes confiables. | 2026-11-12 |
+| ichu-web-service | ada0ae9 | feat(operations-monitoring): publish collar assignments to edge gateways | Publica asignaciones de collar hacia gateways Edge. | 2026-11-12 |
+| ichu-web-service | 4b5f8c7 | feat: base controller and planning controllers (activities, calendar, campaigns and periods) added | Añade controladores base para actividades, calendario, campañas y periodos. | 2026-11-06 |
+| ichu-web-service | 6a24522 | feat(planning): plan lot nutrition with ration changes | Planifica nutrición por lote y cambios de ración. | 2026-11-12 |
+| ichu-web-service | c4c884d | feat(operations-monitoring): record reproductive events and history | Registra eventos reproductivos e historial asociado. | 2026-11-12 |
+| ichu-web-service | 4addf07 | feat: expose herd and ranch monitoring reads for analytics | Provee lecturas de monitoreo de hato y rancho para analítica. | 2026-11-08 |
+| ichu-web-service | d1018e6 | feat(dashboard-analytics): expose analytics REST endpoints | Expone endpoints REST para analítica del dashboard. | 2026-11-06 |
+| ichu-web-service | bbb0d8d | feat(monitoring): authorize ranch operations through the IAM context facade | Autoriza operaciones sobre ranchos mediante la fachada IAM. | 2026-11-06 |
+| ichu-web-service | d90693d | feat(monitoring): add EF Core repositories and entity configurations | Añade repositorios Entity Framework Core y configuración de entidades para monitoreo. | 2026-11-05 |
+| ichu-web-service | 4dd2bcb | feat(monitoring): add command services | Añade servicios de comandos para operaciones de monitoreo. | 2026-11-05 |
+| ichu-web-service | 3b15a51 | feat(monitoring): add query services | Añade servicios de consulta para operaciones de monitoreo. | 2026-11-05 |
+| ichu-web-service | be74bfd | feat(monitoring): add REST controllers and service registration | Añade controladores REST y registro del contexto de monitoreo. | 2026-11-05 |
+| ichu-web-service | 86a95ee | feat: add cattle and iot schemas and register both modules | Crea esquemas de ganado e IoT y registra ambos módulos. | 2026-11-07 |
+| ichu-web-service | 885a8d6 | feat(shared): add the application database context with audit timestamps | Añade el contexto de base de datos compartido con marcas de auditoría. | 2026-11-06 |
+| ichu-web-service | de4aca4 | ci: run unit and integration tests against postgresql | Configura CI para ejecutar pruebas unitarias y de integración con PostgreSQL. | 2026-11-09 |
+| ichu-web-app | 9997c3f | feat(operations-monitoring): add methane alerts and two-level ranges | Añade alertas de metano con rangos de severidad de dos niveles. | 2026-11-14 |
+| ichu-web-app | 79da639 | feat(operations-monitoring): show heart rate and methane index readings | Muestra lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
+| ichu-web-app | 163d7c3 | revert(iot-assets): drop the water trough status and history | Revierte la visualización web del estado e historial de bebederos. | 2026-11-14 |
+| ichu-web-app | 7997479 | feat(iot-assets): hide water troughs and water controllers from the web | Oculta bebederos y controladores de agua en la aplicación web. | 2026-11-14 |
+| ichu-web-app | 8fac6e7 | fix(planning): call the lot, activity and campaign routes now served | Conecta la planificación con las rutas disponibles para lotes, actividades y campañas. | 2026-11-14 |
+| ichu-web-app | 88c0cbc | feat(dashboard): read recent alerts, collars and lot temperature | Incorpora alertas recientes, collares y temperatura de lotes al dashboard. | 2026-11-13 |
+| ichu-web-app | f80be83 | fix(iam): drop the head-count min attribute that blocked vets | Corrige el mínimo de tamaño de hato que impedía registrar veterinarios. | 2026-11-12 |
+| ichu-web-app | 7f5e4d7 | fix(iam): let veterinarians register without ranch details | Permite que veterinarios se registren sin ingresar datos de rancho. | 2026-11-12 |
+| ichu-web-app | 52789bd | fix(shared): revalidate the page served for every route | Revalida la página servida para cada ruta del sitio. | 2026-11-12 |
+| ichu-web-app | 138f508 | fix(shared): wait for a sleeping api to start | Espera a que la API vuelva a estar disponible antes de iniciar solicitudes. | 2026-11-12 |
+| ichu-web-app | 225f0b7 | fix(shared): unwrap leaflet from its production module | Ajusta Leaflet para su carga en el entorno de producción. | 2026-11-12 |
+| ichu-web-app | bf8b6ff | build: deploy the web app to firebase hosting | Despliega la aplicación web en Firebase Hosting. | 2026-11-12 |
+| ichu-web-app | 96312b0 | ci: build and test the web app on pull requests | Configura CI para compilar y probar la aplicación en Pull Requests. | 2026-11-12 |
+| ichu-web-app | 0883f2b | fix(iam): harden session lifecycle and request handling | Refuerza el ciclo de vida de sesión y el manejo de solicitudes. | 2026-11-06 |
+| ichu-web-app | 1e94738 | feat(planning): show each lot's nutrition plan and rumination | Muestra el plan nutricional de cada lote y sus datos de rumia. | 2026-11-12 |
+| ichu-web-app | 119ac06 | feat(operations-monitoring): follow the reproductive history of females | Presenta el historial reproductivo de las hembras. | 2026-11-12 |
+| ichu-web-app | a56e98c | feat(shared): expose animal sex and lot trends through acl facades | Expone sexo del animal y tendencias de lotes mediante fachadas ACL. | 2026-11-12 |
+| ichu-web-app | f1ff78d | feat(shared): mark dated events on line charts | Marca eventos con fecha en los gráficos de líneas. | 2026-11-12 |
+| ichu-web-app | 2c812d9 | feat(subscription-plans): contract plans per collar and pay with stripe | Permite contratar planes por collar y pagar con Stripe. | 2026-11-12 |
+| ichu-web-app | 8c7146e | feat(subscription-plans): add plan, quote and subscription adapters | Añade adaptadores para planes, cotizaciones y suscripciones. | 2026-11-12 |
+| ichu-web-app | 756db12 | feat(dashboard-analytics): show herd indicators, trends and reports | Presenta indicadores del hato, tendencias e informes. | 2026-11-11 |
+| ichu-web-app | 72fc308 | feat(dashboard-analytics): add indicator, trend and report adapters | Integra adaptadores de indicadores, tendencias e informes. | 2026-11-11 |
+| ichu-web-app | da1aa21 | feat(shared): expose lot members and upcoming work through acl facades | Comparte integrantes de lotes y actividades próximas con otros contextos. | 2026-11-11 |
+| ichu-web-app | 77a713e | feat(operations-monitoring): keep the clinical history of each animal | Presenta el historial clínico de cada animal. | 2026-11-11 |
+| ichu-web-app | b398a8c | feat(planning): plan campaigns, calendar work and withdrawal periods | Planifica campañas, actividades del calendario y periodos de retiro. | 2026-11-11 |
+| ichu-web-app | db961e2 | feat(operations-monitoring): monitor the herd, alerts and grazing zones | Permite monitorear el hato, las alertas y las zonas de pastoreo. | 2026-11-11 |
+| ichu-web-app | 2eb3560 | feat(operations-monitoring): add telemetry, alert and geofence adapters | Integra adaptadores de telemetría, alertas y geocercas. | 2026-11-11 |
+| ichu-web-app | 0877476 | feat(iot-assets): manage devices, water troughs and edge gateways | Permite gestionar dispositivos, bebederos y gateways Edge. | 2026-11-11 |
+| ichu-web-app | caf1cf1 | feat(cattle-information): manage the herd inventory, profiles and lots | Permite gestionar inventario, perfiles de animales y lotes. | 2026-11-11 |
+| ichu-web-app | bf8ab58 | feat(cattle-information): add cattle and lot api adapters | Añade adaptadores API para animales y lotes. | 2026-11-11 |
+| ichu-web-app | 3190a01 | feat(iam): request and decide herd advisories by ranch | Permite solicitar y decidir asesorías vinculadas a ranchos. | 2026-11-11 |
+| ichu-web-app | dcad8bd | feat(iam): show ranches, access codes and the professional profile | Muestra ranchos, códigos de acceso y el perfil profesional. | 2026-11-11 |
+| ichu-web-app | 736ea75 | feat(iam): find a ranch by its access code | Permite encontrar un rancho mediante su código de acceso. | 2026-11-11 |
+| ichu-web-app | d5e5025 | feat(i18n): translate the account and advisory pages | Traduce las páginas de cuenta y asesorías. | 2026-11-11 |
+| ichu-web-app | 22ae075 | feat(shared): add localized dates and a confirmation dialog | Añade fechas localizadas y un diálogo de confirmación. | 2026-11-11 |
+| ichu-web-app | 5f7b8dc | feat(i18n): translate sign-in, registration and legal pages | Traduce inicio de sesión, registro y páginas legales. | 2026-11-11 |
+| ichu-web-app | 0832831 | feat(shared): add the application shell and translated page titles | Añade el shell de la aplicación y títulos de página traducidos. | 2026-11-11 |
+| ichu-web-app | 22af0b5 | refactor(iam): sign in with firebase only and scope advisories by ranch | Usa Firebase para autenticar y limita asesorías al rancho activo. | 2026-11-11 |
+| ichu-web-app | b7e5041 | feat(i18n): add english and spanish runtime translations | Añade traducciones en tiempo de ejecución en inglés y español. | 2026-11-11 |
+| ichu-web-app | 757222b | feat(iam): add Firebase authentication and account API adapters | Añade adaptadores de autenticación Firebase y API de cuenta. | 2026-11-06 |
+| ichu-mobile-app | 4065dda | feat: authentication for client | Añade autenticación para el cliente móvil. | 2026-11-13 |
+| ichu-mobile-app | 05d0abe | feat(iam): expose session-bound authorized ranch context | Expone el contexto de ranchos autorizados vinculado a la sesión. | 2026-11-12 |
+| ichu-mobile-app | 19533fb | feat(iam): bind explicit ranch selection to validated sessions | Vincula la selección explícita de rancho con sesiones validadas. | 2026-11-12 |
+| ichu-mobile-app | a2bed33 | feat(iam): add accessible authorized ranch selection screens | Añade pantallas accesibles para seleccionar un rancho autorizado. | 2026-11-12 |
+| ichu-mobile-app | fea6555 | feat(iam): add secure account creation and reconciliation adapters | Añade adaptadores seguros para crear y reconciliar cuentas. | 2026-11-12 |
+| ichu-mobile-app | 8b80924 | feat(iam): add localized account registration and verification flows | Incorpora registro localizado y verificación de cuenta. | 2026-11-12 |
+| ichu-mobile-app | 7641636 | feat: herd advisory implemented | Define modelos de asesoría ganadera para el repositorio. | 2026-11-13 |
+| ichu-mobile-app | aa5713a | feat: infrastructure herd advisory implemented | Implementa la integración de infraestructura para asesorías. | 2026-11-13 |
+| ichu-mobile-app | cff299e | test: repository test updated with iam account authentication | Integra los flujos de asesoría por rancho en la app. | 2026-11-13 |
+| ichu-mobile-app | 884cae0 | feat(cattle-information): adapt ranch-scoped animal reads | Adapta consultas de animales delimitadas por rancho. | 2026-11-12 |
+| ichu-mobile-app | ce92a29 | feat(cattle-information): add accessible animal read views | Añade vistas accesibles de solo lectura para animales. | 2026-11-12 |
+| ichu-mobile-app | 2396358 | feat(cattle-information): add animal management screens | Añade pantallas para gestionar animales. | 2026-11-13 |
+| ichu-mobile-app | a7e7c41 | feat(cattle-information): send version-checked animal writes | Envía cambios de animales con control de versión. | 2026-11-13 |
+| ichu-mobile-app | 1dd7522 | feat(operations-monitoring): adapt authorized latest telemetry reads | Adapta consultas autorizadas de telemetría reciente. | 2026-11-12 |
+| ichu-mobile-app | 5277f17 | feat(operations-monitoring): add accessible monitoring snapshots | Añade vistas accesibles para resúmenes de monitoreo. | 2026-11-12 |
+| ichu-mobile-app | 855409a | feat(operations-monitoring): present paginated telemetry history | Presenta historial de telemetría paginado. | 2026-11-13 |
+| ichu-mobile-app | 55ee6cc | feat(operations-monitoring): define paginated ranch alert reads | Define consultas paginadas de alertas por rancho. | 2026-11-12 |
+| ichu-mobile-app | 276fd26 | feat(operations-monitoring): fetch authorized ranch alert pages | Obtiene páginas de alertas del rancho autorizado. | 2026-11-12 |
+| ichu-mobile-app | 63c8b22 | feat(operations-monitoring): add accessible alert event views | Añade vistas accesibles de eventos de alerta. | 2026-11-12 |
+| ichu-mobile-app | f9a5278 | feat(operations-monitoring): add cloud alert acknowledgement | Permite registrar la atención de alertas en la nube. | 2026-11-13 |
+| ichu-mobile-app | b37731e | feat(operations-monitoring): model synchronized edge alerts | Modela alertas sincronizadas desde Edge. | 2026-11-14 |
+| ichu-mobile-app | 1e35c12 | feat(operations-monitoring): adapt authorized edge alert reads | Adapta consultas autorizadas de alertas Edge. | 2026-11-14 |
+| ichu-mobile-app | 0dc89c6 | feat(operations-monitoring): fence edge reads by ranch session | Limita las consultas Edge a la sesión y rancho activos. | 2026-11-14 |
+| ichu-mobile-app | 42a0dcc | feat(operations-monitoring): show edge alert read states | Muestra los estados de lectura de alertas Edge. | 2026-11-14 |
+| ichu-mobile-app | 3bb0914 | feat(operations-monitoring): add edge alert account route | Añade la ruta de alertas Edge dentro de la cuenta. | 2026-11-14 |
+| ichu-mobile-app | 771ba70 | feat(operations-monitoring): add field record domain model | Define el modelo de dominio para registros de campo. | 2026-11-13 |
+| ichu-mobile-app | ade1a8e | feat(operations-monitoring): persist field records in preferences | Persiste registros de campo en las preferencias locales. | 2026-11-13 |
+| ichu-mobile-app | ec02340 | feat(operations-monitoring): coordinate offline field record saves | Coordina el guardado local de eventos de campo. | 2026-11-13 |
+| ichu-mobile-app | d581019 | feat(operations-monitoring): add localized field record page | Añade una pantalla localizada para registros de campo. | 2026-11-13 |
+| ichu-mobile-app | 8099bf7 | feat(operations-monitoring): wire offline field records into app | Integra los registros de campo offline en la aplicación. | 2026-11-13 |
+| ichu-mobile-app | 5d10b2d | feat(operations-monitoring): add authorized mobile sync transport | Añade transporte autorizado para sincronización móvil. | 2026-11-13 |
+| ichu-mobile-app | 2a58548 | feat(operations-monitoring): synchronize pending field records | Sincroniza registros de campo pendientes. | 2026-11-13 |
+| ichu-mobile-app | 79c3440 | feat(operations-monitoring): integrate waterer navigation | Integra la navegación hacia los bebederos. | 2026-11-14 |
+| ichu-mobile-app | cbfe03e | feat(operations-monitoring): add waterer list and detail views | Añade vistas de lista y detalle de bebederos. | 2026-11-14 |
+| ichu-mobile-app | b9cecf8 | feat(operations-monitoring): add paginated waterer history panel | Añade historial paginado de lecturas de agua. | 2026-11-14 |
+| ichu-mobile-app | 584909c | feat(operations-monitoring): add waterer status widgets | Añade indicadores visuales del estado del bebedero. | 2026-11-14 |
+| ichu-mobile-app | a43979a | feat(operations-monitoring): add session-bound waterer reads | Vincula las lecturas de bebederos con la sesión activa. | 2026-11-14 |
+| ichu-mobile-app | 53035d6 | test(operations-monitoring): add waterer api contract coverage | Cubre los contratos API de bebederos con pruebas. | 2026-11-14 |
+| ichu-mobile-app | f195f2d | test(operations-monitoring): cover edge alert route integration | Cubre con pruebas la integración de rutas de alertas Edge. | 2026-11-14 |
+| ichu-mobile-app | 4eed777 | feat: align mobile clients with backend contracts | Alinea los clientes móviles con los contratos del backend. | 2026-11-14 |
+| ichu-website | be9e6bd | chore: configura el repositorio | Configura la estructura inicial del repositorio. | 2026-10-28 |
+| ichu-website | fa6b2ab | feat: agrega la portada y su estructura visual | Implementa la portada y su estructura visual. | 2026-10-28 |
+| ichu-website | bbd08e1 | feat: habilita idioma e interacciones del sitio | Incorpora selector de idioma e interacciones del sitio. | 2026-10-28 |
+| ichu-website | 7f4de18 | feat: añade páginas de funcionamiento y medios | Añade páginas de funcionamiento y contenido multimedia. | 2026-10-28 |
+| ichu-website | a210501 | docs: documenta estructura y puesta en marcha | Documenta la estructura del proyecto y su puesta en marcha. | 2026-10-28 |
+| ichu-website | a57bb22 | refactor(paths): use English names for pages and assets | Renombra páginas y recursos con nombres en inglés. | 2026-10-29 |
+| ichu-website | c362812 | feat(i18n): add English and Spanish locale resources | Añade recursos de idioma en inglés y español. | 2026-10-29 |
+| ichu-website | 0fc640f | fix(i18n): support standalone pages and nested routes | Adapta la localización a páginas independientes y rutas anidadas. | 2026-10-29 |
+| ichu-website | 30f5a4f | feat(404): add a localized recovery page | Añade una página 404 localizada. | 2026-10-29 |
+| ichu-website | 1c6cd4b | refactor(i18n): use semantic translation keys | Estandariza las claves de traducción con nombres semánticos. | 2026-10-29 |
+| ichu-website | 0d5810d | ci(i18n): validate locale resources and references | Valida recursos de idioma y sus referencias mediante CI. | 2026-10-29 |
+| ichu-website | 4b47ca8 | docs(i18n): document locale conventions | Documenta convenciones para los recursos de idioma. | 2026-10-29 |
+| ichu-website | 944c66b | refactor(i18n): move locale catalogs to root directory | Traslada los catálogos de idioma al directorio raíz. | 2026-10-29 |
+| ichu-website | af4b8fe | docs(website): document locale layout and directory policy | Documenta la estructura de idiomas y la política de directorios. | 2026-10-29 |
+| ichu-website | f81ac9a | fix(navigation): close the drawer after contact actions | Cierra el menú lateral después de acciones de contacto. | 2026-10-30 |
+| ichu-website | 47777e2 | fix(chat): prioritize selected and specific topics | Prioriza temas específicos en el chat de contacto. | 2026-10-30 |
+| ichu-website | f7fbdf9 | fix(forms): validate phone digits and formatting | Valida los dígitos y el formato telefónico en los formularios. | 2026-10-30 |
+| ichu-website | b19abff | fix(layout): prevent overflow on narrow screens | Evita desbordamientos de diseño en pantallas estrechas. | 2026-10-30 |
+| ichu-website | 55bbd40 | fix(a11y): add main headings to secondary pages | Añade encabezados principales accesibles a las páginas secundarias. | 2026-10-30 |
+| ichu-website | 27ab5dc | fix(docs): clarify WhatsApp contact form behavior | Aclara el comportamiento del formulario de contacto por WhatsApp. | 2026-10-30 |
+| ichu-website | 167fa6a | refactor(i18n): simplify locale rendering and validation | Simplifica el renderizado de idiomas y su validación. | 2026-10-30 |
+| ichu-website | 58faa92 | refactor(interactions): reuse page state and response handlers | Reutiliza el estado de página y los manejadores de respuesta. | 2026-10-30 |
+| ichu-website | 243d378 | fix(partials): resolve shared links from the site root | Corrige la resolución de enlaces compartidos desde la raíz del sitio. | 2026-10-30 |
+| ichu-website | dc18d3b | refactor(ui): reuse shared layout and stylesheet | Reutiliza la estructura y la hoja de estilos comunes. | 2026-10-30 |
+| ichu-website | 6cccaad | refactor(dom): standardize element IDs in kebab-case | Estandariza los identificadores de elementos del DOM. | 2026-10-30 |
+| ichu-website | c305a9b | fix(i18n): keep image alt fallback in English | Mantiene en inglés el texto alternativo cuando falta una traducción. | 2026-10-30 |
+| ichu-website | fcb2b04 | fix(rendering): keep content visible when scripts fail | Mantiene visible el contenido cuando fallan los scripts. | 2026-11-06 |
+| ichu-website | d9f5b97 | fix(partials): resolve shared components from page base | Resuelve componentes compartidos desde la ruta base de cada página. | 2026-11-06 |
+| ichu-website | 3a4db83 | ci: enforce git flow branches and conventional commits | Configura CI para ramas Gitflow y commits Conventional. | 2026-11-07 |
+| ichu-website | e952fa8 | fix(seo): add keywords meta tag to every page | Añade metadatos de palabras clave SEO a todas las páginas. | 2026-11-07 |
+| ichu-website | 0b8a2ea | ci: validate only release branch commits on release pull requests | Limita la validación de commits a la rama release en sus pull requests. | 2026-11-07 |
+| ichu-website | b70cfc2 | ci: enforce commit conventions from their adoption date | Aplica la convención de commits desde su fecha de adopción. | 2026-11-07 |
+| ichu-website | 6c82be2 | fix(assets): publish shared fragments on GitHub Pages | Publica fragmentos compartidos en GitHub Pages. | 2026-11-13 |
+| ichu-website | 2a68500 | fix(layout): resolve recovery assets under the Pages project path | Corrige las rutas de recursos de recuperación bajo la ruta del proyecto Pages. | 2026-11-13 |
+| ichu-website | 10513a6 | refactor(layout): keep recovery navigation in shared scripts | Centraliza la navegación de recuperación en los scripts compartidos. | 2026-11-14 |
+| ichu-website | 1329a2e | fix: replace media video with team placeholder | Sustituye el video de medios por un marcador del equipo. | 2026-11-14 |
+| ichu-website | 32be741 | feat: update team video content in english | Actualiza el contenido del video del equipo en inglés. | 2026-11-14 |
+| ichu-website | 3197ba1 | feat: update video content in spanish | Actualiza el contenido del video del equipo en español. | 2026-11-14 |
+| ichu-website | f5b8b69 | feat: style disabled media links | Aplica estilos a los enlaces multimedia deshabilitados. | 2026-11-14 |
+| ichu-website | de0ae91 | docs(contributing): document the team Gitflow workflow | Documenta el flujo Gitflow del equipo. | 2026-10-29 |
+| ichu-edge-service | 2a585b3 | Merge pull request #14 from five-smart-farm-creators/feature/collar-and-panel-scope | Integra en develop el PR sobre el alcance del collar y el panel de alertas. | 2026-11-14 |
+| ichu-edge-service | b7307a6 | docs: limit the edge scope to the collar and the alert panel | Delimita el alcance de Edge al collar y al panel de alertas. | 2026-11-14 |
+| ichu-edge-service | ba444a8 | Merge pull request #13 from five-smart-farm-creators/feature/methane-alerts | Integra en develop el PR de alertas de metano. | 2026-11-14 |
+| ichu-edge-service | 86cc9b0 | feat(monitoring): raise methane alerts and escalate to critical levels | Genera alertas de metano y escala su severidad hasta el nivel crítico. | 2026-11-14 |
+| ichu-edge-service | 4e4473d | Merge pull request #12 from five-smart-farm-creators/feature/heart-rate-and-methane | Integra en develop el PR de lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
+| ichu-edge-service | 112eaa9 | feat(monitoring): accept heart rate and methane index readings | Acepta lecturas de frecuencia cardiaca e índice de metano. | 2026-11-14 |
+| ichu-edge-service | ab11b0a | Merge pull request #11 from five-smart-farm-creators/feature/local-e2e-guide | Integra en develop la guía de demostración end-to-end local. | 2026-11-13 |
+| ichu-edge-service | c60215f | docs: add a local end-to-end demo guide with troubleshooting | Añade una guía local de demostración end-to-end con solución de problemas. | 2026-11-13 |
+| ichu-edge-service | fb5ad72 | Merge pull request #10 from five-smart-farm-creators/feature/collar-simulator | Integra en develop el simulador de collar para pruebas end-to-end locales. | 2026-11-13 |
+| ichu-edge-service | fe94df5 | docs: explain how to run the collar simulator | Explica cómo ejecutar el simulador de collar. | 2026-11-13 |
+| ichu-edge-service | ecb5cd0 | feat(tools): add a collar simulator for local end-to-end tests | Añade un simulador de collar para pruebas end-to-end locales. | 2026-11-13 |
+| ichu-edge-service | 0322f28 | Merge pull request #9 from five-smart-farm-creators/feature/measurement-validity | Integra en develop la validación de mediciones y geocercas según precisión. | 2026-11-12 |
+| ichu-edge-service | b86bbfe | docs: document sensor failures and accuracy-aware geofences | Documenta fallos de sensores y geocercas que consideran la precisión. | 2026-11-12 |
+| ichu-edge-service | 3576156 | feat(monitoring): accept per-field sensor failures and gps accuracy | Registra fallos por sensor y precisión GPS para cada medición. | 2026-11-12 |
+| ichu-edge-service | 52e3517 | Merge pull request #8 from five-smart-farm-creators/feature/device-assignments | Integra en develop la asignación de dispositivos. | 2026-11-12 |
+| ichu-edge-service | 18bcaa2 | docs: document collar assignments and collar registration | Documenta la asignación y el registro de collares. | 2026-11-12 |
+| ichu-edge-service | 4445f69 | feat(iam): register cloud collars from the command line | Permite registrar collares en la nube mediante la CLI. | 2026-11-12 |
+| ichu-edge-service | 0866d1a | feat(monitoring): refresh collar assignments from the cloud | Actualiza desde la nube las asignaciones de collares. | 2026-11-12 |
+| ichu-edge-service | e99794b | Merge pull request #7 from five-smart-farm-creators/feature/sync-worker | Integra en develop el worker de sincronización. | 2026-11-12 |
+| ichu-edge-service | 9a1dfac | docs: document periodic synchronization and bounded retries | Documenta la sincronización periódica y los reintentos acotados. | 2026-11-12 |
+| ichu-edge-service | 515eaac | feat(monitoring): add the periodic synchronizer command | Añade un comando de sincronización periódica. | 2026-11-12 |
+| ichu-edge-service | d3a7730 | feat(monitoring): retry conflicts and isolate refused batches | Reintenta conflictos y separa los lotes rechazados. | 2026-11-12 |
+| ichu-edge-service | 3c5b00a | Merge pull request #6 from five-smart-farm-creators/feature/cloud-configuration | Integra en develop la configuración de la nube. | 2026-11-12 |
+| ichu-edge-service | e644e5b | ci: run the test suite on pull requests | Ejecuta la suite de pruebas en pull requests. | 2026-11-12 |
+| ichu-edge-service | 6cd0d5f | build(persistence): run sqlite in wal mode | Configura SQLite en modo WAL para la persistencia. | 2026-11-12 |
+| ichu-edge-service | ff1c116 | Merge pull request #5 from five-smart-farm-creators/feature/gateway-key-format | Integra en develop el formato de claves de gateway. | 2026-11-08 |
+| ichu-edge-service | 0191d26 | refactor(config): derive the gateway id from the issued key | Deriva el ID del gateway a partir de la clave emitida. | 2026-11-12 |
+| ichu-edge-service | e4ee5ed | docs: document the backend gateway key format | Documenta el formato de la clave de gateway del backend. | 2026-11-08 |
+| ichu-edge-service | 7b3f6b3 | Merge pull request #2 from five-smart-farm-creators/feature/telemetry-monitoring | Integra en develop el monitoreo de telemetría. | 2026-11-07 |
+| ichu-edge-service | d23f7ab | docs: document edge architecture, api contract and decisions | Documenta la arquitectura Edge, el contrato API y las decisiones técnicas. | 2026-11-07 |
+| ichu-edge-service | 12eb506 | test(monitoring): cover cloud synchronization outcomes | Prueba los resultados de sincronización con la nube. | 2026-11-07 |
+| ichu-edge-service | f8fba66 | feat(monitoring): ingest telemetry and sync pending records | Ingiere telemetría y sincroniza registros pendientes. | 2026-11-07 |
+| ichu-edge-service | f315b13 | feat(monitoring): persist readings, alerts and cached rules | Persiste lecturas, alertas y reglas en caché. | 2026-11-07 |
+| ichu-edge-service | b9654bd | feat(monitoring): evaluate thresholds and geofences at the edge | Evalúa umbrales y geocercas localmente en Edge. | 2026-11-07 |
+| ichu-edge-service | 7e5620d | feat(monitoring): add telemetry reading and alert domain model | Define el modelo de dominio para lecturas y alertas. | 2026-11-07 |
+| ichu-edge-service | b18b590 | Merge pull request #1 from five-smart-farm-creators/feature/device-authentication | Integra en develop la autenticación de dispositivos. | 2026-11-07 |
+| ichu-edge-service | 3e03bdb | feat(iam): persist devices and expose device authentication | Persiste dispositivos y expone su autenticación. | 2026-11-07 |
+| ichu-edge-service | 5240f7d | feat(iam): add device aggregate with salted api credentials | Añade un agregado de dispositivo con credenciales API cifradas con sal. | 2026-11-07 |
+| ichu-edge-service | 3a34ee1 | build(config): add environment settings and shared sqlite database | Configura las variables de entorno y una base de datos SQLite compartida. | 2026-11-07 |
+| ichu-edge-service | 01eae1a | chore: initialize repository with contribution standards | Inicializa el repositorio con estándares de contribución. | 2026-11-07 |
+
 #### 6.2.2.5. Testing Suite Evidence for Sprint Review
 
+La identificación y registro de los commits incluyen cambios a pruebas unitarias e integración; componentes de soporte, fixtures, mocks y stubs; configuración o CI que habilita pruebas; y guías explícitas de pruebas locales. Los merges se incluyen cuando su diff respecto al primer padre incorpora o modifica artefactos de testing. La rama se informa cuando puede inferirse del mensaje o de la relación con un merge; las celdas vacías indican que el historial no permite determinarla con suficiente certeza.
+
+| Repositorio | Rama | ID de Commit | Mensaje | Fecha |
+|---|---|---|---|---|
+| ichu-web-service | feature/methane-alerts | a9a36f2 | Merge pull request #54 from five-smart-farm-creators/feature/methane-alerts | 2026-11-14 |
+| ichu-web-service | feature/methane-alerts | 7052e84 | feat(monitoring): add methane alerts and critical threshold levels | 2026-11-14 |
+| ichu-web-service | feature/heart-rate-and-methane | 05b1c26 | Merge pull request #51 from five-smart-farm-creators/feature/heart-rate-and-methane | 2026-11-14 |
+| ichu-web-service | bugfix/water-trough-error-messages | 87f5f1f | Merge branch 'bugfix/water-trough-error-messages' into feature/heart-rate-and-methane | 2026-11-14 |
+| ichu-web-service | feature/heart-rate-and-methane | 8ae5aa6 | feat(monitoring): record heart rate and methane index readings | 2026-11-14 |
+| ichu-web-service | fix/rest-endpoint-paths | b96dacb | Merge pull request #50 from five-smart-farm-creators/fix/rest-endpoint-paths | 2026-11-14 |
+| ichu-web-service |  | d7540f3 | feat: update api contract test | 2026-11-14 |
+| ichu-web-service |  | 04c0ebf | fix: update water monitoring openapi contract tests | 2026-11-14 |
+| ichu-web-service |  | f94a225 | feat: change iot water monitoring facade | 2026-11-14 |
+| ichu-web-service |  | 2369ddc | fix: update planning api regression tests | 2026-11-14 |
+| ichu-web-service |  | b9f0faa | fix: update planned activity regression tests | 2026-11-14 |
+| ichu-web-service | fix/rest-endpoint-paths | 18f2883 | Merge pull request #49 from five-smart-farm-creators/fix/rest-endpoint-paths | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 12a1cfc | fix: add missing lot lookup method to test double | 2026-11-13 |
+| ichu-web-service | develop | a986f58 | Merge pull request #48 from five-smart-farm-creators/develop | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 1420d94 | fix: verify reviewed openapi contracts and compatibility routes | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 4a03d16 | fix: verify calendar requests require both time bounds | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 8ca2059 | fix: verify lot permissions and openapi contract | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 5ec4cca | fix: verify lot criterion normalization and length limits | 2026-11-13 |
+| ichu-web-service | bugfix/planning | 36fb6de | Merge pull request #47 from five-smart-farm-creators/bugfix/planning | 2026-11-13 |
+| ichu-web-service | develop | a0ac5fe | Merge remote-tracking branch 'origin/develop' into fix/planning | 2026-11-13 |
+| ichu-web-service |  | 2554bc8 | test(planning): update nutrition plan routes | 2026-11-13 |
+| ichu-web-service |  | 5965e58 | test: planning services integral test update | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 5d43f91 | fix: verify partial cattle updates and concurrent requests | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | f7114ed | fix: verify cattle patch permissions and save behavior | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 3abc9a8 | fix: verify atomic cattle updates and stage history | 2026-11-13 |
+| ichu-web-service | fix/rest-endpoint-paths | 67c387a | fix: add regression coverage for swagger quotes and bearer authorization | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | e87c8e5 | fix: verify veterinary access permissions and request conflicts | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | ccd8570 | fix: use explicit access request routes in acceptance scenarios | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | fa29e57 | fix: use veterinary access request routes in test setup | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | 61e51fa | fix: verify quotes do not create subscriptions or start checkout | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | 2ce4ecf | fix: verify quote pricing equivalence and parameter validation | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | 5d41bb9 | fix: use quotes endpoint in subscription acceptance scenarios | 2026-11-12 |
+| ichu-web-service | fix/rest-endpoint-paths | d3a4672 | fix: use quotes endpoint when preparing subscriptions | 2026-11-12 |
+| ichu-web-service | feature/edge-device-assignments | 8e92053 | Merge pull request #46 from five-smart-farm-creators/feature/edge-device-assignments | 2026-11-12 |
+| ichu-web-service |  | ada0ae9 | feat(operations-monitoring): publish collar assignments to edge gateways | 2026-11-12 |
+| ichu-web-service |  | c67f662 | feat(iot-assets): list open collar assignments for trusted callers | 2026-11-12 |
+| ichu-web-service |  | 8251d9c | feat(cattle-information): expose animal placements to trusted code | 2026-11-12 |
+| ichu-web-service | feature/reproduction-and-nutrition | b79619a | Merge pull request #43 from five-smart-farm-creators/feature/reproduction-and-nutrition | 2026-11-12 |
+| ichu-web-service | feature/reproduction-and-nutrition | 6a24522 | feat(planning): plan lot nutrition with ration changes | 2026-11-12 |
+| ichu-web-service | feature/reproduction-and-nutrition | c4c884d | feat(operations-monitoring): record reproductive events and history | 2026-11-12 |
+| ichu-web-service | feature/itemized-checkout | f870149 | Merge pull request #42 from five-smart-farm-creators/feature/itemized-checkout | 2026-11-12 |
+| ichu-web-service | feature/itemized-checkout | cb2e412 | feat(subscription-plans): itemize checkout by collar and annual fee | 2026-11-12 |
+| ichu-web-service | bugfix/pending-account-activation-conflict | ddbb584 | Merge pull request #41 from five-smart-farm-creators/bugfix/pending-account-activation-conflict | 2026-11-11 |
+| ichu-web-service | bugfix/pending-account-activation-conflict | 9d78134 | fix(iam): tolerate parallel activation of a pending account | 2026-11-11 |
+| ichu-web-service | feature/ranch-display-details | 3c4daaf | Merge pull request #40 from five-smart-farm-creators/feature/ranch-display-details | 2026-11-11 |
+| ichu-web-service | feature/ranch-display-details | 658a010 | feat(iam): find a ranch by its access code | 2026-11-11 |
+| ichu-web-service | feature/ranch-display-details | 7235aa7 | feat(iam): return ranch details in the account ranches | 2026-11-11 |
+| ichu-web-service | feature/ranch-display-details | 600d67d | feat(iam): issue a unique access code for each ranch | 2026-11-11 |
+| ichu-web-service | feature/render-deployment | 05c1ba6 | Merge pull request #37 from five-smart-farm-creators/feature/render-deployment | 2026-11-10 |
+| ichu-web-service | feature/render-deployment | b8dc73f | build(shared): deploy the api to render with docker | 2026-11-10 |
+| ichu-web-service | feature/stripe-checkout | 1b1bd7b | Merge pull request #36 from five-smart-farm-creators/feature/stripe-checkout | 2026-11-10 |
+| ichu-web-service | feature/stripe-checkout | 63000ce | feat(subscription-plans): pay subscriptions with stripe checkout | 2026-11-10 |
+| ichu-web-service | feature/development-demo-account | 8448034 | Merge pull request #35 from five-smart-farm-creators/feature/development-demo-account | 2026-11-10 |
+| ichu-web-service | feature/development-demo-account | 4cc0ac6 | feat(iam): seed a development demo account for a firebase user | 2026-11-10 |
+| ichu-web-service | feature/ranch-scoped-routes | 36503e7 | Merge pull request #34 from five-smart-farm-creators/feature/ranch-scoped-routes | 2026-11-10 |
+| ichu-web-service | feature/ranch-scoped-routes | 0d9e8d2 | refactor(shared)!: scope ranch resources under the ranch route | 2026-11-10 |
+| ichu-web-service | feature/iam-alignment | e477fd1 | Merge pull request #33 from five-smart-farm-creators/feature/iam-alignment | 2026-11-10 |
+| ichu-web-service | feature/iam-alignment | b5af21b | refactor(iam): align with shared patterns and localize failures | 2026-11-09 |
+| ichu-web-service | feature/bdd-acceptance-tests | 4203f33 | Merge pull request #32 from five-smart-farm-creators/feature/bdd-acceptance-tests | 2026-11-09 |
+| ichu-web-service | feature/bdd-acceptance-tests | df4383f | test(shared): add gherkin acceptance tests for the report user stories | 2026-11-09 |
+| ichu-web-service | feature/api-integration-tests | a8ea9e1 | Merge pull request #31 from five-smart-farm-creators/feature/api-integration-tests | 2026-11-09 |
+| ichu-web-service | feature/api-integration-tests | de4aca4 | ci: run unit and integration tests against postgresql | 2026-11-09 |
+| ichu-web-service | feature/api-integration-tests | 5f5ce4e | test(shared): add http integration tests for every bounded context | 2026-11-09 |
+| ichu-web-service | feature/demo-monitoring-rules | 6a61140 | Merge pull request #30 from five-smart-farm-creators/feature/demo-monitoring-rules | 2026-11-09 |
+| ichu-web-service | feature/demo-monitoring-rules | e6f5d56 | feat(operations-monitoring): seed demonstration monitoring rules | 2026-11-08 |
+| ichu-web-service | feature/analytics-wiring | f9ddb93 | Merge pull request #27 from five-smart-farm-creators/feature/analytics-wiring | 2026-11-08 |
+| ichu-web-service | feature/analytics-wiring | 3e8f58c | refactor(dashboard-analytics): align with shared patterns and wire data | 2026-11-08 |
+| ichu-web-service | feature/analytics-wiring | 4addf07 | feat: expose herd and ranch monitoring reads for analytics | 2026-11-08 |
+| ichu-web-service | feature/planning-alignment | 5d2e59d | Merge pull request #24 from five-smart-farm-creators/feature/planning-alignment | 2026-11-08 |
+| ichu-web-service | feature/planning-alignment | ae8516d | refactor(planning): align with shared patterns and wire contexts | 2026-11-08 |
+| ichu-web-service | feature/planning-alignment | c36dd52 | feat(operations-monitoring): expose clinical interventions to planning | 2026-11-08 |
+| ichu-web-service | feature/edge-gateway-registry | c1616bd | Merge pull request #23 from five-smart-farm-creators/feature/edge-gateway-registry | 2026-11-08 |
+| ichu-web-service | feature/edge-gateway-registry | e607106 | feat(operations-monitoring): resolve cattle and devices via facades | 2026-11-08 |
+| ichu-web-service | feature/edge-gateway-registry | d451ff9 | feat(iot-assets): add edge gateway registry with one-time keys | 2026-11-08 |
+| ichu-web-service | feature/operations-monitoring-quality | 4775158 | Merge pull request #22 from five-smart-farm-creators/feature/operations-monitoring-quality | 2026-11-07 |
+| ichu-web-service | feature/operations-monitoring-quality | 48e54a0 | test(operations-monitoring): cover alerts, rules, readings and sync | 2026-11-07 |
+| ichu-web-service | feature/cattle-iot-wiring | 92bc2f2 | Merge pull request #21 from five-smart-farm-creators/feature/cattle-iot-wiring | 2026-11-07 |
+| ichu-web-service | feature/cattle-iot-wiring | 40c0c9d | test: cover cattle, iot rules and module composition | 2026-11-07 |
+| ichu-web-service | feature/subscription-plans | bc4bfa2 | Merge pull request #20 from five-smart-farm-creators/feature/subscription-plans | 2026-11-07 |
+| ichu-web-service | feature/subscription-plans | c6341cb | test(subscription-plans): cover pricing, lifecycle and requests | 2026-11-07 |
+| ichu-web-service |  | 3225a19 | build: swashbuckle package for swagger ui (endpoint test) | 2026-11-06 |
+| ichu-web-service |  | dbbe333 | chore: initial commit | 2026-10-23 |
+| ichu-web-app | feature/hide-water-troughs | 16ca591 | Merge pull request #24 from five-smart-farm-creators/feature/hide-water-troughs | 2026-11-14 |
+| ichu-web-app | feature/hide-water-troughs | 7997479 | feat(iot-assets): hide water troughs and water controllers from the web | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 9961b2d | Merge pull request #23 from five-smart-farm-creators/feature/heart-rate-and-routes | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 163d7c3 | revert(iot-assets): drop the water trough status and history | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 9997c3f | feat(operations-monitoring): add methane alerts and two-level ranges | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 3a3cc2b | feat(iot-assets): show water trough status and its reading history | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 79da639 | feat(operations-monitoring): show heart rate and methane index readings | 2026-11-14 |
+| ichu-web-app | feature/heart-rate-and-routes | 8fac6e7 | fix(planning): call the lot, activity and campaign routes now served | 2026-11-14 |
+| ichu-web-app | feature/visual-redesign | 06e5e3f | Merge pull request #20 from five-smart-farm-creators/feature/visual-redesign | 2026-11-13 |
+| ichu-web-app | feature/visual-redesign | b3b70dd | feat(dashboard): add toned cards, period chips and overview panels | 2026-11-13 |
+| ichu-web-app | feature/visual-redesign | 88c0cbc | feat(dashboard): read recent alerts, collars and lot temperature | 2026-11-13 |
+| ichu-web-app | feature/visual-redesign | a332319 | feat(ui): add puna tokens, dark theme and dialog motion | 2026-11-12 |
+| ichu-web-app | bugfix/register-head-count-min | 32d7b8b | Merge pull request #19 from five-smart-farm-creators/bugfix/register-head-count-min | 2026-11-12 |
+| ichu-web-app | bugfix/register-head-count-min | f80be83 | fix(iam): drop the head-count min attribute that blocked vets | 2026-11-12 |
+| ichu-web-app | bugfix/hosting-html-cache | 432031c | Merge pull request #18 from five-smart-farm-creators/bugfix/hosting-html-cache | 2026-11-12 |
+| ichu-web-app | bugfix/hosting-html-cache | 7f5e4d7 | fix(iam): let veterinarians register without ranch details | 2026-11-12 |
+| ichu-web-app | bugfix/leaflet-production-import | f756d4c | Merge pull request #17 from five-smart-farm-creators/bugfix/leaflet-production-import | 2026-11-12 |
+| ichu-web-app | bugfix/leaflet-production-import | 225f0b7 | fix(shared): unwrap leaflet from its production module | 2026-11-12 |
+| ichu-web-app | feature/release-hardening | 96d49a2 | Merge pull request #15 from five-smart-farm-creators/feature/release-hardening | 2026-11-12 |
+| ichu-web-app | feature/release-hardening | 96312b0 | ci: build and test the web app on pull requests | 2026-11-12 |
+| ichu-web-app | feature/release-hardening | d03c6a7 | fix(i18n): pluralize counts and translate the date picker | 2026-11-12 |
+| ichu-web-app | feature/release-hardening | 7009857 | perf(iam): load the firebase sdk on demand | 2026-11-12 |
+| ichu-web-app | feature/reproduction-and-nutrition | cd3cb1e | Merge pull request #14 from five-smart-farm-creators/feature/reproduction-and-nutrition | 2026-11-12 |
+| ichu-web-app | feature/reproduction-and-nutrition | 1e94738 | feat(planning): show each lot's nutrition plan and rumination | 2026-11-12 |
+| ichu-web-app | feature/reproduction-and-nutrition | 119ac06 | feat(operations-monitoring): follow the reproductive history of females | 2026-11-12 |
+| ichu-web-app | feature/reproduction-and-nutrition | a56e98c | feat(shared): expose animal sex and lot trends through acl facades | 2026-11-12 |
+| ichu-web-app | feature/reproduction-and-nutrition | f1ff78d | feat(shared): mark dated events on line charts | 2026-11-12 |
+| ichu-web-app | feature/subscription-plans | cc6c6e9 | Merge pull request #13 from five-smart-farm-creators/feature/subscription-plans | 2026-11-12 |
+| ichu-web-app | feature/subscription-plans | 2c812d9 | feat(subscription-plans): contract plans per collar and pay with stripe | 2026-11-12 |
+| ichu-web-app | feature/subscription-plans | 8c7146e | feat(subscription-plans): add plan, quote and subscription adapters | 2026-11-12 |
+| ichu-web-app | feature/subscription-plans | f3178b6 | refactor(shared): share the pdf libraries and expose the account email | 2026-11-12 |
+| ichu-web-app | feature/subscription-plans | c7d4cf5 | feat(iam): change the account password | 2026-11-12 |
+| ichu-web-app | feature/dashboard-analytics | 9093d06 | Merge pull request #12 from five-smart-farm-creators/feature/dashboard-analytics | 2026-11-11 |
+| ichu-web-app | feature/dashboard-analytics | 756db12 | feat(dashboard-analytics): show herd indicators, trends and reports | 2026-11-11 |
+| ichu-web-app | feature/dashboard-analytics | 72fc308 | feat(dashboard-analytics): add indicator, trend and report adapters | 2026-11-11 |
+| ichu-web-app | feature/dashboard-analytics | da1aa21 | feat(shared): expose lot members and upcoming work through acl facades | 2026-11-11 |
+| ichu-web-app | feature/dashboard-analytics | 9d83d72 | feat(shared): add bar charts and blob downloads | 2026-11-11 |
+| ichu-web-app | feature/health-and-planning | 98cc952 | Merge pull request #11 from five-smart-farm-creators/feature/health-and-planning | 2026-11-11 |
+| ichu-web-app | feature/health-and-planning | 77a713e | feat(operations-monitoring): keep the clinical history of each animal | 2026-11-11 |
+| ichu-web-app | feature/health-and-planning | b398a8c | feat(planning): plan campaigns, calendar work and withdrawal periods | 2026-11-11 |
+| ichu-web-app | feature/health-and-planning | 7db1bd3 | feat(planning): add campaign, activity and withdrawal adapters | 2026-11-11 |
+| ichu-web-app | feature/health-and-planning | 5b0ad05 | refactor(shared): share bounded concurrency and date-time input | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | b65fa19 | Merge pull request #10 from five-smart-farm-creators/feature/operations-monitoring | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | 8fc48c4 | refactor(operations-monitoring): draw geofences on openstreetmap | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | 8e31c18 | refactor(shared): load leaflet maps instead of google maps | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | db961e2 | feat(operations-monitoring): monitor the herd, alerts and grazing zones | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | 2eb3560 | feat(operations-monitoring): add telemetry, alert and geofence adapters | 2026-11-11 |
+| ichu-web-app | feature/operations-monitoring | 2ffb50b | feat(shared): load google maps and line charts on demand | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | 04c8508 | Merge pull request #9 from five-smart-farm-creators/feature/cattle-and-devices | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | 0877476 | feat(iot-assets): manage devices, water troughs and edge gateways | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | cada385 | feat(cattle-information): expose lot summaries to other contexts | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | caf1cf1 | feat(cattle-information): manage the herd inventory, profiles and lots | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | bf8ab58 | feat(cattle-information): add cattle and lot api adapters | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | 2cd12b5 | feat(shared): translate the paginator and the date picker | 2026-11-11 |
+| ichu-web-app | feature/cattle-and-devices | b8bf830 | feat(shared): download tables as excel or pdf | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | 632fd7c | Merge pull request #8 from five-smart-farm-creators/feature/iam-workspace | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | 7b497e9 | test(iam): load ranches after the account in the stale-user case | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | 3190a01 | feat(iam): request and decide herd advisories by ranch | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | dcad8bd | feat(iam): show ranches, access codes and the professional profile | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | 22ae075 | feat(shared): add localized dates and a confirmation dialog | 2026-11-11 |
+| ichu-web-app | feature/iam-workspace | 736ea75 | feat(iam): find a ranch by its access code | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | b458540 | Merge pull request #7 from five-smart-farm-creators/feature/app-foundation | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | 0832831 | feat(shared): add the application shell and translated page titles | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | 32de4af | feat(iam): publish the current ranch to other contexts | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | 22af0b5 | refactor(iam): sign in with firebase only and scope advisories by ranch | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | 463a5be | feat(shared): map api problem details and send the interface language | 2026-11-11 |
+| ichu-web-app | feature/app-foundation | b7e5041 | feat(i18n): add english and spanish runtime translations | 2026-11-11 |
+| ichu-web-app | feature/iam | 3c5621f | Merge pull request #4 from five-smart-farm-creators/feature/iam | 2026-11-07 |
+| ichu-web-app | feature/iam | 0883f2b | fix(iam): harden session lifecycle and request handling | 2026-11-06 |
+| ichu-web-app | feature/iam | 757222b | feat(iam): add Firebase authentication and account API adapters | 2026-11-06 |
+| ichu-web-app | feature/iam | 9fb8026 | build(web): configure application foundation and runtime settings | 2026-11-06 |
+| ichu-web-app |  | 0b3b1b8 | chore: initial commit | 2026-10-30 |
+| ichu-mobile-app | feature/backend-contract-alignment | abb688e | Merge pull request #24 from five-smart-farm-creators/feature/backend-contract-alignment | 2026-11-14 |
+| ichu-mobile-app | feature/backend-contract-alignment | 4eed777 | feat: align mobile clients with backend contracts | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | 33417f9 | Merge pull request #23 from five-smart-farm-creators/feature/tasks-reminders-waterers | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | 79c3440 | feat(operations-monitoring): integrate waterer navigation | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | cbfe03e | feat(operations-monitoring): add waterer list and detail views | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | a43979a | feat(operations-monitoring): add session-bound waterer reads | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | 53035d6 | test(operations-monitoring): add waterer api contract coverage | 2026-11-14 |
+| ichu-mobile-app | feature/tasks-reminders-waterers | e8f52a4 | feat(operations-monitoring): add water history query validation | 2026-11-14 |
+| ichu-mobile-app | feature/edge-alerts-notifications | 1ddf4ea | Merge pull request #22 from five-smart-farm-creators/feature/edge-alerts-notifications | 2026-11-14 |
+| ichu-mobile-app |  | 04be18d | chore: merge develop into edge alerts notifications | 2026-11-14 |
+| ichu-mobile-app | feature/edge-alerts-notifications | f195f2d | test(operations-monitoring): cover edge alert route integration | 2026-11-14 |
+| ichu-mobile-app | feature/edge-alerts-notifications | cc3d8d7 | test(operations-monitoring): cover edge alert page states | 2026-11-14 |
+| ichu-mobile-app | feature/edge-alerts-notifications | e923ba5 | test(operations-monitoring): cover edge read session boundaries | 2026-11-14 |
+| ichu-mobile-app | feature/edge-alerts-notifications | 06cfd2d | test(operations-monitoring): verify edge alert response mapping | 2026-11-14 |
+| ichu-mobile-app | feature/offline-field-record-sync | 58b6288 | Merge pull request #21 from five-smart-farm-creators/feature/offline-field-record-sync | 2026-11-13 |
+| ichu-mobile-app | feature/offline-field-record-sync | 2a58548 | feat(operations-monitoring): synchronize pending field records | 2026-11-13 |
+| ichu-mobile-app | feature/offline-field-record-sync | 5d10b2d | feat(operations-monitoring): add authorized mobile sync transport | 2026-11-13 |
+| ichu-mobile-app | feature/offline-field-record-sync | c70b16a | feat(operations-monitoring): persist field sync decisions safely | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | baf4732 | Merge pull request #20 from five-smart-farm-creators/feature/field-offline-records | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 8099bf7 | feat(operations-monitoring): wire offline field records into app | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 37e6d5e | test(operations-monitoring): cover localized field record page | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 115566d | test(operations-monitoring): verify offline field record service | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 0e57c02 | test(operations-monitoring): add in-memory field record repository | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | d60f274 | test(operations-monitoring): cover preferences persistence | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 293a477 | test(operations-monitoring): cover field record domain rules | 2026-11-13 |
+| ichu-mobile-app | feature/field-offline-records | 7d4120d | test(iam): verify account id in authorized ranch context | 2026-11-13 |
+| ichu-mobile-app | feature/historical-telemetry | 3d0e954 | Merge pull request #19 from five-smart-farm-creators/feature/historical-telemetry | 2026-11-13 |
+| ichu-mobile-app | feature/historical-telemetry | 855409a | feat(operations-monitoring): present paginated telemetry history | 2026-11-13 |
+| ichu-mobile-app | feature/historical-telemetry | 9e25548 | test(operations-monitoring): verify historical telemetry REST mapping | 2026-11-13 |
+| ichu-mobile-app | feature/historical-telemetry | e9db620 | feat(operations-monitoring): add historical telemetry contract | 2026-11-13 |
+| ichu-mobile-app | bugfix/cattle-management-wiring | d919c9c | Merge pull request #18 from five-smart-farm-creators/bugfix/cattle-management-wiring | 2026-11-13 |
+| ichu-mobile-app | bugfix/cattle-management-wiring | 91f457e | fix(cattle-information): wire management service into app | 2026-11-13 |
+| ichu-mobile-app | feature/ranch-administration-ready | f4beb37 | Merge pull request #17 from five-smart-farm-creators/feature/ranch-administration-ready | 2026-11-13 |
+| ichu-mobile-app | feature/ranch-administration-ready | a040eb6 | feat(iam): integrate ranch advisory flows | 2026-11-13 |
+| ichu-mobile-app | feature/ranch-administration-ready | cff299e | test: repository test updated with iam account authentication | 2026-11-13 |
+| ichu-mobile-app | feature/ranch-administration-ready | 9d34b15 | test: unit tests for herd advisory | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | 65cf851 | Merge pull request #16 from five-smart-farm-creators/feature/cattle-management | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | 2396358 | feat(cattle-information): add animal management screens | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | 9da6bc3 | feat(cattle-information): coordinate animal management requests | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | a7e7c41 | feat(cattle-information): send version-checked animal writes | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | e30f56d | feat(cattle-information): add animal management contracts | 2026-11-13 |
+| ichu-mobile-app | feature/cattle-management | 85ed0d1 | feat(iam): expose server-issued manage grant on ranch context | 2026-11-13 |
+| ichu-mobile-app | feature/operations-alert-actions | 82de673 | Merge pull request #15 from five-smart-farm-creators/feature/operations-alert-actions | 2026-11-13 |
+| ichu-mobile-app | feature/operations-alert-actions | f9a5278 | feat(operations-monitoring): add cloud alert acknowledgement | 2026-11-13 |
+| ichu-mobile-app |  | 2985132 | feat(operations-monitoring): merge ranch alerts (#14) | 2026-11-12 |
+| ichu-mobile-app |  | a8ce581 | feat(operations-monitoring): guard ranch alert navigation | 2026-11-12 |
+| ichu-mobile-app |  | 63c8b22 | feat(operations-monitoring): add accessible alert event views | 2026-11-12 |
+| ichu-mobile-app |  | ee2b812 | feat(operations-monitoring): isolate alert query lifecycles | 2026-11-12 |
+| ichu-mobile-app |  | 276fd26 | feat(operations-monitoring): fetch authorized ranch alert pages | 2026-11-12 |
+| ichu-mobile-app |  | 55ee6cc | feat(operations-monitoring): define paginated ranch alert reads | 2026-11-12 |
+| ichu-mobile-app |  | 96d522c | feat(operations-monitoring): merge latest telemetry reads (#13) | 2026-11-12 |
+| ichu-mobile-app |  | 1d31f17 | feat(operations-monitoring): guard animal monitoring navigation | 2026-11-12 |
+| ichu-mobile-app |  | 5277f17 | feat(operations-monitoring): add accessible monitoring snapshots | 2026-11-12 |
+| ichu-mobile-app |  | b255a9d | feat(operations-monitoring): isolate latest summary lifecycles | 2026-11-12 |
+| ichu-mobile-app |  | 1dd7522 | feat(operations-monitoring): adapt authorized latest telemetry reads | 2026-11-12 |
+| ichu-mobile-app |  | 9bc16da | feat(operations-monitoring): add latest observation contracts | 2026-11-12 |
+| ichu-mobile-app |  | d2b5342 | feat(cattle-information): merge authorized animal reads (#12) | 2026-11-12 |
+| ichu-mobile-app |  | 12ed557 | feat(cattle-information): guard selected-ranch animal navigation | 2026-11-12 |
+| ichu-mobile-app |  | ce92a29 | feat(cattle-information): add accessible animal read views | 2026-11-12 |
+| ichu-mobile-app |  | e8aa09c | feat(cattle-information): isolate animal query lifecycles | 2026-11-12 |
+| ichu-mobile-app |  | 884cae0 | feat(cattle-information): adapt ranch-scoped animal reads | 2026-11-12 |
+| ichu-mobile-app |  | 05d0abe | feat(iam): expose session-bound authorized ranch context | 2026-11-12 |
+| ichu-mobile-app |  | 8999c86 | feat(cattle-information): add read-only animal contracts | 2026-11-12 |
+| ichu-mobile-app | feature/iam-ranch-selection | 39eb97f | Merge pull request #11 from five-smart-farm-creators/feature/iam-ranch-selection | 2026-11-12 |
+| ichu-mobile-app | feature/iam-ranch-selection | a2bed33 | feat(iam): add accessible authorized ranch selection screens | 2026-11-12 |
+| ichu-mobile-app | feature/iam-ranch-selection | 19533fb | feat(iam): bind explicit ranch selection to validated sessions | 2026-11-12 |
+| ichu-mobile-app | feature/iam-ranch-selection | 9ac2e83 | feat(iam): validate authorized ranch metadata and expiry | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | fa84dad | Merge pull request #10 from five-smart-farm-creators/feature/iam-professional-profile | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | 81a1c1f | feat(iam): add accessible read-only mobile profile screens | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | 73e5bdb | feat(iam): isolate profile reads within validated sessions | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | 3746246 | feat(iam): add authenticated own-profile read adapters | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | d3d8463 | fix(iam): restrict mobile professional profiles to reads | 2026-11-12 |
+| ichu-mobile-app | feature/iam-professional-profile | 47f5f90 | feat(iam): define own-account professional profile contracts | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | 196f80d | Merge pull request #9 from five-smart-farm-creators/feature/iam-registration | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | 8b80924 | feat(iam): add localized account registration and verification flows | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | f40b65c | feat(iam): coordinate verified registration and safe recovery | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | fea6555 | feat(iam): add secure account creation and reconciliation adapters | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | 8791a8d | feat(iam): add isolated native registration and verification | 2026-11-12 |
+| ichu-mobile-app | feature/iam-registration | ae00b64 | feat(iam): define backend-aligned account registration contracts | 2026-11-12 |
+| ichu-mobile-app | feature/iam-authentication | 7170858 | Merge pull request #8 from five-smart-farm-creators/feature/iam-authentication | 2026-11-11 |
+| ichu-mobile-app | feature/iam-authentication | 23c307b | fix(iam): preserve cleanup and honor backend access decisions | 2026-11-11 |
+| ichu-mobile-app | feature/iam-authentication | db1c059 | feat(iam): add localized authentication screens and guarded routes | 2026-11-11 |
+| ichu-mobile-app | feature/iam-authentication | a9cdadc | feat(iam): coordinate verified sessions and safe sign-out | 2026-11-11 |
+| ichu-mobile-app | feature/iam-authentication | e1908f5 | feat(iam): add native Firebase and secure account API adapters | 2026-11-11 |
+| ichu-mobile-app | feature/iam-authentication | 95468b3 | feat(iam): define identity and account validation contracts | 2026-11-11 |
+| ichu-mobile-app | feature/mobile-foundation | c34ea3d | Merge pull request #7 from five-smart-farm-creators/feature/mobile-foundation | 2026-11-11 |
+| ichu-mobile-app | feature/mobile-foundation | 8b56997 | feat(iam): add branded public mobile preview and terms | 2026-11-11 |
+| ichu-mobile-app | feature/mobile-foundation | 093dd82 | feat(i18n): persist device language selection with safe fallbacks | 2026-11-11 |
+| ichu-mobile-app | feature/mobile-foundation | 3ee9073 | build(shared): bundle brand assets and localization catalogs | 2026-11-11 |
+| ichu-mobile-app | feature/mobile-foundation | 85120c1 | feat(shared): validate mobile API build configuration | 2026-11-11 |
+| ichu-mobile-app |  | ecd7add | chore: initialize Flutter app for Android and iOS | 2026-11-06 |
+| ichu-edge-service | feature/methane-alerts | ba444a8 | Merge pull request #13 from five-smart-farm-creators/feature/methane-alerts | 2026-11-14 |
+| ichu-edge-service | feature/methane-alerts | 86cc9b0 | feat(monitoring): raise methane alerts and escalate to critical levels | 2026-11-14 |
+| ichu-edge-service | feature/heart-rate-and-methane | 4e4473d | Merge pull request #12 from five-smart-farm-creators/feature/heart-rate-and-methane | 2026-11-14 |
+| ichu-edge-service | feature/heart-rate-and-methane | 112eaa9 | feat(monitoring): accept heart rate and methane index readings | 2026-11-14 |
+| ichu-edge-service | feature/local-e2e-guide | c60215f | docs: add a local end-to-end demo guide with troubleshooting | 2026-11-13 |
+| ichu-edge-service | feature/collar-simulator | fb5ad72 | Merge pull request #10 from five-smart-farm-creators/feature/collar-simulator | 2026-11-13 |
+| ichu-edge-service | feature/collar-simulator | fe94df5 | docs: explain how to run the collar simulator | 2026-11-13 |
+| ichu-edge-service | feature/collar-simulator | ecb5cd0 | feat(tools): add a collar simulator for local end-to-end tests | 2026-11-13 |
+| ichu-edge-service | feature/measurement-validity | 0322f28 | Merge pull request #9 from five-smart-farm-creators/feature/measurement-validity | 2026-11-12 |
+| ichu-edge-service | feature/measurement-validity | 3576156 | feat(monitoring): accept per-field sensor failures and gps accuracy | 2026-11-12 |
+| ichu-edge-service | feature/device-assignments | 52e3517 | Merge pull request #8 from five-smart-farm-creators/feature/device-assignments | 2026-11-12 |
+| ichu-edge-service | feature/device-assignments | 4445f69 | feat(iam): register cloud collars from the command line | 2026-11-12 |
+| ichu-edge-service | feature/device-assignments | 0866d1a | feat(monitoring): refresh collar assignments from the cloud | 2026-11-12 |
+| ichu-edge-service | feature/sync-worker | e99794b | Merge pull request #7 from five-smart-farm-creators/feature/sync-worker | 2026-11-12 |
+| ichu-edge-service | feature/sync-worker | 515eaac | feat(monitoring): add the periodic synchronizer command | 2026-11-12 |
+| ichu-edge-service | feature/sync-worker | d3a7730 | feat(monitoring): retry conflicts and isolate refused batches | 2026-11-12 |
+| ichu-edge-service | feature/cloud-configuration | 3c5b00a | Merge pull request #6 from five-smart-farm-creators/feature/cloud-configuration | 2026-11-12 |
+| ichu-edge-service | feature/cloud-configuration | e644e5b | ci: run the test suite on pull requests | 2026-11-12 |
+| ichu-edge-service | feature/cloud-configuration | 6cd0d5f | build(persistence): run sqlite in wal mode | 2026-11-12 |
+| ichu-edge-service | feature/cloud-configuration | 0191d26 | refactor(config): derive the gateway id from the issued key | 2026-11-12 |
+| ichu-edge-service | feature/telemetry-monitoring | 7b3f6b3 | Merge pull request #2 from five-smart-farm-creators/feature/telemetry-monitoring | 2026-11-07 |
+| ichu-edge-service | feature/telemetry-monitoring | 12eb506 | test(monitoring): cover cloud synchronization outcomes | 2026-11-07 |
+| ichu-edge-service | feature/telemetry-monitoring | f8fba66 | feat(monitoring): ingest telemetry and sync pending records | 2026-11-07 |
+| ichu-edge-service | feature/telemetry-monitoring | b9654bd | feat(monitoring): evaluate thresholds and geofences at the edge | 2026-11-07 |
+| ichu-edge-service | feature/telemetry-monitoring | 7e5620d | feat(monitoring): add telemetry reading and alert domain model | 2026-11-07 |
+| ichu-edge-service | feature/device-authentication | b18b590 | Merge pull request #1 from five-smart-farm-creators/feature/device-authentication | 2026-11-07 |
+| ichu-edge-service | feature/device-authentication | 5240f7d | feat(iam): add device aggregate with salted api credentials | 2026-11-07 |
+| ichu-edge-service | feature/device-authentication | 3a34ee1 | build(config): add environment settings and shared sqlite database | 2026-11-07 |
+
 #### 6.2.2.6. Execution Evidence for Sprint Review
+
+A continuación, se presentan las evidencias de la ejecución de la aplicación web ICHU durante el sprint, mostrando las principales vistas y funcionalidades implementadas por segmento objetivo:
+
+**A. Vistas de Ganadero:**
+
+<ul>
+  <li><strong>Dashboard</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-dashboard.png" alt="Dashboard View"></li>
+  <li><strong>Animales</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-animals.png" alt="Animales View"></li>
+  <li><strong>Alertas</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-alerts.png" alt="Alertas View"></li>
+  <li><strong>Monitoreo</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-monitoring.png" alt="Monitoring View"></li>
+  <li><strong>Collares</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-iot-devices.png" alt="IoT Devices View"></li>
+  <li><strong>Lotes</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-lots.png" alt="Lots View"></li>
+  <li><strong>Ubicación</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-location.png" alt="Settings View"></li>
+</ul>
+
+**B. Vistas de Veterinario:**
+
+<ul>
+  <li><strong>Historial Clínico</strong><br><img src="./assets/images/web-app-evidence/web-app-veterinarian-clinical-history.png" alt="Clinical History View"></li>
+  <li><strong>Reproducción</strong><br><img src="./assets/images/web-app-evidence/web-app-veterinarian-reproduction.png" alt="Reproduction View"></li>
+</ul>
+
+**C. Despliegue de la Aplicación Web:**
+
+El despliegue de la aplicación web ICHU se realizó en un entorno de producción accesible a través del siguiente enlace:
+<a href="https://ichu-smartfarm.web.app/">ICHU Web Application</a></p>
 
 #### 6.2.2.7. Services Documentation Evidence for Sprint Review
 
