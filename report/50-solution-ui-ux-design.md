@@ -326,22 +326,22 @@ El prototipo utiliza datos ficticios en memoria: no implementa autenticación re
 
 ## 5.6. IoT Device Design
 
-ICHU contempla dos elementos físicos relacionados: un collar de monitoreo para el animal y un receptor local que presenta alertas al personal. Los diseños de esta sección son propuestas de hardware y diagramas conceptuales; no acreditan la fabricación, la validación eléctrica ni una simulación ejecutada.
+ICHU contempla dos elementos físicos relacionados: un collar de monitoreo para el animal y un receptor local que presenta alertas al personal. Los diagramas Cirkit de esta sección son propuestas conceptuales. El firmware de ambos dispositivos se ejecuta en Wokwi; la fabricación física y la validación eléctrica siguen pendientes.
 
 ### 5.6.1. System Overview
 
-El collar adquiere temperatura, movimiento y ubicación; el receptor convierte los avisos recibidos en señales visuales y sonoras.
+El collar adquiere temperatura, movimiento, ubicación, pulso y gas metano; el receptor convierte las alertas consultadas al Edge Gateway en señales visuales y sonoras.
 
 | Dispositivo | Función | Elementos representados |
 |---|---|---|
-| Collar IoT | Capturar lecturas y ubicación del animal. | ESP32-S3 DevKit, sonda DS18B20, sensor de movimiento MPU-6050, GPS NEO-6M, batería Li-ion de 3,7 V y módulo de carga/protección. |
-| Receptor de alertas | Presentar el estado recibido del collar en el punto de atención. | ESP32 DevKitC, LCD I2C de 16 × 2, conversor de nivel lógico, tres LEDs con resistencias y buzzer activo KY-012. |
+| Collar IoT | Capturar lecturas y ubicación del animal. | ESP32-S3 DevKit, sonda DS18B20, sensor de movimiento MPU-6050, GPS NEO-6M, sensor de pulso SP-203, sensor de gas MQ-2, batería Li-ion de 3,7 V y módulo de carga/protección. |
+| Receptor de alertas | Presentar el estado de las alertas que consulta al Edge Gateway. | ESP32 DevKitC, LCD I2C de 16 × 2, conversor de nivel lógico, tres LEDs con resistencias y buzzer activo KY-012. |
 
-La vista general reúne los circuitos propuestos para el collar y el receptor de alertas. Los bloques no comparten conexiones eléctricas entre sí: el envío de datos del collar al receptor es inalámbrico y se representa como relación funcional, no como un cable.
+La vista general reúne los circuitos propuestos para el collar y el receptor de alertas. Los bloques no comparten conexiones eléctricas entre sí: el collar envía sus lecturas al Edge Gateway por Wi-Fi y el receptor consulta las alertas al mismo Edge; no hay enlace directo collar–receptor.
 
-![Vista general de los circuitos propuestos para el collar y el receptor de alertas](assets/images/iot/system-circuit-overview.png)
+![Vista general de los circuitos propuestos para el collar y el receptor de alertas; incluye un bloque de bebedero fuera del alcance del prototipo](assets/images/iot/system-circuit-overview.png)
 
-*Figura 5.6.1. Composición de los circuitos conceptuales del collar y el receptor. Elaboración propia a partir de capturas de Cirkit Designer.*
+*Figura 5.6.1. Composición de los circuitos conceptuales del collar y el receptor. Elaboración propia a partir de capturas de Cirkit Designer. La captura también muestra un bloque de bebedero, fuera del alcance del prototipo.*
 
 ### 5.6.2. Collar IoT
 
@@ -357,19 +357,43 @@ En el diagrama eléctrico, el ESP32-S3 DevKit concentra las lecturas. La sonda D
 
 *Figura 5.6.3. Circuito conceptual del collar en Cirkit Designer, con temperatura, movimiento, GPS y alimentación.*
 
+La simulación en Wokwi añade el sensor de pulso SP-203 (`GPIO5`) y el sensor de gas MQ-2 (`GPIO6`), y está publicada en [wokwi.com/projects/480787162969005057](https://wokwi.com/projects/480787162969005057). El SP-203 entrega una frecuencia cardiaca válida de 30 a 200 bpm; el MQ-2 entrega un índice relativo de metano de 0 a 100, sin calibrar y no en ppm, y necesita unos 60 s de calentamiento tras el encendido.
+
+![Circuito del collar simulado en Wokwi con ESP32-S3, sensores y batería](assets/images/iot/wokwi-collar-circuit.png)
+
+*Figura 5.6.4. Circuito del collar simulado en Wokwi.*
+
+En wokwi.com, el collar no alcanza el Edge local: la lectura queda en cola (`queued=1`) y el firmware reintenta el envío.
+
+![Monitor serie del collar en wokwi.com con una lectura en cola y reintentos hacia el Edge](assets/images/iot/wokwi-collar-telemetry.png)
+
+*Figura 5.6.5. Monitor serie del collar en wokwi.com con una lectura en cola y reintentos hacia el Edge.*
+
 ### 5.6.3. Alert Receiver and Indicators
 
-El receptor es un módulo separado del collar. Recibe los avisos por un enlace inalámbrico pendiente de definir y muestra el estado en una pantalla LCD I2C de 16 × 2. Los indicadores visuales se asignan a los estados **Normal** (verde), **Atención** (amarillo) y **Urgencia** (rojo); el buzzer KY-012 complementa la alerta sonora. Los colores se acompañan con texto en la interfaz para no depender solo de la percepción del color.
+El receptor es un módulo separado del collar. Consulta cada 3 s `GET /api/v1/monitoring/alerts` del Edge por Wi-Fi local y muestra el estado en una pantalla LCD I2C de 16 × 2. Los indicadores visuales se asignan a los estados **Normal** (verde), **Atención** (amarillo) y **Urgencia** (rojo). El estado **Sin comunicación** no enciende ningún LED y se activa cuando el panel no recibe una respuesta válida durante más de 30 s. El buzzer KY-012 complementa la alerta sonora: ante una alerta crítica nueva emite pulsos de 1 s durante 30 s. Los colores se acompañan con texto en la interfaz para no depender solo de la percepción del color.
 
 En el esquema se asignan SDA y SCL de la pantalla a GPIO21 y GPIO22 del ESP32, a través de un conversor de nivel lógico para la interfaz I2C. Los LEDs verde, amarillo y rojo se conectan a GPIO25, GPIO26 y GPIO27, respectivamente, cada uno en serie con una resistencia de 220 Ω y retorno a tierra común. Para el módulo KY-012 se asignan PWM a GPIO14, VIN a 5 V y GND a tierra común.
 
 ![Concepto físico del panel local de alertas con LCD, LEDs y buzzer](assets/images/iot/alert-panel-physical-concept.jpg)
 
-*Figura 5.6.4. Concepto físico del receptor de alertas. Ilustración generada con Gemini; sus vistas de conexiones son referenciales y la asignación de pines se documenta según el esquema Cirkit y el texto de esta sección.*
+*Figura 5.6.6. Concepto físico del receptor de alertas. Ilustración generada con Gemini; sus vistas de conexiones son referenciales y la asignación de pines se documenta según el esquema Cirkit y el texto de esta sección.*
 
 ![Diagrama del circuito del receptor de alertas, LCD, LEDs y buzzer](assets/images/iot/alert-receiver-circuit.png)
 
-*Figura 5.6.5. Circuito conceptual del receptor de alertas en Cirkit Designer.*
+*Figura 5.6.7. Circuito conceptual del receptor de alertas en Cirkit Designer.*
+
+La simulación en Wokwi usa un ESP32 DevKitC con LCD, LEDs y buzzer, y está publicada en [wokwi.com/projects/480787196915608577](https://wokwi.com/projects/480787196915608577).
+
+![Circuito del panel de alertas simulado en Wokwi con ESP32, LCD, LEDs y buzzer](assets/images/iot/wokwi-alert-panel-circuit.png)
+
+*Figura 5.6.8. Circuito del panel de alertas simulado en Wokwi.*
+
+En wokwi.com, sin Edge alcanzable, el panel muestra Sin comunicación en el LCD y el monitor serie registra los reintentos.
+
+![Panel simulado en wokwi.com en estado Sin comunicación, con el LCD y el monitor serie](assets/images/iot/wokwi-alert-panel-no-connection.png)
+
+*Figura 5.6.9. Panel simulado en wokwi.com en Sin comunicación, al no alcanzar el Edge local.*
 
 ### 5.6.4. Design Decisions and Edge Data Flow
 
@@ -397,26 +421,28 @@ Las capturas Cirkit ya guardadas muestran colores asignados por la herramienta y
 | DS18B20 del collar | Registra temperatura superficial en el punto de contacto; no mide por sí solo temperatura corporal interna. | Fijado en la cara interna inferior de la carcasa, con la superficie sensible en contacto estable con el animal y protegida del agua. | Línea de datos al ESP32-S3 con resistencia pull-up de 4,7 kΩ, según el circuito. Riel regulado del conjunto Li-ion; nivel exacto por confirmar con el módulo. |
 | MPU-6050 | Aporta aceleración y velocidad angular para estimar movimiento y actividad. | Fijado a la placa dentro de la carcasa, evitando que se mueva respecto del collar. | Bus I2C y riel regulado de baja tensión del ESP32-S3; sus lecturas forman el índice de actividad enviado en la telemetría. |
 | GPS NEO-6M | Obtiene latitud y longitud cuando existe recepción satelital. | Dentro de la carcasa, con su antena orientada hacia el cielo y sin cubrirla con metal. | Riel regulado compatible con la placa del módulo; sus coordenadas se incorporan al paquete de telemetría. |
+| SP-203 del collar | Mide el pulso por fotopletismografía (PPG); frecuencia cardiaca válida de 30 a 200 bpm. | Propuesto en la cara interna inferior de la carcasa, en contacto con la piel; ubicación por confirmar en el prototipo. | Alimentación de 3,3 V del riel regulado; salida analógica al ADC1 (`GPIO5`). |
+| MQ-2 del collar | Entrega un índice relativo de metano de 0 a 100, sin calibrar y no en ppm; necesita unos 60 s de calentamiento. | Propuesto en la carcasa, con la superficie de detección expuesta al aire; ubicación por confirmar en el prototipo. | Calefactor de 5 V (unos 150 mA); salida `AO` a través de un divisor hasta 3,3 V, al ADC1 (`GPIO6`); la salida `DO` no se usa. |
 | ESP32-S3 y batería del collar | Lee sensores, marca los registros y administra el enlace. El firmware mide la batería en `GPIO1` a través de un divisor 1:2, representado en Wokwi con un potenciómetro; el circuito de Cirkit aún no dibuja esa medición. | Placa y batería en la carcasa superior sellada, sujetas para resistir vibración. | Batería Li-ion de 3,7 V con módulo de carga/protección y regulación para cada componente; Wi-Fi integrado para enviar las lecturas al Edge Gateway y BLE integrado como ruta prevista, según la arquitectura de 4.1.3.3. |
-| ESP32 DevKitC del receptor, LCD, LEDs y KY-012 | Presenta los estados Normal, Atención y Urgencia en pantalla y luces, y emite sonido en una urgencia. | Caja del panel en un lugar seco y visible para el operario; LEDs y pantalla en el frente, salida acústica del buzzer despejada. | Se propone una fuente regulada de 5 V para la placa y periféricos; las señales del ESP32 operan a 3,3 V, con el conversor I2C del esquema para la pantalla. Se propone obtener alertas desde Edge por Wi-Fi en la red local; endpoint y contrato por definir, enlace aún no probado. |
+| ESP32 DevKitC del receptor, LCD, LEDs y KY-012 | Presenta los estados Normal, Atención, Urgencia y Sin comunicación en pantalla y luces, y emite sonido en una urgencia. | Caja del panel en un lugar seco y visible para el operario; LEDs y pantalla en el frente, salida acústica del buzzer despejada. | Se propone una fuente regulada de 5 V para la placa y periféricos; las señales del ESP32 operan a 3,3 V, con el conversor I2C del esquema para la pantalla. Consulta cada 3 s `GET /api/v1/monitoring/alerts` del Edge por Wi-Fi local, con la cabecera `X-API-Key`. |
 
 Para el collar, el flujo implementado es: **sensores → ESP32-S3 → Edge Gateway** por HTTP sobre la red Wi-Fi local, con `POST /api/v1/monitoring/telemetry-readings` y la cabecera `X-API-Key` del collar. Cada lectura lleva un `event_id` estable; el ESP32 conserva las lecturas pendientes si no logra entregarlas y las libera cuando Edge confirma la persistencia con `201 Created` o `200 OK`. El collar no transmite directamente al backend, aunque tenga Internet. La ruta por Bluetooth Low Energy queda prevista: el firmware la incluye, pero el Edge Gateway aún no tiene receptor BLE. El Edge Gateway almacena las lecturas en SQLite y evalúa las reglas críticas con la configuración local; un proceso de sincronización envía cada 15 s los registros pendientes a la API central por `POST /api/v1/telemetry/batch` (TS-03 a TS-06).
 
-Cada registro del collar incluye `device_id`, `event_id`, `recorded_at` en UTC, `body_temperature`, `activity_index`, `battery_level` y `position` con `latitude`, `longitude` y `accuracy_meters` (TS-01). Un campo que no se pudo medir se informa en `invalid_reasons` con su motivo en vez de presentarse como una medición normal; Edge no lo evalúa contra los umbrales. Edge ya acepta ese campo; su envío desde el firmware está pendiente. Las alertas locales de Edge se entregan a la aplicación móvil por la red local, de acuerdo con 4.1.3.3.
+Cada registro del collar incluye `device_id`, `event_id`, `recorded_at` en UTC, `body_temperature`, `activity_index`, `heart_rate`, `methane_index`, `battery_level` y `position` con `latitude`, `longitude` y `accuracy_meters` (TS-01). Un campo que no se pudo medir se informa en `invalid_reasons` con su motivo en vez de presentarse como una medición normal; Edge no lo evalúa contra los umbrales. El firmware ya envía `invalid_reasons` para una temperatura fuera de 30–45 °C, un pulso sin contacto o fuera de rango, un sensor de gas en calentamiento y un sensor que no responde. La cola de hasta 60 lecturas se guarda en NVS y sobrevive a los reinicios. Las alertas locales de Edge se entregan a la aplicación móvil por la red local, de acuerdo con 4.1.3.3.
 
-Para el panel LCD/LED se propone una consulta o entrega de alertas del Edge Gateway por Wi-Fi sobre la red local; la interfaz y su contrato siguen pendientes y el circuito no dibuja el transporte de radio. La lámina de Gemini que muestra una transmisión directa collar–receptor se considera ilustrativa; el flujo del sistema mantiene al Edge Gateway como punto local de recepción y evaluación.
+El panel LCD/LED consulta cada 3 s `GET /api/v1/monitoring/alerts` del Edge Gateway por Wi-Fi local, con la cabecera `X-API-Key`, y muestra Normal, Atención, Urgencia o Sin comunicación. Sin respuesta válida durante más de 30 s, el panel pasa a Sin comunicación y no enciende LED. Cuando aparece una alerta crítica que aún no ha sonado, el buzzer emite pulsos de 1 s durante 30 s. El circuito de Cirkit no dibuja el transporte de radio. La lámina de Gemini que muestra una transmisión directa collar–receptor se considera ilustrativa; el flujo del sistema mantiene al Edge Gateway como punto local de recepción y evaluación.
 
 El campo `battery_level` de la telemetría del collar se obtiene en el firmware con una entrada ADC (`GPIO1`) y un divisor 1:2, y se convierte a porcentaje con una aproximación lineal entre 3,0 V y 4,2 V. La captura Cirkit todavía no dibuja ese circuito y la medición no se ha verificado con una batería real.
 
-En el alcance definido hoy, **solo el trayecto del collar al Edge está establecido**: HTTP por Wi-Fi local al Portable Edge Gateway, con o sin Internet, y BLE como alternativa prevista. La integración propuesta del panel con Edge por Wi-Fi local necesita cerrar contrato y requisitos antes de presentarse como conexión implementada.
+En el alcance actual, **ambos trayectos están implementados y verificados en Wokwi CI**: el collar envía lecturas al Edge por HTTP sobre Wi-Fi local, y el panel consulta las alertas del mismo Edge. BLE sigue como alternativa prevista, sin receptor en el Edge.
 
 ### 5.6.5. Proposal and Verification Status
 
 | Elemento | Estado | Evidencia disponible |
 |---|---|---|
 | Forma del collar, carcasa, ubicación de componentes y correa | Propuesta conceptual; no fabricada ni probada en un animal. | Lámina conceptual generada con Gemini, Figura 5.6.2. |
-| Carcasa y disposición del panel de alertas | Propuesta conceptual; no se probó con usuarios ni se integró con Edge. | Lámina generada con Gemini, Figura 5.6.4. Sus pines ilustrados no son referencia eléctrica. |
-| Circuitos del collar y el receptor | Diagramas guardados y revisados visualmente en Cirkit Designer; no se ejecutó la simulación ni se validó el cableado con hardware. | Figuras 5.6.1, 5.6.3 y 5.6.5. |
-| Flujo Wi-Fi hacia Edge y sincronización con la nube | Implementado en software: el firmware del collar envía por HTTP al Edge API, y el Edge API almacena, evalúa y sincroniza con la API central. El firmware no se ha ejecutado en Wokwi ni en hardware; las evidencias de una ejecución de extremo a extremo (capturas y registros) quedan pendientes para el equipo. La ruta BLE está prevista y no implementada en Edge. | Repositorios `ichu-edge-service` y `ichu-cattle-band-embedded-app` (este último aún sin publicar en GitHub), TS-01–TS-06 y arquitectura de 4.1.3.3. |
+| Carcasa y disposición del panel de alertas | Propuesta conceptual; no se probó con usuarios. Integrado con el Edge API en simulación. | Lámina generada con Gemini, Figura 5.6.6; simulación en Wokwi, Figuras 5.6.8 y 5.6.9. Sus pines ilustrados no son referencia eléctrica. |
+| Circuitos del collar y el receptor | Simulados en Wokwi: el firmware compila y se ejecuta (Figuras 5.6.4, 5.6.5, 5.6.8 y 5.6.9); el cableado con hardware real está pendiente. | Figuras 5.6.1, 5.6.3, 5.6.4, 5.6.5, 5.6.7, 5.6.8 y 5.6.9. |
+| Flujo Wi-Fi hacia Edge y sincronización con la nube | Implementado y verificado en Wokwi CI: el collar envía lecturas al Edge API, que genera una alerta crítica de temperatura, y el panel consulta el Edge y pasa a Urgencia. El Edge API almacena, evalúa y sincroniza con la API central. Ni el collar ni el panel se han probado en hardware. La ruta BLE está prevista y no implementada en Edge. | Repositorios `ichu-edge-service`, `ichu-cattle-band-embedded-app` y `ichu-alert-panel-embedded-app`, TS-01–TS-06, arquitectura de 4.1.3.3, Figuras 6.18 y 6.19, y capturas de ejecución en Wokwi, Figuras 5.6.5 y 5.6.9. |
 
 Las capturas y conceptos versionados de esta sección documentan las propuestas visuales; no sustituyen la validación física ni las pruebas de extremo a extremo.
