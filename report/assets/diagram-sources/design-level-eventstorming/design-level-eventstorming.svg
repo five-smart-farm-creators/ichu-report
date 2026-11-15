@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xml:lang="en" width="5350" height="2540" viewBox="0 0 5350 2540" role="img" aria-labelledby="title description">
 <title id="title">SmartFarm | Design-Level EventStorming</title>
-<desc id="description">Nineteen flows across seven domain areas. Each row identifies an actor, command, domain event, policy, read model and aggregate. Arrows connect the actor to a command, a command to its event, an event to its policy and a policy to its resulting read model. Dashed arrows associate events with aggregates.</desc>
+<desc id="description">Eighteen flows across six domain areas. Each row identifies an actor, command, domain event, policy, read model and aggregate. Arrows connect the actor to a command, a command to its event, an event to its policy and a policy to its resulting read model. Dashed arrows associate events with aggregates.</desc>
 <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#58615a"/></marker></defs>
 <rect width="100%" height="100%" fill="#ffffff"/>
 <g font-family="Arial, sans-serif" fill="#202b24">
@@ -268,25 +268,5 @@
 <g><rect x="942" y="545" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="579" font-size="22" font-weight="400"><tspan x="957" dy="0">Enable access</tspan><tspan x="957" dy="27.06">restricted to the</tspan><tspan x="957" dy="27.06">authorized herd</tspan></text></g>
 <g><rect x="1234" y="545" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="579" font-size="22" font-weight="400"><tspan x="1249" dy="0">Pending requests</tspan></text></g>
 <g><rect x="1526" y="545" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="579" font-size="22" font-weight="400"><tspan x="1541" dy="0">HerdAdvisory</tspan></text></g>
-</g>
-<g transform="translate(0,2200)">
-<text x="66" y="0" font-size="36" font-weight="700"><tspan x="66" dy="0">Water Trough Control</tspan></text>
-<text x="66" y="44" font-size="22" font-weight="700"><tspan x="66" dy="0">Actor</tspan></text>
-<text x="358" y="44" font-size="22" font-weight="700"><tspan x="358" dy="0">Command</tspan></text>
-<text x="650" y="44" font-size="22" font-weight="700"><tspan x="650" dy="0">Domain Event</tspan></text>
-<text x="942" y="44" font-size="22" font-weight="700"><tspan x="942" dy="0">Policy</tspan></text>
-<text x="1234" y="44" font-size="22" font-weight="700"><tspan x="1234" dy="0">Read Model</tspan></text>
-<text x="1526" y="44" font-size="22" font-weight="700"><tspan x="1526" dy="0">Aggregate</tspan></text>
-<path d="M326 168H353" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M618 168H645" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M910 168H937" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M1202 168H1229" fill="none" stroke="#58615a" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M780 269V285H1656V272" fill="none" stroke="#7f8982" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
-<g><rect x="66" y="65" width="260" height="204" rx="3" fill="#fff094" stroke="#ffffff" stroke-width="2"/><text x="81" y="99" font-size="22" font-weight="400"><tspan x="81" dy="0">System</tspan></text></g>
-<g><rect x="358" y="65" width="260" height="204" rx="3" fill="#a5c7f3" stroke="#ffffff" stroke-width="2"/><text x="373" y="99" font-size="22" font-weight="400"><tspan x="373" dy="0">None (automatic)</tspan></text></g>
-<g><rect x="650" y="65" width="260" height="204" rx="3" fill="#ffc28d" stroke="#ffffff" stroke-width="2"/><text x="665" y="99" font-size="22" font-weight="400"><tspan x="665" dy="0">Water temperature out</tspan><tspan x="665" dy="27.06">of range</tspan></text></g>
-<g><rect x="942" y="65" width="260" height="204" rx="3" fill="#cec0ef" stroke="#ffffff" stroke-width="2"/><text x="957" y="99" font-size="22" font-weight="400"><tspan x="957" dy="0">Activate heating and</tspan><tspan x="957" dy="27.06">alert if the</tspan><tspan x="957" dy="27.06">temperature does not</tspan><tspan x="957" dy="27.06">return to range</tspan></text></g>
-<g><rect x="1234" y="65" width="260" height="204" rx="3" fill="#a4ddb6" stroke="#ffffff" stroke-width="2"/><text x="1249" y="99" font-size="22" font-weight="400"><tspan x="1249" dy="0">Configured water</tspan><tspan x="1249" dy="27.06">trough temperature</tspan><tspan x="1249" dy="27.06">range</tspan></text></g>
-<g><rect x="1526" y="65" width="260" height="204" rx="3" fill="#f4aaa9" stroke="#ffffff" stroke-width="2"/><text x="1541" y="99" font-size="22" font-weight="400"><tspan x="1541" dy="0">MonitoringAlert</tspan></text></g>
 </g>
 </g></svg>

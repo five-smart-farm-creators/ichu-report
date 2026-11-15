@@ -19,7 +19,7 @@ class IoTDevice <<Aggregate Root>> {
   -status: DeviceStatus
   -lastCommunicationAt: DateTime
   -batteryLevel: BatteryLevel
-  +AssignTo(targetId: Guid, at: DateTime): void
+  +AssignTo(animalId: Guid, at: DateTime): void
   +Release(reason: string, at: DateTime): void
   +RegisterCommunication(at: DateTime, b: BatteryLevel): void
   +IsAvailable(): bool
@@ -27,7 +27,7 @@ class IoTDevice <<Aggregate Root>> {
 }
 class DeviceAssignment <<Entity>> {
   -id: Guid
-  -targetId: Guid
+  -animalId: Guid
   -startedAt: DateTime
   -endedAt: DateTime
   -releaseReason: string
@@ -43,7 +43,6 @@ class BatteryLevel <<Value Object>> {
 }
 enum DeviceType {
   SmartCollar
-  WaterController
 }
 enum DeviceStatus {
   Available
@@ -54,7 +53,7 @@ enum DeviceStatus {
 }
 class DeviceAssignmentDomainService <<Domain Service>> {
   +CanAssign(d: IoTDevice, limit: int, used: int): bool
-  +Assign(d: IoTDevice, targetId: Guid): DeviceAssignment
+  +Assign(d: IoTDevice, animalId: Guid): DeviceAssignment
 }
 interface IIoTDeviceRepository <<Repository>> {
   +FindById(id: Guid): IoTDevice

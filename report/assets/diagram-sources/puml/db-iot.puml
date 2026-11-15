@@ -25,21 +25,10 @@ entity "iot.device_assignment" as da {
   * id : uuid <<PK>>
   --
   * device_id : uuid <<FK>>
-  * target_id : uuid
-  * target_type : varchar(20) <<CHECK>>
+  * animal_id : uuid
   * started_at : timestamptz
   ended_at : timestamptz
   release_reason : varchar(120)
 }
-entity "iot.water_trough" as wt {
-  * id : uuid <<PK>>
-  --
-  * ranch_id : uuid <<FK>>
-  * name : varchar(80)
-  lot_id : uuid
-  min_temperature : numeric(4,1)
-  max_temperature : numeric(4,1)
-}
 dev ||--o{ da
-wt ||--o{ da
 @enduml
