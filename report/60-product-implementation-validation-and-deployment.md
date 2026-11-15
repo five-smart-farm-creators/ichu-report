@@ -271,6 +271,77 @@ La distribución transversal de 22 tareas SF-96 a SF-117 en Jira es simulada y n
 
 #### 6.2.2.1. Sprint Planning 2
 
+El Sprint 2 propone integrar los recorridos del frontend con los servicios de cuenta, acceso, gestión del hato y suscripción, y habilitar el flujo de telemetría y alertas entre el collar, el Portable Edge Gateway, la API central y las aplicaciones. El Product Backlog del Capítulo III agrupa **30 historias y 164 Story Points** para esta iteración. Esta es la base propuesta para la planificación; el compromiso definitivo depende de la capacidad y disponibilidad que confirme el equipo.
+
+<table>
+  <colgroup>
+    <col style="width: 34%;"/>
+    <col style="width: 66%;"/>
+  </colgroup>
+  <tbody>
+    <tr>
+      <th align="left" scope="row" width="34%">Sprint #</th>
+      <td>Sprint 2</td>
+    </tr>
+    <tr>
+      <th align="left" colspan="2">Sprint Planning Background</th>
+    </tr>
+    <tr>
+      <td>Date</td>
+      <td>Pendiente de confirmar por el equipo.</td>
+    </tr>
+    <tr>
+      <td>Time</td>
+      <td>Pendiente de confirmar; se registrará en hora de Lima (UTC-5).</td>
+    </tr>
+    <tr>
+      <td>Location</td>
+      <td>Lugar o modalidad de reunión pendiente de confirmar.</td>
+    </tr>
+    <tr>
+      <td>Prepared By</td>
+      <td>Responsable de la planificación pendiente de confirmar.</td>
+    </tr>
+    <tr>
+      <td>Attendees (to planning meeting)</td>
+      <td>Asistentes pendientes de confirmar; la distribución propuesta en 6.2.2.2 no acredita asistencia a una reunión.</td>
+    </tr>
+    <tr>
+      <td>Sprint Period</td>
+      <td>Fechas de inicio y cierre y duración pendientes de confirmar.</td>
+    </tr>
+    <tr>
+      <td>Sprint 1 Review Summary</td>
+      <td>La evidencia de 6.2.1 muestra la Landing Page y el frontend web con datos de ejemplo y sus despliegues. Las comprobaciones registradas son preliminares y no acreditan autenticación, persistencia ni integración con servicios. No se dispone de un acta de Sprint Review ni de una relación de historias aceptadas.</td>
+    </tr>
+    <tr>
+      <td>Sprint 1 Retrospective Summary</td>
+      <td>No se dispone de un acta de retrospectiva. A partir de las limitaciones documentadas, se propone confirmar responsables por entregable, realizar revisiones cruzadas y vincular cada historia seleccionada con sus criterios y evidencias de prueba. Estas acciones quedan sujetas al acuerdo del equipo.</td>
+    </tr>
+    <tr>
+      <th align="left" colspan="2">Sprint Goal &amp; User Stories</th>
+    </tr>
+    <tr>
+      <td>Sprint 2 Goal</td>
+      <td>Habilitar un recorrido integrado y autorizado de gestión del hato, desde el registro y acceso hasta la consulta de telemetría y atención de alertas, con captura local y sincronización al recuperar conectividad.<br/><strong>Métrica de cumplimiento propuesta:</strong> verificar los criterios de aceptación del Capítulo III para las historias que el equipo comprometa, con registros persistidos, control de acceso y evidencia del recorrido entre collar, Edge, API y clientes; comprobar los reintentos y la operación sin Internet de las historias seleccionadas. La cantidad de historias y puntos aceptados se registrará al cierre.</td>
+    </tr>
+    <tr>
+      <td>Sprint 2 Velocity</td>
+      <td>Pendiente de validar con la capacidad del equipo y las historias aceptadas al cierre. Los 164 SP son una estimación propuesta; los 33 SP planificados del Sprint 1 no constituyen velocidad observada.</td>
+    </tr>
+    <tr>
+      <td>Sum of Story Points</td>
+      <td>164 Story Points distribuidos en las 30 historias propuestas de 6.2.2.3; sujetos a la selección definitiva de Sprint Planning.</td>
+    </tr>
+  </tbody>
+</table>
+
+La selección debe respetar las dependencias del Capítulo III: registro, acceso y permisos antes de consumir datos del hato; solicitud y confirmación de suscripción antes de habilitar capacidades del plan; asignaciones y configuración antes de evaluar telemetría; persistencia y confirmación antes de retirar registros pendientes. El enlace del collar al Edge se plantea por Wi-Fi local; BLE permanece como alternativa prevista.
+
+Antes de iniciar el sprint, el equipo confirmará el periodo, los responsables y el recorrido que cabe en su capacidad. Si se reduce la propuesta de 164 SP, se actualizarán la selección de 6.2.2.3 y su correspondencia con el Capítulo III, conservando las dependencias del recorrido elegido. Esta planificación no acredita ejecución ni cierre de historias.
+
+Fuente: [Product Backlog del Capítulo III](30-requirements-specification.md#33-product-backlog) y [evidencias del Sprint 1](#621-sprint-1).
+
 #### 6.2.2.2. Aspect Leaders and Collaborators
 
 #### 6.2.2.3. Sprint Backlog 2
