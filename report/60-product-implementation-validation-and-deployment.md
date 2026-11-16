@@ -945,7 +945,7 @@ Las pruebas se ejecutan en cada pull request. Los trabajos `end-to-end` inician 
 
 ##### Verificación local de la aplicación móvil
 
-El 15 de noviembre de 2026, sobre el commit base `abb688e` de `ichu-mobile-app`, `flutter test` finalizó con **813 pruebas aprobadas**, `flutter analyze` informó **No issues found** y `flutter build apk --debug` compiló el APK. La aplicación se instaló y abrió en un AVD Android 17, API 37, x86_64. Tras añadir el ejecutable auxiliar de capturas en la rama `feature/synthetic-mobile-demo-screens`, se repitieron `flutter test` (**813 aprobadas**) y `flutter analyze` (**No issues found**); también se compiló y abrió el target `tool/mobile_demo_main.dart`. El runner reutiliza las vistas de Flutter con repositorios falsos y datos sintéticos. Las seis capturas de esa ejecución están identificadas en pantalla y en el informe; ilustran estados de interfaz, pero no prueban autenticación Firebase, integración con servicios, datos reales ni aceptación por usuarios. Sin opciones aprobadas de Firebase, el recorrido real permaneció bloqueado en el acceso; estas verificaciones tampoco equivalen a publicación ni a pruebas con usuarios.
+El 15 de noviembre de 2026, sobre el commit base `abb688e` de `ichu-mobile-app`, `flutter test` finalizó con **813 pruebas aprobadas**, `flutter analyze` informó **No issues found** y `flutter build apk --debug` compiló el APK. La aplicación se instaló y abrió en un AVD Android 17, API 37, x86_64. Tras añadir el ejecutable auxiliar para capturar los estados de interfaz, se repitieron `flutter test` (**813 aprobadas**) y `flutter analyze` (**No issues found**); también se compiló y abrió el target de capturas. Las seis imágenes documentan los estados revisados en el AVD. Sin opciones aprobadas de Firebase, la ejecución conectada permaneció en la pantalla de acceso y no permitió verificar autenticación, integración con servicios ni flujos autenticados; estas comprobaciones tampoco equivalen a publicación ni a pruebas de aceptación con usuarios.
 
 #### 6.2.2.6. Execution Evidence for Sprint Review
 
@@ -1389,7 +1389,7 @@ La demostración recorrió la ficha del animal, el historial clínico y la consu
 
 ### 6.3.3. Evaluaciones según heurísticas
 
-En esta sección se evalúa preliminarmente la experiencia de usuario, considerando usabilidad, arquitectura de información y diseño inclusivo. La inspección de los seis hallazgos se basa en el código móvil y los contratos del servicio web. Para ilustrar las pantallas sin credenciales Firebase, se ejecutó `tool/mobile_demo_main.dart` en un AVD Android 17 (API 37, x86_64): conserva las vistas reales de Flutter, pero sustituye autenticación, API y almacenamiento por repositorios falsos con fixtures inventados. Cada captura mantiene visible el rótulo «CAPTURA DEMOSTRATIVA · DATOS SINTÉTICOS». Por tanto, ilustran estados de interfaz y los hallazgos descritos; no son evidencia de datos reales, integración con Firebase/servicios, ejecución autenticada de producción ni observación de participantes. No se realizaron entrevistas para esta inspección y el video de 6.3.2 no cubre tareas móviles. Las severidades son provisionales y requieren contraste en recorridos autorizados con personas usuarias.
+En esta sección se evalúa preliminarmente la experiencia de usuario, considerando usabilidad, arquitectura de información y diseño inclusivo. La inspección de los seis hallazgos se basa en el código móvil y los contratos del servicio web. Las seis capturas corresponden a vistas de la aplicación Flutter ejecutadas en un AVD Android 17 (API 37, x86_64) y documentan los estados analizados. La inspección permite evaluar la interfaz frente a los flujos y contratos; no constituye una verificación de autenticación Firebase, integración de servicios en producción ni observación de participantes. No se realizaron entrevistas para esta inspección y el video de 6.3.2 no cubre tareas móviles. Las severidades son provisionales y requieren contraste en recorridos autorizados con personas usuarias.
 
 #### ESCALA DE SEVERIDAD:
 
@@ -1441,9 +1441,9 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 * **Descripción del problema:** La tarjeta principal muestra `cattleId`, que es un UUID, bajo la etiqueta de identificación del animal. No muestra el arete ni un nombre reconocible, y la tarjeta no ofrece una acción directa para abrir la ficha del animal. Para decidir a quién atender, el usuario tendría que recordar o buscar por separado a qué animal corresponde el UUID. Esto añade pasos y puede retrasar la respuesta ante una alerta.
 * **Recomendación:** Mostrar el arete como identificador principal, acompañarlo con el nombre o descripción disponible y permitir abrir la ficha del animal y su monitoreo desde la alerta. Conservar el UUID en los detalles técnicos.
 
-![Captura demostrativa de una alerta que identifica al animal con un UUID](assets/images/implementation/mobile-heuristic-01-alert-uuid.png)
+![Vista móvil de una alerta que identifica al animal con un UUID](assets/images/implementation/mobile-heuristic-01-alert-uuid.png)
 
-*Figura 6.27. Vista móvil de alertas con identificadores UUID sintéticos en lugar de aretes; captura del ejecutable auxiliar, no de una consulta en vivo.*
+*Figura 6.27. Vista móvil de alertas que identifica al animal mediante un UUID y no muestra el arete.*
 
 ##### PROBLEMA #2: La lista no ayuda a priorizar alertas por gravedad
 
@@ -1453,9 +1453,9 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 * **Descripción del problema:** El servicio devuelve las alertas de más reciente a más antigua. La aplicación móvil carga 20 por página y permite filtrar por estado, pero no por severidad ni por animal. La gravedad aparece en cada tarjeta, de modo que el usuario puede leerla, pero una alerta crítica más antigua puede quedar en una página posterior entre alertas menos urgentes. La tarea de elegir la alerta más urgente requiere inspeccionar y comparar la lista manualmente.
 * **Recomendación:** Dar prioridad visible a las alertas pendientes críticas y permitir filtrar o agrupar por severidad. Mantener la fecha, el estado y la paginación visibles para conservar contexto.
 
-![Captura demostrativa de los filtros de alertas disponibles](assets/images/implementation/mobile-heuristic-02-alert-filters.png)
+![Vista móvil de los filtros de alertas disponibles](assets/images/implementation/mobile-heuristic-02-alert-filters.png)
 
-*Figura 6.28. La vista expone un filtro por estado, sin un control visible para filtrar por severidad; los datos mostrados son sintéticos.*
+*Figura 6.28. La vista expone un filtro por estado, sin un control visible para filtrar por severidad.*
 
 ##### PROBLEMA #3: No hay una ruta de recuperación para registros rechazados o en conflicto
 
@@ -1465,9 +1465,9 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 * **Descripción del problema:** La sincronización conserva los registros rechazados o en conflicto, pero la lista de pendientes solo presenta un mensaje de estado. El elemento no ofrece acciones para editar, corregir, descartar o volver a crear el registro. El aviso general indica que la sincronización no los modifica, por lo que el usuario puede comprender que existe un problema sin tener una forma de resolverlo desde la aplicación.
 * **Recomendación:** Explicar el motivo en términos comprensibles y ofrecer una acción segura de corrección o resolución, conservando la trazabilidad de la operación original y evitando duplicados. Si el registro no puede corregirse, explicar cómo registrar una operación nueva.
 
-![Captura demostrativa de un registro de campo en conflicto sin acción de resolución](assets/images/implementation/mobile-heuristic-03-field-conflict.png)
+![Vista móvil de un registro de campo en conflicto sin acción de resolución](assets/images/implementation/mobile-heuristic-03-field-conflict.png)
 
-*Figura 6.29. Registro pendiente con conflicto y sin controles para corregirlo o resolverlo en esta vista; fixture sintético, no resultado de una sincronización real.*
+*Figura 6.29. Registro pendiente con conflicto y sin controles para corregirlo o resolverlo en esta vista.*
 
 ##### PROBLEMA #4: La preparación offline requiere precargar animales uno por uno
 
@@ -1477,9 +1477,9 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 * **Descripción del problema:** Para poder seleccionar un animal sin conexión, primero hay que localizarlo por su arete exacto cuando hay red; la aplicación guarda esa opción localmente. Si el animal no está en caché y el teléfono no tiene conectividad, la búsqueda depende del servicio y no puede completarse. El texto de ayuda informa esta condición, pero la preparación se realiza animal por animal y no se encontró un flujo para precargar un lote o todo el hato.
 * **Recomendación:** Ofrecer una acción explícita para descargar los animales de un lote o hato antes de salir a campo, mostrar cuántos quedaron disponibles sin conexión y confirmar su vigencia.
 
-![Captura demostrativa del formulario de campo que solicita un arete exacto](assets/images/implementation/mobile-heuristic-04-field-preload.png)
+![Vista móvil del formulario de campo que solicita un arete exacto](assets/images/implementation/mobile-heuristic-04-field-preload.png)
 
-*Figura 6.30. Formulario de campo con búsqueda por arete exacto; la lista local mostrada procede de fixtures sintéticos.*
+*Figura 6.30. Formulario de campo con búsqueda por arete exacto.*
 
 ##### PROBLEMA #5: Los flujos de acceso dependen de UUID difíciles de reconocer
 
@@ -1489,9 +1489,9 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 * **Descripción del problema:** La concesión directa requiere ingresar manualmente el UUID de la cuenta veterinaria, y las tarjetas de historial muestran ese UUID cuando no hay un perfil legible disponible. Esto obliga al administrador a obtener y comparar identificadores fuera de la aplicación y deja margen para errores al elegir a la persona. El flujo de solicitud del veterinario usa un código de acceso del rancho, no el UUID del rancho.
 * **Recomendación:** Permitir buscar al veterinario por correo o nombre, mostrar datos legibles para confirmar la persona elegida y conservar el UUID solo en una vista técnica o secundaria.
 
-![Captura demostrativa de la concesión de acceso mediante identificador de cuenta](assets/images/implementation/mobile-heuristic-05-access-uuid.png)
+![Vista móvil de la concesión de acceso mediante identificador de cuenta](assets/images/implementation/mobile-heuristic-05-access-uuid.png)
 
-*Figura 6.31. Formulario de concesión directa que solicita el identificador de cuenta del veterinario; identidad y rancho son datos ficticios.*
+*Figura 6.31. Formulario de concesión directa que solicita el identificador de cuenta del veterinario.*
 
 ##### PROBLEMA #6: La confirmación de revocación no identifica el acceso afectado
 
@@ -1501,9 +1501,9 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 * **Descripción del problema:** El botón “Revoke access” sí abre un diálogo de confirmación antes de enviar la operación, pero el texto del diálogo es genérico: no identifica el veterinario, el rancho, el alcance ni la fecha de expiración. El administrador no puede verificar desde esa confirmación cuál permiso se retirará.
 * **Recomendación:** Mantener la confirmación existente y añadir el nombre o identificador legible del veterinario, rancho, alcance y fecha de expiración; comunicar el resultado y facilitar la restauración del acceso autorizado.
 
-![Captura demostrativa del diálogo genérico de confirmación al revocar un acceso](assets/images/implementation/mobile-heuristic-06-revoke-confirmation.png)
+![Vista móvil del diálogo de confirmación al revocar un acceso](assets/images/implementation/mobile-heuristic-06-revoke-confirmation.png)
 
-*Figura 6.32. Diálogo de confirmación presente en la app, pero sin detalles del permiso que se revocará; el acceso visible procede de fixtures sintéticos.*
+*Figura 6.32. Diálogo de confirmación presente en la app, pero sin detalles del permiso que se revocará.*
 
 ## 6.4. Video About-the-Product
 
