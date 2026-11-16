@@ -941,7 +941,7 @@ La identificación y registro de los commits incluyen cambios a pruebas unitaria
 | `ichu-alert-panel-embedded-app` | `tests/panel-offline.test.yaml` | Sin Edge, el panel queda en Sin comunicación con los LED apagados. |
 | `ichu-alert-panel-embedded-app` | `tests/panel-urgent.test.yaml` (job `end-to-end`) | Con una alerta crítica en el Edge, el panel pasa a Urgencia, enciende el LED rojo y activa el buzzer. |
 
-Las pruebas se ejecutan en cada pull request. Los trabajos `end-to-end` inician un Edge API real, como se muestra en las Figuras 6.14 y 6.15.
+Las pruebas se ejecutan en cada pull request. Los trabajos `end-to-end` inician un Edge API real, como se muestra en las Figuras 6.16 y 6.17.
 
 ##### Verificación local de la aplicación móvil
 
@@ -974,6 +974,17 @@ A continuación, se presentan las evidencias de la ejecución de la aplicación 
 
 El despliegue de la aplicación web ICHU se realizó en un entorno de producción accesible a través del siguiente enlace:
 <a href="https://ichu-smartfarm.web.app/">ICHU Web Application</a></p>
+
+##### Demostración IoT con la API desplegada
+
+El collar envía sus lecturas al Edge local, el Edge sincroniza con la API en Render y la aplicación web muestra la alerta; el panel consulta el mismo Edge y pasa a Urgencia.
+
+<ul>
+  <li><strong>Nodo de borde activo</strong><br><img src="./assets/images/iot-demo/web-edge-gateway.png" alt="Nodo de borde activo en la aplicación web"></li>
+  <li><strong>Collar asignado</strong><br><img src="./assets/images/iot-demo/web-collar-assigned.png" alt="Collar ICHU-DEV-0001 en servicio y asignado a PE-0001"></li>
+  <li><strong>Alerta crítica en la web</strong><br><img src="./assets/images/iot-demo/web-methane-alert.png" alt="Alerta crítica de metano de PE-0001"></li>
+  <li><strong>Panel en Urgencia (Wokwi)</strong><br><img src="./assets/images/iot-demo/wokwi-panel-urgent.png" alt="Panel simulado en Wokwi con URGENT en el LCD y el LED rojo encendido"></li>
+</ul>
 
 #### 6.2.2.7. Services Documentation Evidence for Sprint Review
 
@@ -1062,6 +1073,18 @@ El servicio local del Edge v0.2.0 describe en su README la recepción de lectura
 
 *Figura 6.10. Se ejecutó `GET /api/v1/quotes` en Swagger UI con el `planId` de Basic y `headCount=10` como dato de muestra. El servidor devolvió HTTP 200 con una tarifa anual de 600 PEN y 1 200 PEN por los diez collares, para un total de 1 800 PEN.*
 
+##### Evidencia del Edge API
+
+El Edge sincroniza con la API central mediante `POST /api/v1/telemetry/batch`, documentado en Swagger UI. Su estado local muestra la revisión de reglas descargada y los registros pendientes.
+
+![Swagger UI con los endpoints de umbrales y telemetría, incluido POST /api/v1/telemetry/batch](assets/images/iot-demo/swagger-telemetry-batch.png)
+
+*Figura 6.11. Endpoints de umbrales y telemetría en Swagger UI, incluido el lote de sincronización del Edge.*
+
+![Respuesta de GET /api/v1/status del Edge API](assets/images/iot-demo/edge-status.png)
+
+*Figura 6.12. Estado del Edge API: servicio activo, revisión de reglas 7 y sin registros pendientes.*
+
 ##### Repositorio y commits de documentación del Sprint 2
 
 Los commits registran los cambios de documentación, publicación y verificación del contrato en el repositorio de servicios. [five-smart-farm-creators/ichu-web-service](https://github.com/five-smart-farm-creators/ichu-web-service)
@@ -1099,7 +1122,7 @@ GitHub Pages publicó los archivos estáticos desde la raíz de la rama `main` d
 
 ![GitHub Actions muestra el despliegue exitoso de la Landing Page desde main](assets/images/deployment/sprint-2-github-pages.jpg)
 
-*Figura 6.11. Ejecución de GitHub Pages para el commit `78d2120`. Los trabajos `build`, `report-build-status` y `deploy` finalizaron correctamente.*
+*Figura 6.13. Ejecución de GitHub Pages para el commit `78d2120`. Los trabajos `build`, `report-build-status` y `deploy` finalizaron correctamente.*
 
 ##### Aplicación web en Firebase Hosting
 
@@ -1109,7 +1132,7 @@ El historial de Firebase Hosting registra las publicaciones del **12 de noviembr
 
 ![Historial de Firebase Hosting con los hashes y las fechas de publicación de ICHU](assets/images/deployment/sprint-2-firebase-hosting.png)
 
-*Figura 6.12. Historial de versiones del sitio Ichu-SmartFarm en Firebase Hosting. La captura conserva las fechas, los hashes y el total de archivos de cada versión.*
+*Figura 6.14. Historial de versiones del sitio Ichu-SmartFarm en Firebase Hosting. La captura conserva las fechas, los hashes y el total de archivos de cada versión.*
 
 ##### API central y PostgreSQL en Render
 
@@ -1117,7 +1140,7 @@ El 10 de noviembre, el commit `b8dc73f` incorporó el `Dockerfile` y el Blueprin
 
 ![Blueprint de Render con el Dockerfile, el health check y el despliegue automático desde main](assets/images/deployment/sprint-2-render-blueprint.jpg)
 
-*Figura 6.13. Blueprint versionado para construir en Render con `Dockerfile`, verificar `/health` y desplegar automáticamente desde `main`.*
+*Figura 6.15. Blueprint versionado para construir en Render con `Dockerfile`, verificar `/health` y desplegar automáticamente desde `main`.*
 
 ##### Entorno de integración del Edge, collar y panel
 
@@ -1125,11 +1148,11 @@ El 14 de noviembre, hora de Lima, los trabajos `end-to-end` de ambos repositorio
 
 ![GitHub Actions muestra el arranque del Edge, la simulación del collar y la verificación de una alerta crítica](assets/images/deployment/sprint-2-edge-collar-ci.jpg)
 
-*Figura 6.14. Registro del trabajo del collar. Se observa el arranque de la API del Edge, la simulación en Wokwi y la comprobación de la alerta crítica de temperatura.*
+*Figura 6.16. Registro del trabajo del collar. Se observa el arranque de la API del Edge, la simulación en Wokwi y la comprobación de la alerta crítica de temperatura.*
 
 ![GitHub Actions muestra el arranque del Edge, la generación de una alerta y la simulación del panel](assets/images/deployment/sprint-2-edge-panel-ci.jpg)
 
-*Figura 6.15. Registro del trabajo del panel de alertas. Se observa la generación de la alerta de prueba y la ejecución del firmware en Wokwi contra el Edge.*
+*Figura 6.17. Registro del trabajo del panel de alertas. Se observa la generación de la alerta de prueba y la ejecución del firmware en Wokwi contra el Edge.*
 
 #### 6.2.2.9. Team Collaboration Insights during Sprint
 
@@ -1177,31 +1200,31 @@ Commits de autoría de cada integrante por repositorio, contados en `main` y `de
 
 ##### Capturas de GitHub Insights y commits
 
-Las Figuras 6.16 y 6.17 muestran la actividad semanal que GitHub Insights presenta para `main` con el intervalo del sprint. La tabla utiliza además `develop` para incluir el trabajo de desarrollo integrado en esa rama. [Alcance del gráfico de colaboradores de GitHub](https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/viewing-a-projects-contributors)
+Las Figuras 6.18 y 6.19 muestran la actividad semanal que GitHub Insights presenta para `main` con el intervalo del sprint. La tabla utiliza además `develop` para incluir el trabajo de desarrollo integrado en esa rama. [Alcance del gráfico de colaboradores de GitHub](https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/viewing-a-projects-contributors)
 
 ![GitHub Insights del sitio web con contribuciones semanales a main del 4 al 14 de noviembre de 2026](assets/images/collaboration/commits/sprint-2-insights-website.jpg)
 
-*Figura 6.16. GitHub Insights de la Landing Page. Se observa la actividad semanal de commits en `main` para el intervalo seleccionado. [Gráfico del sitio](https://github.com/five-smart-farm-creators/ichu-website/graphs/contributors?from=2026-11-04T05%3A00%3A00Z&to=2026-11-15T04%3A59%3A59Z)*
+*Figura 6.18. GitHub Insights de la Landing Page. Se observa la actividad semanal de commits en `main` para el intervalo seleccionado. [Gráfico del sitio](https://github.com/five-smart-farm-creators/ichu-website/graphs/contributors?from=2026-11-04T05%3A00%3A00Z&to=2026-11-15T04%3A59%3A59Z)*
 
 ![GitHub Insights de la aplicación web con contribuciones semanales a main del 4 al 14 de noviembre de 2026](assets/images/collaboration/commits/sprint-2-insights-web-app.jpg)
 
-*Figura 6.17. GitHub Insights de la aplicación web. En el intervalo seleccionado, la barra de la segunda semana de noviembre concentra la mayor actividad visible. [Gráfico de la aplicación web](https://github.com/five-smart-farm-creators/ichu-web-app/graphs/contributors?from=2026-11-04T05%3A00%3A00Z&to=2026-11-15T04%3A59%3A59Z)*
+*Figura 6.19. GitHub Insights de la aplicación web. En el intervalo seleccionado, la barra de la segunda semana de noviembre concentra la mayor actividad visible. [Gráfico de la aplicación web](https://github.com/five-smart-farm-creators/ichu-web-app/graphs/contributors?from=2026-11-04T05%3A00%3A00Z&to=2026-11-15T04%3A59%3A59Z)*
 
 ![Historial de commits del sitio web con cambios de contenido de Alison y ajustes de publicación de Giorgio](assets/images/collaboration/commits/sprint-2-commits-website.jpg)
 
-*Figura 6.18. Historial de `develop` de la Landing Page. Se identifican los cambios de Alison en contenidos y las correcciones e integraciones de Giorgio en los recursos publicados. [Historial del sitio](https://github.com/five-smart-farm-creators/ichu-website/commits/95add4abe6acc3bc6b6221ed725a4965a44d5dca/)*
+*Figura 6.20. Historial de `develop` de la Landing Page. Se identifican los cambios de Alison en contenidos y las correcciones e integraciones de Giorgio en los recursos publicados. [Historial del sitio](https://github.com/five-smart-farm-creators/ichu-website/commits/95add4abe6acc3bc6b6221ed725a4965a44d5dca/)*
 
 ![Pull request 47 de la API central con commits registrados para las correcciones de Planning](assets/images/collaboration/commits/sprint-2-commits-api-planning.jpg)
 
-*Figura 6.19. Commits del PR 47 de la API central. GitHub muestra los ajustes de rutas realizados por Manuel y la integración a `develop` efectuada por Diego. [Historial del PR 47](https://github.com/five-smart-farm-creators/ichu-web-service/pull/47/commits)*
+*Figura 6.21. Commits del PR 47 de la API central. GitHub muestra los ajustes de rutas realizados por Manuel y la integración a `develop` efectuada por Diego. [Historial del PR 47](https://github.com/five-smart-farm-creators/ichu-web-service/pull/47/commits)*
 
 ![Pull request 8 de la aplicación web con commits sobre cuentas, perfiles y acceso al hato](assets/images/collaboration/commits/sprint-2-commits-web-app.jpg)
 
-*Figura 6.20. Commits del PR 8 de la aplicación web. Los cambios de Flor incorporan la búsqueda de unidades por código de acceso, las traducciones y las vistas de cuenta y asesoría. [Historial del PR 8](https://github.com/five-smart-farm-creators/ichu-web-app/pull/8/commits)*
+*Figura 6.22. Commits del PR 8 de la aplicación web. Los cambios de Flor incorporan la búsqueda de unidades por código de acceso, las traducciones y las vistas de cuenta y asesoría. [Historial del PR 8](https://github.com/five-smart-farm-creators/ichu-web-app/pull/8/commits)*
 
 ![Pull request 22 de la aplicación móvil con commits de la vista de alertas del Edge](assets/images/collaboration/commits/sprint-2-commits-mobile-edge-alerts.jpg)
 
-*Figura 6.21. Commits del PR 22 de la aplicación móvil. El listado muestra el modelo y la lectura autorizada de alertas desarrollados por Manuel. Diego integró la rama en `develop`. [Historial del PR 22](https://github.com/five-smart-farm-creators/ichu-mobile-app/pull/22/commits)*
+*Figura 6.23. Commits del PR 22 de la aplicación móvil. El listado muestra el modelo y la lectura autorizada de alertas desarrollados por Manuel. Diego integró la rama en `develop`. [Historial del PR 22](https://github.com/five-smart-farm-creators/ichu-mobile-app/pull/22/commits)*
 
 ##### Interpretación de la colaboración
 
@@ -1335,7 +1358,7 @@ Al revisar la Landing Page, Alberto identificó con rapidez qué ofrece ICHU y v
 
 [![Alberto Pérez durante la revisión del historial clínico en la aplicación web](assets/images/validation-interviews/alberto-perez.jpg)](https://tinyurl.com/validation-interviews-ichu)
 
-*Figura 6.22. Alberto Pérez durante la revisión de la aplicación web. El fotograma de 00:17:14 muestra la vista de historial clínico.*
+*Figura 6.24. Alberto Pérez durante la revisión de la aplicación web. El fotograma de 00:17:14 muestra la vista de historial clínico.*
 
 ##### Entrevista a Zahir Sánchez
 
@@ -1347,7 +1370,7 @@ Zahir identificó en la Landing Page el seguimiento individual mediante collares
 
 [![Zahir Sánchez revisa el panel Mi hato en la aplicación web](assets/images/validation-interviews/zahir-sanchez.jpg)](https://tinyurl.com/validation-interviews-ichu)
 
-*Figura 6.23. Zahir Sánchez durante la revisión del panel «Mi hato» después de ingresar a la aplicación. Fotograma de 00:26:42.*
+*Figura 6.25. Zahir Sánchez durante la revisión del panel «Mi hato» después de ingresar a la aplicación. Fotograma de 00:26:42.*
 
 ##### Entrevista a Jorge Chumpitaz
 
@@ -1359,7 +1382,7 @@ Durante la demostración, Jorge valoró el seguimiento de los animales por etapa
 
 [![Jorge Chumpitaz observa la vista Ubicación y cercas durante la demostración](assets/images/validation-interviews/jorge-chumpitaz.jpg)](https://tinyurl.com/validation-interviews-ichu)
 
-*Figura 6.24. Demostración de la vista «Ubicación y cercas» durante la entrevista a Jorge Chumpitaz. Fotograma de 00:32:54.*
+*Figura 6.26. Demostración de la vista «Ubicación y cercas» durante la entrevista a Jorge Chumpitaz. Fotograma de 00:32:54.*
 
 #### Segmento 2. Médicos veterinarios
 
@@ -1373,7 +1396,7 @@ En la demostración se buscó un animal por arete, se abrió su ficha y se mostr
 
 [![Formulario de intervención clínica mostrado durante la entrevista a Mia Acosta](assets/images/validation-interviews/mia-acosta.jpg)](https://tinyurl.com/validation-interviews-ichu)
 
-*Figura 6.25. Formulario de registro de una intervención clínica en la sesión con Mia Acosta. Fotograma de 00:03:55.*
+*Figura 6.27. Formulario de registro de una intervención clínica en la sesión con Mia Acosta. Fotograma de 00:03:55.*
 
 ##### Entrevista a Manuel Merino
 
@@ -1385,7 +1408,7 @@ La demostración recorrió la ficha del animal, el historial clínico y la consu
 
 [![Vista del historial clínico mostrada en la entrevista a Manuel Merino](assets/images/validation-interviews/manuel-merino.jpg)](https://tinyurl.com/validation-interviews-ichu)
 
-*Figura 6.26. Resumen de salud y línea de tiempo del historial clínico en la sesión con Manuel Merino. Fotograma de 00:10:44.*
+*Figura 6.28. Resumen de salud y línea de tiempo del historial clínico en la sesión con Manuel Merino. Fotograma de 00:10:44.*
 
 ### 6.3.3. Evaluaciones según heurísticas
 
