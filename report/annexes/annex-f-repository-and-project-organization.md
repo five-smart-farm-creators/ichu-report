@@ -18,7 +18,7 @@ Organización pública de GitHub de SmartFarm-8733.<br>
 [https://tinyurl.com/24q5qo2k](https://tinyurl.com/24q5qo2k)
 
 **Informe completo**<br>
-Capítulos I-VI, secciones iniciales, Student Outcome, conclusiones, bibliografía y anexos. El Capítulo V reúne diseño UI/UX de la Landing Page y la Web Application; el Capítulo VI documenta la configuración, planificación y evidencias disponibles de implementación y despliegue. El alcance no incluye backend y la planificación de Jira se identifica como simulada.<br>
+Capítulos I-VI, secciones iniciales, Student Outcome, conclusiones, bibliografía y anexos. El Capítulo V reúne diseño UI/UX de la Landing Page y la Web Application; el Capítulo VI documenta la configuración, planificación y evidencias disponibles de implementación y despliegue. Las evidencias de implementación del Sprint 1 corresponden al frontend y la planificación de Jira de esa iteración se identifica como simulada.<br>
 [https://tinyurl.com/26k6crkg](https://tinyurl.com/26k6crkg)
 
 **Base TB1 integrada en `develop` al 8 de octubre de 2026**<br>

@@ -44,7 +44,6 @@ En la cuarta fase se agruparon los elementos alrededor de los **Aggregates**, en
 | Request access to a herd | Veterinarian | Advisory access requested | Notify the administrator for a decision | Applicant professional profile | HerdAdvisory |
 | Grant access | Livestock administrator | Advisory access granted | Enable access restricted to the authorized herd | Pending requests | HerdAdvisory |
 | Deregister animal | Livestock administrator | Animal deregistered | Release the assigned collar and exclude the animal from indicators | Animal record, assigned collar | Cattle |
-| None (automatic) | System | Water temperature out of range | Activate heating and alert if the temperature does not return to range | Configured water trough temperature range | MonitoringAlert |
 
 ![SmartFarm Design-Level EventStorming: commands, actors, domain events, policies, read models and aggregates](assets/images/diagrams/design-level-eventstorming.png)
 
@@ -97,7 +96,7 @@ El recorrido de los eventos pivote del diseño produjo ocho contextos candidatos
 | Identity & Access Management | Cuentas, autenticación, roles y autorización de acceso de terceros sobre un hato | Genérico |
 | Profiles | Datos personales y profesionales de los actores | Soporte |
 | Cattle Information | Identidad y datos productivos de cada animal | Core |
-| IoT Assets | Inventario de dispositivos y su asignación a animales y abrevaderos | Soporte |
+| IoT Assets | Inventario de collares y su asignación a animales | Soporte |
 | Operations & Monitoring | Captura de telemetría, evaluación de reglas, alertas y eventos de campo | **Core** |
 | Planning | Calendario ganadero, campañas sanitarias y recordatorios | Soporte |
 | Dashboard & Analytics | Indicadores, tendencias y reportes derivados | Soporte |
@@ -133,7 +132,7 @@ Abrir tablero Figma de Domain Message Flows ([https://tinyurl.com/BigPictureEven
 
 | # | Actor | Actividad | Objeto de trabajo | Destinatario | Contexto |
 |---|---|---|---|---|---|
-| 1 | Cattle Band | transmite por BLE | la lectura de temperatura y posición | Portable Edge Gateway | Borde |
+| 1 | Cattle Band | transmite por Wi-Fi local | la lectura de temperatura y posición | Portable Edge Gateway | Borde |
 | 2 | Portable Edge Gateway | almacena | la lectura con su estado de sincronización | base local | Borde |
 | 3 | Portable Edge Gateway | evalúa | la lectura contra los umbrales en caché | regla local | Borde |
 | 4 | Portable Edge Gateway | genera | la alerta local de severidad crítica | Mobile Application | Borde |
@@ -226,12 +225,12 @@ Abrir tablero Figma de los Bounded Context Canvases ([https://tinyurl.com/BigPic
 
 | Bloque | Contenido |
 |---|---|
-| **Propósito** | Administrar el inventario de dispositivos físicos y controlar a qué animal o abrevadero está asignado cada uno en cada momento. |
+| **Propósito** | Administrar el inventario de collares inteligentes y controlar a qué animal está asignado cada uno en cada momento. |
 | **Clasificación estratégica** | Soporte. Necesario pero no diferenciador. |
 | **Modelo de negocio** | Control de activos. Vincula la capacidad contratada con la capacidad efectivamente usada. |
 | **Evolución** | Estable, con crecimiento asociado a nuevos tipos de dispositivo. |
 | **Reglas de negocio destiladas** | Un dispositivo solo puede tener una asignación abierta a la vez. No se puede asignar más allá del límite del plan contratado. Al dar de baja el animal, su collar queda liberado. La telemetría del periodo de asignación se conserva vinculada al animal aunque el collar se reasigne. Un dispositivo sin comunicación durante más de 48 horas cambia de estado. |
-| **Lenguaje ubicuo** | Smart Collar, Device Band, Device Assignment, Battery Level, Device Status, Blind Zone, Water Trough |
+| **Lenguaje ubicuo** | Smart Collar, Device Band, Device Assignment, Battery Level, Device Status, Blind Zone |
 | **Capacidades entrantes** | Registrar dispositivo. Asignar y liberar. Consultar inventario y estado. |
 | **Capacidades salientes** | Exponer la asignación vigente. Publicar el vínculo y la liberación del dispositivo. |
 | **Dependencias** | Consulta el límite del plan a Subscription Plans y la existencia del animal a Cattle Information, ambas mediante Anti-corruption Layer. |
@@ -418,7 +417,7 @@ El Context Diagram sitúa a ICHU como una caja única en el centro, rodeada por 
 
 Los actores representados son el **administrador ganadero**, que gestiona el ganado, los dispositivos, la planificación y la suscripción; el **operario de campo**, que supervisa el ganado durante las faenas y opera con o sin cobertura; el **médico veterinario**, que revisa la información autorizada de los hatos que asesora; y el **visitante**, que consulta la propuesta y los planes en el sitio público.
 
-Los sistemas externos son el **hardware del collar inteligente** y el **hardware del controlador del abrevadero**, que aportan telemetría; **Firebase Authentication**, que verifica credenciales; **Firebase Cloud Messaging**, que entrega notificaciones; el **proveedor de mapas**, que permite visualizar posiciones y geocercas; y el **proveedor de pagos**, que procesa los cobros de la suscripción.
+Los sistemas externos son el **hardware del collar inteligente**, que aporta telemetría; **Firebase Authentication**, que verifica credenciales; **Firebase Cloud Messaging**, que entrega notificaciones; el **proveedor de mapas**, que permite visualizar posiciones y geocercas; y el **proveedor de pagos**, que procesa los cobros de la suscripción.
 
 ![System Context de ICHU](assets/images/diagrams/c4/c4-system-context.png)
 
@@ -435,9 +434,8 @@ El Container Diagram descompone la solución en aplicaciones, servicios y almace
 | Web Application Hosting | Alojamiento web estático | Entrega por HTTPS los archivos HTML, CSS y JavaScript compilados de la SPA |
 | Web Application | Angular con TypeScript | SPA ejecutada en el navegador para gestionar ganado, dispositivos, planificación, analítica y suscripciones |
 | Mobile Application | Flutter con Dart | Monitoreo, alertas y operación de campo, con funcionamiento sin cobertura |
-| Cattle Band Embedded Application | C++ sobre ESP32 | Captura de temperatura, movimiento y posición, con transmisión BLE al Portable Edge Gateway |
-| Water Controller Embedded Application | C++ sobre ESP32 | Medición de la temperatura del agua y accionamiento del calentador |
-| Portable Edge Gateway | Flask con Peewee ORM sobre Python | Recepción por BLE, almacenamiento local, evaluación de reglas críticas y sincronización |
+| Cattle Band Embedded Application | C++ sobre ESP32 | Captura de temperatura, movimiento y posición, con transmisión HTTP por Wi-Fi al Portable Edge Gateway; la ruta BLE está prevista |
+| Portable Edge Gateway | Flask con Peewee ORM sobre Python | Recepción HTTP de los collares por la red local (receptor BLE previsto), almacenamiento local, evaluación de reglas críticas y sincronización periódica |
 | Edge Database | SQLite | Telemetría sin conexión, estado de alertas, umbrales y geocercas en caché |
 | ICHU Web Service | ASP.NET Core Web API | API REST en la nube implementada como un monolito modular, con los siete contextos como módulos internos |
 | ICHU Cloud Database | PostgreSQL | Persistencia relacional con un esquema por contexto acotado |
@@ -448,9 +446,9 @@ El icono de navegador se utiliza únicamente para Landing Page Browser Client y 
 
 El backend se denomina ICHU Web Service para expresar su responsabilidad funcional. «Monolito modular» describe la decisión arquitectónica y no forma parte de su nombre. Sigue siendo un único container de backend; los contextos acotados son módulos internos, no microservicios desplegados por separado. Las tecnologías de estas cuatro vistas se presentan sin números de versión, de manera uniforme y sin atribuir versiones que el proyecto no haya establecido.
 
-El Cattle Band transmite por BLE al Portable Edge Gateway, que persiste y evalúa localmente las lecturas y sincroniza con la API central cuando dispone de salida a Internet. Este flujo se mantiene también cuando hay cobertura: el collar no invoca directamente el Cloud. La disponibilidad de Wi-Fi no demuestra acceso a Internet. La Mobile Application consulta y atiende alertas del Edge por la red local (TS-16), y consulta lecturas locales mediante TS-17. El backend accede a PostgreSQL mediante Entity Framework Core con el proveedor Npgsql.
+El Cattle Band transmite por Wi-Fi al Portable Edge Gateway con `POST /api/v1/monitoring/telemetry-readings`, autenticado con la cabecera `X-API-Key` del collar y con un `event_id` estable que hace idempotentes los reintentos. El gateway persiste las lecturas en SQLite, las evalúa con los umbrales, geocercas y asignaciones descargados de la API central, y un proceso aparte (`flask --app app synchronize`) envía cada 15 s los registros pendientes a `POST /api/v1/telemetry/batch`; tras un fallo, la espera se duplica hasta un máximo de 5 min. Este flujo se mantiene también cuando hay cobertura: el collar no invoca directamente el Cloud. La transmisión por BLE al gateway se mantiene como alternativa prevista: el firmware incluye la ruta, pero el gateway aún no tiene receptor BLE. La disponibilidad de Wi-Fi no demuestra acceso a Internet. La Mobile Application consulta y atiende alertas del Edge por la red local (TS-16), y consulta lecturas locales mediante TS-17. El backend accede a PostgreSQL mediante Entity Framework Core con el proveedor Npgsql.
 
-La revisión de requisitos del 8 de octubre de 2026 actualiza estos contratos en el Capítulo III. Las vistas C4 y los flujos gráficos de AV1 muestran el diseño anterior; sus fuentes y exportaciones todavía no representan el Edge como intermediario obligatorio ni todos los contratos Web y Mobile revisados. Por tanto, esas imágenes documentan AV1 y no constituyen evidencia de implementación de las historias corregidas.
+La revisión de requisitos del 8 de octubre de 2026 actualiza estos contratos en el Capítulo III. La fuente Structurizr `workspace-ichu-c4.dsl` ya representa al Edge como intermediario obligatorio del collar, con Wi-Fi HTTP implementado y BLE previsto. Las imágenes exportadas de las vistas C4 y los flujos gráficos todavía corresponden a AV1 y deben volver a exportarse desde esa fuente; mientras tanto, documentan el diseño anterior y no constituyen evidencia de implementación de las historias corregidas.
 
 ![Container Diagram de ICHU](assets/images/diagrams/c4/c4-container.png)
 
@@ -462,7 +460,7 @@ El Deployment Diagram describe dónde se alojan y dónde se ejecutan las instanc
 
 | Nodo de despliegue | Contiene | Observación |
 |---|---|---|
-| Entorno del predio y zona de pastoreo | Cattle Band Device, Water Temperature Controller Device, Portable Edge Gateway Device, dispositivo móvil del operario | Opera con conectividad intermitente por diseño |
+| Entorno del predio y zona de pastoreo | Cattle Band Device, Portable Edge Gateway Device, dispositivo móvil del operario | Opera con conectividad intermitente por diseño |
 | Computadora del usuario / navegador | Landing Page Browser Client y Web Application | Ejecuta el código HTML, CSS y JavaScript descargado; no aloja los archivos para distribuirlos a otros usuarios |
 | Plataforma en la nube / alojamiento de la landing page | Landing Page | Sirve los archivos estáticos del sitio público por HTTPS |
 | Plataforma en la nube / alojamiento de la aplicación Angular | Web Application Hosting | Sirve el paquete compilado de la SPA; su ejecución ocurre en el navegador |
@@ -513,7 +511,6 @@ Es el core domain de la solución. Recibe la telemetría de los dispositivos y d
 | `OperationsController` | Controller | Recibe los eventos de campo del operario y las intervenciones clínicas del veterinario. |
 | `GeofencesController` | Controller | Expone la definición y consulta de las zonas de pastoreo. |
 | `EdgeConfigurationController` | Controller | Entrega al borde los umbrales, geocercas y asignaciones vigentes, y recibe los lotes de sincronización. |
-| `WaterControllerReadingsController` | Controller | Recibe las lecturas del controlador del abrevadero y expone su consulta. |
 
 #### 4.2.1.3. Application Layer
 
@@ -551,7 +548,7 @@ La vista `MonitoringComponents` del workspace representa la descomposición inte
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
-Este contexto se realiza además en tres containers fuera del backend: las dos aplicaciones embebidas que capturan la telemetría y la pasarela de borde que la recibe y evalúa sin conexión. Sus diagramas de componentes se presentan a continuación.
+Este contexto se realiza además en dos containers fuera del backend: la aplicación embebida del collar y la pasarela de borde que recibe y evalúa la telemetría sin conexión. Sus diagramas de componentes se presentan a continuación.
 
 ![Component Diagram del Cattle Band Embedded Application](assets/images/diagrams/c4/c4-components-cattle-band.png)
 
@@ -565,31 +562,25 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
-![Component Diagram del Water Controller Embedded Application](assets/images/diagrams/c4/c4-components-water-controller.png)
-
-*Figura 4.10. Componentes del firmware del controlador del abrevadero. Elaboración propia con Structurizr.*
-
-Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
-
 **Flujos dinámicos del contexto**
 
 Los diagramas dinámicos ilustran la secuencia de colaboración entre componentes en los tres escenarios de conectividad que la solución debe cubrir.
 
 ![Flujo de telemetría con cobertura](assets/images/diagrams/c4/c4-flow-connected-telemetry.png)
 
-*Figura 4.11. Flujo completo cuando el collar tiene cobertura. Elaboración propia con Structurizr.*
+*Figura 4.10. Flujo completo cuando el gateway tiene Internet. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
 ![Flujo de pastoreo sin cobertura](assets/images/diagrams/c4/c4-flow-offline-grazing.png)
 
-*Figura 4.12. Flujo completo durante el pastoreo sin cobertura. Elaboración propia con Structurizr.*
+*Figura 4.11. Flujo completo durante el pastoreo sin cobertura. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
 ![Flujo de sincronización del borde](assets/images/diagrams/c4/c4-flow-edge-synchronization.png)
 
-*Figura 4.13. Sincronización al recuperar la conexión. Elaboración propia con Structurizr.*
+*Figura 4.12. Sincronización al recuperar la conexión. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -599,7 +590,7 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de Operations & Monitoring](assets/images/diagrams/class-monitoring.png)
 
-*Figura 4.14. Domain Layer de Operations & Monitoring. Elaboración propia con PlantUML.*
+*Figura 4.13. Domain Layer de Operations & Monitoring. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/28ov3gyo](https://tinyurl.com/28ov3gyo))
 
@@ -609,7 +600,7 @@ El diagrama muestra la composición de `MonitoringAlert` con su `Threshold` y su
 
 ![Diagrama de base de datos del esquema monitoring](assets/images/diagrams/db-monitoring.png)
 
-*Figura 4.15. Esquema `monitoring`. Elaboración propia con PlantUML.*
+*Figura 4.14. Esquema `monitoring`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/2bdd3ydl](https://tinyurl.com/2bdd3ydl))
 
@@ -661,7 +652,7 @@ Mantiene la identidad y los datos productivos de cada animal. Es la fuente únic
 
 ![Component Diagram del módulo Cattle Information](assets/images/diagrams/c4/c4-components-cattle.png)
 
-*Figura 4.16. Componentes del módulo Cattle Information. Elaboración propia con Structurizr.*
+*Figura 4.15. Componentes del módulo Cattle Information. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -671,7 +662,7 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de Cattle Information](assets/images/diagrams/class-cattle.png)
 
-*Figura 4.17. Domain Layer de Cattle Information. Elaboración propia con PlantUML.*
+*Figura 4.16. Domain Layer de Cattle Information. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/255khm8u](https://tinyurl.com/255khm8u))
 
@@ -681,7 +672,7 @@ Abrir fuente PlantUML ([https://tinyurl.com/255khm8u](https://tinyurl.com/255khm
 
 ![Diagrama de base de datos del esquema cattle](assets/images/diagrams/db-cattle.png)
 
-*Figura 4.18. Esquema `cattle`. Elaboración propia con PlantUML.*
+*Figura 4.17. Esquema `cattle`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/26kkwvn7](https://tinyurl.com/26kkwvn7))
 
@@ -689,17 +680,17 @@ La restricción `UNIQUE (ranch_id, ear_tag)` implementa en la base la regla de u
 
 ### 4.2.3. Bounded Context: IoT Assets
 
-Administra el inventario de dispositivos físicos y controla a qué animal o abrevadero está asignado cada uno en cada momento, respetando el límite del plan contratado.
+Administra el inventario de collares inteligentes y controla a qué animal está asignado cada uno en cada momento, respetando el límite del plan contratado.
 
 #### 4.2.3.1. Domain Layer
 
 | Clase | Categoría | Propósito | Miembros destacados |
 |---|---|---|---|
-| `IoTDevice` | Aggregate Root | Representa el dispositivo físico y garantiza que solo tenga una asignación abierta a la vez. | Métodos: `AssignTo(targetId, at)`, `Release(reason, at)`, `RegisterCommunication(at, battery)`, `IsAvailable()`, `HasLostCommunication(now)`. |
-| `DeviceAssignment` | Entity | Periodo durante el cual el dispositivo estuvo asignado a un objetivo concreto. | Métodos: `IsOpen()`, `CoversInstant(at)`. |
+| `IoTDevice` | Aggregate Root | Representa el collar y garantiza que solo tenga una asignación abierta a la vez. | Métodos: `AssignTo(animalId, at)`, `Release(reason, at)`, `RegisterCommunication(at, battery)`, `IsAvailable()`, `HasLostCommunication(now)`. |
+| `DeviceAssignment` | Entity | Periodo durante el cual el collar estuvo asignado a un animal concreto. | Métodos: `IsOpen()`, `CoversInstant(at)`. |
 | `DeviceSerial` | Value Object | Número de serie del dispositivo, único en el sistema. | |
 | `BatteryLevel` | Value Object | Porcentaje de carga con la regla que determina cuándo es bajo. | Método: `IsLow()`. |
-| `DeviceType`, `DeviceStatus` | Enumeraciones | Distinguen el collar del controlador de abrevadero, y las condiciones operativas del dispositivo. | |
+| `DeviceType`, `DeviceStatus` | Enumeraciones | Identifican el tipo de collar y las condiciones operativas del dispositivo. | |
 | `DeviceAssignmentDomainService` | Domain Service | Concentra la regla que cruza el límite del plan con los dispositivos ya asignados. | Métodos: `CanAssign()`, `Assign()`. |
 | `IIoTDeviceRepository` | Repository (interfaz) | Abstrae la persistencia del dispositivo y el conteo de asignaciones vigentes. | |
 | `ISubscriptionEntitlementPort`, `ICattleLookupPort` | Port | Declaran en el dominio lo que el contexto necesita de otros contextos, sin conocer su implementación. | |
@@ -710,7 +701,6 @@ Administra el inventario de dispositivos físicos y controla a qué animal o abr
 |---|---|---|
 | `DevicesController` | Controller | Expone el registro del dispositivo, la consulta del inventario y su estado. |
 | `DeviceAssignmentsController` | Controller | Expone la asignación y la liberación del dispositivo. |
-| `WaterTroughsController` | Controller | Expone el registro de abrevaderos y su rango de temperatura configurado. |
 
 #### 4.2.3.3. Application Layer
 
@@ -718,7 +708,7 @@ Administra el inventario de dispositivos físicos y controla a qué animal o abr
 |---|---|---|
 | `AssignDeviceCommandHandler` | Command Handler | Consulta el límite del plan, valida la disponibilidad y crea la asignación. |
 | `ReleaseDeviceCommandHandler` | Command Handler | Cierra la asignación conservando la telemetría del periodo. |
-| `GetDeviceInventoryQueryHandler` | Query Handler | Compone el inventario con batería, objetivo asignado y detección de dispositivos sin comunicación. |
+| `GetDeviceInventoryQueryHandler` | Query Handler | Compone el inventario con batería, animal asignado y detección de collares sin comunicación. |
 | `CattleDeactivatedEventHandler` | Event Handler | Libera automáticamente el collar del animal dado de baja. |
 | `SubscriptionActivatedEventHandler` | Event Handler | Actualiza el límite de dispositivos habilitados al activarse un plan. |
 
@@ -734,7 +724,7 @@ Administra el inventario de dispositivos físicos y controla a qué animal o abr
 
 ![Component Diagram del módulo IoT Assets](assets/images/diagrams/c4/c4-components-iot-assets.png)
 
-*Figura 4.19. Componentes del módulo IoT Assets. Elaboración propia con Structurizr.*
+*Figura 4.18. Componentes del módulo IoT Assets. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -744,7 +734,7 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de IoT Assets](assets/images/diagrams/class-iot.png)
 
-*Figura 4.20. Domain Layer de IoT Assets. Elaboración propia con PlantUML.*
+*Figura 4.19. Domain Layer de IoT Assets. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/27ybn63o](https://tinyurl.com/27ybn63o))
 
@@ -754,11 +744,11 @@ El diagrama muestra los dos puertos que el dominio declara hacia otros contextos
 
 ![Diagrama de base de datos del esquema iot](assets/images/diagrams/db-iot.png)
 
-*Figura 4.21. Esquema `iot`. Elaboración propia con PlantUML.*
+*Figura 4.20. Esquema `iot`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/24ekayyp](https://tinyurl.com/24ekayyp))
 
-La tabla `device_assignment` conserva `target_id` junto a `target_type`, de modo que un mismo modelo de asignación sirve para el collar vinculado a un animal y para el controlador vinculado a un abrevadero.
+La tabla `device_assignment` conserva el animal al que estuvo vinculado el collar durante cada periodo, de modo que la telemetría histórica pueda interpretarse aunque el dispositivo se reasigne.
 
 ### 4.2.4. Bounded Context: Planning
 
@@ -810,13 +800,13 @@ Programa las faenas sanitarias y reproductivas del hato, emite los recordatorios
 
 ![Component Diagram del módulo Planning](assets/images/diagrams/c4/c4-components-planning.png)
 
-*Figura 4.22. Componentes del módulo Planning. Elaboración propia con Structurizr.*
+*Figura 4.21. Componentes del módulo Planning. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
 ![Flujo de emisión de recordatorios](assets/images/diagrams/c4/c4-flow-planning-reminder.png)
 
-*Figura 4.23. Flujo interno de recordatorios del calendario ganadero. Elaboración propia con Structurizr.*
+*Figura 4.22. Flujo interno de recordatorios del calendario ganadero. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -826,7 +816,7 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de Planning](assets/images/diagrams/class-planning.png)
 
-*Figura 4.24. Domain Layer de Planning. Elaboración propia con PlantUML.*
+*Figura 4.23. Domain Layer de Planning. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/22zt4h6v](https://tinyurl.com/22zt4h6v))
 
@@ -836,7 +826,7 @@ Abrir fuente PlantUML ([https://tinyurl.com/22zt4h6v](https://tinyurl.com/22zt4h
 
 ![Diagrama de base de datos del esquema planning](assets/images/diagrams/db-planning.png)
 
-*Figura 4.25. Esquema `planning`. Elaboración propia con PlantUML.*
+*Figura 4.24. Esquema `planning`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/29l33b5n](https://tinyurl.com/29l33b5n))
 
@@ -890,7 +880,7 @@ Transforma la información acumulada por los demás contextos en indicadores, te
 
 ![Component Diagram del módulo Dashboard & Analytics](assets/images/diagrams/c4/c4-components-analytics.png)
 
-*Figura 4.26. Componentes del módulo Dashboard & Analytics. Elaboración propia con Structurizr.*
+*Figura 4.25. Componentes del módulo Dashboard & Analytics. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -900,7 +890,7 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de Dashboard & Analytics](assets/images/diagrams/class-analytics.png)
 
-*Figura 4.27. Domain Layer de Dashboard & Analytics. Elaboración propia con PlantUML.*
+*Figura 4.26. Domain Layer de Dashboard & Analytics. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/2ycxfd6s](https://tinyurl.com/2ycxfd6s))
 
@@ -910,7 +900,7 @@ Abrir fuente PlantUML ([https://tinyurl.com/2ycxfd6s](https://tinyurl.com/2ycxfd
 
 ![Diagrama de base de datos del esquema analytics](assets/images/diagrams/db-analytics.png)
 
-*Figura 4.28. Esquema `analytics`. Elaboración propia con PlantUML.*
+*Figura 4.27. Esquema `analytics`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/25oys8gp](https://tinyurl.com/25oys8gp))
 
@@ -966,7 +956,7 @@ Resuelve quién es cada usuario, sobre qué unidades productivas puede operar y 
 
 ![Component Diagram del módulo Identity & Access Management](assets/images/diagrams/c4/c4-components-identity.png)
 
-*Figura 4.29. Componentes del módulo Identity & Access Management. Elaboración propia con Structurizr.*
+*Figura 4.28. Componentes del módulo Identity & Access Management. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -976,7 +966,7 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de Identity & Access Management](assets/images/diagrams/class-iam.png)
 
-*Figura 4.30. Domain Layer de Identity & Access Management. Elaboración propia con PlantUML.*
+*Figura 4.29. Domain Layer de Identity & Access Management. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/279ggbhv](https://tinyurl.com/279ggbhv))
 
@@ -986,7 +976,7 @@ Abrir fuente PlantUML ([https://tinyurl.com/279ggbhv](https://tinyurl.com/279ggb
 
 ![Diagrama de base de datos del esquema iam](assets/images/diagrams/db-iam.png)
 
-*Figura 4.31. Esquema `iam`. Elaboración propia con PlantUML.*
+*Figura 4.30. Esquema `iam`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/256tw7gc](https://tinyurl.com/256tw7gc))
 
@@ -1040,7 +1030,7 @@ Administra los planes contratados, sus límites y su facturación, y determina q
 
 ![Component Diagram del módulo Subscription Plans](assets/images/diagrams/c4/c4-components-subscription.png)
 
-*Figura 4.32. Componentes del módulo Subscription Plans. Elaboración propia con Structurizr.*
+*Figura 4.31. Componentes del módulo Subscription Plans. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -1050,7 +1040,7 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de Subscription Plans](assets/images/diagrams/class-subscription.png)
 
-*Figura 4.33. Domain Layer de Subscription Plans. Elaboración propia con PlantUML.*
+*Figura 4.32. Domain Layer de Subscription Plans. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/2c28je8c](https://tinyurl.com/2c28je8c))
 
@@ -1060,7 +1050,7 @@ Abrir fuente PlantUML ([https://tinyurl.com/2c28je8c](https://tinyurl.com/2c28je
 
 ![Diagrama de base de datos del esquema subscription](assets/images/diagrams/db-subscription.png)
 
-*Figura 4.34. Esquema `subscription`. Elaboración propia con PlantUML.*
+*Figura 4.33. Esquema `subscription`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/29o349n3](https://tinyurl.com/29o349n3))
 

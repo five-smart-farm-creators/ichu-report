@@ -1,6 +1,6 @@
 ## Anexo H. Recursos digitales y artefactos de TB1
 
-Este anexo reúne los repositorios, despliegues y recursos gráficos que complementan los Capítulos V y VI. El estado y los límites de cada interfaz se describen en los capítulos correspondientes.
+Este anexo reúne los repositorios, despliegues y recursos gráficos que complementan los Capítulos V y VI. El estado y los límites de cada interfaz se describen en los capítulos correspondientes. Los enlaces de despliegue son los de TB1; los despliegues vigentes se describen en 6.1.4.
 
 ### Capítulo V. Solution UI/UX Design
 
