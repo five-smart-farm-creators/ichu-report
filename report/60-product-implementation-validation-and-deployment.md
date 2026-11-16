@@ -1507,4 +1507,4 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 
 ## 6.4. Video About-the-Product
 
-Al 15 de noviembre de 2026, esta sección no cuenta con un video del producto ni con un enlace de publicación verificado. El video consolidado de entrevistas enlazado en 6.3.2 es una evidencia distinta y no sustituye este entregable. La producción y publicación del video About-the-Product quedan pendientes; no se presenta material audiovisual inexistente como evidencia.
+Ver video del producto en SharePoint ([https://upcedupe-my.sharepoint.com/:v:/g/personal/u201817507_upc_edu_pe/IQBxp7IEcc1kQYr2_OdxZOmHAefMN2xH4C3_9ANZI5CHL5I?e=DFeH5G&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D](https://upcedupe-my.sharepoint.com/:v:/g/personal/u201817507_upc_edu_pe/IQBxp7IEcc1kQYr2_OdxZOmHAefMN2xH4C3_9ANZI5CHL5I?e=DFeH5G&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D))
