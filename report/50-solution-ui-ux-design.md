@@ -27,15 +27,15 @@ La identidad y el significado de los estados se mantienen entre pantallas; la co
 | Experiencia | Guía visual y de interacción |
 |---|---|
 | **Web responsiva** | Navegación y paneles se reorganizan al reducirse el ancho (1080, 720 y 560 px en el mockup); en móvil, una columna y desplazamiento independiente para tablas. |
-| **Aplicación móvil (fuera del alcance de esta entrega)** | Como pauta futura, priorizar una tarea por vista, tarjetas de una columna y controles táctiles amplios. No se presentan wireframes ni mockups de una aplicación móvil en este capítulo. |
+| **Aplicación móvil nativa** | Priorizar una tarea por vista, tarjetas de una columna y controles táctiles amplios, manteniendo la identidad y el significado de los estados de ICHU. Son pautas generales: este capítulo no presenta wireframes ni mockups de la aplicación móvil nativa desarrollada en el Sprint 2. |
 | **IoT digital** | Mostrar lectura, unidad, hora y vigencia; distinguir estados en línea, sin señal, almacenado y sincronizado, junto con batería y conectividad. |
 | **IoT físico** | Indicadores inequívocos y coherentes con la app. La función de luces, botones y sonidos se especifica junto con el diseño físico en 5.6. |
 
-Las pautas para aplicaciones móviles e interfaces IoT definen criterios de diseño del producto; esta entrega presenta únicamente la Web Application. El diseño conceptual del collar, el receptor de alertas y el controlador del abrevadero se documenta en 5.6.
+Este capítulo desarrolla los artefactos de diseño de la Landing Page y la Web Application. Para la aplicación móvil nativa solo se documentan pautas generales: no se incluyen aquí wireframes, mockups ni flujos móviles. La implementación móvil del Sprint 2 y sus límites de evidencia se registran en el Capítulo VI. El diseño conceptual del collar y el receptor de alertas se documenta en 5.6.
 
 ## 5.2. Information Architecture
 
-La arquitectura de información de este capítulo corresponde al landing y a la Web Application ICHU. Se apoya en las tareas de César, administrador ganadero, y Leonardo, veterinario (2.3), las historias de usuario (3.1) y la arquitectura definida en 4.1.3.3. La estructura distingue la gestión del hato y la consulta clínica de unidades autorizadas. Las vistas descritas son decisiones de diseño; su implementación se identifica en 5.5.
+La arquitectura de información de este capítulo corresponde al landing y a la Web Application ICHU; no describe la navegación de la aplicación móvil nativa. Se apoya en las tareas de César, administrador ganadero, y Leonardo, veterinario (2.3), las historias de usuario (3.1) y la arquitectura definida en 4.1.3.3. La estructura distingue la gestión del hato y la consulta clínica de unidades autorizadas. Las vistas descritas son decisiones de diseño; su implementación se identifica en 5.5.
 
 ### 5.2.1. Organization Systems
 
@@ -45,7 +45,7 @@ La arquitectura de información de este capítulo corresponde al landing y a la 
 | Hato y animales | Jerarquía hato → lote → animal → ficha. La ficha reúne identidad, historial, reproducción y monitoreo; potreros y nutrición se consultan desde el lote. Evita repetir datos entre módulos. |
 | Monitoreo y atención | Por tópicos: lecturas, ubicación, alertas y registros de campo o clínicos. Alertas ordenadas por prioridad y fecha; historial y lecturas por fecha de captura, no de sincronización. |
 | Planificación sanitaria y reportes | Campañas y seguimientos en orden cronológico. Filtros y resultados se reorganizan para anchos menores sin cambiar el contenido ni los permisos de la Web Application. |
-| Dispositivos y cuenta | Inventario de collares y abrevaderos separado de las fichas animales. Perfil, asesorías y plan en un área secundaria; visibilidad según permisos. |
+| Dispositivos y cuenta | Inventario de collares separado de las fichas animales. Perfil, asesorías y plan en un área secundaria; visibilidad según permisos. |
 
 Los nombres de hatos, lotes y potreros se ordenan alfabéticamente; los animales se identifican por arete. Registro, vinculación de collar e intervención usan pasos breves: seleccionar, completar y confirmar. El veterinario selecciona primero un hato autorizado; el administrador trabaja sobre su unidad y el operario sobre las tareas habilitadas.
 
@@ -66,7 +66,7 @@ Las etiquetas nombran destinos y acciones, no componentes técnicos. Se mantiene
 | Monitoreo / Alertas | Lecturas y última ubicación conocida / señales que requieren revisión y su estado de atención. |
 | Historial clínico / Reproducción / Nutrición | Registros e intervenciones / eventos reproductivos del animal / plan nutricional del lote. |
 | Planificación sanitaria / Reportes | Campañas, recordatorios y seguimientos / indicadores y exportación por periodo. |
-| Dispositivos | Collares y abrevaderos, asignación, batería y última comunicación. |
+| Dispositivos | Collares, asignación, batería y última comunicación. |
 | Perfil / Asesorías / Mi plan | Datos de cuenta y profesionales / solicitudes y permisos de acceso / suscripción, cobertura y límites. |
 
 Las acciones usan verbo y objeto: **Registrar animal**, **Vincular collar**, **Atender alerta**, **Registrar intervención** y **Exportar reporte**. Arete identifica al animal; collar identifica el equipo de telemetría. Una lectura muestra unidad y hora; Sin datos no equivale a Normal, ni Sin conexión a Sin alertas.
@@ -96,7 +96,7 @@ Quiénes somos, los contenidos por segmento, Tecnología y Contacto son seccione
 | Alertas | Alertas · ICHU | Consulta señales, estados de atención y acciones registradas. |
 | Planificación sanitaria | Planificación sanitaria · ICHU | Organiza campañas sanitarias, recordatorios y seguimientos. |
 | Reportes | Reportes · ICHU | Consulta indicadores por periodo y exporta reportes autorizados. |
-| Dispositivos | Dispositivos · ICHU | Consulta collares y abrevaderos, asignaciones y conectividad. |
+| Dispositivos | Dispositivos · ICHU | Consulta collares, asignaciones y conectividad. |
 | Cuenta | Cuenta · ICHU | Gestiona tu perfil, asesorías y plan según tus permisos. |
 
 | Metadato compartido | Valor |
@@ -121,7 +121,6 @@ El landing usa navegación directa y enlaces a secciones, sin buscador interno: 
 | Alertas | Animal, tipo, prioridad, estado y periodo. | Lista priorizada, fecha, condición de atención y acceso al detalle. |
 | Planificación sanitaria | Fecha, lote, tipo de campaña o seguimiento y estado. | Agenda con avance, recordatorios y días de atraso cuando corresponda. |
 | Dispositivos | Identificador, animal asignado y estado de conexión. | Inventario con asignación, batería cuando esté disponible y última comunicación. |
-| Abrevaderos | Identificador, condición y periodo. | Lista de temperatura, hora, estado del calentador y distancia disponible; detalle por abrevadero. |
 | Reportes | Hato, lote, indicador y periodo. | Indicadores, tendencias y comparaciones; datos excluidos o incompletos identificados y opción de exportar. |
 
 La Web Application presenta tablas con paginación y filtros visibles; en ventanas estrechas, los controles se reorganizan sin cambiar los criterios de selección. Se conserva la consulta al regresar del detalle y se permite limpiar los filtros. El portafolio veterinario resume solo los hatos autorizados (US-53).
@@ -199,7 +198,7 @@ Las capturas separan el recorrido para mantener legibles las secciones y conserv
 
 ## 5.4. Applications UX/UI Design
 
-La propuesta presenta la experiencia de la Web Application ICHU para el administrador ganadero y el médico veterinario. Las vistas traducen la arquitectura de información de 5.2 y las pautas visuales de 5.1, con contenido y acciones según el rol y sus permisos.
+Esta sección presenta la experiencia de la Web Application ICHU para el administrador ganadero y el médico veterinario. Sus wireframes, wireflows, mockups y user flows no representan la aplicación móvil nativa, que fue desarrollada durante el Sprint 2 pero no cuenta con artefactos de diseño móvil en este capítulo. Las vistas web traducen la arquitectura de información de 5.2 y las pautas visuales de 5.1, con contenido y acciones según el rol y sus permisos.
 
 ### 5.4.1. Applications Wireframes
 
@@ -312,7 +311,7 @@ Si ya existe una autorización o una solicitud pendiente, la Web Application con
 
 ## 5.5. Applications Prototyping
 
-El prototipo de alta fidelidad corresponde a la Web Application de ICHU, construida con Angular [9]. Se puede explorar en la versión desplegada ([https://web-frontend-smart-farm.vercel.app/login](https://web-frontend-smart-farm.vercel.app/login)); el repositorio del frontend ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) contiene su código fuente. Esta entrega cubre la aplicación web en navegadores de escritorio y en ventanas estrechas; no contempla una aplicación móvil nativa.
+El prototipo de alta fidelidad documentado aquí corresponde a la Web Application de ICHU, construida con Angular [9]. Se puede explorar en la versión desplegada ([https://web-frontend-smart-farm.vercel.app/login](https://web-frontend-smart-farm.vercel.app/login)); el repositorio del frontend ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) contiene su código fuente. Esta subsección cubre la aplicación web en navegadores de escritorio y ventanas estrechas; no documenta el prototipo ni los flujos de la aplicación móvil nativa implementada en el Sprint 2. Su evidencia de ejecución se presenta en el Capítulo VI.
 
 La navegación sigue la arquitectura de información de 5.2.5: el menú lateral organiza las áreas de trabajo y la cabecera conserva visibles el rol y el hato activos. Los recorridos se relacionan con las metas de usuario de 5.4.4. En escritorio y en ventanas estrechas se muestran las mismas funciones, con una disposición adaptable; los formularios presentan validación y confirmación de las acciones disponibles.
 
@@ -327,23 +326,22 @@ El prototipo utiliza datos ficticios en memoria: no implementa autenticación re
 
 ## 5.6. IoT Device Design
 
-ICHU contempla tres elementos físicos relacionados: un collar de monitoreo para el animal, un receptor local que presenta alertas y un controlador IoT que calienta el agua del abrevadero. La separación permite ubicar la telemetría junto al animal, mostrar avisos al personal y controlar el calentamiento desde el bebedero. Los diseños de esta sección son propuestas de hardware y diagramas conceptuales; no acreditan la fabricación, la validación eléctrica ni una simulación ejecutada.
+ICHU contempla dos elementos físicos relacionados: un collar de monitoreo para el animal y un receptor local que presenta alertas al personal. Los diagramas Cirkit de esta sección son propuestas conceptuales. El firmware de ambos dispositivos se ejecuta en Wokwi; la fabricación física y la validación eléctrica siguen pendientes.
 
 ### 5.6.1. System Overview
 
-El collar adquiere temperatura, movimiento y ubicación; el receptor convierte los avisos recibidos en señales visuales y sonoras. Por separado, el controlador del abrevadero mide la temperatura del agua y acciona una resistencia calefactora mediante un relé cuando corresponde. El controlador calienta el agua y no incluye una etapa de enfriamiento.
+El collar adquiere temperatura, movimiento, ubicación, pulso y gas metano; el receptor convierte las alertas consultadas al Edge Gateway en señales visuales y sonoras.
 
 | Dispositivo | Función | Elementos representados |
 |---|---|---|
-| Collar IoT | Capturar lecturas y ubicación del animal. | ESP32-S3 DevKit, sonda DS18B20, sensor de movimiento MPU-6050, GPS NEO-6M, batería Li-ion de 3,7 V y módulo de carga/protección. |
-| Receptor de alertas | Presentar el estado recibido del collar en el punto de atención. | ESP32 DevKitC, LCD I2C de 16 × 2, conversor de nivel lógico, tres LEDs con resistencias y buzzer activo KY-012. |
-| Controlador del abrevadero | Medir la temperatura del agua y controlar su calentamiento. | ESP32 DevKitC, sonda impermeable DS18B20, módulo relé, resistencia calefactora y fuente de alimentación del calentador. |
+| Collar IoT | Capturar lecturas y ubicación del animal. | ESP32-S3 DevKit, sonda DS18B20, sensor de movimiento MPU-6050, GPS NEO-6M, sensor de pulso SP-203, sensor de gas MQ-2, batería Li-ion de 3,7 V y módulo de carga/protección. |
+| Receptor de alertas | Presentar el estado de las alertas que consulta al Edge Gateway. | ESP32 DevKitC, LCD I2C de 16 × 2, conversor de nivel lógico, tres LEDs con resistencias y buzzer activo KY-012. |
 
-La vista general reúne los tres circuitos en el lienzo de Cirkit Designer. Los bloques no comparten conexiones eléctricas entre sí: el envío de datos del collar al receptor es inalámbrico y se representa como relación funcional, no como un cable. La comunicación del controlador del agua con la aplicación tampoco está implementada en estos esquemas.
+La vista general reúne los circuitos propuestos para el collar y el receptor de alertas. Los bloques no comparten conexiones eléctricas entre sí: el collar envía sus lecturas al Edge Gateway por Wi-Fi y el receptor consulta las alertas al mismo Edge; no hay enlace directo collar–receptor.
 
-![Vista general de los circuitos propuestos para el collar, el controlador del abrevadero y el receptor de alertas](assets/images/iot/system-circuit-overview.png)
+![Vista general de los circuitos propuestos para el collar y el receptor de alertas; incluye un bloque de bebedero fuera del alcance del prototipo](assets/images/iot/system-circuit-overview.png)
 
-*Figura 5.6.1. Vista general de los tres subsistemas IoT en Cirkit Designer. Elaboración propia a partir del proyecto del equipo.*
+*Figura 5.6.1. Composición de los circuitos conceptuales del collar y el receptor. Elaboración propia a partir de capturas de Cirkit Designer. La captura también muestra un bloque de bebedero, fuera del alcance del prototipo.*
 
 ### 5.6.2. Collar IoT
 
@@ -359,35 +357,45 @@ En el diagrama eléctrico, el ESP32-S3 DevKit concentra las lecturas. La sonda D
 
 *Figura 5.6.3. Circuito conceptual del collar en Cirkit Designer, con temperatura, movimiento, GPS y alimentación.*
 
+La simulación en Wokwi añade el sensor de pulso SP-203 (`GPIO5`) y el sensor de gas MQ-2 (`GPIO6`), y está publicada en [wokwi.com/projects/480787162969005057](https://wokwi.com/projects/480787162969005057). El SP-203 entrega una frecuencia cardiaca válida de 30 a 200 bpm; el MQ-2 entrega un índice relativo de metano de 0 a 100, sin calibrar y no en ppm, y necesita unos 60 s de calentamiento tras el encendido.
+
+![Circuito del collar simulado en Wokwi con ESP32-S3, sensores y batería](assets/images/iot/wokwi-collar-circuit.png)
+
+*Figura 5.6.4. Circuito del collar simulado en Wokwi.*
+
+En wokwi.com, el collar no alcanza el Edge local: la lectura queda en cola (`queued=1`) y el firmware reintenta el envío.
+
+![Monitor serie del collar en wokwi.com con una lectura en cola y reintentos hacia el Edge](assets/images/iot/wokwi-collar-telemetry.png)
+
+*Figura 5.6.5. Monitor serie del collar en wokwi.com con una lectura en cola y reintentos hacia el Edge.*
+
 ### 5.6.3. Alert Receiver and Indicators
 
-El receptor es un módulo separado del collar. Recibe los avisos por un enlace inalámbrico pendiente de definir y muestra el estado en una pantalla LCD I2C de 16 × 2. Los indicadores visuales se asignan a los estados **Normal** (verde), **Atención** (amarillo) y **Urgencia** (rojo); el buzzer KY-012 complementa la alerta sonora. Los colores se acompañan con texto en la interfaz para no depender solo de la percepción del color.
+El receptor es un módulo separado del collar. Consulta cada 3 s `GET /api/v1/monitoring/alerts` del Edge por Wi-Fi local y muestra el estado en una pantalla LCD I2C de 16 × 2. Los indicadores visuales se asignan a los estados **Normal** (verde), **Atención** (amarillo) y **Urgencia** (rojo). El estado **Sin comunicación** no enciende ningún LED y se activa cuando el panel no recibe una respuesta válida durante más de 30 s. El buzzer KY-012 complementa la alerta sonora: ante una alerta crítica nueva emite pulsos de 1 s durante 30 s. Los colores se acompañan con texto en la interfaz para no depender solo de la percepción del color.
 
 En el esquema se asignan SDA y SCL de la pantalla a GPIO21 y GPIO22 del ESP32, a través de un conversor de nivel lógico para la interfaz I2C. Los LEDs verde, amarillo y rojo se conectan a GPIO25, GPIO26 y GPIO27, respectivamente, cada uno en serie con una resistencia de 220 Ω y retorno a tierra común. Para el módulo KY-012 se asignan PWM a GPIO14, VIN a 5 V y GND a tierra común.
 
 ![Concepto físico del panel local de alertas con LCD, LEDs y buzzer](assets/images/iot/alert-panel-physical-concept.jpg)
 
-*Figura 5.6.4. Concepto físico del receptor de alertas. Ilustración generada con Gemini; sus vistas de conexiones son referenciales y la asignación de pines se documenta según el esquema Cirkit y el texto de esta sección.*
+*Figura 5.6.6. Concepto físico del receptor de alertas. Ilustración generada con Gemini; sus vistas de conexiones son referenciales y la asignación de pines se documenta según el esquema Cirkit y el texto de esta sección.*
 
 ![Diagrama del circuito del receptor de alertas, LCD, LEDs y buzzer](assets/images/iot/alert-receiver-circuit.png)
 
-*Figura 5.6.5. Circuito conceptual del receptor de alertas en Cirkit Designer.*
+*Figura 5.6.7. Circuito conceptual del receptor de alertas en Cirkit Designer.*
 
-### 5.6.4. Water Heating Controller
+La simulación en Wokwi usa un ESP32 DevKitC con LCD, LEDs y buzzer, y está publicada en [wokwi.com/projects/480787196915608577](https://wokwi.com/projects/480787196915608577).
 
-El controlador del abrevadero mide el agua con una sonda DS18B20 impermeable ubicada dentro del recipiente. El ESP32 DevKitC evalúa la lectura respecto de una temperatura objetivo configurable y activa el módulo relé para alimentar la resistencia calefactora. El comportamiento propuesto es de calentamiento únicamente; no se añade un actuador de enfriamiento ni se fija un umbral clínico o de operación en esta etapa.
+![Circuito del panel de alertas simulado en Wokwi con ESP32, LCD, LEDs y buzzer](assets/images/iot/wokwi-alert-panel-circuit.png)
 
-El circuito representa por separado el sensor, la lógica de control, el relé y la alimentación del calentador. La selección final de fuente, relé, cableado y resistencia debe corresponder a la potencia de la carga y a la instalación prevista; los valores eléctricos no se especifican en el esquema conceptual.
+*Figura 5.6.8. Circuito del panel de alertas simulado en Wokwi.*
 
-![Concepto físico del controlador IoT instalado en el bebedero](assets/images/iot/water-controller-physical-concept.jpg)
+En wokwi.com, sin Edge alcanzable, el panel muestra Sin comunicación en el LCD y el monitor serie registra los reintentos.
 
-*Figura 5.6.6. Propuesta de instalación del sensor, la resistencia calefactora y la caja de control. Ilustración generada con Gemini.*
+![Panel simulado en wokwi.com en estado Sin comunicación, con el LCD y el monitor serie](assets/images/iot/wokwi-alert-panel-no-connection.png)
 
-![Diagrama del circuito del controlador de calentamiento de agua](assets/images/iot/water-heater-circuit.png)
+*Figura 5.6.9. Panel simulado en wokwi.com en Sin comunicación, al no alcanzar el Edge local.*
 
-*Figura 5.6.7. Circuito conceptual del controlador de calentamiento del abrevadero en Cirkit Designer.*
-
-### 5.6.5. Design Decisions and Edge Data Flow
+### 5.6.4. Design Decisions and Edge Data Flow
 
 Las ubicaciones y alimentaciones siguientes son decisiones de diseño propuestas. Los rieles regulados deben dimensionarse para los módulos finalmente comprados; la ilustración no sustituye las hojas de datos ni la validación eléctrica.
 
@@ -403,11 +411,8 @@ Para leer los diagramas con rapidez, se propone una convención cromática comú
 | Azul `#2F80ED` | Reloj I2C. | `SCL`, por ejemplo entre LCD/MPU-6050 y ESP32. |
 | Amarillo `#E3B341` | Bus de datos OneWire del DS18B20. | `DQ` o `DATA`; señalar la resistencia pull-up de 4,7 kΩ en el esquema del collar. |
 | Celeste `#35A7C8` | UART del GPS. | `TX` y `RX` en cada extremo, indicando su dirección. |
-| Naranja `#F28C28` | Señales digitales de control del ESP32. | GPIO correspondiente, como `GPIO14 / PWM` para KY-012 o `GPIOxx / IN` para la entrada lógica del relé. |
-| Morado `#8E63B0` | Rama de potencia conmutada hacia el calefactor, separada del control lógico. | `SALIDA RELÉ` y la tensión/corriente de carga una vez dimensionadas. No asignar este color a un valor eléctrico no definido. |
+| Naranja `#F28C28` | Señales digitales de control del ESP32. | GPIO correspondiente, como `GPIO14 / PWM` para KY-012. |
 | Gris discontinuo `#68737D` | Enlace de comunicación inalámbrica; no es un conductor físico. | `Wi-Fi → Edge Gateway` (implementado) o `BLE → Edge Gateway` (previsto), según el trayecto. |
-
-El calefactor debe permanecer visualmente separado del circuito lógico del ESP32: la línea morada representa de forma conceptual la carga que conmuta el relé, no una recomendación de color para cableado de red eléctrica. La selección real de conductores y protecciones queda sujeta al voltaje, la corriente, el equipo adquirido y las reglas de instalación aplicables.
 
 Las capturas Cirkit ya guardadas muestran colores asignados por la herramienta y aún no siguen esta leyenda de manera uniforme. Por tanto, la tabla define el estándar que se aplicará al recolorear y exportar los diagramas finales; no se debe inferir de esas capturas que, por ejemplo, un cable azul actual sea `SCL` o uno negro sea `GND` sin revisar sus pines.
 
@@ -416,30 +421,28 @@ Las capturas Cirkit ya guardadas muestran colores asignados por la herramienta y
 | DS18B20 del collar | Registra temperatura superficial en el punto de contacto; no mide por sí solo temperatura corporal interna. | Fijado en la cara interna inferior de la carcasa, con la superficie sensible en contacto estable con el animal y protegida del agua. | Línea de datos al ESP32-S3 con resistencia pull-up de 4,7 kΩ, según el circuito. Riel regulado del conjunto Li-ion; nivel exacto por confirmar con el módulo. |
 | MPU-6050 | Aporta aceleración y velocidad angular para estimar movimiento y actividad. | Fijado a la placa dentro de la carcasa, evitando que se mueva respecto del collar. | Bus I2C y riel regulado de baja tensión del ESP32-S3; sus lecturas forman el índice de actividad enviado en la telemetría. |
 | GPS NEO-6M | Obtiene latitud y longitud cuando existe recepción satelital. | Dentro de la carcasa, con su antena orientada hacia el cielo y sin cubrirla con metal. | Riel regulado compatible con la placa del módulo; sus coordenadas se incorporan al paquete de telemetría. |
+| SP-203 del collar | Mide el pulso por fotopletismografía (PPG); frecuencia cardiaca válida de 30 a 200 bpm. | Propuesto en la cara interna inferior de la carcasa, en contacto con la piel; ubicación por confirmar en el prototipo. | Alimentación de 3,3 V del riel regulado; salida analógica al ADC1 (`GPIO5`). |
+| MQ-2 del collar | Entrega un índice relativo de metano de 0 a 100, sin calibrar y no en ppm; necesita unos 60 s de calentamiento. | Propuesto en la carcasa, con la superficie de detección expuesta al aire; ubicación por confirmar en el prototipo. | Calefactor de 5 V (unos 150 mA); salida `AO` a través de un divisor hasta 3,3 V, al ADC1 (`GPIO6`); la salida `DO` no se usa. |
 | ESP32-S3 y batería del collar | Lee sensores, marca los registros y administra el enlace. El firmware mide la batería en `GPIO1` a través de un divisor 1:2, representado en Wokwi con un potenciómetro; el circuito de Cirkit aún no dibuja esa medición. | Placa y batería en la carcasa superior sellada, sujetas para resistir vibración. | Batería Li-ion de 3,7 V con módulo de carga/protección y regulación para cada componente; Wi-Fi integrado para enviar las lecturas al Edge Gateway y BLE integrado como ruta prevista, según la arquitectura de 4.1.3.3. |
-| DS18B20 del abrevadero | Mide la temperatura del agua. | Sonda impermeable sumergida y asegurada; separada de la resistencia calefactora para medir el agua y no el elemento caliente. | Conectado al ESP32 DevKitC; alimentación desde su riel de baja tensión y pull-up conforme al circuito definitivo. |
-| ESP32 DevKitC, relé y resistencia calefactora | El ESP32 compara la lectura con el objetivo configurable; el relé conmuta la resistencia y el controlador solo calienta. | ESP32 y relé dentro de una caja cerrada, fuera de la zona de salpicaduras; sonda y calefactor en el bebedero. | Alimentación lógica regulada y alimentación de potencia dimensionada para el calefactor, separadas a través del relé. La fuente y los valores se deben seleccionar para la carga real. Las lecturas tienen como destino la API central según TS-14; el canal físico y el paso por Edge están por definir. |
-| ESP32 DevKitC del receptor, LCD, LEDs y KY-012 | Presenta los estados Normal, Atención y Urgencia en pantalla y luces, y emite sonido en una urgencia. | Caja del panel en un lugar seco y visible para el operario; LEDs y pantalla en el frente, salida acústica del buzzer despejada. | Se propone una fuente regulada de 5 V para la placa y periféricos; las señales del ESP32 operan a 3,3 V, con el conversor I2C del esquema para la pantalla. Se propone obtener alertas desde Edge por Wi-Fi en la red local; endpoint y contrato por definir, enlace aún no probado. |
+| ESP32 DevKitC del receptor, LCD, LEDs y KY-012 | Presenta los estados Normal, Atención, Urgencia y Sin comunicación en pantalla y luces, y emite sonido en una urgencia. | Caja del panel en un lugar seco y visible para el operario; LEDs y pantalla en el frente, salida acústica del buzzer despejada. | Se propone una fuente regulada de 5 V para la placa y periféricos; las señales del ESP32 operan a 3,3 V, con el conversor I2C del esquema para la pantalla. Consulta cada 3 s `GET /api/v1/monitoring/alerts` del Edge por Wi-Fi local, con la cabecera `X-API-Key`. |
 
 Para el collar, el flujo implementado es: **sensores → ESP32-S3 → Edge Gateway** por HTTP sobre la red Wi-Fi local, con `POST /api/v1/monitoring/telemetry-readings` y la cabecera `X-API-Key` del collar. Cada lectura lleva un `event_id` estable; el ESP32 conserva las lecturas pendientes si no logra entregarlas y las libera cuando Edge confirma la persistencia con `201 Created` o `200 OK`. El collar no transmite directamente al backend, aunque tenga Internet. La ruta por Bluetooth Low Energy queda prevista: el firmware la incluye, pero el Edge Gateway aún no tiene receptor BLE. El Edge Gateway almacena las lecturas en SQLite y evalúa las reglas críticas con la configuración local; un proceso de sincronización envía cada 15 s los registros pendientes a la API central por `POST /api/v1/telemetry/batch` (TS-03 a TS-06).
 
-Cada registro del collar incluye `device_id`, `event_id`, `recorded_at` en UTC, `body_temperature`, `activity_index`, `battery_level` y `position` con `latitude`, `longitude` y `accuracy_meters` (TS-01). Un campo que no se pudo medir se informa en `invalid_reasons` con su motivo en vez de presentarse como una medición normal; Edge no lo evalúa contra los umbrales. Edge ya acepta ese campo; su envío desde el firmware está pendiente. Las alertas locales de Edge se entregan a la aplicación móvil por la red local, de acuerdo con 4.1.3.3.
+Cada registro del collar incluye `device_id`, `event_id`, `recorded_at` en UTC, `body_temperature`, `activity_index`, `heart_rate`, `methane_index`, `battery_level` y `position` con `latitude`, `longitude` y `accuracy_meters` (TS-01). Un campo que no se pudo medir se informa en `invalid_reasons` con su motivo en vez de presentarse como una medición normal; Edge no lo evalúa contra los umbrales. El firmware ya envía `invalid_reasons` para una temperatura fuera de 30–45 °C, un pulso sin contacto o fuera de rango, un sensor de gas en calentamiento y un sensor que no responde. La cola de hasta 60 lecturas se guarda en NVS y sobrevive a los reinicios. Las alertas locales de Edge se entregan a la aplicación móvil por la red local, de acuerdo con 4.1.3.3.
 
-El controlador de agua tiene un contrato separado en TS-14: publica `waterTemperature`, `actuatorState` y `recordedAt` en `/api/v1/water-controllers/{controllerId}/readings`. La arquitectura actual no especifica que esas lecturas pasen por Edge; por ello, no se representa ese tránsito como una conexión existente. Para el panel LCD/LED se propone una consulta o entrega de alertas del Edge Gateway por Wi-Fi sobre la red local; la interfaz y su contrato siguen pendientes y el circuito no dibuja el transporte de radio. La lámina de Gemini que muestra una transmisión directa collar–receptor se considera ilustrativa; el flujo del sistema mantiene al Edge Gateway como punto local de recepción y evaluación.
+El panel LCD/LED consulta cada 3 s `GET /api/v1/monitoring/alerts` del Edge Gateway por Wi-Fi local, con la cabecera `X-API-Key`, y muestra Normal, Atención, Urgencia o Sin comunicación. Sin respuesta válida durante más de 30 s, el panel pasa a Sin comunicación y no enciende LED. Cuando aparece una alerta crítica que aún no ha sonado, el buzzer emite pulsos de 1 s durante 30 s. El circuito de Cirkit no dibuja el transporte de radio. La lámina de Gemini que muestra una transmisión directa collar–receptor se considera ilustrativa; el flujo del sistema mantiene al Edge Gateway como punto local de recepción y evaluación.
 
 El campo `battery_level` de la telemetría del collar se obtiene en el firmware con una entrada ADC (`GPIO1`) y un divisor 1:2, y se convierte a porcentaje con una aproximación lineal entre 3,0 V y 4,2 V. La captura Cirkit todavía no dibuja ese circuito y la medición no se ha verificado con una batería real.
 
-En el alcance definido hoy, **solo el trayecto del collar al Edge está establecido**: HTTP por Wi-Fi local al Portable Edge Gateway, con o sin Internet, y BLE como alternativa prevista. La integración propuesta del panel con Edge por Wi-Fi local y el eventual paso de lecturas del abrevadero por Edge necesitan cerrar contrato y requisitos antes de presentarse como conexiones implementadas.
+En el alcance actual, **ambos trayectos están implementados y verificados en Wokwi CI**: el collar envía lecturas al Edge por HTTP sobre Wi-Fi local, y el panel consulta las alertas del mismo Edge. BLE sigue como alternativa prevista, sin receptor en el Edge.
 
-### 5.6.6. Proposal and Verification Status
+### 5.6.5. Proposal and Verification Status
 
 | Elemento | Estado | Evidencia disponible |
 |---|---|---|
-| Forma del collar, carcasa, ubicación de componentes y correa | Propuesta conceptual; no fabricada ni probada en un animal. | Lámina conceptual generada con Gemini, Figura 5.6.2. |
-| Montaje del calentador, caja del controlador y posición de sonda | Propuesta conceptual; no hay instalación física. | Lámina de instalación generada con Gemini, Figura 5.6.6. |
-| Carcasa y disposición del panel de alertas | Propuesta conceptual; no se probó con usuarios ni se integró con Edge. | Lámina generada con Gemini, Figura 5.6.4. Sus pines ilustrados no son referencia eléctrica. |
-| Circuitos del collar, calentador y receptor | Diagramas guardados y revisados visualmente en Cirkit Designer; no se ejecutó la simulación ni se validó el cableado con hardware. | Figuras 5.6.1, 5.6.3, 5.6.5 y 5.6.7, más proyecto editable. |
-| Flujo Wi-Fi hacia Edge y sincronización con la nube | Implementado en software: el firmware del collar envía por HTTP al Edge API, y el Edge API almacena, evalúa y sincroniza con la API central. El firmware no se ha ejecutado en Wokwi ni en hardware; las evidencias de una ejecución de extremo a extremo (capturas y registros) quedan pendientes para el equipo. La ruta BLE está prevista y no implementada en Edge. | Repositorios `ichu-edge-service` y `ichu-cattle-band-embedded-app` (este último aún sin publicar en GitHub), TS-01–TS-06 y arquitectura de 4.1.3.3. |
-| Lecturas del controlador del agua y presentación de alertas | Contratos y comportamiento propuestos; no se enviaron lecturas reales ni se verificó una alerta de extremo a extremo. | TS-14 y diagramas conceptuales de esta sección. |
+| Forma del collar, carcasa, ubicación de componentes y correa | Propuesta conceptual; no fabricada ni probada en un animal. | Lámina simulada, Figura 5.6.2. |
+| Carcasa y disposición del panel de alertas | Propuesta conceptual; no se probó con usuarios. Integrado con el Edge API en simulación. | Lámina de simulacion, Figura 5.6.6; simulación en Wokwi, Figuras 5.6.8 y 5.6.9. Sus pines ilustrados no son referencia eléctrica. |
+| Circuitos del collar y el receptor | Simulados en Wokwi: el firmware compila y se ejecuta (Figuras 5.6.4, 5.6.5, 5.6.8 y 5.6.9); el cableado con hardware real está pendiente. | Figuras 5.6.1, 5.6.3, 5.6.4, 5.6.5, 5.6.7, 5.6.8 y 5.6.9. |
+| Flujo Wi-Fi hacia Edge y sincronización con la nube | Implementado y verificado en Wokwi CI: el collar envía lecturas al Edge API, que genera una alerta crítica de temperatura, y el panel consulta el Edge y pasa a Urgencia. El Edge API almacena, evalúa y sincroniza con la API central. Ni el collar ni el panel se han probado en hardware. La ruta BLE está prevista y no implementada en Edge. | Repositorios `ichu-edge-service`, `ichu-cattle-band-embedded-app` y `ichu-alert-panel-embedded-app`, TS-01–TS-06, arquitectura de 4.1.3.3, Figuras 6.16 y 6.17, y capturas de ejecución en Wokwi, Figuras 5.6.5 y 5.6.9. |
 
-El proyecto editable de Cirkit Designer ([https://tinyurl.com/2bzhcwa7](https://tinyurl.com/2bzhcwa7)) conserva el lienzo completo.
+Las capturas y conceptos versionados de esta sección documentan las propuestas visuales; no sustituyen la validación física ni las pruebas de extremo a extremo.

@@ -767,7 +767,6 @@ Las definiciones describen animales, personas, lugares, prácticas, registros y 
 | Término del negocio | Equivalente en inglés | Significado compartido |
 |---|---|---|
 | Abigeato | Cattle rustling | Robo de ganado. Se distingue del extravío, en el que se desconoce la ubicación del animal sin que se haya confirmado un robo. |
-| Abrevadero | Water trough | Lugar o recipiente destinado a proporcionar agua de bebida al ganado. |
 | Administrador ganadero | Ranch administrator | Persona responsable de organizar la operación de la unidad productiva, mantener sus registros y coordinar las faenas y la atención del hato. Puede ser también su propietario. |
 | Alcance de la asesoría | Advisory scope | Animales, lotes, labores y responsabilidades que el propietario o administrador acuerda con el profesional que asesora a la unidad productiva. |
 | Arete | Ear tag | Identificador físico colocado en la oreja del bovino para reconocerlo individualmente y asociarlo con sus registros. |

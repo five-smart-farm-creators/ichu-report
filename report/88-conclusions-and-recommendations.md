@@ -69,7 +69,7 @@ Por tanto, los criterios de éxito iniciales - uso frecuente de la aplicación, 
 
 En TB1, el diseño de la experiencia de ICHU pasó de las decisiones de estilo y arquitectura de información a representaciones concretas de la Landing Page y de la Web Application. El Capítulo V reúne wireframes, mockups, wireflows y user flows vinculados con las necesidades y las historias de usuario; el prototipo web y la Landing Page pueden explorarse en sus despliegues documentados en el Capítulo VI. Esta continuidad facilita revisar cómo la propuesta visual orienta las tareas principales de ganaderos y veterinarios.
 
-El Capítulo VI documenta la configuración disponible, las evidencias de interfaz y los despliegues de ambos productos web. La evidencia debe interpretarse dentro de su alcance: la Web Application usa datos ficticios en memoria y no cuenta con autenticación real, API ni persistencia; la Landing Page es estática y su formulario deriva la solicitud a WhatsApp. Las comprobaciones automatizadas reportadas para el frontend y las comprobaciones visuales de la Landing Page respaldan el estado observado, pero no equivalen a una validación de aceptación con usuarios ni demuestran el cumplimiento integral de cada requisito. La planificación de Jira se documenta como simulada y no como un Sprint ejecutado. Los diseños de dispositivos IoT de 5.6 son conceptuales, mientras que esta entrega presenta interfaces web y no una aplicación móvil nativa.
+En TB1, el Capítulo VI documentó la configuración, las interfaces y los despliegues de la Landing Page y la Web Application. En ese corte, la aplicación web usaba datos ficticios en memoria, sin autenticación real, API ni persistencia; la Landing Page era estática y su formulario derivaba la solicitud a WhatsApp. La entrega TB1 no incluía una aplicación móvil nativa. La actualización posterior de Sprint 2 se resume por separado abajo y no cambia retroactivamente el alcance de TB1.
 
 #### Recomendaciones
 
@@ -79,11 +79,21 @@ El Capítulo VI documenta la configuración disponible, las evidencias de interf
 4. En incrementos posteriores, integrar gradualmente autenticación, persistencia y servicios reales con las interfaces, preservando la separación de responsabilidades y la operación de borde definida en la arquitectura. Registrar las decisiones y pruebas de integración antes de presentar capacidades como implementadas.
 5. Incorporar en los anexos las evidencias audiovisuales de TB1 cuando estén disponibles, junto con sus enlaces de acceso y la identificación de la entrega.
 
+### Sprint 2 — implementación y límites de validación
+
+El historial de `ichu-mobile-app` documenta una aplicación nativa Flutter para Android e iOS, con flujos de identidad, selección de rancho, consulta de animales y monitoreo, alertas y registros de campo offline. En la verificación local del 15 de noviembre de 2026, el conjunto `flutter test` pasó **813 pruebas**, `flutter analyze` no reportó problemas y se compiló y abrió un APK debug en un AVD Android. Estos resultados respaldan la existencia del artefacto y sus pruebas automatizadas; no demuestran por sí solos que las historias del Sprint 2 hayan sido aceptadas ni que el cliente esté integrado y desplegado en producción.
+
+La ejecución conectada quedó limitada a la pantalla pública de inicio de sesión porque no se suministraron opciones aprobadas de Firebase. No se validaron cuentas, consultas autenticadas, datos del rancho, operación integrada con Edge ni flujos offline en dispositivo. Las seis capturas incluidas documentan los estados de interfaz revisados durante la inspección heurística; no acreditan por sí solas autenticación, integración con servicios en producción ni validación con participantes. Tampoco se encontró evidencia de distribución móvil o de tareas nativas realizadas por los participantes. La validación registrada comprende tres ganaderos y dos veterinarios; falta al menos una sesión real de veterinario para alcanzar el mínimo de la guía. La sección 6.4 tampoco contiene aún el video del producto.
+
+Se recomienda configurar Firebase y un entorno de prueba autorizado sin versionar credenciales, repetir la ejecución y contrastar los seis hallazgos mediante recorridos móviles autorizados y participantes; completar la entrevista faltante; producir wireframes y flujos móviles; verificar un canal de distribución antes de afirmar un despliegue; y publicar el video About-the-Product. Las capturas documentan los hallazgos de interfaz, pero no sustituyen la validación de aceptación con personas usuarias. Hasta entonces, deben mantenerse separados el código implementado, las pruebas automatizadas, la ejecución local y la validación de aceptación.
+
 ## Video About-the-Team
 
 ### Propósito y contenido requerido
 
 El video presenta la startup, el problema investigado, los artefactos de requisitos y diseño, la organización del trabajo colaborativo y las conclusiones del equipo.
+
+Ver video About-the-Team en SharePoint ([https://upcedupe-my.sharepoint.com/:v:/g/personal/u201817507_upc_edu_pe/IQBA-ACfpHmEQqEMz-LT9aY2AZB9_M63aISNQf-1CuEgzNI?e=VdgtfC&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D](https://upcedupe-my.sharepoint.com/:v:/g/personal/u201817507_upc_edu_pe/IQBA-ACfpHmEQqEMz-LT9aY2AZB9_M63aISNQf-1CuEgzNI?e=VdgtfC&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D))
 
 ### Pauta de secuencias
 

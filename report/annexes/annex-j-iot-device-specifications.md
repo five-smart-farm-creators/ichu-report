@@ -2,15 +2,19 @@
 
 El primer diseño de ICHU reúne dos dispositivos de campo y el Portable Edge Gateway. El **collar** mide temperatura superficial, movimiento, ubicación del animal, frecuencia cardiaca (**SP-203**) y un índice relativo de metano (**MQ-2**). El **receptor de alertas** presenta el estado del ganado mediante texto, luces y sonido. El **Portable Edge Gateway** recibe y almacena la telemetría y evalúa las reglas de alerta cerca de los dispositivos.
 
-![Diseño IoT de ICHU en Cirkit Designer con el collar a la izquierda, un tercer bloque fuera del alcance del prototipo en el centro y el receptor de alertas a la derecha](../assets/images/iot/system-circuit-overview.png)
+![Diseño IoT de ICHU en Cirkit Designer con el circuito del collar y el receptor de alertas; incluye un bloque de bebedero fuera del alcance del prototipo](../assets/images/iot/system-circuit-overview.png)
 
-*Vista general del diseño conceptual en Cirkit Designer. La captura todavía muestra un tercer bloque, el controlador del abrevadero, que queda fuera del alcance del prototipo; actualizar la captura está pendiente para el equipo. Los enlaces de datos se describen en J.4.*
+*Vista general de los circuitos conceptuales del collar y el receptor de alertas. La captura también muestra un bloque de bebedero, fuera del alcance del prototipo. Los enlaces de datos se describen en J.4.*
 
 Las tablas distinguen las conexiones leídas en la captura, los valores documentados por los fabricantes y las propuestas para completar el montaje. `3V3` identifica un riel de 3,3 V, `5V` uno de 5 V y `GND` el retorno común del bloque. Las flechas indican el sentido de una señal o el recorrido de la alimentación.
 
 ### J.1. Collar IoT
 
 El ESP32-S3 DevKit concentra cinco entradas de sensor. El DS18B20 va en la cara interna de la carcasa con contacto estable con el animal, el MPU-6050 se fija a la placa para que se mueva con el collar y la antena del NEO-6M se orienta hacia el cielo. La placa, la batería y los módulos de alimentación quedan sujetos dentro de la carcasa.
+
+![Circuito del collar en Wokwi con ESP32-S3, DS18B20, MPU-6050, GPS NEO-6M, sensor de pulso, MQ-2 y potenciómetro de batería](../assets/images/iot/wokwi-collar-circuit.png)
+
+*Circuito vigente del collar, simulado en Wokwi.*
 
 #### J.1.1. Inventario y especificaciones
 
@@ -97,6 +101,10 @@ La explotación administra estos rangos desde la aplicación web, en la sección
 ### J.3. Receptor local de alertas
 
 El ESP32 DevKitC va en un panel seco y visible para el operario. La pantalla y los LED se orientan al frente y la salida del buzzer queda despejada.
+
+![Circuito del panel de alertas en Wokwi con ESP32, LCD 16 × 2, tres LED y buzzer](../assets/images/iot/wokwi-alert-panel-circuit.png)
+
+*Circuito vigente del panel de alertas, simulado en Wokwi.*
 
 #### J.3.1. Inventario y especificaciones
 
@@ -240,10 +248,6 @@ El ESP32-S3 calcula el índice de actividad a partir de la ventana local y entre
 
 ### J.12. Fuentes y enlaces
 
-**Proyecto editable en Cirkit Designer**
-
-<https://app.cirkitdesigner.com/project/a07ab13c-8ded-4672-a786-deecb40e13c2>
-
 **Captura del collar**
 
 <https://github.com/five-smart-farm-creators/ichu-report/blob/b2bc54063c73ae53ae26c98b55b0f3fddeaf01ea/report/assets/images/iot/collar-circuit.png>
@@ -263,6 +267,14 @@ El ESP32-S3 calcula el índice de actividad a partir de la ventana local y entre
 **Firmware del panel (`ichu-alert-panel-embedded-app`)**
 
 <https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app>
+
+**Proyecto Wokwi del collar**
+
+<https://wokwi.com/projects/480787162969005057>
+
+**Proyecto Wokwi del panel de alertas**
+
+<https://wokwi.com/projects/480787196915608577>
 
 **Capítulo III. Historias técnicas y criterios de aceptación**
 

@@ -70,5 +70,35 @@ Esta sección resume las modificaciones relevantes realizadas al informe durante
 | 0.19.3 | 2026-10-08 | Avalos Cordova, Diego Andres | Amplié Student Outcome con los aportes TB1 del equipo y actualicé la descripción de la colaboración y el estado integrado del informe. |
 | 0.19.4 | 2026-10-08 | Avalos Cordova, Diego Andres | Ajusté el registro para reflejar las contribuciones de TB1 y el contenido incorporado en la rama de auditoría. |
 | 0.19.5 | 2026-10-08 | Avalos Cordova, Diego Andres | Amplié las contribuciones de TB1 para describir con mayor claridad el trabajo de cada integrante y del equipo. |
+| 0.20.0 | 2026-10-19 | Avalos Cordova, Diego Andres | Incorporé la estructura de AV2 en el Capítulo VI y sus enlaces en el índice. |
+| 0.20.1 | 2026-10-22 | Avalos Cordova, Diego Andres | Ajusté la carátula, la presentación de integrantes y la correspondencia entre códigos y nombres. |
+| 0.20.2 | 2026-10-22 | Avalos Cordova, Diego Andres | Organicé Sprint Planning 1 con la tabla de la plantilla del curso. |
+| 0.20.3 | 2026-10-23 | Avalos Cordova, Diego Andres | Precisé el objetivo del Sprint 1 como entrega de Landing Page y frontend. |
+| 0.20.4 | 2026-10-23 | Avalos Cordova, Diego Andres | Hice visibles y abrevié las referencias externas del informe y sus anexos. |
+| 0.20.5 | 2026-10-28 | Avalos Cordova, Diego Andres | Traduje el Design-Level EventStorming al inglés y actualicé su fuente y exportación. |
+| 0.20.6 | 2026-10-28 | Avalos Cordova, Diego Andres | Delimité el backlog del Sprint 1 a ocho historias frontend y 33 SP, separándolo de la integración posterior. |
+| 0.20.7 | 2026-10-28 | Avalos Cordova, Diego Andres | Revisé la terminología de la User Task Matrix del Needfinding. |
+| 0.20.8 | 2026-10-28 | Arrieta Quispe, Alison Jimena | Revisé la fuente C4 y separé la aplicación web de su presentación UI/UX. |
+| 0.20.9 | 2026-10-28 | Sanchez Arenas, Manuel Angel | Actualicé los resúmenes de entrevistas con perfiles, tecnologías utilizadas, contenido y referencias de los participantes. |
+| 0.20.10 | 2026-10-29 | Sanchez Arenas, Manuel Angel | Amplié las hipótesis Lean UX para relacionar resultados de negocio, beneficios y capacidades del producto. |
+| 0.20.11 | 2026-10-30 | Arrieta Quispe, Alison Jimena | Corregí relaciones, tecnologías, nombres e iconos del C4 e incorporé la base de datos móvil y la relación del indicador local con el operario. |
+| 0.20.12 | 2026-10-30 | Awad Vargas, Giorgio Marzouk | Consolidé el vocabulario del negocio y corregí la atribución del hallazgo sobre timpanismo. |
+| 0.20.13 | 2026-10-30 | Awad Vargas, Giorgio Marzouk | Unifiqué épicas e historias en una tabla, normalicé su redacción en español y trasladé las notas de trazabilidad al Anexo I. |
+| 0.20.14 | 2026-10-30 | Awad Vargas, Giorgio Marzouk | Distinguí los hechos del negocio actual de las automatizaciones y reglas propuestas en Design-Level EventStorming. |
+| 0.20.15 | 2026-11-03 | Avalos Cordova, Diego Andres | Traduje README y CONTRIBUTING al inglés e incorporé la licencia del repositorio. |
+| 0.20.16 | 2026-11-04 | Contreras Leon, Flor de María | Documenté componentes, conexiones y objetivos de desempeño de los dispositivos IoT como especificaciones y metas por verificar. |
+| 0.20.17 | 2026-11-06 | Arrieta Quispe, Alison Jimena | Actualicé la imagen del diagrama de contenedores C4. |
+| 0.20.18 | 2026-11-07 | Contreras Leon, Flor de María | Establecí validaciones de ramas y contribuciones, consolidé identidades con mailmap y precisé las reglas de contribución y granularidad. |
+| 0.20.19 | 2026-11-07 | Contreras Leon, Flor de María | Renumeré las especificaciones IoT como Anexo J para conservar el Anexo I de trazabilidad. |
+| 0.20.20 | 2026-11-13 | Contreras Leon, Flor de María | Alineé historias técnicas, arquitectura, diseño, conclusiones y anexos con el enlace Wi-Fi collar–Edge, la API local y los límites del firmware. |
+| 0.20.21 | 2026-11-13 | Awad Vargas, Giorgio Marzouk | Diseñé y depuré las entrevistas de validación por segmento y tareas de uso, siguiendo la estructura del Capítulo II. |
+| 0.20.22 | 2026-11-14 | Contreras Leon, Flor de María | Centré el Anexo J en el collar, el panel receptor y las reglas y límites de alerta. |
+| 0.20.23 | 2026-11-14 | Awad Vargas, Giorgio Marzouk | Documenté Sprint Planning 2, el reparto por entregable y el backlog de 30 historias y 164 SP; incorporé la reunión, el periodo y los asistentes confirmados. |
+| 0.20.24 | 2026-11-15 | Avalos Cordova, Diego Andres | Retiré los requisitos del abrevadero del alcance vigente y actualicé el backlog a 72 historias y 334 SP, conservando las 30 historias y 164 SP del Sprint 2. |
+| 0.20.25 | 2026-11-15 | Avalos Cordova, Diego Andres | Alineé arquitectura y fuentes de diagramas con el alcance revisado y conservé las imágenes y la exportación EventStorming originales como antecedentes. |
+| 0.20.26 | 2026-11-15 | Avalos Cordova, Diego Andres | Ajusté el diseño IoT del Capítulo V al alcance centrado en el collar y el receptor de alertas. |
+| 0.20.27 | 2026-11-15 | Avalos Cordova, Diego Andres | Actualicé la distribución transversal de Jira a 21 tareas simuladas, retirando la tarea del abrevadero. |
+| 0.20.28 | 2026-11-15 | Avalos Cordova, Diego Andres | Alineé las referencias de fuentes y dispositivos de los Anexos G y J con el alcance vigente. |
+| 0.20.29 | 2026-11-15 | Avalos Cordova, Diego Andres | Actualicé el índice para retirar las referencias de secciones fuera del alcance vigente. |
 
 <div style="break-after: page; page-break-after: always;"></div>
