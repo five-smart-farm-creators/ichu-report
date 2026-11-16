@@ -80,7 +80,7 @@ Las siguientes métricas corresponden al historial alcanzable desde `develop` ha
 
 La cantidad de commits refleja actividad versionada y no mide por sí sola el esfuerzo ni la participación total. Los merges se contabilizan por separado; el historial incluye una integración atribuida a una cuenta automatizada. Los aportes de otros integrantes fuera de este periodo y las tareas sin commit propio no se deducen de esta tabla.
 
-Al corte, el Capítulo V incluye guías de estilo, arquitectura de información, wireframes, mockups, wireflows, user flows y el prototipo de la Web Application. El Capítulo VI presenta la configuración de la Landing Page y la Web Application, evidencias de interfaz y despliegues. El alcance documentado no incluye backend; las tareas de Jira se identifican como simuladas y no como un Sprint ejecutado.
+El resumen anterior corresponde al corte de TB1: el Capítulo V documentó el diseño de la Landing Page y la Web Application, y no incluía una aplicación móvil nativa. La actualización de Sprint 2 incorpora al Capítulo VI evidencia de los repositorios de servicios, Edge y aplicación Flutter, además de pruebas y una ejecución móvil local. Las tareas históricas SF-96–SF-117 de Jira siguen identificadas como simuladas; no deben confundirse con la planificación confirmada del Sprint 2 ni con la aceptación de sus historias.
 
 ### Evidencias de colaboración y commits
 
