@@ -27,15 +27,15 @@ La identidad y el significado de los estados se mantienen entre pantallas; la co
 | Experiencia | Guía visual y de interacción |
 |---|---|
 | **Web responsiva** | Navegación y paneles se reorganizan al reducirse el ancho (1080, 720 y 560 px en el mockup); en móvil, una columna y desplazamiento independiente para tablas. |
-| **Aplicación móvil (fuera del alcance de esta entrega)** | Como pauta futura, priorizar una tarea por vista, tarjetas de una columna y controles táctiles amplios. No se presentan wireframes ni mockups de una aplicación móvil en este capítulo. |
+| **Aplicación móvil nativa** | Priorizar una tarea por vista, tarjetas de una columna y controles táctiles amplios, manteniendo la identidad y el significado de los estados de ICHU. Son pautas generales: este capítulo no presenta wireframes ni mockups de la aplicación móvil nativa desarrollada en el Sprint 2. |
 | **IoT digital** | Mostrar lectura, unidad, hora y vigencia; distinguir estados en línea, sin señal, almacenado y sincronizado, junto con batería y conectividad. |
 | **IoT físico** | Indicadores inequívocos y coherentes con la app. La función de luces, botones y sonidos se especifica junto con el diseño físico en 5.6. |
 
-Las pautas para aplicaciones móviles e interfaces IoT definen criterios de diseño del producto; esta entrega presenta únicamente la Web Application. El diseño conceptual del collar y el receptor de alertas se documenta en 5.6.
+Este capítulo desarrolla los artefactos de diseño de la Landing Page y la Web Application. Para la aplicación móvil nativa solo se documentan pautas generales: no se incluyen aquí wireframes, mockups ni flujos móviles. La implementación móvil del Sprint 2 y sus límites de evidencia se registran en el Capítulo VI. El diseño conceptual del collar y el receptor de alertas se documenta en 5.6.
 
 ## 5.2. Information Architecture
 
-La arquitectura de información de este capítulo corresponde al landing y a la Web Application ICHU. Se apoya en las tareas de César, administrador ganadero, y Leonardo, veterinario (2.3), las historias de usuario (3.1) y la arquitectura definida en 4.1.3.3. La estructura distingue la gestión del hato y la consulta clínica de unidades autorizadas. Las vistas descritas son decisiones de diseño; su implementación se identifica en 5.5.
+La arquitectura de información de este capítulo corresponde al landing y a la Web Application ICHU; no describe la navegación de la aplicación móvil nativa. Se apoya en las tareas de César, administrador ganadero, y Leonardo, veterinario (2.3), las historias de usuario (3.1) y la arquitectura definida en 4.1.3.3. La estructura distingue la gestión del hato y la consulta clínica de unidades autorizadas. Las vistas descritas son decisiones de diseño; su implementación se identifica en 5.5.
 
 ### 5.2.1. Organization Systems
 
@@ -198,7 +198,7 @@ Las capturas separan el recorrido para mantener legibles las secciones y conserv
 
 ## 5.4. Applications UX/UI Design
 
-La propuesta presenta la experiencia de la Web Application ICHU para el administrador ganadero y el médico veterinario. Las vistas traducen la arquitectura de información de 5.2 y las pautas visuales de 5.1, con contenido y acciones según el rol y sus permisos.
+Esta sección presenta la experiencia de la Web Application ICHU para el administrador ganadero y el médico veterinario. Sus wireframes, wireflows, mockups y user flows no representan la aplicación móvil nativa, que fue desarrollada durante el Sprint 2 pero no cuenta con artefactos de diseño móvil en este capítulo. Las vistas web traducen la arquitectura de información de 5.2 y las pautas visuales de 5.1, con contenido y acciones según el rol y sus permisos.
 
 ### 5.4.1. Applications Wireframes
 
@@ -311,7 +311,7 @@ Si ya existe una autorización o una solicitud pendiente, la Web Application con
 
 ## 5.5. Applications Prototyping
 
-El prototipo de alta fidelidad corresponde a la Web Application de ICHU, construida con Angular [9]. Se puede explorar en la versión desplegada ([https://web-frontend-smart-farm.vercel.app/login](https://web-frontend-smart-farm.vercel.app/login)); el repositorio del frontend ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) contiene su código fuente. Esta entrega cubre la aplicación web en navegadores de escritorio y en ventanas estrechas; no contempla una aplicación móvil nativa.
+El prototipo de alta fidelidad documentado aquí corresponde a la Web Application de ICHU, construida con Angular [9]. Se puede explorar en la versión desplegada ([https://web-frontend-smart-farm.vercel.app/login](https://web-frontend-smart-farm.vercel.app/login)); el repositorio del frontend ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) contiene su código fuente. Esta subsección cubre la aplicación web en navegadores de escritorio y ventanas estrechas; no documenta el prototipo ni los flujos de la aplicación móvil nativa implementada en el Sprint 2. Su evidencia de ejecución se presenta en el Capítulo VI.
 
 La navegación sigue la arquitectura de información de 5.2.5: el menú lateral organiza las áreas de trabajo y la cabecera conserva visibles el rol y el hato activos. Los recorridos se relacionan con las metas de usuario de 5.4.4. En escritorio y en ventanas estrechas se muestran las mismas funciones, con una disposición adaptable; los formularios presentan validación y confirmación de las acciones disponibles.
 

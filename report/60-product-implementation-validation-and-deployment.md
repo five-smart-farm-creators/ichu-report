@@ -12,12 +12,15 @@ Para una revisión local, el README del repositorio permite abrir `index.html` d
 
 El frontend web de la plataforma es un segundo artefacto, desarrollado con Angular y TypeScript, con componentes de Angular Material. Su repositorio de código ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) incluye el manifiesto de dependencias y los comandos del proyecto. En la revisión del manifiesto se observaron Angular y Angular Material 22.2.2, TypeScript 6.0.3 y Playwright 1.64.0; las versiones corresponden al estado del repositorio consultado y no implican que exista un backend conectado. Las capturas disponibles muestran la interfaz de inicio de sesión y un dashboard con datos de muestra.
 
+La aplicación móvil nativa está desarrollada con Flutter 3.44.6 y Dart 3.12.2 para Android e iOS. Sus opciones de Firebase y la URL de la API se suministran durante la compilación; la configuración local aprobada no debe incorporarse al repositorio ni al informe. El README de `ichu-mobile-app` documenta `flutter pub get`, `flutter gen-l10n` y `flutter run` con los parámetros de entorno correspondientes.
+
 | Elemento | Configuración documentada |
 |---|---|
 | Landing Page — lenguajes y ejecución | HTML, CSS y JavaScript; navegador web, con servidor estático opcional |
 | Landing Page — organización | Páginas HTML, `css/styles.css`, `js/i18n.js` y `js/main.js`; no utiliza framework ni proceso de compilación |
 | Web Application — tecnologías verificadas | Angular 22.2.2, TypeScript 6.0.3 y Angular Material 22.2.2, según el manifiesto del repositorio ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) |
 | Web Application — comandos del manifiesto | `npm start`, `npm run build`, `npm run typecheck` y `npm run test:e2e`; este último ejecuta Playwright |
+| Aplicación móvil (`ichu-mobile-app`) | Flutter 3.44.6 y Dart 3.12.2; Android e iOS. Firebase y API se configuran mediante opciones de compilación locales aprobadas; no se incluyen credenciales en el repositorio |
 | Backend — API central | ASP.NET Core 10, EF Core y PostgreSQL; contrato OpenAPI 3.1 con Swagger UI. |
 | Edge API | Flask 3.1, Peewee 4.5 y SQLite con Python 3.13. |
 | Embedded Applications | C++ (Arduino) para ESP32-S3 (collar) y ESP32 (panel), compilado con arduino-cli. |
@@ -46,7 +49,7 @@ El código de la Landing Page y el informe se mantienen en repositorios Git sepa
 
 Los ocho repositorios siguen GitFlow (`main`, `develop`, `feature/*`, `bugfix/*`, `release/vX.Y.Z` y `hotfix/vX.Y.Z`), Conventional Commits y Semantic Versioning. Un flujo de GitHub Actions valida el nombre de la rama y los mensajes de commit en cada pull request.
 
-Para el repositorio del informe, la guía de contribución define `main` para entregas publicadas, `develop` para integración y ramas `feature/<alcance>` o `bugfix/<alcance>` para cambios de trabajo. Las contribuciones se integran mediante Pull Request con revisión de otro integrante, y los commits siguen Conventional Commits. El Capítulo VI se trabaja en la rama `feature/chapter-VI`, publicada en GitHub y aún no integrada en `main`.
+Para el repositorio del informe, la guía de contribución define `main` para entregas publicadas, `develop` para integración y ramas `feature/<alcance>` o `bugfix/<alcance>` para cambios de trabajo. Las contribuciones se integran mediante Pull Request con revisión de otro integrante, y los commits siguen Conventional Commits. Esta auditoría del Capítulo VI se trabaja en `feature/chapter-vi-sprint-2-audit`, basada en `feature/second-progress-update`; no se ha integrado en `main`.
 
 | Práctica | Convención del repositorio del informe |
 |---|---|
@@ -71,7 +74,7 @@ Estas convenciones resumen la guía del repositorio de la Landing Page. No se af
 
 ### 6.1.4. Software Deployment Configuration
 
-Cada producto se despliega en un servicio distinto. La tabla indica el destino y el comando o la dirección de cada uno.
+Los productos tienen distintos destinos de despliegue. La tabla distingue los destinos publicados de los productos para los que no se encontró evidencia de distribución.
 
 | Producto | Despliegue | Dirección o comando |
 |---|---|---|
@@ -80,6 +83,7 @@ Cada producto se despliega en un servicio distinto. La tabla indica el destino y
 | API central (`ichu-web-service`) | Render, con la imagen Docker construida desde `main` y el Blueprint `render.yaml`. Swagger UI en `/swagger`. | [https://ichu-web-service.onrender.com](https://ichu-web-service.onrender.com) |
 | Edge API (`ichu-edge-service`) | Gateway local con variables de entorno y base de datos SQLite. El sincronizador corre como proceso aparte. | `python app.py` y `flask --app app synchronize` |
 | Aplicaciones embebidas (`ichu-cattle-band-embedded-app` y `ichu-alert-panel-embedded-app`) | Firmware compilado con arduino-cli (core `esp32:esp32` 3.3.4) y cargado en la placa o ejecutado en Wokwi. | `arduino-cli compile --fqbn esp32:esp32:esp32s3` (collar) y `--fqbn esp32:esp32:esp32` (panel) |
+| Aplicación móvil (`ichu-mobile-app`) | No se encontró evidencia de una publicación Android o iOS. La compilación debug y la ejecución local en un AVD, documentadas en 6.2.2.5–6.2.2.6, no constituyen un despliegue de producción. | Sin enlace de distribución verificado |
 
 El diagrama de despliegue C4 de la arquitectura de producción se presenta en la Figura 4.6, en la sección 4.1.3.4.
 
@@ -939,6 +943,10 @@ La identificación y registro de los commits incluyen cambios a pruebas unitaria
 
 Las pruebas se ejecutan en cada pull request. Los trabajos `end-to-end` inician un Edge API real, como se muestra en las Figuras 6.14 y 6.15.
 
+##### Verificación local de la aplicación móvil
+
+El 15 de noviembre de 2026, sobre el commit base `abb688e` de `ichu-mobile-app`, `flutter test` finalizó con **813 pruebas aprobadas**, `flutter analyze` informó **No issues found** y `flutter build apk --debug` compiló el APK. La aplicación se instaló y abrió en un AVD Android 17, API 37, x86_64. Tras añadir el ejecutable auxiliar de capturas en la rama `feature/synthetic-mobile-demo-screens`, se repitieron `flutter test` (**813 aprobadas**) y `flutter analyze` (**No issues found**); también se compiló y abrió el target `tool/mobile_demo_main.dart`. El runner reutiliza las vistas de Flutter con repositorios falsos y datos sintéticos. Las seis capturas de esa ejecución están identificadas en pantalla y en el informe; ilustran estados de interfaz, pero no prueban autenticación Firebase, integración con servicios, datos reales ni aceptación por usuarios. Sin opciones aprobadas de Firebase, el recorrido real permaneció bloqueado en el acceso; estas verificaciones tampoco equivalen a publicación ni a pruebas con usuarios.
+
 #### 6.2.2.6. Execution Evidence for Sprint Review
 
 A continuación, se presentan las evidencias de la ejecución de la aplicación web ICHU durante el sprint, mostrando las principales vistas y funcionalidades implementadas por segmento objetivo:
@@ -1082,6 +1090,8 @@ El 13 de noviembre de 2026, hora de Lima, el repositorio del servicio Edge incor
 #### 6.2.2.8. Software Deployment Evidence for Sprint Review
 
 Durante el Sprint 2, del 4 al 14 de noviembre de 2026, el equipo publicó una actualización de la Landing Page en GitHub Pages y nuevas versiones de la aplicación web en Firebase Hosting. También configuró el despliegue de la API central en Render con PostgreSQL y automatizó el arranque del Edge en GitHub Actions para las pruebas de integración del collar y el panel de alertas.
+
+No se encontró evidencia de una publicación de la aplicación móvil en Google Play, TestFlight u otro canal de distribución. El APK debug compilado y abierto localmente en un emulador es evidencia de ejecución para desarrollo, no una versión de producción. Tampoco acredita despliegue del servicio móvil ni acceso a funciones autenticadas.
 
 ##### Landing Page en GitHub Pages
 
@@ -1311,7 +1321,7 @@ Con esta estructura, cada entrevista comienza con el perfil del participante, co
 
 ### 6.3.2. Registro de Entrevistas
 
-Las sesiones de validación recogieron las apreciaciones de los ganaderos sobre la Landing Page y la aplicación web de ICHU, y de los médicos veterinarios sobre la consulta de fichas, el monitoreo y el registro de atenciones clínicas. El video consolidado dura **00:41:31**. Las marcas de inicio y las duraciones corresponden a los cortes del video, expresados al segundo. [Ver video consolidado en Clipchamp](https://tinyurl.com/validation-interviews-ichu)
+El registro de validación incluye cinco participantes: tres ganaderos y dos médicos veterinarios. Las sesiones documentan apreciaciones sobre la Landing Page y tareas de la aplicación web; no hay evidencia de que se hayan ejecutado las tareas móviles planteadas en 6.3.1. Por ello, el video no acredita validación de la aplicación nativa. Además, el segmento de veterinarios cuenta con dos participantes, por debajo del mínimo de tres indicado en la guía; se requiere una sesión real adicional, sin sustituirla por una simulación. El video consolidado dura **00:41:31**. Las marcas de inicio y las duraciones corresponden a los cortes del video, expresados al segundo. [Ver video consolidado en Clipchamp](https://tinyurl.com/validation-interviews-ichu)
 
 #### Segmento 1. Medianos y grandes ganaderos
 
@@ -1379,7 +1389,7 @@ La demostración recorrió la ficha del animal, el historial clínico y la consu
 
 ### 6.3.3. Evaluaciones según heurísticas
 
-En esta sección se evalúa la experiencia de usuario de las versiones implementadas, considerando usabilidad, arquitectura de información y diseño inclusivo. La siguiente inspección es preliminar y estática: revisa el código de la aplicación móvil y los contratos del servicio web que condicionan sus flujos principales. No se ejecutó la aplicación en un dispositivo ni se realizaron entrevistas para esta inspección. Por ello, las severidades son provisionales y los hallazgos deben contrastarse en las sesiones de validación de 6.3.1 y 6.3.2. El servicio web no tiene interfaz visual; sus endpoints se consideran únicamente cuando afectan la comprensión, priorización o recuperación desde el cliente móvil.
+En esta sección se evalúa preliminarmente la experiencia de usuario, considerando usabilidad, arquitectura de información y diseño inclusivo. La inspección de los seis hallazgos se basa en el código móvil y los contratos del servicio web. Para ilustrar las pantallas sin credenciales Firebase, se ejecutó `tool/mobile_demo_main.dart` en un AVD Android 17 (API 37, x86_64): conserva las vistas reales de Flutter, pero sustituye autenticación, API y almacenamiento por repositorios falsos con fixtures inventados. Cada captura mantiene visible el rótulo «CAPTURA DEMOSTRATIVA · DATOS SINTÉTICOS». Por tanto, ilustran estados de interfaz y los hallazgos descritos; no son evidencia de datos reales, integración con Firebase/servicios, ejecución autenticada de producción ni observación de participantes. No se realizaron entrevistas para esta inspección y el video de 6.3.2 no cubre tareas móviles. Las severidades son provisionales y requieren contraste en recorridos autorizados con personas usuarias.
 
 #### ESCALA DE SEVERIDAD:
 
@@ -1418,8 +1428,8 @@ En esta sección se evalúa la experiencia de usuario de las versiones implement
 | 2 | Las alertas se muestran por fecha descendente y la aplicación solo permite filtrar por estado; no hay filtro ni agrupación por severidad. | 2 | Flexibilidad y eficiencia de uso; reconocimiento antes que recuerdo. | Encontrar la alerta más urgente entre muchas alertas. |
 | 3 | Los registros offline rechazados o en conflicto quedan pendientes sin una acción para corregirlos o resolverlos desde la aplicación. | 3 | Ayuda para reconocer, diagnosticar y recuperarse de errores; control y libertad del usuario. | Sincronizar y resolver registros de campo. |
 | 4 | La preparación para trabajar sin conexión exige buscar cada animal por arete exacto mientras hay conexión; no se identifica un flujo de precarga por lote o hato. | 2 | Flexibilidad y eficiencia de uso. | Preparar el teléfono antes de registrar eventos en campo. |
-| 5 | Las solicitudes y concesiones de acceso usan UUID de rancho y de veterinario en vez de nombres o búsqueda de personas/ranchos. | 3 | Correspondencia con el mundo real; prevención de errores. | Solicitar o conceder acceso a un rancho. |
-| 6 | Revocar un permiso ejecuta la acción de inmediato, sin confirmación ni opción de deshacer en la interfaz. | 2 | Prevención de errores; control y libertad del usuario. | Revocar el acceso de un veterinario. |
+| 5 | La concesión directa y las tarjetas sin perfil legible identifican al veterinario mediante su UUID de cuenta. | 3 | Correspondencia con el mundo real; prevención de errores. | Otorgar o revisar el acceso de un veterinario. |
+| 6 | El diálogo de confirmación de revocación no identifica al veterinario, rancho ni alcance afectados. | 2 | Prevención de errores; control y libertad del usuario. | Revocar el acceso de un veterinario. |
 
 #### DESCRIPCIÓN DE PROBLEMAS:
 
@@ -1431,6 +1441,10 @@ En esta sección se evalúa la experiencia de usuario de las versiones implement
 * **Descripción del problema:** La tarjeta principal muestra `cattleId`, que es un UUID, bajo la etiqueta de identificación del animal. No muestra el arete ni un nombre reconocible, y la tarjeta no ofrece una acción directa para abrir la ficha del animal. Para decidir a quién atender, el usuario tendría que recordar o buscar por separado a qué animal corresponde el UUID. Esto añade pasos y puede retrasar la respuesta ante una alerta.
 * **Recomendación:** Mostrar el arete como identificador principal, acompañarlo con el nombre o descripción disponible y permitir abrir la ficha del animal y su monitoreo desde la alerta. Conservar el UUID en los detalles técnicos.
 
+![Captura demostrativa de una alerta que identifica al animal con un UUID](assets/images/implementation/mobile-heuristic-01-alert-uuid.png)
+
+*Figura 6.27. Vista móvil de alertas con identificadores UUID sintéticos en lugar de aretes; captura del ejecutable auxiliar, no de una consulta en vivo.*
+
 ##### PROBLEMA #2: La lista no ayuda a priorizar alertas por gravedad
 
 * **Severidad:** 2
@@ -1438,6 +1452,10 @@ En esta sección se evalúa la experiencia de usuario de las versiones implement
 * **Tarea relacionada:** Tarea 2 — Atención de una alerta.
 * **Descripción del problema:** El servicio devuelve las alertas de más reciente a más antigua. La aplicación móvil carga 20 por página y permite filtrar por estado, pero no por severidad ni por animal. La gravedad aparece en cada tarjeta, de modo que el usuario puede leerla, pero una alerta crítica más antigua puede quedar en una página posterior entre alertas menos urgentes. La tarea de elegir la alerta más urgente requiere inspeccionar y comparar la lista manualmente.
 * **Recomendación:** Dar prioridad visible a las alertas pendientes críticas y permitir filtrar o agrupar por severidad. Mantener la fecha, el estado y la paginación visibles para conservar contexto.
+
+![Captura demostrativa de los filtros de alertas disponibles](assets/images/implementation/mobile-heuristic-02-alert-filters.png)
+
+*Figura 6.28. La vista expone un filtro por estado, sin un control visible para filtrar por severidad; los datos mostrados son sintéticos.*
 
 ##### PROBLEMA #3: No hay una ruta de recuperación para registros rechazados o en conflicto
 
@@ -1447,6 +1465,10 @@ En esta sección se evalúa la experiencia de usuario de las versiones implement
 * **Descripción del problema:** La sincronización conserva los registros rechazados o en conflicto, pero la lista de pendientes solo presenta un mensaje de estado. El elemento no ofrece acciones para editar, corregir, descartar o volver a crear el registro. El aviso general indica que la sincronización no los modifica, por lo que el usuario puede comprender que existe un problema sin tener una forma de resolverlo desde la aplicación.
 * **Recomendación:** Explicar el motivo en términos comprensibles y ofrecer una acción segura de corrección o resolución, conservando la trazabilidad de la operación original y evitando duplicados. Si el registro no puede corregirse, explicar cómo registrar una operación nueva.
 
+![Captura demostrativa de un registro de campo en conflicto sin acción de resolución](assets/images/implementation/mobile-heuristic-03-field-conflict.png)
+
+*Figura 6.29. Registro pendiente con conflicto y sin controles para corregirlo o resolverlo en esta vista; fixture sintético, no resultado de una sincronización real.*
+
 ##### PROBLEMA #4: La preparación offline requiere precargar animales uno por uno
 
 * **Severidad:** 2.
@@ -1455,20 +1477,34 @@ En esta sección se evalúa la experiencia de usuario de las versiones implement
 * **Descripción del problema:** Para poder seleccionar un animal sin conexión, primero hay que localizarlo por su arete exacto cuando hay red; la aplicación guarda esa opción localmente. Si el animal no está en caché y el teléfono no tiene conectividad, la búsqueda depende del servicio y no puede completarse. El texto de ayuda informa esta condición, pero la preparación se realiza animal por animal y no se encontró un flujo para precargar un lote o todo el hato.
 * **Recomendación:** Ofrecer una acción explícita para descargar los animales de un lote o hato antes de salir a campo, mostrar cuántos quedaron disponibles sin conexión y confirmar su vigencia.
 
+![Captura demostrativa del formulario de campo que solicita un arete exacto](assets/images/implementation/mobile-heuristic-04-field-preload.png)
+
+*Figura 6.30. Formulario de campo con búsqueda por arete exacto; la lista local mostrada procede de fixtures sintéticos.*
+
 ##### PROBLEMA #5: Los flujos de acceso dependen de UUID difíciles de reconocer
 
 * **Severidad:** 3.
 * **Heurística violada:** Correspondencia con el mundo real; prevención de errores.
 * **Tarea relacionada:** Solicitar acceso a un rancho; otorgar o revisar acceso de un veterinario.
-* **Descripción del problema:** Para solicitar acceso, el veterinario debe conocer e ingresar el UUID del rancho. Para otorgar acceso directo, el administrador elige un rancho mostrado por UUID e ingresa manualmente el UUID de la cuenta veterinaria. La actividad de permisos también identifica al veterinario por ese UUID. La interfaz valida el formato, pero no ayuda a encontrar ni confirmar que se eligió la persona o el rancho correctos; esto obliga a obtener y comparar identificadores fuera de la aplicación y deja margen para errores de destino.
-* **Recomendación:** Permitir buscar por nombre de rancho y por correo/nombre del veterinario, mostrar detalles legibles para confirmar la selección y conservar el UUID en una vista técnica o secundaria.
+* **Descripción del problema:** La concesión directa requiere ingresar manualmente el UUID de la cuenta veterinaria, y las tarjetas de historial muestran ese UUID cuando no hay un perfil legible disponible. Esto obliga al administrador a obtener y comparar identificadores fuera de la aplicación y deja margen para errores al elegir a la persona. El flujo de solicitud del veterinario usa un código de acceso del rancho, no el UUID del rancho.
+* **Recomendación:** Permitir buscar al veterinario por correo o nombre, mostrar datos legibles para confirmar la persona elegida y conservar el UUID solo en una vista técnica o secundaria.
 
-##### PROBLEMA #6: Revocar acceso no pide confirmación
+![Captura demostrativa de la concesión de acceso mediante identificador de cuenta](assets/images/implementation/mobile-heuristic-05-access-uuid.png)
+
+*Figura 6.31. Formulario de concesión directa que solicita el identificador de cuenta del veterinario; identidad y rancho son datos ficticios.*
+
+##### PROBLEMA #6: La confirmación de revocación no identifica el acceso afectado
 
 * **Severidad:** 2.
 * **Heurística violada:** Prevención de errores; control y libertad del usuario.
 * **Tarea relacionada:** Revocar el acceso de un veterinario.
-* **Descripción del problema:** El botón “Revoke access” llama directamente a la operación de revocación. En la interfaz revisada no aparece un diálogo de confirmación ni una acción para deshacer. Un clic por accidente puede retirar el permiso del veterinario y obligar al administrador a concederlo nuevamente.
-* **Recomendación:** Solicitar confirmación indicando el veterinario, rancho, alcance y fecha de expiración que se revocarán; comunicar el resultado y facilitar la restauración del acceso autorizado.
+* **Descripción del problema:** El botón “Revoke access” sí abre un diálogo de confirmación antes de enviar la operación, pero el texto del diálogo es genérico: no identifica el veterinario, el rancho, el alcance ni la fecha de expiración. El administrador no puede verificar desde esa confirmación cuál permiso se retirará.
+* **Recomendación:** Mantener la confirmación existente y añadir el nombre o identificador legible del veterinario, rancho, alcance y fecha de expiración; comunicar el resultado y facilitar la restauración del acceso autorizado.
+
+![Captura demostrativa del diálogo genérico de confirmación al revocar un acceso](assets/images/implementation/mobile-heuristic-06-revoke-confirmation.png)
+
+*Figura 6.32. Diálogo de confirmación presente en la app, pero sin detalles del permiso que se revocará; el acceso visible procede de fixtures sintéticos.*
 
 ## 6.4. Video About-the-Product
+
+Al 15 de noviembre de 2026, esta sección no cuenta con un video del producto ni con un enlace de publicación verificado. El video consolidado de entrevistas enlazado en 6.3.2 es una evidencia distinta y no sustituye este entregable. La producción y publicación del video About-the-Product quedan pendientes; no se presenta material audiovisual inexistente como evidencia.
