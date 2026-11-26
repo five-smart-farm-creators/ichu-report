@@ -234,33 +234,47 @@ Los wireframes de baja fidelidad organizan seis vistas de escritorio para las ta
 
 Los wireframes móviles priorizan una tarea por pantalla, con controles de ancho completo y al menos 48 px de alto, fáciles de pulsar en el campo. La cabecera mantiene el logotipo, el regreso y el selector de idioma (inglés o español) en todas las vistas.
 
-![Wireframe móvil de inicio de sesión](assets/images/mobile-design/wireframe-login.png)
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-login.png" alt="Wireframe móvil de inicio de sesión" width="280">
+</p>
 
-*Figura 5.4.1.7. Inicio de sesión de la aplicación móvil.*
+<p align="center"><em>Figura 5.4.1.7. Inicio de sesión de la aplicación móvil.</em></p>
 
-![Wireframe móvil de selección de rancho](assets/images/mobile-design/wireframe-ranch-selection.png)
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-ranch-selection.png" alt="Wireframe móvil de selección de rancho" width="280">
+</p>
 
-*Figura 5.4.1.8. Selección de la unidad productiva autorizada.*
+<p align="center"><em>Figura 5.4.1.8. Selección de la unidad productiva autorizada.</em></p>
 
-![Wireframe móvil de registro de animal](assets/images/mobile-design/wireframe-cattle-register.png)
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-cattle-register.png" alt="Wireframe móvil de registro de animal" width="280">
+</p>
 
-*Figura 5.4.1.9. Registro de un animal.*
+<p align="center"><em>Figura 5.4.1.9. Registro de un animal.</em></p>
 
-![Wireframe móvil de ficha del animal](assets/images/mobile-design/wireframe-cattle-profile.png)
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-cattle-profile.png" alt="Wireframe móvil de ficha del animal" width="280">
+</p>
 
-*Figura 5.4.1.10. Ficha del animal con sus acciones de gestión.*
+<p align="center"><em>Figura 5.4.1.10. Ficha del animal con sus acciones de gestión.</em></p>
 
-![Wireframe móvil de alertas](assets/images/mobile-design/wireframe-ranch-alerts.png)
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-ranch-alerts.png" alt="Wireframe móvil de alertas" width="280">
+</p>
 
-*Figura 5.4.1.11. Alertas de la unidad productiva.*
+<p align="center"><em>Figura 5.4.1.11. Alertas de la unidad productiva.</em></p>
 
-![Wireframe móvil de atención de alerta](assets/images/mobile-design/wireframe-alert-acknowledgement.png)
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-alert-acknowledgement.png" alt="Wireframe móvil de atención de alerta" width="280">
+</p>
 
-*Figura 5.4.1.12. Diálogo de atención de una alerta.*
+<p align="center"><em>Figura 5.4.1.12. Diálogo de atención de una alerta.</em></p>
 
-![Wireframe móvil de registro de campo](assets/images/mobile-design/wireframe-field-record.png)
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-field-record.png" alt="Wireframe móvil de registro de campo" width="280">
+</p>
 
-*Figura 5.4.1.13. Registro de un evento de campo sin conexión.*
+<p align="center"><em>Figura 5.4.1.13. Registro de un evento de campo sin conexión.</em></p>
 
 ### 5.4.2. Applications Wireflow Diagrams
 
@@ -297,13 +311,17 @@ Cada meta cuenta con un wireflow independiente. Las pantallas esquemáticas se c
 
 *User goal 2 (operario de campo):* registrar un evento de salud sin conexión. El operario elige la unidad productiva, busca el animal por su arete, guarda el evento en el teléfono y lo sincroniza al recuperar la señal.
 
-![Wireflow móvil para atender una alerta](assets/images/mobile-design/wireflow-attend-alert.png)
+<p align="center">
+  <img src="assets/images/mobile-design/wireflow-attend-alert.png" alt="Wireflow móvil para atender una alerta" width="720">
+</p>
 
-*Figura 5.4.2.5. Wireflow móvil para atender una alerta. Elaboración propia.*
+<p align="center"><em>Figura 5.4.2.5. Wireflow móvil para atender una alerta. Elaboración propia.</em></p>
 
-![Wireflow móvil para registrar un evento de campo](assets/images/mobile-design/wireflow-field-record.png)
+<p align="center">
+  <img src="assets/images/mobile-design/wireflow-field-record.png" alt="Wireflow móvil para registrar un evento de campo" width="720">
+</p>
 
-*Figura 5.4.2.6. Wireflow móvil para registrar un evento de campo sin conexión. Elaboración propia.*
+<p align="center"><em>Figura 5.4.2.6. Wireflow móvil para registrar un evento de campo sin conexión. Elaboración propia.</em></p>
 
 ### 5.4.3. Applications Mock-ups
 
@@ -339,37 +357,53 @@ Las capturas siguientes corresponden a vistas implementadas del frontend. Se pre
 
 Los mockups aplican el design system de ICHU: la tipografía Outfit para títulos y Plus Jakarta Sans para textos, el verde oscuro de la marca en las acciones principales y tarjetas blancas sobre fondo claro. Los textos se traducen al inglés y al español.
 
-![Mockup móvil de inicio de sesión](assets/images/mobile-design/mockup-login.png)
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-login.png" alt="Mockup móvil de inicio de sesión" width="280">
+</p>
 
-*Figura 5.4.3.7. Inicio de sesión con Firebase Authentication.*
+<p align="center"><em>Figura 5.4.3.7. Inicio de sesión con Firebase Authentication.</em></p>
 
-![Mockup móvil de selección de rancho](assets/images/mobile-design/mockup-ranch-selection.png)
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-ranch-selection.png" alt="Mockup móvil de selección de rancho" width="280">
+</p>
 
-*Figura 5.4.3.8. Unidades productivas autorizadas y su nivel de acceso.*
+<p align="center"><em>Figura 5.4.3.8. Unidades productivas autorizadas y su nivel de acceso.</em></p>
 
-![Mockup móvil de registro de animal](assets/images/mobile-design/mockup-cattle-register-form.png)
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-cattle-register-form.png" alt="Mockup móvil de registro de animal" width="280">
+</p>
 
-*Figura 5.4.3.9. Registro de un animal.*
+<p align="center"><em>Figura 5.4.3.9. Registro de un animal.</em></p>
 
-![Mockup móvil de ficha del animal](assets/images/mobile-design/mockup-cattle-profile.png)
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-cattle-profile.png" alt="Mockup móvil de ficha del animal" width="280">
+</p>
 
-*Figura 5.4.3.10. Ficha del animal con corrección, cambio de etapa y baja.*
+<p align="center"><em>Figura 5.4.3.10. Ficha del animal con corrección, cambio de etapa y baja.</em></p>
 
-![Mockup móvil de alertas del rancho](assets/images/mobile-design/mockup-ranch-alerts.png)
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-ranch-alerts.png" alt="Mockup móvil de alertas del rancho" width="280">
+</p>
 
-*Figura 5.4.3.11. Alertas de la unidad productiva con su severidad y estado.*
+<p align="center"><em>Figura 5.4.3.11. Alertas de la unidad productiva con su severidad y estado.</em></p>
 
-![Mockup móvil de atención de alerta](assets/images/mobile-design/mockup-alert-acknowledgement.png)
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-alert-acknowledgement.png" alt="Mockup móvil de atención de alerta" width="280">
+</p>
 
-*Figura 5.4.3.12. Atención de una alerta, en español.*
+<p align="center"><em>Figura 5.4.3.12. Atención de una alerta, en español.</em></p>
 
-![Mockup móvil de detalle de alerta del Edge](assets/images/mobile-design/mockup-edge-alert-detail.png)
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-edge-alert-detail.png" alt="Mockup móvil de detalle de alerta del Edge" width="280">
+</p>
 
-*Figura 5.4.3.13. Detalle de una alerta de frecuencia cardiaca generada por el Edge.*
+<p align="center"><em>Figura 5.4.3.13. Detalle de una alerta de frecuencia cardiaca generada por el Edge.</em></p>
 
-![Mockup móvil de registro de campo](assets/images/mobile-design/mockup-field-record-es.png)
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-field-record-es.png" alt="Mockup móvil de registro de campo" width="280">
+</p>
 
-*Figura 5.4.3.14. Registro de un evento de campo sin conexión, en español.*
+<p align="center"><em>Figura 5.4.3.14. Registro de un evento de campo sin conexión, en español.</em></p>
 
 ### 5.4.4. Applications User Flow Diagrams
 
@@ -397,13 +431,17 @@ Si ya existe una autorización o una solicitud pendiente, la Web Application con
 
 Los user flows móviles usan los mockups de las pantallas y anotan en cada transición el camino feliz y el camino alternativo.
 
-![User flow móvil para atender una alerta](assets/images/mobile-design/userflow-attend-alert.png)
+<p align="center">
+  <img src="assets/images/mobile-design/userflow-attend-alert.png" alt="User flow móvil para atender una alerta" width="720">
+</p>
 
-*Figura 5.4.4.5. User Flow móvil de atención de alertas (US-16 y US-19).*
+<p align="center"><em>Figura 5.4.4.5. User Flow móvil de atención de alertas (US-16 y US-19).</em></p>
 
-![User flow móvil para registrar un evento de campo](assets/images/mobile-design/userflow-field-record.png)
+<p align="center">
+  <img src="assets/images/mobile-design/userflow-field-record.png" alt="User flow móvil para registrar un evento de campo" width="720">
+</p>
 
-*Figura 5.4.4.6. User Flow móvil de registro de campo sin conexión (US-21 y US-22).*
+<p align="center"><em>Figura 5.4.4.6. User Flow móvil de registro de campo sin conexión (US-21 y US-22).</em></p>
 
 ## 5.5. Applications Prototyping
 
