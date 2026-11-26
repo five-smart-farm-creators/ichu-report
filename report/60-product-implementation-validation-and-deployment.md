@@ -237,7 +237,7 @@ El incremento del Sprint 1 comprende interfaces frontend. La Landing Page es un 
 | Frontend web de la plataforma | Dashboard con indicadores del hato y navegación a animales, ubicación, monitoreo, alertas e historial clínico. URL publicada: [https://web-frontend-smart-farm.vercel.app/](https://web-frontend-smart-farm.vercel.app/) | Datos de muestra, sin API. |
 | Backend y contratos de servicios | La API central y su contrato OpenAPI se implementan en el Sprint 2. | Fuera del alcance del Sprint 1. |
 
-El preview de la Landing Page está disponible en [https://smartfarm-ichu-preview.fpm.it.com/](https://smartfarm-ichu-preview.fpm.it.com/). La aplicación frontend de Vercel está disponible en [https://web-frontend-smart-farm.vercel.app/](https://web-frontend-smart-farm.vercel.app/). Las capturas de despliegue correspondientes se encuentran en las Figuras 6.1–6.4 y 6.11–6.12.
+El preview de la Landing Page está disponible en [https://smartfarm-ichu-preview.fpm.it.com/](https://smartfarm-ichu-preview.fpm.it.com/). La aplicación frontend de Vercel está disponible en [https://web-frontend-smart-farm.vercel.app/](https://web-frontend-smart-farm.vercel.app/). Las capturas de despliegue correspondientes se encuentran en las Figuras 6.1–6.4, 6.7 y 6.8.
 
 #### 6.2.1.8. Software Deployment Evidence for Sprint Review
 
@@ -928,7 +928,7 @@ La identificación y registro de los commits incluyen cambios a pruebas unitaria
 | `ichu-alert-panel-embedded-app` | `tests/panel-offline.test.yaml` | Sin Edge, el panel queda en Sin comunicación con los LED apagados. |
 | `ichu-alert-panel-embedded-app` | `tests/panel-urgent.test.yaml` (job `end-to-end`) | Con una alerta crítica en el Edge, el panel pasa a Urgencia, enciende el LED rojo y activa el buzzer. |
 
-Las pruebas se ejecutan en cada pull request. Los trabajos `end-to-end` inician un Edge API real, como se muestra en las Figuras 6.16 y 6.17.
+Las pruebas se ejecutan en cada pull request. Los trabajos `end-to-end` inician un Edge API real, como se muestra en las Figuras 6.29 y 6.30.
 
 ##### Verificación local de la aplicación móvil
 
@@ -936,42 +936,67 @@ El 15 de noviembre de 2026, sobre el commit base `abb688e` de `ichu-mobile-app`,
 
 #### 6.2.2.6. Execution Evidence for Sprint Review
 
-A continuación, se presentan las evidencias de la ejecución de la aplicación web ICHU durante el sprint, mostrando las principales vistas y funcionalidades implementadas por segmento objetivo:
+Al cierre del Sprint 2, la aplicación web publicada en [https://ichu-smartfarm.web.app](https://ichu-smartfarm.web.app) inicia sesión con Firebase Authentication y trabaja con los datos de la API central: animales, lotes, collares, telemetría, alertas, ubicación e historial clínico. El collar, el Edge y el panel de alertas completan el recorrido de una alerta desde la lectura hasta el aviso en el predio y en la web.
 
-**A. Vistas de Ganadero:**
+**A. Vistas del ganadero**
 
-<ul>
-  <li><strong>Dashboard</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-dashboard.png" alt="Dashboard View"></li>
-  <li><strong>Animales</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-animals.png" alt="Animales View"></li>
-  <li><strong>Alertas</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-alerts.png" alt="Alertas View"></li>
-  <li><strong>Monitoreo</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-monitoring.png" alt="Monitoring View"></li>
-  <li><strong>Collares</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-iot-devices.png" alt="IoT Devices View"></li>
-  <li><strong>Lotes</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-lots.png" alt="Lots View"></li>
-  <li><strong>Ubicación</strong><br><img src="./assets/images/web-app-evidence/web-app-rancher-location.png" alt="Settings View"></li>
-</ul>
+![Dashboard del ganadero en la aplicación web](assets/images/web-app-evidence/web-app-rancher-dashboard.png)
 
-**B. Vistas de Veterinario:**
+*Figura 6.9. Dashboard del ganadero con los indicadores del hato.*
 
-<ul>
-  <li><strong>Historial Clínico</strong><br><img src="./assets/images/web-app-evidence/web-app-veterinarian-clinical-history.png" alt="Clinical History View"></li>
-  <li><strong>Reproducción</strong><br><img src="./assets/images/web-app-evidence/web-app-veterinarian-reproduction.png" alt="Reproduction View"></li>
-</ul>
+![Listado de animales en la aplicación web](assets/images/web-app-evidence/web-app-rancher-animals.png)
 
-**C. Despliegue de la Aplicación Web:**
+*Figura 6.10. Listado de animales del hato.*
 
-El despliegue de la aplicación web ICHU se realizó en un entorno de producción accesible a través del siguiente enlace:
-<a href="https://ichu-smartfarm.web.app/">ICHU Web Application</a></p>
+![Alertas del hato en la aplicación web](assets/images/web-app-evidence/web-app-rancher-alerts.png)
+
+*Figura 6.11. Alertas del hato con su severidad y estado.*
+
+![Monitoreo de telemetría en la aplicación web](assets/images/web-app-evidence/web-app-rancher-monitoring.png)
+
+*Figura 6.12. Monitoreo de la telemetría de un animal.*
+
+![Inventario de collares en la aplicación web](assets/images/web-app-evidence/web-app-rancher-iot-devices.png)
+
+*Figura 6.13. Inventario de collares y su asignación.*
+
+![Lotes del hato en la aplicación web](assets/images/web-app-evidence/web-app-rancher-lots.png)
+
+*Figura 6.14. Lotes de la unidad productiva.*
+
+![Ubicación de los animales en la aplicación web](assets/images/web-app-evidence/web-app-rancher-location.png)
+
+*Figura 6.15. Ubicación de los animales y geocercas en el mapa.*
+
+**B. Vistas del veterinario**
+
+![Historial clínico en la aplicación web](assets/images/web-app-evidence/web-app-veterinarian-clinical-history.png)
+
+*Figura 6.16. Historial clínico de un animal en la vista del veterinario.*
+
+![Historial reproductivo en la aplicación web](assets/images/web-app-evidence/web-app-veterinarian-reproduction.png)
+
+*Figura 6.17. Historial reproductivo de una hembra en la vista del veterinario.*
 
 ##### Demostración IoT con la API desplegada
 
 El collar envía sus lecturas al Edge local, el Edge sincroniza con la API en Render y la aplicación web muestra la alerta; el panel consulta el mismo Edge y pasa a Urgencia.
 
-<ul>
-  <li><strong>Nodo de borde activo</strong><br><img src="./assets/images/iot-demo/web-edge-gateway.png" alt="Nodo de borde activo en la aplicación web"></li>
-  <li><strong>Collar asignado</strong><br><img src="./assets/images/iot-demo/web-collar-assigned.png" alt="Collar ICHU-DEV-0001 en servicio y asignado a PE-0001"></li>
-  <li><strong>Alerta crítica en la web</strong><br><img src="./assets/images/iot-demo/web-methane-alert.png" alt="Alerta crítica de metano de PE-0001"></li>
-  <li><strong>Panel en Urgencia (Wokwi)</strong><br><img src="./assets/images/iot-demo/wokwi-panel-urgent.png" alt="Panel simulado en Wokwi con URGENT en el LCD y el LED rojo encendido"></li>
-</ul>
+![Nodo de borde activo en la aplicación web](assets/images/iot-demo/web-edge-gateway.png)
+
+*Figura 6.18. Nodo de borde activo en la aplicación web.*
+
+![Collar ICHU-DEV-0001 en servicio y asignado a PE-0001](assets/images/iot-demo/web-collar-assigned.png)
+
+*Figura 6.19. Collar ICHU-DEV-0001 en servicio y asignado al animal PE-0001.*
+
+![Alerta crítica de metano de PE-0001](assets/images/iot-demo/web-methane-alert.png)
+
+*Figura 6.20. Alerta crítica de metano de PE-0001, sincronizada desde el Edge.*
+
+![Panel simulado en Wokwi con URGENT en el LCD y el LED rojo encendido](assets/images/iot-demo/wokwi-panel-urgent.png)
+
+*Figura 6.21. Panel de alertas en Wokwi en estado Urgent, con el LED rojo encendido.*
 
 #### 6.2.2.7. Services Documentation Evidence for Sprint Review
 
@@ -1054,11 +1079,11 @@ El servicio local del Edge v0.2.0 describe en su README la recepción de lectura
 
 ![Swagger UI muestra HTTP 200 y el plan Basic en la respuesta del catálogo](assets/images/implementation/sprint-2-swagger-plan-catalog.jpg)
 
-*Figura 6.9. Desde Swagger UI se ejecutó `GET /api/v1/plans`. El servidor devolvió HTTP 200. El primer elemento muestra el identificador de Basic, su límite de 50 collares, la tarifa anual de 600 PEN y el precio unitario de 120 PEN. El identificador de este resultado se usó para la consulta siguiente.*
+*Figura 6.22. Desde Swagger UI se ejecutó `GET /api/v1/plans`. El servidor devolvió HTTP 200. El primer elemento muestra el identificador de Basic, su límite de 50 collares, la tarifa anual de 600 PEN y el precio unitario de 120 PEN. El identificador de este resultado se usó para la consulta siguiente.*
 
 ![Swagger UI muestra HTTP 200 y el desglose de la cotización Basic para diez cabezas](assets/images/implementation/sprint-2-swagger-plan-quote.jpg)
 
-*Figura 6.10. Se ejecutó `GET /api/v1/quotes` en Swagger UI con el `planId` de Basic y `headCount=10` como dato de muestra. El servidor devolvió HTTP 200 con una tarifa anual de 600 PEN y 1 200 PEN por los diez collares, para un total de 1 800 PEN.*
+*Figura 6.23. Se ejecutó `GET /api/v1/quotes` en Swagger UI con el `planId` de Basic y `headCount=10` como dato de muestra. El servidor devolvió HTTP 200 con una tarifa anual de 600 PEN y 1 200 PEN por los diez collares, para un total de 1 800 PEN.*
 
 ##### Evidencia del Edge API
 
@@ -1066,11 +1091,11 @@ El Edge sincroniza con la API central mediante `POST /api/v1/telemetry/batch`, d
 
 ![Swagger UI con los endpoints de umbrales y telemetría, incluido POST /api/v1/telemetry/batch](assets/images/iot-demo/swagger-telemetry-batch.png)
 
-*Figura 6.11. Endpoints de umbrales y telemetría en Swagger UI, incluido el lote de sincronización del Edge.*
+*Figura 6.24. Endpoints de umbrales y telemetría en Swagger UI, incluido el lote de sincronización del Edge.*
 
 ![Respuesta de GET /api/v1/status del Edge API](assets/images/iot-demo/edge-status.png)
 
-*Figura 6.12. Estado del Edge API: servicio activo, revisión de reglas 7 y sin registros pendientes.*
+*Figura 6.25. Estado del Edge API: servicio activo, revisión de reglas 7 y sin registros pendientes.*
 
 ##### Repositorio y commits de documentación del Sprint 2
 
@@ -1101,7 +1126,7 @@ El 13 de noviembre de 2026, hora de Lima, el repositorio del servicio Edge incor
 
 Durante el Sprint 2, del 4 al 14 de noviembre de 2026, el equipo publicó una actualización de la Landing Page en GitHub Pages y nuevas versiones de la aplicación web en Firebase Hosting. También configuró el despliegue de la API central en Render con PostgreSQL y automatizó el arranque del Edge en GitHub Actions para las pruebas de integración del collar y el panel de alertas.
 
-No se encontró evidencia de una publicación de la aplicación móvil en Google Play, TestFlight u otro canal de distribución. El APK debug compilado y abierto localmente en un emulador es evidencia de ejecución para desarrollo, no una versión de producción. Tampoco acredita despliegue del servicio móvil ni acceso a funciones autenticadas.
+En el Sprint 2, la aplicación móvil se verificó con un APK de depuración en un emulador Android (6.2.2.5). Su distribución de prueba se incorpora en el Sprint 3.
 
 ##### Landing Page en GitHub Pages
 
@@ -1109,7 +1134,7 @@ GitHub Pages publicó los archivos estáticos desde la raíz de la rama `main` d
 
 ![GitHub Actions muestra el despliegue exitoso de la Landing Page desde main](assets/images/deployment/sprint-2-github-pages.jpg)
 
-*Figura 6.13. Ejecución de GitHub Pages para el commit `78d2120`. Los trabajos `build`, `report-build-status` y `deploy` finalizaron correctamente.*
+*Figura 6.26. Ejecución de GitHub Pages para el commit `78d2120`. Los trabajos `build`, `report-build-status` y `deploy` finalizaron correctamente.*
 
 ##### Aplicación web en Firebase Hosting
 
@@ -1119,7 +1144,7 @@ El historial de Firebase Hosting registra las publicaciones del **12 de noviembr
 
 ![Historial de Firebase Hosting con los hashes y las fechas de publicación de ICHU](assets/images/deployment/sprint-2-firebase-hosting.png)
 
-*Figura 6.14. Historial de versiones del sitio Ichu-SmartFarm en Firebase Hosting. La captura conserva las fechas, los hashes y el total de archivos de cada versión.*
+*Figura 6.27. Historial de versiones del sitio Ichu-SmartFarm en Firebase Hosting. La captura conserva las fechas, los hashes y el total de archivos de cada versión.*
 
 ##### API central y PostgreSQL en Render
 
@@ -1127,7 +1152,7 @@ El 10 de noviembre, el commit `b8dc73f` incorporó el `Dockerfile` y el Blueprin
 
 ![Blueprint de Render con el Dockerfile, el health check y el despliegue automático desde main](assets/images/deployment/sprint-2-render-blueprint.jpg)
 
-*Figura 6.15. Blueprint versionado para construir en Render con `Dockerfile`, verificar `/health` y desplegar automáticamente desde `main`.*
+*Figura 6.28. Blueprint versionado para construir en Render con `Dockerfile`, verificar `/health` y desplegar automáticamente desde `main`.*
 
 ##### Entorno de integración del Edge, collar y panel
 
@@ -1135,11 +1160,11 @@ El 14 de noviembre, hora de Lima, los trabajos `end-to-end` de ambos repositorio
 
 ![GitHub Actions muestra el arranque del Edge, la simulación del collar y la verificación de una alerta crítica](assets/images/deployment/sprint-2-edge-collar-ci.jpg)
 
-*Figura 6.16. Registro del trabajo del collar. Se observa el arranque de la API del Edge, la simulación en Wokwi y la comprobación de la alerta crítica de temperatura.*
+*Figura 6.29. Registro del trabajo del collar. Se observa el arranque de la API del Edge, la simulación en Wokwi y la comprobación de la alerta crítica de temperatura.*
 
 ![GitHub Actions muestra el arranque del Edge, la generación de una alerta y la simulación del panel](assets/images/deployment/sprint-2-edge-panel-ci.jpg)
 
-*Figura 6.17. Registro del trabajo del panel de alertas. Se observa la generación de la alerta de prueba y la ejecución del firmware en Wokwi contra el Edge.*
+*Figura 6.30. Registro del trabajo del panel de alertas. Se observa la generación de la alerta de prueba y la ejecución del firmware en Wokwi contra el Edge.*
 
 #### 6.2.2.9. Team Collaboration Insights during Sprint
 
@@ -1187,31 +1212,31 @@ Commits de autoría de cada integrante por repositorio, contados en `main` y `de
 
 ##### Capturas de GitHub Insights y commits
 
-Las Figuras 6.18 y 6.19 muestran la actividad semanal que GitHub Insights presenta para `main` con el intervalo del sprint. La tabla utiliza además `develop` para incluir el trabajo de desarrollo integrado en esa rama. [Alcance del gráfico de colaboradores de GitHub](https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/viewing-a-projects-contributors)
+Las Figuras 6.31 y 6.32 muestran la actividad semanal que GitHub Insights presenta para `main` con el intervalo del sprint. La tabla utiliza además `develop` para incluir el trabajo de desarrollo integrado en esa rama. [Alcance del gráfico de colaboradores de GitHub](https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/viewing-a-projects-contributors)
 
 ![GitHub Insights del sitio web con contribuciones semanales a main del 4 al 14 de noviembre de 2026](assets/images/collaboration/commits/sprint-2-insights-website.jpg)
 
-*Figura 6.18. GitHub Insights de la Landing Page. Se observa la actividad semanal de commits en `main` para el intervalo seleccionado. [Gráfico del sitio](https://github.com/five-smart-farm-creators/ichu-website/graphs/contributors?from=2026-11-04T05%3A00%3A00Z&to=2026-11-15T04%3A59%3A59Z)*
+*Figura 6.31. GitHub Insights de la Landing Page. Se observa la actividad semanal de commits en `main` para el intervalo seleccionado. [Gráfico del sitio](https://github.com/five-smart-farm-creators/ichu-website/graphs/contributors?from=2026-11-04T05%3A00%3A00Z&to=2026-11-15T04%3A59%3A59Z)*
 
 ![GitHub Insights de la aplicación web con contribuciones semanales a main del 4 al 14 de noviembre de 2026](assets/images/collaboration/commits/sprint-2-insights-web-app.jpg)
 
-*Figura 6.19. GitHub Insights de la aplicación web. En el intervalo seleccionado, la barra de la segunda semana de noviembre concentra la mayor actividad visible. [Gráfico de la aplicación web](https://github.com/five-smart-farm-creators/ichu-web-app/graphs/contributors?from=2026-11-04T05%3A00%3A00Z&to=2026-11-15T04%3A59%3A59Z)*
+*Figura 6.32. GitHub Insights de la aplicación web. En el intervalo seleccionado, la barra de la segunda semana de noviembre concentra la mayor actividad visible. [Gráfico de la aplicación web](https://github.com/five-smart-farm-creators/ichu-web-app/graphs/contributors?from=2026-11-04T05%3A00%3A00Z&to=2026-11-15T04%3A59%3A59Z)*
 
 ![Historial de commits del sitio web con cambios de contenido de Alison y ajustes de publicación de Giorgio](assets/images/collaboration/commits/sprint-2-commits-website.jpg)
 
-*Figura 6.20. Historial de `develop` de la Landing Page. Se identifican los cambios de Alison en contenidos y las correcciones e integraciones de Giorgio en los recursos publicados. [Historial del sitio](https://github.com/five-smart-farm-creators/ichu-website/commits/95add4abe6acc3bc6b6221ed725a4965a44d5dca/)*
+*Figura 6.33. Historial de `develop` de la Landing Page. Se identifican los cambios de Alison en contenidos y las correcciones e integraciones de Giorgio en los recursos publicados. [Historial del sitio](https://github.com/five-smart-farm-creators/ichu-website/commits/95add4abe6acc3bc6b6221ed725a4965a44d5dca/)*
 
 ![Pull request 47 de la API central con commits registrados para las correcciones de Planning](assets/images/collaboration/commits/sprint-2-commits-api-planning.jpg)
 
-*Figura 6.21. Commits del PR 47 de la API central. GitHub muestra los ajustes de rutas realizados por Manuel y la integración a `develop` efectuada por Diego. [Historial del PR 47](https://github.com/five-smart-farm-creators/ichu-web-service/pull/47/commits)*
+*Figura 6.34. Commits del PR 47 de la API central. GitHub muestra los ajustes de rutas realizados por Manuel y la integración a `develop` efectuada por Diego. [Historial del PR 47](https://github.com/five-smart-farm-creators/ichu-web-service/pull/47/commits)*
 
 ![Pull request 8 de la aplicación web con commits sobre cuentas, perfiles y acceso al hato](assets/images/collaboration/commits/sprint-2-commits-web-app.jpg)
 
-*Figura 6.22. Commits del PR 8 de la aplicación web. Los cambios de Flor incorporan la búsqueda de unidades por código de acceso, las traducciones y las vistas de cuenta y asesoría. [Historial del PR 8](https://github.com/five-smart-farm-creators/ichu-web-app/pull/8/commits)*
+*Figura 6.35. Commits del PR 8 de la aplicación web. Los cambios de Flor incorporan la búsqueda de unidades por código de acceso, las traducciones y las vistas de cuenta y asesoría. [Historial del PR 8](https://github.com/five-smart-farm-creators/ichu-web-app/pull/8/commits)*
 
 ![Pull request 22 de la aplicación móvil con commits de la vista de alertas del Edge](assets/images/collaboration/commits/sprint-2-commits-mobile-edge-alerts.jpg)
 
-*Figura 6.23. Commits del PR 22 de la aplicación móvil. El listado muestra el modelo y la lectura autorizada de alertas desarrollados por Manuel. Diego integró la rama en `develop`. [Historial del PR 22](https://github.com/five-smart-farm-creators/ichu-mobile-app/pull/22/commits)*
+*Figura 6.36. Commits del PR 22 de la aplicación móvil. El listado muestra el modelo y la lectura autorizada de alertas desarrollados por Manuel. Diego integró la rama en `develop`. [Historial del PR 22](https://github.com/five-smart-farm-creators/ichu-mobile-app/pull/22/commits)*
 
 ##### Interpretación de la colaboración
 
@@ -1345,7 +1370,7 @@ Al revisar la Landing Page, Alberto identificó con rapidez qué ofrece ICHU y v
 
 [![Alberto Pérez durante la revisión del historial clínico en la aplicación web](assets/images/validation-interviews/alberto-perez.jpg)](https://tinyurl.com/validation-interviews-ichu)
 
-*Figura 6.24. Alberto Pérez durante la revisión de la aplicación web. El fotograma de 00:17:14 muestra la vista de historial clínico.*
+*Figura 6.37. Alberto Pérez durante la revisión de la aplicación web. El fotograma de 00:17:14 muestra la vista de historial clínico.*
 
 ##### Entrevista a Zahir Sánchez
 
@@ -1357,7 +1382,7 @@ Zahir identificó en la Landing Page el seguimiento individual mediante collares
 
 [![Zahir Sánchez revisa el panel Mi hato en la aplicación web](assets/images/validation-interviews/zahir-sanchez.jpg)](https://tinyurl.com/validation-interviews-ichu)
 
-*Figura 6.25. Zahir Sánchez durante la revisión del panel «Mi hato» después de ingresar a la aplicación. Fotograma de 00:26:42.*
+*Figura 6.38. Zahir Sánchez durante la revisión del panel «Mi hato» después de ingresar a la aplicación. Fotograma de 00:26:42.*
 
 ##### Entrevista a Jorge Chumpitaz
 
@@ -1369,7 +1394,7 @@ Durante la demostración, Jorge valoró el seguimiento de los animales por etapa
 
 [![Jorge Chumpitaz observa la vista Ubicación y cercas durante la demostración](assets/images/validation-interviews/jorge-chumpitaz.jpg)](https://tinyurl.com/validation-interviews-ichu)
 
-*Figura 6.26. Demostración de la vista «Ubicación y cercas» durante la entrevista a Jorge Chumpitaz. Fotograma de 00:32:54.*
+*Figura 6.39. Demostración de la vista «Ubicación y cercas» durante la entrevista a Jorge Chumpitaz. Fotograma de 00:32:54.*
 
 #### Segmento 2. Médicos veterinarios
 
@@ -1383,7 +1408,7 @@ En la demostración se buscó un animal por arete, se abrió su ficha y se mostr
 
 [![Formulario de intervención clínica mostrado durante la entrevista a Mia Acosta](assets/images/validation-interviews/mia-acosta.jpg)](https://tinyurl.com/validation-interviews-ichu)
 
-*Figura 6.27. Formulario de registro de una intervención clínica en la sesión con Mia Acosta. Fotograma de 00:03:55.*
+*Figura 6.40. Formulario de registro de una intervención clínica en la sesión con Mia Acosta. Fotograma de 00:03:55.*
 
 ##### Entrevista a Manuel Merino
 
@@ -1395,7 +1420,7 @@ La demostración recorrió la ficha del animal, el historial clínico y la consu
 
 [![Vista del historial clínico mostrada en la entrevista a Manuel Merino](assets/images/validation-interviews/manuel-merino.jpg)](https://tinyurl.com/validation-interviews-ichu)
 
-*Figura 6.28. Resumen de salud y línea de tiempo del historial clínico en la sesión con Manuel Merino. Fotograma de 00:10:44.*
+*Figura 6.41. Resumen de salud y línea de tiempo del historial clínico en la sesión con Manuel Merino. Fotograma de 00:10:44.*
 
 ### 6.3.3. Evaluaciones según heurísticas
 
@@ -1453,7 +1478,7 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 
 ![Vista móvil de una alerta que identifica al animal con un UUID](assets/images/implementation/mobile-heuristic-01-alert-uuid.png)
 
-*Figura 6.27. Vista móvil de alertas que identifica al animal mediante un UUID y no muestra el arete.*
+*Figura 6.42. Vista móvil de alertas que identifica al animal mediante un UUID y no muestra el arete.*
 
 ##### PROBLEMA #2: La lista no ayuda a priorizar alertas por gravedad
 
@@ -1465,7 +1490,7 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 
 ![Vista móvil de los filtros de alertas disponibles](assets/images/implementation/mobile-heuristic-02-alert-filters.png)
 
-*Figura 6.28. La vista expone un filtro por estado, sin un control visible para filtrar por severidad.*
+*Figura 6.43. La vista expone un filtro por estado, sin un control visible para filtrar por severidad.*
 
 ##### PROBLEMA #3: No hay una ruta de recuperación para registros rechazados o en conflicto
 
@@ -1477,7 +1502,7 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 
 ![Vista móvil de un registro de campo en conflicto sin acción de resolución](assets/images/implementation/mobile-heuristic-03-field-conflict.png)
 
-*Figura 6.29. Registro pendiente con conflicto y sin controles para corregirlo o resolverlo en esta vista.*
+*Figura 6.44. Registro pendiente con conflicto y sin controles para corregirlo o resolverlo en esta vista.*
 
 ##### PROBLEMA #4: La preparación offline requiere precargar animales uno por uno
 
@@ -1489,7 +1514,7 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 
 ![Vista móvil del formulario de campo que solicita un arete exacto](assets/images/implementation/mobile-heuristic-04-field-preload.png)
 
-*Figura 6.30. Formulario de campo con búsqueda por arete exacto.*
+*Figura 6.45. Formulario de campo con búsqueda por arete exacto.*
 
 ##### PROBLEMA #5: Los flujos de acceso dependen de UUID difíciles de reconocer
 
@@ -1501,7 +1526,7 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 
 ![Vista móvil de la concesión de acceso mediante identificador de cuenta](assets/images/implementation/mobile-heuristic-05-access-uuid.png)
 
-*Figura 6.31. Formulario de concesión directa que solicita el identificador de cuenta del veterinario.*
+*Figura 6.46. Formulario de concesión directa que solicita el identificador de cuenta del veterinario.*
 
 ##### PROBLEMA #6: La confirmación de revocación no identifica el acceso afectado
 
@@ -1513,7 +1538,7 @@ En esta sección se evalúa preliminarmente la experiencia de usuario, considera
 
 ![Vista móvil del diálogo de confirmación al revocar un acceso](assets/images/implementation/mobile-heuristic-06-revoke-confirmation.png)
 
-*Figura 6.32. Diálogo de confirmación presente en la app, pero sin detalles del permiso que se revocará.*
+*Figura 6.47. Diálogo de confirmación presente en la app, pero sin detalles del permiso que se revocará.*
 
 ## 6.4. Video About-the-Product
 
