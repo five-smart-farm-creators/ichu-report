@@ -6,35 +6,23 @@ Este capítulo registra la configuración del software y las evidencias de imple
 
 ### 6.1.1. Software Development Environment Configuration
 
-La Landing Page de ICHU se desarrolla como un sitio estático con **HTML, CSS y JavaScript**, sin framework ni proceso de compilación. El código está organizado en páginas HTML, una hoja de estilos compartida (`css/styles.css`) y dos módulos JavaScript: `js/i18n.js`, para idioma, y `js/main.js`, para navegación e interacciones. Los recursos gráficos y de video se mantienen en carpetas propias.
+Cada producto de ICHU tiene su propio repositorio en la organización `five-smart-farm-creators` y su README documenta cómo prepararlo y ejecutarlo. El equipo usa Git y GitHub para el control de versiones, GitHub Actions para validar cada pull request y Wokwi para simular los dispositivos.
 
-Para una revisión local, el README del repositorio permite abrir `index.html` directamente en un navegador o iniciar un servidor estático con `npx serve .` o `python -m http.server 8080`. El README también menciona una comprobación con jsdom para identificar IDs duplicados, recursos faltantes, anclas rotas y estilos inline; sin embargo, en la copia del proyecto revisada no se encontró el script ni un `package.json` que permita ejecutarla. Por tanto, esa comprobación no es reproducible con el material disponible y no se presenta como una prueba ejecutada.
+| Producto (repositorio) | Lenguajes y frameworks | Herramientas y comandos principales |
+|---|---|---|
+| Landing Page (`ichu-website`) | HTML5, CSS3 y JavaScript, sin framework ni compilación | Servidor estático local, por ejemplo Live Server de VS Code. Las traducciones se cargan desde `locales/en.json` y `locales/es.json`. |
+| Web Application (`ichu-web-app`) | Angular 22 con TypeScript 6 y Angular Material 22; mapas con Leaflet | Node.js 22 y npm: `npm start`, `npm run build`, `npm test` (Vitest) y `npm run typecheck`. |
+| API central (`ichu-web-service`) | C# 14 con ASP.NET Core 10 y Entity Framework Core 10 sobre PostgreSQL 17 | .NET 10 SDK: `dotnet build`, `dotnet run` y `dotnet test` (pruebas unitarias, de integración HTTP y BDD con Gherkin). Swagger UI documenta el contrato OpenAPI. |
+| Aplicación móvil (`ichu-mobile-app`) | Dart 3.12 con Flutter 3.44 para Android e iOS | Flutter SDK: `flutter pub get`, `flutter gen-l10n`, `flutter test` y `flutter run` con la configuración de Firebase y de la API pasada como `--dart-define-from-file`. |
+| Edge API (`ichu-edge-service`) | Python 3.13 con Flask 3.1, Peewee 4.5, Pydantic 2 y SQLite | Entorno virtual de Python: `pip install -r requirements.txt`, `python app.py`, `flask --app app synchronize` y `python -m unittest discover -s tests`. |
+| Aplicaciones embebidas (`ichu-cattle-band-embedded-app` y `ichu-alert-panel-embedded-app`) | C++ (Arduino) para ESP32-S3 y ESP32 con el Modest IoT Nano Framework 1.3.0 | arduino-cli con el core `esp32:esp32` 3.3.4; Wokwi web, Wokwi para VS Code y Wokwi CI; Cirkit Designer para el circuito. |
+| Informe (`ichu-report`) | Markdown, PlantUML y Structurizr DSL | Cualquier editor de Markdown; los diagramas se generan desde las fuentes de `report/assets/diagram-sources`. |
 
-El frontend web de la plataforma es un segundo artefacto, desarrollado con Angular y TypeScript, con componentes de Angular Material. Su repositorio de código ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) incluye el manifiesto de dependencias y los comandos del proyecto. En la revisión del manifiesto se observaron Angular y Angular Material 22.2.2, TypeScript 6.0.3 y Playwright 1.64.0; las versiones corresponden al estado del repositorio consultado y no implican que exista un backend conectado. Las capturas disponibles muestran la interfaz de inicio de sesión y un dashboard con datos de muestra.
-
-La aplicación móvil nativa está desarrollada con Flutter 3.44.6 y Dart 3.12.2 para Android e iOS. Sus opciones de Firebase y la URL de la API se suministran durante la compilación; la configuración local aprobada no debe incorporarse al repositorio ni al informe. El README de `ichu-mobile-app` documenta `flutter pub get`, `flutter gen-l10n` y `flutter run` con los parámetros de entorno correspondientes.
-
-| Elemento | Configuración documentada |
-|---|---|
-| Landing Page — lenguajes y ejecución | HTML, CSS y JavaScript; navegador web, con servidor estático opcional |
-| Landing Page — organización | Páginas HTML, `css/styles.css`, `js/i18n.js` y `js/main.js`; no utiliza framework ni proceso de compilación |
-| Web Application — tecnologías verificadas | Angular 22.2.2, TypeScript 6.0.3 y Angular Material 22.2.2, según el manifiesto del repositorio ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) |
-| Web Application — comandos del manifiesto | `npm start`, `npm run build`, `npm run typecheck` y `npm run test:e2e`; este último ejecuta Playwright |
-| Aplicación móvil (`ichu-mobile-app`) | Flutter 3.44.6 y Dart 3.12.2; Android e iOS. Firebase y API se configuran mediante opciones de compilación locales aprobadas; no se incluyen credenciales en el repositorio |
-| Backend — API central | ASP.NET Core 10, EF Core y PostgreSQL; contrato OpenAPI 3.1 con Swagger UI. |
-| Edge API | Flask 3.1, Peewee 4.5 y SQLite con Python 3.13. |
-| Embedded Applications | C++ (Arduino) para ESP32-S3 (collar) y ESP32 (panel), compilado con arduino-cli. |
-| Simulación | Wokwi web, Wokwi para VS Code y Wokwi CI (GitHub Actions). |
-| Diseño de circuitos | Cirkit Designer. |
-| Landing Page — validación automatizada | El README menciona jsdom, pero no se encontró el script ni su configuración en la copia revisada; no es reproducible desde esa copia |
-
-Fuente: README del repositorio LandingPageSmartFarm, [https://tinyurl.com/27vbhfce](https://tinyurl.com/27vbhfce)
-
-Fuente: READMEs de los repositorios `ichu-web-service`, `ichu-web-app`, `ichu-edge-service`, `ichu-cattle-band-embedded-app` e `ichu-alert-panel-embedded-app`, en la organización `five-smart-farm-creators`.
+Las claves de Firebase, Stripe y de los dispositivos se entregan como variables de entorno o archivos excluidos de Git; ningún repositorio las contiene.
 
 ### 6.1.2. Source Code Management
 
-El código de la Landing Page y el informe se mantienen en repositorios Git separados: [https://tinyurl.com/27vbhfce](https://tinyurl.com/27vbhfce) y [https://tinyurl.com/2dhmo9ou](https://tinyurl.com/2dhmo9ou). Esta separación permite revisar la evolución del producto web y la documentación de manera independiente.
+El código de cada producto y el informe se mantienen en repositorios Git separados, de modo que cada uno conserva su propio historial, sus versiones y sus revisiones.
 
 | Repositorio | Producto | URL |
 |---|---|---|
@@ -47,34 +35,38 @@ El código de la Landing Page y el informe se mantienen en repositorios Git sepa
 | `ichu-alert-panel-embedded-app` | Firmware del panel de alertas (ESP32) | [https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app](https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app) |
 | `ichu-report` | Informe del proyecto | [https://github.com/five-smart-farm-creators/ichu-report](https://github.com/five-smart-farm-creators/ichu-report) |
 
-Los ocho repositorios siguen GitFlow (`main`, `develop`, `feature/*`, `bugfix/*`, `release/vX.Y.Z` y `hotfix/vX.Y.Z`), Conventional Commits y Semantic Versioning. Un flujo de GitHub Actions valida el nombre de la rama y los mensajes de commit en cada pull request.
+Los ocho repositorios aplican el modelo GitFlow de Vincent Driessen, Conventional Commits y Semantic Versioning 2.0.0. Un flujo de GitHub Actions valida en cada pull request el nombre de la rama y el formato de cada mensaje de commit.
 
-Para el repositorio del informe, la guía de contribución define `main` para entregas publicadas, `develop` para integración y ramas `feature/<alcance>` o `bugfix/<alcance>` para cambios de trabajo. Las contribuciones se integran mediante Pull Request con revisión de otro integrante, y los commits siguen Conventional Commits. Esta auditoría del Capítulo VI se trabaja en `feature/chapter-vi-sprint-2-audit`, basada en `feature/second-progress-update`; no se ha integrado en `main`.
+| Rama | Origen y destino | Uso |
+|---|---|---|
+| `main` | Recibe solo `release/*` y `hotfix/*` | Versiones publicadas; cada merge lleva un tag `vX.Y.Z` |
+| `develop` | Recibe `feature/*`, `bugfix/*` y el back-merge de cada release | Integración del trabajo del sprint |
+| `feature/<scope>` | Nace de `develop` y vuelve a `develop` por pull request | Una funcionalidad o un bloque del informe, con un nombre en inglés y kebab-case, por ejemplo `feature/stripe-checkout` |
+| `bugfix/<scope>` | Nace de `develop` y vuelve a `develop` | Corrección de un defecto encontrado durante el sprint |
+| `release/vX.Y.Z` | Nace de `develop` y se integra en `main` y `develop` | Preparación de una entrega: versión, CHANGELOG y tag |
+| `hotfix/vX.Y.Z` | Nace de `main` y se integra en `main` y `develop` | Corrección urgente de una versión publicada |
 
-| Práctica | Convención del repositorio del informe |
-|---|---|
-| Ramas de trabajo | `feature/<alcance>` o `bugfix/<alcance>`, creadas desde `develop` |
-| Integración | Pull Request hacia la rama correspondiente y revisión por otro integrante |
-| Mensajes de commit | Conventional Commits, en minúsculas, con alcance opcional |
-| Rama de entrega | `main` |
-
-Fuente: archivo CONTRIBUTING.md del repositorio ichu-report. La convención anterior describe el repositorio del informe; cualquier diferencia en el flujo del repositorio de la Landing Page debe confirmarse con su configuración y responsables.
+Los mensajes de commit siguen la forma `type(scope): subject`, en inglés, en minúsculas, en modo imperativo y sin punto final; por ejemplo, `feat(subscription-plans): pay subscriptions with stripe checkout`. El cuerpo explica el porqué del cambio. Las versiones siguen `MAJOR.MINOR.PATCH`: cada entrega del curso publica un MINOR y la entrega final publica `v1.0.0` del software.
 
 ### 6.1.3. Source Code Style Guide & Conventions
 
-Las convenciones identificables en la documentación del proyecto son:
+Todo el código, los nombres y los comentarios están en inglés y usan los términos del Ubiquitous Language de la sección 2.5. Cada producto adopta la guía de estilo estándar de su lenguaje:
 
-- Mantener la estructura semántica de cada página en HTML y centralizar los estilos compartidos en `css/styles.css`.
-- Mantener separadas las traducciones (`js/i18n.js`) y las interacciones de interfaz (`js/main.js`).
-- Definir la paleta mediante variables CSS y reutilizar esos tokens para los temas claro y oscuro.
-- Incluir nombres accesibles, etiquetas ARIA y alternativas textuales donde correspondan; el README señala navegación por teclado y soporte para movimiento reducido.
-- Mantener imágenes optimizadas en WebP, declarar sus dimensiones y usar carga diferida cuando corresponda.
+| Producto | Guía adoptada | Convenciones aplicadas |
+|---|---|---|
+| Landing Page | Google HTML/CSS Style Guide | HTML semántico, estilos compartidos en `assets/styles/style.css`, tokens de color como variables CSS para los temas claro y oscuro, etiquetas ARIA y textos alternativos, imágenes WebP con dimensiones declaradas. |
+| Web Application | Angular Style Guide y Google TypeScript Style Guide | Una carpeta por bounded context con capas `domain`, `application`, `infrastructure` y `presentation`; componentes standalone; textos traducidos en inglés y español. |
+| API central | Convenciones de codificación de C# y .NET | Una carpeta por bounded context con capas `Domain`, `Application`, `Infrastructure` e `Interfaces`; errores de negocio con `Result<T>`; rutas `api/v1/<plural-kebab-case>`; mensajes en archivos `.resx` en inglés y español. |
+| Aplicación móvil | Effective Dart y `flutter_lints` | Una carpeta por bounded context con capas `domain`, `application`, `infrastructure` y `presentation`; textos en archivos ARB en inglés y español. |
+| Edge API | PEP 8 | Un paquete por bounded context (`iam` y `monitoring`) con capas `domain`, `application`, `infrastructure`, `integration` e `interfaces`. |
+| Aplicaciones embebidas | C++ Core Guidelines | Una clase por responsabilidad (dispositivo, sensor, cliente del Edge); configuración en `CollarConfig.h` y `PanelConfig.h`; claves en un archivo excluido de Git. |
+| Pruebas de aceptación | Gherkin Conventions for Readable Specifications | Escenarios `Given`/`When`/`Then` en presente y en tercera persona, sin detalles de interfaz. |
 
-Estas convenciones resumen la guía del repositorio de la Landing Page. No se afirma que se haya ejecutado una auditoría automatizada de accesibilidad o estilo para este informe.
+Los comentarios y docstrings tienen una o dos líneas y explican el porqué de una decisión, no lo que hace el código.
 
 ### 6.1.4. Software Deployment Configuration
 
-Los productos tienen distintos destinos de despliegue. La tabla distingue los destinos publicados de los productos para los que no se encontró evidencia de distribución.
+Cada producto tiene su propio destino de despliegue.
 
 | Producto | Despliegue | Dirección o comando |
 |---|---|---|
@@ -83,7 +75,7 @@ Los productos tienen distintos destinos de despliegue. La tabla distingue los de
 | API central (`ichu-web-service`) | Render, con la imagen Docker construida desde `main` y el Blueprint `render.yaml`. Swagger UI en `/swagger`. | [https://ichu-web-service.onrender.com](https://ichu-web-service.onrender.com) |
 | Edge API (`ichu-edge-service`) | Gateway local con variables de entorno y base de datos SQLite. El sincronizador corre como proceso aparte. | `python app.py` y `flask --app app synchronize` |
 | Aplicaciones embebidas (`ichu-cattle-band-embedded-app` y `ichu-alert-panel-embedded-app`) | Firmware compilado con arduino-cli (core `esp32:esp32` 3.3.4) y cargado en la placa o ejecutado en Wokwi. | `arduino-cli compile --fqbn esp32:esp32:esp32s3` (collar) y `--fqbn esp32:esp32:esp32` (panel) |
-| Aplicación móvil (`ichu-mobile-app`) | No se encontró evidencia de una publicación Android o iOS. La compilación debug y la ejecución local en un AVD, documentadas en 6.2.2.5–6.2.2.6, no constituyen un despliegue de producción. | Sin enlace de distribución verificado |
+| Aplicación móvil (`ichu-mobile-app`) | El flujo `Test builds` de GitHub Actions compila un APK de release para Android y un IPA sin firmar para iOS, ambos configurados contra la API de producción, y los publica como artefactos del flujo. | Flujo `.github/workflows/test-builds.yml` |
 
 El diagrama de despliegue C4 de la arquitectura de producción se presenta en la Figura 4.6, en la sección 4.1.3.4.
 
