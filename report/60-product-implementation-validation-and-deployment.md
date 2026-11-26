@@ -2085,6 +2085,31 @@ La demostración recorrió la ficha del animal, el historial clínico y la consu
 
 En esta sección se evalúa preliminarmente la experiencia de usuario, considerando usabilidad, arquitectura de información y diseño inclusivo. La inspección de los seis hallazgos se basa en el código móvil y los contratos del servicio web. Las seis capturas corresponden a vistas de la aplicación Flutter ejecutadas en un AVD Android 17 (API 37, x86_64) y documentan los estados analizados. La inspección permite evaluar la interfaz frente a los flujos y contratos; no constituye una verificación de autenticación Firebase, integración de servicios en producción ni observación de participantes. No se realizaron entrevistas para esta inspección y el video de 6.3.2 no cubre tareas móviles. Las severidades son provisionales y requieren contraste en recorridos autorizados con personas usuarias.
 
+| Campo | Valor |
+|---|---|
+| **CARRERA** | Ingeniería de Software |
+| **CURSO** | 1ASI0572 Desarrollo de Soluciones IoT |
+| **SECCIÓN** | NRC 8733 |
+| **PROFESORES** | Velásquez Núñez, Ángel Augusto |
+| **AUDITOR** | Sanchez Arenas, Manuel Angel |
+| **CLIENTE(S)** | Administrador ganadero y médico veterinario (segmentos 1 y 2) |
+| **SITE o APP A EVALUAR** | ICHU Mobile Application (Flutter, Android) |
+
+**TAREAS A EVALUAR**
+
+El alcance de la evaluación incluye las siguientes tareas:
+
+1. Priorizar y atender una alerta.
+2. Consultar el animal afectado por una alerta.
+3. Registrar un evento de campo sin conexión y sincronizarlo.
+4. Otorgar, revisar y revocar el acceso de un veterinario.
+
+Las siguientes tareas no están incluidas en esta versión de la evaluación:
+
+1. Recorrer la Landing Page y comparar los planes.
+2. Registrar una cuenta y pagar una suscripción.
+3. Consultar indicadores y reportes en la aplicación web.
+
 #### ESCALA DE SEVERIDAD:
 
 <table border="1" cellspacing="0" cellpadding="6">
