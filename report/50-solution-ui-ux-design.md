@@ -14,7 +14,7 @@
 | Jerarquía y ritmo | Títulos 28–32 px, subtítulos 20–24 px, lectura 16 px y controles 14 px. Espaciado en escala de 4 px: 4, 8, 12, 16, 24 y 32 px. |
 | Componentes | Bordes discretos, etiquetas claras y estados visibles de foco, selección y error. Verde para acciones operativas y dorado para la acción principal del onboarding. |
 
-La Web Application usa una base de 16 px, Outfit para encabezados y Plus Jakarta Sans para lectura y controles. El tono es serio, cercano, profesional y sereno. Errores y alertas indican la situación y el siguiente paso sin presentar inferencias como diagnósticos. El diseño contempla contraste WCAG (4.5:1 en texto normal; 3:1 en texto grande), foco visible y objetivos táctiles de al menos 44 × 44 px [8].
+La Web Application usa una base de 16 px, Outfit para encabezados y Plus Jakarta Sans para lectura y controles. El tono es serio, cercano, profesional y sereno. Errores y alertas indican la situación y el siguiente paso sin presentar inferencias como diagnósticos. El diseño contempla contraste WCAG (4.5:1 en texto normal; 3:1 en texto grande), foco visible y objetivos táctiles de al menos 44 × 44 px (World Wide Web Consortium [W3C], 2023).
 
 ![Muestra de identidad visual y tokens de ICHU](assets/images/ichu-style-guidelines.svg)
 
@@ -27,15 +27,15 @@ La identidad y el significado de los estados se mantienen entre pantallas; la co
 | Experiencia | Guía visual y de interacción |
 |---|---|
 | **Web responsiva** | Navegación y paneles se reorganizan al reducirse el ancho (1080, 720 y 560 px en el mockup); en móvil, una columna y desplazamiento independiente para tablas. |
-| **Aplicación móvil nativa** | Priorizar una tarea por vista, tarjetas de una columna y controles táctiles amplios, manteniendo la identidad y el significado de los estados de ICHU. Son pautas generales: este capítulo no presenta wireframes ni mockups de la aplicación móvil nativa desarrollada en el Sprint 2. |
+| **Aplicación móvil (Flutter)** | Priorizar una tarea por vista, tarjetas de una columna y controles táctiles amplios, manteniendo la identidad y el significado de los estados de ICHU. Las alertas nuevas se anuncian con una notificación local del sistema operativo. |
 | **IoT digital** | Mostrar lectura, unidad, hora y vigencia; distinguir estados en línea, sin señal, almacenado y sincronizado, junto con batería y conectividad. |
 | **IoT físico** | Indicadores inequívocos y coherentes con la app. La función de luces, botones y sonidos se especifica junto con el diseño físico en 5.6. |
 
-Este capítulo desarrolla los artefactos de diseño de la Landing Page y la Web Application. Para la aplicación móvil nativa solo se documentan pautas generales: no se incluyen aquí wireframes, mockups ni flujos móviles. La implementación móvil del Sprint 2 y sus límites de evidencia se registran en el Capítulo VI. El diseño conceptual del collar y el receptor de alertas se documenta en 5.6.
+Este capítulo desarrolla los artefactos de diseño de la Landing Page, la Web Application y la aplicación móvil. El diseño del collar y del panel de alertas se documenta en 5.6.
 
 ## 5.2. Information Architecture
 
-La arquitectura de información de este capítulo corresponde al landing y a la Web Application ICHU; no describe la navegación de la aplicación móvil nativa. Se apoya en las tareas de César, administrador ganadero, y Leonardo, veterinario (2.3), las historias de usuario (3.1) y la arquitectura definida en 4.1.3.3. La estructura distingue la gestión del hato y la consulta clínica de unidades autorizadas. Las vistas descritas son decisiones de diseño; su implementación se identifica en 5.5.
+La arquitectura de información de este capítulo corresponde a la Landing Page y a la Web Application ICHU; la aplicación móvil reutiliza sus etiquetas y organiza la navegación en una sola columna, con una tarea por vista (5.4). Se apoya en las tareas de César, administrador ganadero, y Leonardo, veterinario (2.3), las historias de usuario (3.1) y la arquitectura definida en 4.1.3.3. La estructura distingue la gestión del hato y la consulta clínica de unidades autorizadas. Las vistas descritas son decisiones de diseño; su implementación se identifica en 5.5.
 
 ### 5.2.1. Organization Systems
 
@@ -71,7 +71,7 @@ Las etiquetas nombran destinos y acciones, no componentes técnicos. Se mantiene
 
 Las acciones usan verbo y objeto: **Registrar animal**, **Vincular collar**, **Atender alerta**, **Registrar intervención** y **Exportar reporte**. Arete identifica al animal; collar identifica el equipo de telemetría. Una lectura muestra unidad y hora; Sin datos no equivale a Normal, ni Sin conexión a Sin alertas.
 
-Las etiquetas se localizan de forma consistente en `en_US` y `es_419`, incluido el contenido de ayuda, errores, fechas y números (US-37). El idioma inicial definido por la historia es `en_US`, con preferencia persistente; los ejemplos de esta sección usan `es_419`. La configuración del idioma del documento y el tratamiento de formatos regionales siguen las pautas de internacionalización web del W3C [12].
+Las etiquetas se localizan de forma consistente en `en_US` y `es_419`, incluido el contenido de ayuda, errores, fechas y números (US-37). El idioma inicial definido por la historia es `en_US`, con preferencia persistente; los ejemplos de esta sección usan `es_419`. La configuración del idioma del documento y el tratamiento de formatos regionales siguen las pautas de internacionalización web del W3C (W3C, s. f.).
 
 ### 5.2.3. SEO Tags and Meta Tags
 
@@ -198,7 +198,9 @@ Las capturas separan el recorrido para mantener legibles las secciones y conserv
 
 ## 5.4. Applications UX/UI Design
 
-Esta sección presenta la experiencia de la Web Application ICHU para el administrador ganadero y el médico veterinario. Sus wireframes, wireflows, mockups y user flows no representan la aplicación móvil nativa, que fue desarrollada durante el Sprint 2 pero no cuenta con artefactos de diseño móvil en este capítulo. Las vistas web traducen la arquitectura de información de 5.2 y las pautas visuales de 5.1, con contenido y acciones según el rol y sus permisos.
+Esta sección presenta la experiencia de la Web Application y de la aplicación móvil de ICHU para el administrador ganadero, el operario de campo y el médico veterinario. Las vistas traducen la arquitectura de información de 5.2 y las pautas visuales de 5.1, con contenido y acciones según el rol y sus permisos. Cada subsección presenta primero la aplicación web y luego la aplicación móvil.
+
+Los mockups móviles son capturas de las pantallas reales de la aplicación Flutter, generadas en GitHub Actions a partir de sus pruebas de widgets con datos de prueba; por eso muestran identificadores y nombres de ejemplo. Los wireframes móviles reproducen en baja fidelidad la estructura de esas mismas pantallas.
 
 ### 5.4.1. Applications Wireframes
 
@@ -228,6 +230,52 @@ Los wireframes de baja fidelidad organizan seis vistas de escritorio para las ta
 
 *Figura 5.4.1.6. Historial clínico y registro.*
 
+**Aplicación móvil**
+
+Los wireframes móviles priorizan una tarea por pantalla, con controles de ancho completo y al menos 48 px de alto, fáciles de pulsar en el campo. La cabecera mantiene el logotipo, el regreso y el selector de idioma (inglés o español) en todas las vistas.
+
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-login.png" alt="Wireframe móvil de inicio de sesión" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.1.7. Inicio de sesión de la aplicación móvil.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-ranch-selection.png" alt="Wireframe móvil de selección de rancho" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.1.8. Selección de la unidad productiva autorizada.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-cattle-register.png" alt="Wireframe móvil de registro de animal" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.1.9. Registro de un animal.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-cattle-profile.png" alt="Wireframe móvil de ficha del animal" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.1.10. Ficha del animal con sus acciones de gestión.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-ranch-alerts.png" alt="Wireframe móvil de alertas" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.1.11. Alertas de la unidad productiva.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-alert-acknowledgement.png" alt="Wireframe móvil de atención de alerta" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.1.12. Diálogo de atención de una alerta.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/wireframe-field-record.png" alt="Wireframe móvil de registro de campo" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.1.13. Registro de un evento de campo sin conexión.</em></p>
+
 ### 5.4.2. Applications Wireflow Diagrams
 
 Cada wireflow representa una meta de usuario y muestra las acciones, decisiones y pantallas de baja fidelidad que resultan de cada interacción. Las metas se vinculan con las historias de usuario del alcance web:
@@ -256,6 +304,24 @@ Cada meta cuenta con un wireflow independiente. Las pantallas esquemáticas se c
 ![Wireflow de acceso veterinario y preparación de atención](assets/diagram-sources/chapter-v/wireflow-veterinary-care.svg)
 
 *Figura 5.4.2.4. Wireflow de autorización, consulta clínica y registro veterinario. Elaboración propia.*
+
+**Aplicación móvil**
+
+*User goal 1 (administrador ganadero):* atender una alerta del hato desde el teléfono. El usuario inicia sesión, elige la unidad productiva, abre las alertas y registra su hallazgo en una alerta pendiente.
+
+*User goal 2 (operario de campo):* registrar un evento de salud sin conexión. El operario elige la unidad productiva, busca el animal por su arete, guarda el evento en el teléfono y lo sincroniza al recuperar la señal.
+
+<p align="center">
+  <img src="assets/images/mobile-design/wireflow-attend-alert.png" alt="Wireflow móvil para atender una alerta" width="720">
+</p>
+
+<p align="center"><em>Figura 5.4.2.5. Wireflow móvil para atender una alerta. Elaboración propia.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/wireflow-field-record.png" alt="Wireflow móvil para registrar un evento de campo" width="720">
+</p>
+
+<p align="center"><em>Figura 5.4.2.6. Wireflow móvil para registrar un evento de campo sin conexión. Elaboración propia.</em></p>
 
 ### 5.4.3. Applications Mock-ups
 
@@ -287,6 +353,58 @@ Las capturas siguientes corresponden a vistas implementadas del frontend. Se pre
 
 *Figura 5.4.3.6. Historial clínico desde el rol veterinario.*
 
+**Aplicación móvil**
+
+Los mockups aplican el design system de ICHU: la tipografía Outfit para títulos y Plus Jakarta Sans para textos, el verde oscuro de la marca en las acciones principales y tarjetas blancas sobre fondo claro. Los textos se traducen al inglés y al español.
+
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-login.png" alt="Mockup móvil de inicio de sesión" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.3.7. Inicio de sesión con Firebase Authentication.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-ranch-selection.png" alt="Mockup móvil de selección de rancho" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.3.8. Unidades productivas autorizadas y su nivel de acceso.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-cattle-register-form.png" alt="Mockup móvil de registro de animal" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.3.9. Registro de un animal.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-cattle-profile.png" alt="Mockup móvil de ficha del animal" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.3.10. Ficha del animal con corrección, cambio de etapa y baja.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-ranch-alerts.png" alt="Mockup móvil de alertas del rancho" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.3.11. Alertas de la unidad productiva con su severidad y estado.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-alert-acknowledgement.png" alt="Mockup móvil de atención de alerta" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.3.12. Atención de una alerta, en español.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-edge-alert-detail.png" alt="Mockup móvil de detalle de alerta del Edge" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.3.13. Detalle de una alerta de frecuencia cardiaca generada por el Edge.</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/mockup-field-record-es.png" alt="Mockup móvil de registro de campo" width="280">
+</p>
+
+<p align="center"><em>Figura 5.4.3.14. Registro de un evento de campo sin conexión, en español.</em></p>
+
 ### 5.4.4. Applications User Flow Diagrams
 
 Cada User Flow corresponde a una meta de 5.4.2 y muestra el recorrido principal, las decisiones, las rutas alternativas y el retorno a la tarea cuando procede. Los identificadores remiten a las historias de usuario de 3.1; los flujos describen el comportamiento previsto, no sustituyen las restricciones declaradas del prototipo en 5.5.
@@ -309,9 +427,25 @@ Cada User Flow corresponde a una meta de 5.4.2 y muestra el recorrido principal,
 
 Si ya existe una autorización o una solicitud pendiente, la Web Application conserva ese estado y evita crear una solicitud duplicada (US-39).
 
+**Aplicación móvil**
+
+Los user flows móviles usan los mockups de las pantallas y anotan en cada transición el camino feliz y el camino alternativo.
+
+<p align="center">
+  <img src="assets/images/mobile-design/userflow-attend-alert.png" alt="User flow móvil para atender una alerta" width="720">
+</p>
+
+<p align="center"><em>Figura 5.4.4.5. User Flow móvil de atención de alertas (US-16 y US-19).</em></p>
+
+<p align="center">
+  <img src="assets/images/mobile-design/userflow-field-record.png" alt="User flow móvil para registrar un evento de campo" width="720">
+</p>
+
+<p align="center"><em>Figura 5.4.4.6. User Flow móvil de registro de campo sin conexión (US-21 y US-22).</em></p>
+
 ## 5.5. Applications Prototyping
 
-El prototipo de alta fidelidad documentado aquí corresponde a la Web Application de ICHU, construida con Angular [9]. Se puede explorar en la versión desplegada ([https://web-frontend-smart-farm.vercel.app/login](https://web-frontend-smart-farm.vercel.app/login)); el repositorio del frontend ([https://tinyurl.com/26pp9tjq](https://tinyurl.com/26pp9tjq)) contiene su código fuente. Esta subsección cubre la aplicación web en navegadores de escritorio y ventanas estrechas; no documenta el prototipo ni los flujos de la aplicación móvil nativa implementada en el Sprint 2. Su evidencia de ejecución se presenta en el Capítulo VI.
+El prototipo de alta fidelidad documentado aquí corresponde a la Web Application de ICHU, construida con Angular (Google, s. f.-a). Se puede explorar en la versión desplegada en Firebase Hosting ([https://ichu-smartfarm.web.app](https://ichu-smartfarm.web.app)), que consume el ICHU Web Service publicado en Render; el repositorio [ichu-web-app](https://github.com/five-smart-farm-creators/ichu-web-app) contiene su código fuente. Esta subsección cubre la aplicación web en navegadores de escritorio y ventanas estrechas. Su evidencia de ejecución se presenta en el Capítulo VI.
 
 La navegación sigue la arquitectura de información de 5.2.5: el menú lateral organiza las áreas de trabajo y la cabecera conserva visibles el rol y el hato activos. Los recorridos se relacionan con las metas de usuario de 5.4.4. En escritorio y en ventanas estrechas se muestran las mismas funciones, con una disposición adaptable; los formularios presentan validación y confirmación de las acciones disponibles.
 
@@ -322,7 +456,7 @@ La navegación sigue la arquitectura de información de 5.2.5: el menú lateral 
 | Indicadores y reportes (5.4.4.3). | Consultar indicadores y tendencias del hato, aplicar filtros y acceder a las opciones de reporte. |
 | Atención veterinaria (5.4.4.4). | Consultar animales e historial clínico y recorrer el registro de una intervención. |
 
-El prototipo utiliza datos ficticios en memoria: no implementa autenticación real, API, pagos, notificaciones externas, sincronización ni control de dispositivos IoT, y al recargar se restablecen los registros de ejemplo. La solicitud de acceso veterinario de US-39 está descrita en los wireflows, pero todavía no se puede crear desde el perfil veterinario. Las comprobaciones locales reportadas de tipos, compilación de producción y 41 pruebas automatizadas de extremo a extremo con Playwright [10] finalizaron correctamente.
+La versión desplegada inicia sesión con Firebase Authentication, consulta y registra la información en la API central, muestra la telemetría sincronizada desde el Edge y redirige a Stripe Checkout para pagar la suscripción. Los datos que muestra son los de la cuenta y la unidad productiva con la que se inicia sesión.
 
 ## 5.6. IoT Device Design
 
@@ -412,7 +546,7 @@ Para leer los diagramas con rapidez, se propone una convención cromática comú
 | Amarillo `#E3B341` | Bus de datos OneWire del DS18B20. | `DQ` o `DATA`; señalar la resistencia pull-up de 4,7 kΩ en el esquema del collar. |
 | Celeste `#35A7C8` | UART del GPS. | `TX` y `RX` en cada extremo, indicando su dirección. |
 | Naranja `#F28C28` | Señales digitales de control del ESP32. | GPIO correspondiente, como `GPIO14 / PWM` para KY-012. |
-| Gris discontinuo `#68737D` | Enlace de comunicación inalámbrica; no es un conductor físico. | `Wi-Fi → Edge Gateway` (implementado) o `BLE → Edge Gateway` (previsto), según el trayecto. |
+| Gris discontinuo `#68737D` | Enlace de comunicación inalámbrica; no es un conductor físico. | `Wi-Fi → Edge Gateway`, tanto para el collar como para el panel de alertas. |
 
 Las capturas Cirkit ya guardadas muestran colores asignados por la herramienta y aún no siguen esta leyenda de manera uniforme. Por tanto, la tabla define el estándar que se aplicará al recolorear y exportar los diagramas finales; no se debe inferir de esas capturas que, por ejemplo, un cable azul actual sea `SCL` o uno negro sea `GND` sin revisar sus pines.
 
@@ -423,18 +557,18 @@ Las capturas Cirkit ya guardadas muestran colores asignados por la herramienta y
 | GPS NEO-6M | Obtiene latitud y longitud cuando existe recepción satelital. | Dentro de la carcasa, con su antena orientada hacia el cielo y sin cubrirla con metal. | Riel regulado compatible con la placa del módulo; sus coordenadas se incorporan al paquete de telemetría. |
 | SP-203 del collar | Mide el pulso por fotopletismografía (PPG); frecuencia cardiaca válida de 30 a 200 bpm. | Propuesto en la cara interna inferior de la carcasa, en contacto con la piel; ubicación por confirmar en el prototipo. | Alimentación de 3,3 V del riel regulado; salida analógica al ADC1 (`GPIO5`). |
 | MQ-2 del collar | Entrega un índice relativo de metano de 0 a 100, sin calibrar y no en ppm; necesita unos 60 s de calentamiento. | Propuesto en la carcasa, con la superficie de detección expuesta al aire; ubicación por confirmar en el prototipo. | Calefactor de 5 V (unos 150 mA); salida `AO` a través de un divisor hasta 3,3 V, al ADC1 (`GPIO6`); la salida `DO` no se usa. |
-| ESP32-S3 y batería del collar | Lee sensores, marca los registros y administra el enlace. El firmware mide la batería en `GPIO1` a través de un divisor 1:2, representado en Wokwi con un potenciómetro; el circuito de Cirkit aún no dibuja esa medición. | Placa y batería en la carcasa superior sellada, sujetas para resistir vibración. | Batería Li-ion de 3,7 V con módulo de carga/protección y regulación para cada componente; Wi-Fi integrado para enviar las lecturas al Edge Gateway y BLE integrado como ruta prevista, según la arquitectura de 4.1.3.3. |
+| ESP32-S3 y batería del collar | Lee sensores, marca los registros y administra el enlace. El firmware mide la batería en `GPIO1` a través de un divisor 1:2, representado en Wokwi con un potenciómetro; el circuito de Cirkit aún no dibuja esa medición. | Placa y batería en la carcasa superior sellada, sujetas para resistir vibración. | Batería Li-ion de 3,7 V con módulo de carga/protección y regulación para cada componente; Wi-Fi integrado para enviar las lecturas al Edge Gateway, según la arquitectura de 4.1.3.3. |
 | ESP32 DevKitC del receptor, LCD, LEDs y KY-012 | Presenta los estados Normal, Atención, Urgencia y Sin comunicación en pantalla y luces, y emite sonido en una urgencia. | Caja del panel en un lugar seco y visible para el operario; LEDs y pantalla en el frente, salida acústica del buzzer despejada. | Se propone una fuente regulada de 5 V para la placa y periféricos; las señales del ESP32 operan a 3,3 V, con el conversor I2C del esquema para la pantalla. Consulta cada 3 s `GET /api/v1/monitoring/alerts` del Edge por Wi-Fi local, con la cabecera `X-API-Key`. |
 
-Para el collar, el flujo implementado es: **sensores → ESP32-S3 → Edge Gateway** por HTTP sobre la red Wi-Fi local, con `POST /api/v1/monitoring/telemetry-readings` y la cabecera `X-API-Key` del collar. Cada lectura lleva un `event_id` estable; el ESP32 conserva las lecturas pendientes si no logra entregarlas y las libera cuando Edge confirma la persistencia con `201 Created` o `200 OK`. El collar no transmite directamente al backend, aunque tenga Internet. La ruta por Bluetooth Low Energy queda prevista: el firmware la incluye, pero el Edge Gateway aún no tiene receptor BLE. El Edge Gateway almacena las lecturas en SQLite y evalúa las reglas críticas con la configuración local; un proceso de sincronización envía cada 15 s los registros pendientes a la API central por `POST /api/v1/telemetry/batch` (TS-03 a TS-06).
+Para el collar, el flujo implementado es: **sensores → ESP32-S3 → Edge Gateway** por HTTP sobre la red Wi-Fi local, con `POST /api/v1/monitoring/telemetry-readings` y la clave del collar en la cabecera `Authorization: ApiKey`. Cada lectura lleva un `event_id` estable; el ESP32 conserva las lecturas pendientes si no logra entregarlas y las libera cuando Edge confirma la persistencia con `201 Created` o `200 OK`. El collar no transmite directamente al backend, aunque tenga Internet. El Edge Gateway almacena las lecturas en SQLite y evalúa las reglas críticas con la configuración local; un proceso de sincronización envía cada 15 s los registros pendientes a la API central por `POST /api/v1/telemetry/batch` (TS-03 a TS-06).
 
-Cada registro del collar incluye `device_id`, `event_id`, `recorded_at` en UTC, `body_temperature`, `activity_index`, `heart_rate`, `methane_index`, `battery_level` y `position` con `latitude`, `longitude` y `accuracy_meters` (TS-01). Un campo que no se pudo medir se informa en `invalid_reasons` con su motivo en vez de presentarse como una medición normal; Edge no lo evalúa contra los umbrales. El firmware ya envía `invalid_reasons` para una temperatura fuera de 30–45 °C, un pulso sin contacto o fuera de rango, un sensor de gas en calentamiento y un sensor que no responde. La cola de hasta 60 lecturas se guarda en NVS y sobrevive a los reinicios. Las alertas locales de Edge se entregan a la aplicación móvil por la red local, de acuerdo con 4.1.3.3.
+Cada registro del collar incluye `device_id`, `event_id`, `recorded_at` en UTC, `body_temperature`, `activity_index`, `heart_rate`, `methane_index`, `battery_level` y `position` con `latitude`, `longitude` y `accuracy_meters` (TS-01). Un campo que no se pudo medir se informa en `invalid_reasons` con su motivo en vez de presentarse como una medición normal; Edge no lo evalúa contra los umbrales. El firmware ya envía `invalid_reasons` para una temperatura fuera de 30–45 °C, un pulso sin contacto o fuera de rango, un sensor de gas en calentamiento y un sensor que no responde. La cola de hasta 60 lecturas se guarda en LittleFS y sobrevive a los reinicios. Las alertas locales de Edge se muestran en el panel de alertas del predio, que consulta el Edge por la red local, de acuerdo con 4.1.3.3.
 
 El panel LCD/LED consulta cada 3 s `GET /api/v1/monitoring/alerts` del Edge Gateway por Wi-Fi local, con la cabecera `X-API-Key`, y muestra Normal, Atención, Urgencia o Sin comunicación. Sin respuesta válida durante más de 30 s, el panel pasa a Sin comunicación y no enciende LED. Cuando aparece una alerta crítica que aún no ha sonado, el buzzer emite pulsos de 1 s durante 30 s. El circuito de Cirkit no dibuja el transporte de radio. La lámina de Gemini que muestra una transmisión directa collar–receptor se considera ilustrativa; el flujo del sistema mantiene al Edge Gateway como punto local de recepción y evaluación.
 
 El campo `battery_level` de la telemetría del collar se obtiene en el firmware con una entrada ADC (`GPIO1`) y un divisor 1:2, y se convierte a porcentaje con una aproximación lineal entre 3,0 V y 4,2 V. La captura Cirkit todavía no dibuja ese circuito y la medición no se ha verificado con una batería real.
 
-En el alcance actual, **ambos trayectos están implementados y verificados en Wokwi CI**: el collar envía lecturas al Edge por HTTP sobre Wi-Fi local, y el panel consulta las alertas del mismo Edge. BLE sigue como alternativa prevista, sin receptor en el Edge.
+En el alcance actual, **ambos trayectos están implementados y verificados en Wokwi CI**: el collar envía lecturas al Edge por HTTP sobre Wi-Fi local, y el panel consulta las alertas del mismo Edge.
 
 ### 5.6.5. Proposal and Verification Status
 
@@ -443,6 +577,6 @@ En el alcance actual, **ambos trayectos están implementados y verificados en Wo
 | Forma del collar, carcasa, ubicación de componentes y correa | Propuesta conceptual; no fabricada ni probada en un animal. | Lámina simulada, Figura 5.6.2. |
 | Carcasa y disposición del panel de alertas | Propuesta conceptual; no se probó con usuarios. Integrado con el Edge API en simulación. | Lámina de simulacion, Figura 5.6.6; simulación en Wokwi, Figuras 5.6.8 y 5.6.9. Sus pines ilustrados no son referencia eléctrica. |
 | Circuitos del collar y el receptor | Simulados en Wokwi: el firmware compila y se ejecuta (Figuras 5.6.4, 5.6.5, 5.6.8 y 5.6.9); el cableado con hardware real está pendiente. | Figuras 5.6.1, 5.6.3, 5.6.4, 5.6.5, 5.6.7, 5.6.8 y 5.6.9. |
-| Flujo Wi-Fi hacia Edge y sincronización con la nube | Implementado y verificado en Wokwi CI: el collar envía lecturas al Edge API, que genera una alerta crítica de temperatura, y el panel consulta el Edge y pasa a Urgencia. El Edge API almacena, evalúa y sincroniza con la API central. Ni el collar ni el panel se han probado en hardware. La ruta BLE está prevista y no implementada en Edge. | Repositorios `ichu-edge-service`, `ichu-cattle-band-embedded-app` y `ichu-alert-panel-embedded-app`, TS-01–TS-06, arquitectura de 4.1.3.3, Figuras 6.16 y 6.17, y capturas de ejecución en Wokwi, Figuras 5.6.5 y 5.6.9. |
+| Flujo Wi-Fi hacia Edge y sincronización con la nube | Implementado y verificado en Wokwi CI: el collar envía lecturas al Edge API, que genera una alerta crítica de temperatura, y el panel consulta el Edge y pasa a Urgencia. El Edge API almacena, evalúa y sincroniza con la API central. Ni el collar ni el panel se han probado en hardware. | Repositorios `ichu-edge-service`, `ichu-cattle-band-embedded-app` y `ichu-alert-panel-embedded-app`, TS-01–TS-06, arquitectura de 4.1.3.3, Figuras 6.29 y 6.30, y capturas de ejecución en Wokwi, Figuras 5.6.5 y 5.6.9. |
 
 Las capturas y conceptos versionados de esta sección documentan las propuestas visuales; no sustituyen la validación física ni las pruebas de extremo a extremo.

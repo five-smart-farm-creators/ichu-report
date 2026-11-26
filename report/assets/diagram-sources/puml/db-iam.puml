@@ -1,68 +1,74 @@
 @startuml
 !pragma layout smetana
-hide circle
 skinparam shadowing false
 skinparam linetype ortho
+hide circle
+hide methods
 skinparam class {
   BackgroundColor #FFFFFF
-  BorderColor #2E7D32
-  ArrowColor #2E7D32
+  BorderColor #4A6FA5
 }
-title Identity and Access Management - Database Design (schema iam)
+title Esquema iam — Identity & Access Management
 
-entity "iam.user_account" as ua {
-  * id : uuid <<PK>>
-  --
-  * email : varchar(255) <<UNIQUE>>
-  * external_uid : varchar(128) <<UNIQUE>>
-  * role : varchar(20) <<CHECK>>
-  * status : varchar(25) <<CHECK>>
-  * registered_at : timestamptz
-  blocked_until : timestamptz
-  failed_attempts : smallint
+entity "AccessAttempts" as AccessAttempts {
+  * Id : uuid <<PK>>
+  RecordedAt : timestamptz
+  Succeeded : boolean
+  UserAccountId : uuid
 }
-entity "iam.ranch" as ranch {
-  * id : uuid <<PK>>
-  --
-  * name : varchar(150)
-  * region : varchar(80)
-  district : varchar(80)
-  estimated_head_count : integer
-  latitude : numeric(9,6)
-  longitude : numeric(9,6)
+entity "HerdAdvisories" as HerdAdvisories {
+  * Id : uuid <<PK>>
+  DecidedBy : uuid NULL
+  EndedAt : timestamptz NULL
+  ExpiresAt : timestamptz NULL
+  GrantedAt : timestamptz NULL
+  RanchId : uuid
+  Reason : varchar(1000)
+  RequestedAt : timestamptz
+  Revision : uuid
+  Scope : varchar(32)
+  Status : varchar(32)
+  VeterinarianId : uuid
+  .. UNIQUE (VeterinarianId, RanchId) ..
 }
-entity "iam.professional_profile" as pp {
-  * id : uuid <<PK>>
-  --
-  * user_account_id : uuid <<FK>> <<UNIQUE>>
-  * specialty : varchar(120)
-  * license_number : varchar(40) <<UNIQUE>>
-  * years_of_experience : smallint
-  * is_complete : boolean
+entity "ProfessionalProfiles" as ProfessionalProfiles {
+  * UserAccountId : uuid <<PK>>
+  LicenseNumber : varchar(80) <<UQ>>
+  Specialty : varchar(120)
+  YearsOfExperience : integer
 }
-entity "iam.ranch_membership" as rm {
-  * id : uuid <<PK>>
-  --
-  * user_account_id : uuid <<FK>>
-  * ranch_id : uuid <<FK>>
-  * membership_type : varchar(20) <<CHECK>>
-  * created_at : timestamptz
+entity "RanchMemberships" as RanchMemberships {
+  * Id : uuid <<PK>>
+  IsOwner : boolean
+  RanchId : uuid
+  UserAccountId : uuid
+  .. UNIQUE (UserAccountId, RanchId) ..
 }
-entity "iam.herd_advisory" as ha {
-  * id : uuid <<PK>>
-  --
-  * veterinarian_id : uuid <<FK>>
-  * ranch_id : uuid <<FK>>
-  * status : varchar(15) <<CHECK>>
-  * requested_at : timestamptz
-  granted_at : timestamptz
-  expires_at : timestamptz
-  revoked_at : timestamptz
-  reason : varchar(300)
+entity "RanchRegistrations" as RanchRegistrations {
+  * Id : uuid <<PK>>
+  AccessCode : varchar(8) <<UQ>>
+  District : varchar(120)
+  EstimatedHeadCount : integer
+  Name : varchar(160)
+  Region : varchar(120)
 }
-ua ||--o| pp
-ua ||--o{ rm
-ranch ||--o{ rm
-ua ||--o{ ha
-ranch ||--o{ ha
+entity "UserAccounts" as UserAccounts {
+  * Id : uuid <<PK>>
+  BlockedUntil : timestamptz NULL
+  Email : varchar(254) <<UQ>>
+  ExternalUid : varchar(128) <<UQ>>
+  FailedAttempts : integer
+  LastFailedAt : timestamptz NULL
+  RegisteredAt : timestamptz
+  Revision : uuid
+  Role : varchar(32)
+  Status : varchar(32)
+}
+
+RanchRegistrations ||--o{ HerdAdvisories : RanchId
+UserAccounts ||--o{ HerdAdvisories : VeterinarianId
+UserAccounts ||--o{ AccessAttempts : UserAccountId
+RanchRegistrations ||--o{ RanchMemberships : RanchId
+UserAccounts ||--o{ RanchMemberships : UserAccountId
+UserAccounts ||--o{ ProfessionalProfiles
 @enduml

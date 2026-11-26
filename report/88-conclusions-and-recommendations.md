@@ -2,68 +2,57 @@
 
 ## Conclusiones y recomendaciones
 
-### 1\. Resultado frente al Problem Statement
+### 1. Resultado frente al Problem Statement
 
-El *Problem Statement* de **ICHU** plantea que la gestión ganadera de pastoreo extensivo depende de inspecciones visuales discontinuas, marcas físicas y registros manuales en cuadernos o hojas de cálculo. Esta situación dificulta el seguimiento individual del ganado, la detección temprana de anomalías de salud y la toma de decisiones cuando la cobertura de red es intermitente o nula en el campo. La solución propuesta combina dispositivos de telemetría IoT, servicios de borde (*Edge Services / Edge API*), una RESTful API centralizada en la nube, y aplicaciones web y móviles para centralizar la información, emitir alertas operativas y asegurar la continuidad del trabajo en zonas remotas.
+El *Problem Statement* de **ICHU** plantea que la ganadería de pastoreo extensivo depende de inspecciones visuales discontinuas y de registros manuales en cuadernos u hojas de cálculo, lo que dificulta seguir a cada animal, detectar a tiempo una anomalía de salud y decidir cuando la cobertura de red en el campo es intermitente o nula.
 
-La investigación realizada en el Capítulo II (*Requirements Elicitation &amp; Analysis*) brinda evidencia cualitativa y cuantitativa que respalda la **existencia y relevancia del problema**:
+La investigación del Capítulo II respaldó la relevancia del problema en ambos segmentos: los ganaderos describieron registros dispersos y conectividad irregular, y los veterinarios pidieron datos biométricos continuos y antecedentes por animal. La investigación comprende seis entrevistas y cuestionarios con dos ganaderos y tres profesionales; describe esa muestra y no todo el mercado.
 
-* En el segmento de **Medianos y Grandes Ganaderos (Propietarios/Administradores)**, las tres entrevistas describen registros dispersos y conectividad irregular. En el cuestionario complementario de dos respuestas, una persona utiliza hojas de cálculo y otra registros manuales; ambas califican la plataforma centralizada como muy útil y prefieren el pago anual con tarifa fija.
-* En el segmento de **Zootecnistas y Médicos Veterinarios**, las tres entrevistas respaldan la necesidad de datos biométricos continuos, antecedentes individuales y alertas que apoyen la evaluación profesional. El cuestionario complementario reúne tres respuestas y refuerza esa necesidad; no mide una mejora diagnóstica atribuible al producto.
+Al cierre del proyecto, ICHU responde al problema con una solución IoT completa y desplegada:
 
-La investigación comprende seis entrevistas, tres por segmento, y cuestionarios con dos ganaderos y tres profesionales. Estos resultados describen esta muestra y no representan porcentajes de todo el mercado. Los capataces y operarios son actores operativos de la solución, no un tercer segmento entrevistado.
+* El **collar** (ESP32-S3) mide temperatura, actividad, posición, pulso, índice de metano y batería, y envía una lectura cada 10 s al Edge por Wi-Fi, con una cola de 60 lecturas que sobrevive a los reinicios.
+* El **Portable Edge Gateway** (Flask, Peewee y SQLite) guarda las lecturas, evalúa umbrales por etapa y severidad y geocercas sin Internet, y sincroniza con la nube cuando hay conexión.
+* El **panel de alertas** (ESP32) avisa en el predio con LEDs, zumbador y pantalla, también sin Internet.
+* La **API central** (ASP.NET Core en Render) integra siete bounded contexts, calcula indicadores, tendencias y curvas epidemiológicas, y cobra las suscripciones con Stripe.
+* La **aplicación web** (Firebase Hosting), la **aplicación móvil** (Android e iOS) y la **Landing Page** (GitHub Pages) completan la experiencia para ganaderos y veterinarios.
 
-**Arquitectura propuesta:** El collar transmite por HTTP sobre Wi-Fi local al *Portable Edge Gateway* (la ruta BLE queda prevista), que procesa y almacena las lecturas en SQLite y evalúa reglas locales. El Edge sincroniza con la RESTful API central cuando dispone de Internet; la presencia de Wi-Fi no garantiza esa conectividad. La aplicación móvil consulta y atiende alertas por la red local. Esta ruta se mantiene también cuando hay cobertura y no contempla que el collar invoque directamente la nube.
+### 2. Assumptions frente a lo observado
 
-**Alcance de la evidencia:** Los hallazgos respaldan la relevancia del problema y el interés declarado por la propuesta dentro de la muestra. No demuestran todavía aceptación comercial ni resultados de negocio o impacto operativo en producción; esos resultados requieren mediciones en pilotos.
+La validación con usuarios (6.3.2) reunió a tres ganaderos y dos veterinarios, que revisaron la Landing Page y la aplicación web desplegada:
 
----
+* Los ganaderos reconocieron el valor de centralizar información hoy repartida en archivos de Excel y Word, valoraron el monitoreo de salud, los filtros, las alertas y la exportación, y uno de ellos propuso migrar sus registros de forma gradual. Esto respalda el supuesto de usuario sobre el ganadero como usuario principal y los feature assumptions E3 y E5.
+* Los veterinarios usaron la ficha, el historial clínico y el monitoreo por periodo para preparar una visita, y pidieron ver primero la observación más reciente y programar el siguiente control. Esto respalda el supuesto de usuario sobre el veterinario como usuario clave y los feature assumptions E6 y E8.
+* El interés por las geocercas (E9) apareció en la entrevista a Jorge Chumpitaz, que preguntó cómo se conectaría la ubicación con los collares.
 
-### 2\. Assumptions frente al comportamiento observado y Objetivos de Validación Futura
-
-Los hallazgos cualitativos y estadísticos del *Needfinding* respaldan de manera inicial los **supuestos de usuario y de negocio** (*User Assumptions* y *Business Assumptions*) del *Lean UX Process*:
-
-* Los participantes expresan interés por la suscripción; las dos respuestas del cuestionario ganadero prefieren el pago anual con tarifa fija.
-* Ambos segmentos solicitan antecedentes centralizados por animal para apoyar al profesional y al propietario.
-* Las entrevistas respaldan la necesidad de operación sin cobertura y alertas ante anomalías térmicas o reproductivas.
-
-Por el contrario, **permanecen como propuestas e hipótesis no demostradas** todos aquellos supuestos que requieren mediciones técnicas de laboratorio, pruebas de carga o resultados longitudinales de uso en producción. **No deben presentarse como resultados logrados**, sino como **objetivos de validación futura** que deberán verificarse mediante pilotos instrumentados en campo:
-
-1. **Objetivos de impacto biológico y comercial:**
-  * La reducción del 15 % en la tasa de mortalidad del ganado.
-  * La meta de alcanzar 150 suscripciones activas durante el primer año de operación comercial.
-  * La tasa de renovación del software superior al 92 % anual.
-  * La reducción proyectada en el Costo de Adquisición de Clientes (CAC).
-2. **Objetivos de hardware e infraestructura IoT:**
-  * La autonomía energética de 3 años en la batería del collar o arete inteligente.
-  * La precisión de lectura y calibración de los sensores biométricos de temperatura y acelerometría en condiciones climáticas extremas.
-3. **Objetivos de rendimiento de software y borde:**
-  * Una tasa de fallas del sistema informático inferior al 2 %.
-  * Los tiempos de latencia en la entrega de notificaciones push de emergencia.
-  * La tasa de éxito e integridad en la sincronización asíncrona entre el *Edge API* y la *RESTful API* central tras periodos prolongados de desconexión.
-
----
+Los supuestos de negocio (suscripciones, retención, CAC) y los de resultado (reducción de mortalidad y del tiempo de inspección) siguen como objetivos por medir en un piloto: la muestra de validación no permite confirmarlos. Lo mismo ocurre con la autonomía de la batería (E1), que además se ve limitada por el consumo del sensor de metano del prototipo.
 
 ### 3. Hypothesis Statements y criterios de éxito
 
-Las cuatro hipótesis definidas en el Capítulo I mantienen trazabilidad con las características priorizadas en los Capítulos II, III y IV:
-
-| Hipótesis | Característica relacionada | Estado de la evidencia en AV1 |
+| Hipótesis | Lo construido | Estado al cierre |
 |---|---|---|
-| Biometric and GPS Tracking | Collar inteligente de bajo consumo con temperatura, actividad y posición | El problema y la necesidad fueron respaldados por entrevistas; la precisión, autonomía y utilidad aún no fueron probadas con un prototipo funcional. |
-| Real-Time Alerts | Motor de alertas móviles y por mensaje de texto | La demanda de alertas fue recurrente en ambos segmentos; aún no se midieron tiempo de entrega, falsos positivos ni reducción de mortalidad. |
-| Analytics Dashboard | Panel de indicadores, tendencias e historial biométrico | Se identificó la necesidad de reportes comparativos y datos continuos; aún no existe validación de tareas sobre un panel implementado. |
-| Offline Operation | Almacenamiento local y sincronización al recuperar la señal | La conectividad irregular fue confirmada; aún faltan pruebas de campo sobre registros offline, conflictos y sincronizaciones exitosas. |
+| H1. Biometric and GPS Tracking | Collar con temperatura, actividad, GPS, pulso y metano, verificado en Wokwi CI | Funciona en simulación; falta medir precisión y autonomía en hardware real. |
+| H2. Real-Time Alerts | Alertas en el Edge, panel del predio y notificaciones en el teléfono | El recorrido completo funciona en simulación y con la API desplegada; falta medir el tiempo de respuesta en campo. |
+| H3. Analytics Dashboard | Indicadores, tendencias, curva epidemiológica y reporte ejecutivo | Validada de forma cualitativa con ganaderos y veterinarios. |
+| H4. Offline Operation | Edge sin Internet y registros de campo guardados en el teléfono | Implementada; falta probarla en un predio sin cobertura. |
+| H5. Individual Herd Records | Ficha, lotes, etapas y bajas del animal | Validada de forma cualitativa. |
+| H6. Veterinary Clinical History | Intervenciones clínicas e historial por animal | Validada de forma cualitativa con dos veterinarios. |
+| H7. Health Campaigns and Withdrawal Periods | Campañas, aplicaciones y periodos de retiro | Implementada; sin validación con usuarios. |
+| H8. Livestock Calendar and Reminders | Calendario de actividades | Parcial: falta enviar el recordatorio (US-27). |
+| H9. Geofencing and Lost-Animal Search | Geocercas, alertas de salida y última posición | Implementada; con interés expresado en la validación. |
+| H10. Device Status and Maintenance | Inventario de collares, batería y asignaciones | Implementada; sin validación con usuarios. |
+| H11. Authorized Herd Advisory | Solicitudes de acceso, asesorías y revocación | Implementada; sin validación con usuarios. |
 
-Por tanto, los criterios de éxito iniciales - uso frecuente de la aplicación, respuesta oportuna ante alertas críticas y reducción de pérdidas del ganado - deben considerarse objetivos de validación y no resultados alcanzados. AV1 entrega la especificación del problema, los requisitos y el diseño; no contiene todavía evidencia suficiente para declarar aceptadas o rechazadas las hipótesis.
+Las hipótesis tienen hoy una solución que las hace comprobables, pero sus resultados de negocio (renovación del 92 %, 150 suscripciones, uso cinco días por semana) solo se pueden confirmar con un piloto que mida a lo largo del tiempo.
 
-### 4. Recomendaciones para el Roadmap del Producto Digital
+### 4. Recomendaciones y roadmap
 
-1. **Instrumentación de Pilotos en Campo:** Desplegar prototipos físicos de los nodos IoT integrados con el *Edge Service* en un entorno ganadero controlado para evaluar el consumo de energía en transmisión, la estabilidad del almacenamiento local en SQLite y la resiliencia del software ante caídas de tensión o señal.
-2. **Ejecución de Pruebas de Estrés y Sincronización:** Diseñar suites de pruebas automatizadas e integración continua para simular ráfagas masivas de datos hacia la RESTful API cuando múltiples servicios de borde entren en cobertura simultáneamente, asegurando que la tasa de fallas se mantenga por debajo del límite objetivo.
-3. **Optimización del procesamiento en el borde (Edge Computing):** Evaluar la incorporación de algoritmos livianos en el *Edge Service* para clasificar patrones de comportamiento (reposo, rumia, celo) de forma local, reduciendo el volumen de datos a transmitir hacia la nube y optimizando el uso de ancho de banda en zonas rurales.
+1. **Piloto en un predio real:** instalar collares, Edge y panel con un ganadero de la validación para medir la precisión de los sensores, la autonomía de la batería, el alcance del Wi-Fi y el tiempo entre una lectura y el aviso.
+2. **Completar el Sprint 3:** implementar el modo de bajo consumo del collar (TS-02), la detección de un posible celo (US-18) y el envío de recordatorios (US-27).
+3. **Validar la aplicación móvil:** repetir la validación con tareas en el APK y sumar una entrevista con un tercer veterinario.
+4. **Llevar las alertas al teléfono sin la aplicación abierta:** sumar notificaciones push desde la nube y, más adelante, la lectura directa del Edge por la red local (TS-16 y TS-17).
+5. **Medir los resultados de negocio:** registrar en el piloto la línea base de mortalidad y de tiempo de inspección, y seguir conversión y renovación de suscripciones.
 
-### TB1
+### Conclusiones de TB1 (historial)
 
 #### Conclusiones
 
@@ -78,14 +67,6 @@ En TB1, el Capítulo VI documentó la configuración, las interfaces y los despl
 3. Convertir la planificación simulada del Sprint 1 en un backlog de ejecución con fechas, responsables confirmados, criterios de aceptación y estados verificables. Documentar la revisión y los cambios de alcance a partir del trabajo efectivamente realizado.
 4. En incrementos posteriores, integrar gradualmente autenticación, persistencia y servicios reales con las interfaces, preservando la separación de responsabilidades y la operación de borde definida en la arquitectura. Registrar las decisiones y pruebas de integración antes de presentar capacidades como implementadas.
 5. Incorporar en los anexos las evidencias audiovisuales de TB1 cuando estén disponibles, junto con sus enlaces de acceso y la identificación de la entrega.
-
-### Sprint 2 — implementación y límites de validación
-
-El historial de `ichu-mobile-app` documenta una aplicación nativa Flutter para Android e iOS, con flujos de identidad, selección de rancho, consulta de animales y monitoreo, alertas y registros de campo offline. En la verificación local del 15 de noviembre de 2026, el conjunto `flutter test` pasó **813 pruebas**, `flutter analyze` no reportó problemas y se compiló y abrió un APK debug en un AVD Android. Estos resultados respaldan la existencia del artefacto y sus pruebas automatizadas; no demuestran por sí solos que las historias del Sprint 2 hayan sido aceptadas ni que el cliente esté integrado y desplegado en producción.
-
-La ejecución conectada quedó limitada a la pantalla pública de inicio de sesión porque no se suministraron opciones aprobadas de Firebase. No se validaron cuentas, consultas autenticadas, datos del rancho, operación integrada con Edge ni flujos offline en dispositivo. Las seis capturas incluidas documentan los estados de interfaz revisados durante la inspección heurística; no acreditan por sí solas autenticación, integración con servicios en producción ni validación con participantes. Tampoco se encontró evidencia de distribución móvil o de tareas nativas realizadas por los participantes. La validación registrada comprende tres ganaderos y dos veterinarios; falta al menos una sesión real de veterinario para alcanzar el mínimo de la guía. La sección 6.4 tampoco contiene aún el video del producto.
-
-Se recomienda configurar Firebase y un entorno de prueba autorizado sin versionar credenciales, repetir la ejecución y contrastar los seis hallazgos mediante recorridos móviles autorizados y participantes; completar la entrevista faltante; producir wireframes y flujos móviles; verificar un canal de distribución antes de afirmar un despliegue; y publicar el video About-the-Product. Las capturas documentan los hallazgos de interfaz, pero no sustituyen la validación de aceptación con personas usuarias. Hasta entonces, deben mantenerse separados el código implementado, las pruebas automatizadas, la ejecución local y la validación de aceptación.
 
 ## Video About-the-Team
 

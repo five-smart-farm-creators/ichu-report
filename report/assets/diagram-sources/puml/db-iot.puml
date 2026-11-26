@@ -1,34 +1,64 @@
 @startuml
 !pragma layout smetana
-hide circle
 skinparam shadowing false
 skinparam linetype ortho
+hide circle
+hide methods
 skinparam class {
   BackgroundColor #FFFFFF
-  BorderColor #2E7D32
-  ArrowColor #2E7D32
+  BorderColor #4A6FA5
 }
-title IoT Assets - Database Design (schema iot)
+title Esquema iot — IoT Assets
 
-entity "iot.device" as dev {
+entity "device_assignments" as device_assignments {
   * id : uuid <<PK>>
-  --
-  * ranch_id : uuid <<FK>>
-  * serial : varchar(50) <<UNIQUE>>
-  * device_type : varchar(20) <<CHECK>>
-  * status : varchar(20) <<CHECK>>
-  last_communication_at : timestamptz
-  battery_percentage : smallint <<CHECK>>
-  firmware_version : varchar(20)
+  device_id : uuid <<UQ>>
+  ended_at : timestamptz NULL
+  ranch_id : uuid
+  release_reason : varchar(120) NULL
+  started_at : timestamptz
+  target_id : uuid
+  target_type : varchar(20)
+  .. UNIQUE (ranch_id, target_type, target_id) ..
 }
-entity "iot.device_assignment" as da {
+entity "devices" as devices {
+  * IoTDeviceId : uuid <<PK>>
+  id : uuid
+  battery_percentage : smallint
+  battery_recorded_at : timestamptz NULL
+  created_at : timestamptz NULL
+  device_type : varchar(20)
+  firmware_version : varchar(20) NULL
+  last_communication_at : timestamptz NULL
+  last_communication_received_at : timestamptz NULL
+  ranch_id : uuid
+  serial : varchar(50) <<UQ>>
+  status : varchar(20)
+  updated_at : timestamptz NULL
+  version : uuid
+}
+entity "edge_gateways" as edge_gateways {
   * id : uuid <<PK>>
-  --
-  * device_id : uuid <<FK>>
-  * animal_id : uuid
-  * started_at : timestamptz
-  ended_at : timestamptz
-  release_reason : varchar(120)
+  key_hash : bytea
+  name : varchar(80)
+  ranch_id : uuid
+  registered_at : timestamptz
+  revoked_at : timestamptz NULL
+  status : varchar(20)
+  version : uuid
 }
-dev ||--o{ da
+entity "water_troughs" as water_troughs {
+  * WaterTroughId : uuid <<PK>>
+  id : uuid
+  created_at : timestamptz NULL
+  lot_id : uuid NULL
+  max_temperature_celsius : numeric(4,1)
+  min_temperature_celsius : numeric(4,1)
+  name : varchar(80)
+  ranch_id : uuid
+  updated_at : timestamptz NULL
+  version : uuid
+}
+
+devices ||--o{ device_assignments : device_id, ranch_id
 @enduml

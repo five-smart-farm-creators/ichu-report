@@ -1,98 +1,119 @@
 @startuml
 !pragma layout smetana
-skinparam classAttributeIconSize 0
 skinparam shadowing false
-skinparam linetype ortho
-skinparam class {
-  BackgroundColor #FFFFFF
-  BorderColor #4A6FA5
-  ArrowColor #4A6FA5
-}
+skinparam classAttributeIconSize 0
 hide empty members
-title Planning - Domain Layer
+title Domain Layer — Planning
 
-class LivestockCalendar <<Aggregate Root>> {
-  -id: Guid
-  -ranchId: Guid
-  -year: int
-  +Schedule(c: HealthCampaign): void
-  +UpcomingWithin(days: int): HealthCampaign[]
+class ApplicationRecord <<Entity>> {
+  +Id : ApplicationRecordId
+  +ActivityId : PlannedActivityId
+  +CattleId : Guid
+  +AppliedAt : DateTimeOffset
+  +InterventionId : Guid
 }
-class HealthCampaign <<Aggregate Root>> {
-  -id: Guid
-  -ranchId: Guid
-  -lotId: Guid
-  -type: CampaignType
-  -scheduledDate: Date
-  -status: CampaignStatus
-  -closedAt: Date
-  +Schedule(date: Date, lotId: Guid): void
-  +RegisterApplication(cattleId: Guid, at: Date): void
-  +ProgressPercentage(): decimal
-  +Close(): void
-  +OverlapsWithdrawal(p: WithdrawalPeriod): bool
+class ApplicationRecordId <<Value Object>> {
+  +Value : Guid
 }
-class CampaignApplication <<Entity>> {
-  -id: Guid
-  -cattleId: Guid
-  -appliedAt: Date
-  -applied: bool
+enum CampaignKind {
+  Sanitary
+  Reproductive
 }
-class FollowUpReview <<Entity>> {
-  -id: Guid
-  -cattleId: Guid
-  -interventionId: Guid
-  -scheduledFor: Date
-  -status: ReviewStatus
-  -objective: string
-  +MarkNotApplicable(reason: string): void
+class FollowUp <<Entity>> {
+  +Id : FollowUpId
+  +ActivityId : PlannedActivityId
+  +DueAt : DateTimeOffset
 }
-class Reminder <<Entity>> {
-  -id: Guid
-  -campaignId: Guid
-  -noticeDays: int
-  -emittedAt: DateTime
-  +ShouldEmit(today: Date, scheduled: Date): bool
+class FollowUpId <<Value Object>> {
+  +Value : Guid
 }
-class WithdrawalPeriod <<Value Object>> {
-  -product: string
-  -endsOn: Date
-  +IsActiveOn(d: Date): bool
+class NutritionPlan <<Aggregate Root>> {
+  +Id : NutritionPlanId
+  +RanchId : Guid
+  +LotId : Guid
+  +Name : string
+  +ValidFrom : DateOnly
+  +ValidTo : DateOnly
+  +Items : RationItem[*]
+  +TargetDailyGainKilograms : decimal
+  ...
+  --
+  +Create(command) : Result<NutritionPlan>
+  +Overlaps(from, to) : bool
+  +CloseBefore(day) : Result
 }
-enum CampaignType {
-  Vaccination
-  Deworming
-  Vitaminization
-  Checkup
-  Quarantine
+class NutritionPlanId <<Value Object>> {
+  +Value : Guid
 }
-enum CampaignStatus {
-  Scheduled
-  InExecution
-  Executed
-  Cancelled
+class PlannedActivity <<Aggregate Root>> {
+  +Id : PlannedActivityId
+  +RanchId : Guid
+  +CampaignId : PlanningCampaignId
+  +CattleId : Guid
+  +Title : string
+  +ScheduledAt : DateTimeOffset
+  +Applications : ApplicationRecord[*]
+  +FollowUps : FollowUp[*]
+  --
+  +Create(ranchId, campaignId, cattleId, title, scheduledAt) : Result<PlannedActivity>
+  +RecordApplication(cattleId, appliedAt, interventionId) : Result<ApplicationRecord>
+  +ScheduleFollowUp(dueAt) : Result<FollowUp>
 }
-enum ReviewStatus {
-  Scheduled
-  Completed
-  NotApplicable
+class PlannedActivityId <<Value Object>> {
+  +Value : Guid
 }
-class ReminderDomainService <<Domain Service>> {
-  +EmitDue(c: HealthCampaign[], today: Date): Reminder[]
-  +PendingCattle(c: HealthCampaign): int
+class PlanningCampaign <<Aggregate Root>> {
+  +Id : PlanningCampaignId
+  +RanchId : Guid
+  +Name : string
+  +Kind : CampaignKind
+  +StartsOn : DateOnly
+  +EndsOn : DateOnly
+  --
+  +Create(ranchId, name, kind, startsOn, endsOn) : Result<PlanningCampaign>
 }
-interface IPlanningRepository <<Repository>> {
-  +FindCalendar(ranchId: Guid, year: int): LivestockCalendar
-  +FindOverdueCampaigns(ranchIds: Guid[]): HealthCampaign[]
-  +Save(c: HealthCampaign): void
+class PlanningCampaignId <<Value Object>> {
+  +Value : Guid
 }
-LivestockCalendar "1" o-- "0..*" HealthCampaign : programa >
-HealthCampaign "1" *-- "0..*" CampaignApplication : avance >
-HealthCampaign "1" *-- "0..1" Reminder : aviso >
-HealthCampaign ..> CampaignType
-HealthCampaign ..> CampaignStatus
-HealthCampaign ..> WithdrawalPeriod : verifica >
-FollowUpReview ..> ReviewStatus
-ReminderDomainService ..> Reminder : emite >
-IPlanningRepository ..> LivestockCalendar
+class RationItem <<Value Object>> {
+  +Feed : string
+  +Kind : RationKind
+  +KilogramsPerHeadPerDay : decimal
+  --
+  +Create(feed, kind, kilogramsPerHeadPerDay) : Result<RationItem>
+}
+enum RationKind {
+  Forage
+  Concentrate
+  Supplement
+  Mineral
+}
+class WithdrawalPeriod <<Aggregate Root>> {
+  +Id : WithdrawalPeriodId
+  +RanchId : Guid
+  +CattleId : Guid
+  +InterventionId : Guid
+  +StartsAt : DateTimeOffset
+  +EndsAt : DateTimeOffset
+  --
+  +Create(ranchId, cattleId, interventionId, startsAt, endsAt) : Result<WithdrawalPeriod>
+}
+class WithdrawalPeriodId <<Value Object>> {
+  +Value : Guid
+}
+
+ApplicationRecord --> "1" ApplicationRecordId
+ApplicationRecord --> "1" PlannedActivityId
+FollowUp --> "1" FollowUpId
+FollowUp --> "1" PlannedActivityId
+NutritionPlan --> "0..*" RationItem
+NutritionPlan --> "1" NutritionPlanId
+PlannedActivity *-- "0..*" ApplicationRecord
+PlannedActivity *-- "0..*" FollowUp
+PlannedActivity --> "1" PlannedActivityId
+PlannedActivity --> "1" PlanningCampaignId
+PlanningCampaign --> "1" CampaignKind
+PlanningCampaign --> "1" PlanningCampaignId
+RationItem --> "1" RationKind
+WithdrawalPeriod --> "1" WithdrawalPeriodId
 @enduml

@@ -1,94 +1,96 @@
 @startuml
 !pragma layout smetana
-skinparam classAttributeIconSize 0
 skinparam shadowing false
-skinparam linetype ortho
-skinparam class {
-  BackgroundColor #FFFFFF
-  BorderColor #4A6FA5
-  ArrowColor #4A6FA5
-}
+skinparam classAttributeIconSize 0
 hide empty members
-title Subscription Plans - Domain Layer
+title Domain Layer — Subscription Plans
 
-class Subscription <<Aggregate Root>> {
-  -id: Guid
-  -ranchId: Guid
-  -headCount: int
-  -status: SubscriptionStatus
-  -startedAt: Date
-  -renewsAt: Date
-  +Activate(): void
-  +Renew(until: Date): void
-  +Cancel(reason: string): void
-  +CoversFeature(f: FeatureCode): bool
-  +DeviceLimitValue(): int
-  +MonthlyAmount(): Money
+class DeviceLimit <<Value Object>> {
+  +Maximum : int
+  --
+  +Allows(used) : bool
+  +Covers(headCount) : bool
 }
-class Plan <<Entity>> {
-  -id: Guid
-  -type: PlanType
-  -pricePerHead: Money
-  +EstimateFor(headCount: int): Money
-  +Covers(headCount: int): bool
+enum FeatureCode {
+  Monitoring
+  Alerts
+  Planning
+  Analytics
+  ReportExport
 }
-class Payment <<Entity>> {
-  -id: Guid
-  -subscriptionId: Guid
-  -amount: Money
-  -status: PaymentStatus
-  -processedAt: DateTime
-  -externalReference: string
-  +MarkAccepted(ref: string): void
-  +MarkRejected(reason: string): void
+class HeadCount <<Value Object>> {
+  +Value : int
+  --
+  +Create(value) : Result<HeadCount>
 }
 class Money <<Value Object>> {
-  -amount: decimal
-  -currency: string
-  +Add(o: Money): Money
-  +Multiply(f: int): Money
+  +Amount : decimal
+  +Currency : string
+  --
+  +Add(other) : Money
+  +Multiply(units) : Money
+  +ToMinorUnits() : long
 }
-class DeviceLimit <<Value Object>> {
-  -maxDevices: int
-  +Allows(used: int): bool
+class PaymentConfirmation <<Value Object>> {
 }
-enum PlanType {
+class Plan <<Aggregate Root>> {
+  +Id : PlanId
+  +Tier : PlanTier
+  +Name : string
+  +DeviceLimit : DeviceLimit
+  +AnnualFee : Money
+  +DeviceUnitPrice : Money
+  +IsPublished : bool
+  +Features : FeatureCode[*]
+  --
+  +EstimateFor(headCount) : Result<PlanQuote>
+  +Includes(feature) : bool
+}
+class PlanId <<Value Object>> {
+  +Value : Guid
+}
+class PlanQuote <<Value Object>> {
+}
+enum PlanTier {
   Basic
-  Premium
+  Standard
+  Pro
+}
+class Subscription <<Aggregate Root>> {
+  +Id : SubscriptionId
+  +RanchId : Guid
+  +PlanId : PlanId
+  +HeadCount : HeadCount
+  +AnnualFee : Money
+  +DevicesCost : Money
+  +DeviceUnitPrice : Money
+  +Total : Money
+  ...
+  --
+  +Request(ranchId, quote, termsVersion, operationId, acquisitionSource, requestedAt) : Subscription
+  +Activate(activatedAt) : Result
+  +Cancel(reason, cancelledAt) : Result
+  +IsActiveAt(instant) : bool
+  +Matches(command) : bool
+}
+class SubscriptionId <<Value Object>> {
+  +Value : Guid
 }
 enum SubscriptionStatus {
+  Pending
   Active
-  Suspended
   Cancelled
   Expired
 }
-enum PaymentStatus {
-  Pending
-  Accepted
-  Rejected
-}
-enum FeatureCode {
-  AdvancedReports
-  SmsAlerts
-  HerdHealthAnalytics
-  MultiRanchPortfolio
-}
-interface ISubscriptionRepository <<Repository>> {
-  +FindByRanch(ranchId: Guid): Subscription
-  +Save(s: Subscription): void
-}
-interface IPaymentProviderPort <<Port>> {
-  +Charge(amount: Money, ref: string): Payment
-}
-Subscription "1" *-- "1" Plan : contrata >
-Subscription "1" o-- "0..*" Payment : genera >
-Subscription ..> SubscriptionStatus
-Plan "1" *-- "1" DeviceLimit
-Plan "1" *-- "1" Money : precio >
-Plan ..> PlanType
-Plan ..> FeatureCode
-Payment "1" *-- "1" Money
-Payment ..> PaymentStatus
-ISubscriptionRepository ..> Subscription
-IPaymentProviderPort ..> Payment
+
+Plan --> "0..*" FeatureCode
+Plan --> "1" DeviceLimit
+Plan --> "1" Money
+Plan --> "1" PlanId
+Plan --> "1" PlanTier
+Subscription --> "1" HeadCount
+Subscription --> "1" Money
+Subscription --> "1" PlanId
+Subscription --> "1" SubscriptionId
+Subscription --> "1" SubscriptionStatus
 @enduml

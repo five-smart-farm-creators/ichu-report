@@ -1,65 +1,22 @@
 @startuml
 !pragma layout smetana
-skinparam classAttributeIconSize 0
 skinparam shadowing false
-skinparam linetype ortho
-skinparam class {
-  BackgroundColor #FFFFFF
-  BorderColor #4A6FA5
-  ArrowColor #4A6FA5
-}
+skinparam classAttributeIconSize 0
 hide empty members
-title Identity & Access Management - Domain Layer
+title Domain Layer — Identity & Access Management
 
-class UserAccount <<Aggregate Root>> {
-  -id: Guid
-  -email: Email
-  -externalUid: string
-  -role: UserRole
-  -status: AccountStatus
-  -registeredAt: DateTime
-  +Verify(): void
-  +ChangeRole(role: UserRole): void
-  +Block(minutes: int): void
-  +IsActive(): bool
+class AccessAttempt <<Entity>> {
+  +Id : Guid
+  +UserAccountId : UserAccountId
+  +RecordedAt : DateTimeOffset
+  +Succeeded : bool
+  --
+  +Create(userAccountId, recordedAt, succeeded) : Result<AccessAttempt>
 }
-class ProfessionalProfile <<Entity>> {
-  -id: Guid
-  -specialty: string
-  -licenseNumber: LicenseNumber
-  -yearsOfExperience: int
-  -isComplete: bool
-  +Complete(s: string, l: LicenseNumber, y: int): void
-}
-class RanchMembership <<Entity>> {
-  -id: Guid
-  -ranchId: Guid
-  -membershipType: MembershipType
-  +GrantsAccessTo(ranchId: Guid): bool
-}
-class HerdAdvisory <<Entity>> {
-  -id: Guid
-  -ranchId: Guid
-  -status: AdvisoryStatus
-  -grantedAt: DateTime
-  -expiresAt: DateTime
-  +Grant(expiresAt: DateTime): void
-  +Revoke(): void
-  +Expire(): void
-  +IsValidOn(date: DateTime): bool
-}
-class Email <<Value Object>> {
-  -value: string
-  +IsValid(): bool
-}
-class LicenseNumber <<Value Object>> {
-  -value: string
-  +Equals(other: LicenseNumber): bool
-}
-enum UserRole {
-  RanchManager
-  FieldOperator
-  Veterinarian
+enum AccessScope {
+  Read
+  ClinicalWrite
+  Manage
 }
 enum AccountStatus {
   PendingVerification
@@ -69,37 +26,103 @@ enum AccountStatus {
 enum AdvisoryStatus {
   Pending
   Granted
+  Rejected
   Revoked
   Expired
 }
-enum MembershipType {
-  Owner
-  Operator
+class Email <<Value Object>> {
+  +Value : string
+  --
+  +Create(value) : Result<Email>
 }
-class AuthorizationDomainService <<Domain Service>> {
-  +CanAccessRanch(a: UserAccount, ranchId: Guid): bool
-  +CanModifyClinicalRecord(a: UserAccount, ranchId: Guid): bool
+class HerdAdvisory <<Aggregate Root>> {
+  +Id : HerdAdvisoryId
+  +VeterinarianId : UserAccountId
+  +RanchId : Guid
+  +Reason : string
+  +Status : AdvisoryStatus
+  +Scope : AccessScope
+  +RequestedAt : DateTimeOffset
+  +GrantedAt : DateTimeOffset
+  ...
+  --
+  +Create(veterinarianId, ranchId, reason, now) : Result<HerdAdvisory>
+  +IsValidOn(now) : bool
+  +Grant(actorId, scope, expiresAt, now) : Result
+  +End(actorId, reject, now) : Result
+  +Expire(now) : void
 }
-interface IUserAccountRepository <<Repository>> {
-  +FindById(id: Guid): UserAccount
-  +FindByEmail(email: Email): UserAccount
-  +Save(account: UserAccount): void
+class HerdAdvisoryId <<Value Object>> {
+  +Value : Guid
 }
-interface IHerdAdvisoryRepository <<Repository>> {
-  +FindActiveByVeterinarian(id: Guid): HerdAdvisory[]
-  +Save(advisory: HerdAdvisory): void
+class ProfessionalProfile <<Entity>> {
+  +Specialty : string
+  +LicenseNumber : string
+  +YearsOfExperience : int
+  --
+  +Create(specialty, licenseNumber, yearsOfExperience) : Result<ProfessionalProfile>
 }
-UserAccount "1" *-- "0..1" ProfessionalProfile : tiene >
-UserAccount "1" *-- "0..*" RanchMembership : pertenece a >
-UserAccount "1" o-- "0..*" HerdAdvisory : solicita >
-UserAccount "1" *-- "1" Email
-UserAccount ..> UserRole
-UserAccount ..> AccountStatus
-ProfessionalProfile "1" *-- "1" LicenseNumber
-HerdAdvisory ..> AdvisoryStatus
-RanchMembership ..> MembershipType
-AuthorizationDomainService ..> UserAccount : evalua >
-AuthorizationDomainService ..> HerdAdvisory : evalua >
-IUserAccountRepository ..> UserAccount
-IHerdAdvisoryRepository ..> HerdAdvisory
+class RanchAccessCode <<Value Object>> {
+  +Value : string
+  --
+  +Create(value) : Result<RanchAccessCode>
+}
+class RanchMembership <<Entity>> {
+  +Id : Guid
+  +UserAccountId : UserAccountId
+  +RanchId : Guid
+  +IsOwner : bool
+  --
+  +Create(userAccountId, ranchId, isOwner) : Result<RanchMembership>
+}
+class RanchRegistration <<Aggregate Root>> {
+  +Id : Guid
+  +Name : string
+  +Region : string
+  +District : string
+  +EstimatedHeadCount : int
+  +AccessCode : RanchAccessCode
+  --
+  +Create(name, region, district, estimatedHeadCount, accessCode) : Result<RanchRegistration>
+}
+class UserAccount <<Aggregate Root>> {
+  +Id : UserAccountId
+  +ExternalUid : string
+  +Email : Email
+  +Role : UserRole
+  +Status : AccountStatus
+  +Profile : ProfessionalProfile
+  +RegisteredAt : DateTimeOffset
+  +BlockedUntil : DateTimeOffset
+  ...
+  --
+  +Create(externalUid, email, role, now) : Result<UserAccount>
+  +IsActive(now) : bool
+  +IsBlocked(now) : bool
+  +Verify() : void
+  +RecordFailedAttempt(now) : void
+  +RecordSuccessfulAccess(now) : Result
+  ...
+}
+class UserAccountId <<Value Object>> {
+  +Value : Guid
+}
+enum UserRole {
+  RanchManager
+  FieldOperator
+  Veterinarian
+}
+
+AccessAttempt --> "1" UserAccountId
+HerdAdvisory --> "1" AccessScope
+HerdAdvisory --> "1" AdvisoryStatus
+HerdAdvisory --> "1" HerdAdvisoryId
+HerdAdvisory --> "1" UserAccountId
+RanchMembership --> "1" UserAccountId
+RanchRegistration --> "1" RanchAccessCode
+UserAccount *-- "1" ProfessionalProfile
+UserAccount --> "1" AccountStatus
+UserAccount --> "1" Email
+UserAccount --> "1" UserAccountId
+UserAccount --> "1" UserRole
 @enduml

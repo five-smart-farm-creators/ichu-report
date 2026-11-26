@@ -23,30 +23,27 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         }
 
         cattleBandHardware = softwareSystem "Cattle Band Hardware" {
-            description "ESP32 collar with temperature, motion and GPS sensors, Wi-Fi and BLE"
+            description "ESP32-S3 collar with temperature, motion, GPS, pulse and methane sensors and Wi-Fi"
             tags "External,Hardware"
         }
 
-
-        ledHardwareDisplay = softwareSystem "LED Hardware Display" {
-            description "External LED indicator connected to the Portable Edge Gateway for visible local alerts"
+        alertPanelHardware = softwareSystem "Alert Panel Hardware" {
+            description "ESP32 board with a 16x2 LCD, three LEDs and a buzzer installed at the ranch"
             tags "External,Hardware"
         }
 
-      
-
-        firebaseMessaging = softwareSystem "Firebase Cloud Messaging Provider" {
-            description "External push notification service"
+        firebaseAuthentication = softwareSystem "Firebase Authentication" {
+            description "External identity provider that signs users in and issues ID tokens"
             tags "External"
         }
 
-        mapProvider = softwareSystem "Map Provider" {
-            description "External map and geofence service"
+        mapProvider = softwareSystem "OpenStreetMap Tile Service" {
+            description "External map tiles used to show positions and geofences"
             tags "External"
         }
 
-        paymentProvider = softwareSystem "Payment Provider" {
-            description "External subscription payment service"
+        paymentProvider = softwareSystem "Stripe" {
+            description "External payment service with hosted Checkout pages and signed webhooks"
             tags "External"
         }
 
@@ -55,267 +52,172 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
 
             landingPageUxUi = container "Website" {
                 technology "HTML + CSS + JavaScript"
-                description "Customer-visible layout and styles of the public landing page, rendered in the browser"
+                description "Static landing page with the value proposition, plans and links to the web application"
                 tags "WebApplicationFolder"
             }
 
             webApplication = container "Web Application" {
                 technology "HTML + CSS + JavaScript"
-                description "Static visual layer of the web application, providing its HTML and CSS user interface"
+                description "Compiled files of the Angular application, served over HTTPS"
                 tags "WebApplicationFolder"
             }
 
             spa = container "Single Page Application" {
                 technology "Angular + TypeScript"
-                description "Interactive Angular single-page application that implements system functionality and displays alerts"
+                description "Browser application to manage cattle, devices, planning, analytics and subscriptions"
                 tags "BrowserClient"
             }
 
             mobileApplication = container "Mobile Application" {
                 technology "Flutter + Dart"
-                description "Monitoring, alerts and offline field operations"
+                description "Field app for cattle, telemetry and alerts, with local notifications for new alerts"
                 tags "Mobile"
             }
 
-            mobileCacheDatabase = container "Mobile Cache Database" {
-                technology "SQLite"
-                description "On-device cache for recently accessed livestock records, alerts and pending offline operations"
-                tags "Database"
-            }
-
             cattleBandEmbeddedApp = container "Cattle Band Embedded Application" {
-                technology "C++ on ESP32"
-                description "Collar firmware that captures and transmits telemetry"
+                technology "C++ on ESP32-S3, Modest IoT Nano Framework"
+                description "Collar firmware that reads the sensors and sends one reading every 10 s to the Edge API"
                 tags "IoT"
 
-                // Figura 4.8: componentes añadidos desde la captura.
-
-                bandTelemetryInterface = component "Band Telemetry Interface" {
-                    technology "C++"
-                    description "Interfaz de arranque del ciclo de captura"
+                collarSketch = component "Composition Root" {
+                    technology "sketch.ino"
+                    description "Builds the device and starts the framework tasks; loop() only yields"
                     tags "Interface"
                 }
 
-                bandTelemetryService = component "Band Telemetry Service" {
-                    technology "C++"
-                    description "Servicio de aplicación que coordina la captura"
+                collarDevice = component "Collar Device" {
+                    technology "C++ / framework Device"
+                    description "Mediator that receives sensor events and queues one reading per interval"
                     tags "Application"
                 }
 
-                cattleBandAggregate = component "Cattle Band Aggregate" {
-                    technology "C++"
-                    description "Agregado del estado del collar"
-                    tags "DomainAggregate"
-                }
-
-                cattleTelemetryProcessor = component "Cattle Telemetry Processor" {
-                    technology "C++"
-                    description "Servicio de dominio que normaliza las lecturas"
-                    tags "DomainService"
-                }
-
-                bandConnectivityService = component "Band Connectivity Service" {
-                    technology "C++"
-                    description "Servicio de aplicación que entrega la cola al gateway por Wi-Fi o BLE"
-                    tags "Application"
-                }
-
-                cattleBandHal = component "Cattle Band HAL" {
-                    technology "C++"
-                    description "Capa de abstracción del hardware del collar"
+                frameworkSensors = component "Framework Sensors" {
+                    technology "ImuSensor, GeolocationSensor, GasSensor, PowerManager"
+                    description "Motion, GPS, methane index and battery level sampled by the framework scheduler"
                     tags "Infrastructure"
                 }
 
-                cattleBandHardwareAcl = component "Cattle Band Hardware ACL" {
+                temperatureProbe = component "Temperature Probe Driver" {
+                    technology "DallasTemperature"
+                    description "Reads the DS18B20 body temperature probe"
+                    tags "Infrastructure"
+                }
+
+                heartRateEstimator = component "Heart Rate Estimator" {
                     technology "C++"
-                    description "ACL hacia los controladores del fabricante"
+                    description "Detects beats in the SP-203 signal and computes the heart rate"
+                    tags "DomainService"
+                }
+
+                activityIndexCalculator = component "Activity Index Calculator" {
+                    technology "C++"
+                    description "Computes the activity index from the motion samples"
+                    tags "DomainService"
+                }
+
+                telemetryReading = component "Telemetry Reading" {
+                    technology "C++ value type"
+                    description "One reading with optional measurements and the reasons of invalid ones"
+                    tags "DomainAggregate"
+                }
+
+                telemetryBuffer = component "Telemetry Buffer" {
+                    technology "framework TelemetryBuffer + LittleFS"
+                    description "Queue of up to 60 readings that wait for a successful send"
+                    tags "Infrastructure"
+                }
+
+                telemetryPayload = component "Telemetry Payload" {
+                    technology "C++ / JSON"
+                    description "Builds the JSON body of the Edge API contract"
+                    tags "Infrastructure"
+                }
+
+                httpGatewayClient = component "HTTP Gateway Client" {
+                    technology "framework HttpGatewayClient + WiFiConnectivityDriver"
+                    description "Posts the reading with the device key over Wi-Fi"
+                    tags "ACL"
+                }
+            }
+
+            alertPanelEmbeddedApp = container "Alert Panel Embedded Application" {
+                technology "C++ on ESP32, Modest IoT Nano Framework"
+                description "Panel firmware that polls the Edge API every 3 s and shows the alert state with LEDs, buzzer and LCD"
+                tags "IoT"
+            }
+
+            edgeGateway = container "Portable Edge Service" {
+                technology "Flask + Peewee ORM on Python"
+                description "Ranch gateway that stores readings, raises alerts offline and synchronizes with the cloud"
+                tags "Edge"
+
+                monitoringBlueprint = component "Monitoring API" {
+                    technology "Flask Blueprint + Pydantic"
+                    description "POST telemetry-readings, GET alerts and POST synchronizations"
+                    tags "Interface"
+                }
+
+                synchronizeCommand = component "Synchronize Command" {
+                    technology "flask --app app synchronize"
+                    description "Runs the synchronization every 15 s and doubles the wait after a failure, up to 5 min"
+                    tags "Interface"
+                }
+
+                iamAcl = component "IAM Anti-Corruption Layer" {
+                    technology "Python"
+                    description "Verifies the device key through the IAM context"
                     tags "ACL"
                 }
 
-                bandEdgeHttpAdapter = component "Band Edge HTTP Adapter" {
-                    technology "C++ / HTTP over Wi-Fi"
-                    description "Adaptador de envío al Edge API (implementado)"
-                    tags "Infrastructure"
-                }
-
-                bandBleAdapter = component "Band BLE Adapter" {
-                    technology "C++ / Bluetooth Low Energy"
-                    description "Adaptador GATT hacia el gateway (previsto; el gateway aún no tiene receptor BLE)"
-                    tags "Infrastructure"
-                }
-
-                cattleBandLocalBuffer = component "Cattle Band Local Buffer" {
-                    technology "RAM ring buffer; ESP32 NVS planned"
-                    description "Cola de hasta 60 lecturas no confirmadas; su persistencia en NVS está en desarrollo"
-                    tags "Infrastructure"
-                }
-            }
-
-
-            edgeGateway = container "Portable Edge Service" {
-                technology "Flask + Peewee ORM on Python, running on Raspberry Pi or similar Edge Device"
-                description "Portable offline gateway with later cloud synchronization"
-                tags "Edge"
-
-                // Figura 4.9: componentes añadidos desde la captura.
-
-                deviceTelemetryApi = component "Device Telemetry API" {
-                    technology "Flask REST"
-                    description "Recibe lecturas de los collares por HTTP con X-API-Key; un receptor BLE está previsto"
-                    tags "Interface"
-                }
-
-                edgeTelemetryCollectionService = component "Edge Telemetry Collection Service" {
+                ingestionService = component "Telemetry Ingestion Service" {
                     technology "Python"
-                    description "Servicio de aplicación que recibe de varios collares"
+                    description "Validates and stores each reading idempotently and raises its alerts"
                     tags "Application"
                 }
 
-                localMonitoringService = component "Local Monitoring Service" {
+                synchronizationService = component "Synchronization Service" {
                     technology "Python"
-                    description "Servicio de dominio que evalúa umbrales sin Internet"
+                    description "Sends pending readings and alerts in batches and refreshes rules and assignments"
+                    tags "Application"
+                }
+
+                ruleEvaluator = component "Rule Evaluator" {
+                    technology "Python domain service"
+                    description "Checks thresholds by life stage and severity, and geofences, against the cached rules"
                     tags "DomainService"
                 }
 
-                edgeTelemetryAggregate = component "Edge Telemetry Aggregate" {
-                    technology "Python"
-                    description "Agregado de la telemetría local y su estado de sincronización"
+                edgeAggregates = component "Monitoring Aggregates" {
+                    technology "TelemetryReading, MonitoringAlert, MonitoringRuleSet"
+                    description "Readings with their sync status, alerts deduplicated by severity, and the cached rules"
                     tags "DomainAggregate"
                 }
 
-                edgeSyncOrchestrator = component "Edge Sync Orchestrator" {
-                    technology "Python"
-                    description "Proceso flask synchronize: cada 15 s, con espera creciente hasta 5 min tras un fallo"
-                    tags "Application"
-                }
-
-                localAlertAdapter = component "Local Alert Adapter" {
-                    technology "Python"
-                    description "Adaptador de alertas locales a la app móvil"
+                edgeRepositories = component "Peewee Repositories" {
+                    technology "Peewee ORM"
+                    description "Readings, alerts, rule sets and collar assignments stored in SQLite"
                     tags "Infrastructure"
                 }
 
-                edgeRepository = component "Edge Repository" {
-                    technology "Peewee ORM + SQLite (WAL)"
-                    description "Repositorio local sobre SQLite"
-                    tags "Infrastructure"
-                }
-
-                ichuCloudApiAcl = component "ICHU Cloud API ACL" {
-                    technology "Python"
-                    description "ACL hacia el API central"
+                cloudAcl = component "ICHU Cloud Anti-Corruption Layer" {
+                    technology "Python + requests"
+                    description "Translates the camelCase cloud contract into the Monitoring language"
                     tags "ACL"
                 }
             }
 
             edgeDatabase = container "Edge Database" {
                 technology "SQLite"
-                description "Local telemetry, synchronization state and cached configuration"
+                description "Local readings, alerts, synchronization state and cached rules"
                 tags "Database,Edge"
             }
 
             backend = container "ICHU Web Service" {
                 technology "ASP.NET Core Web API"
-                description "Cloud REST API implemented as a modular monolith"
+                description "Cloud REST API implemented as a modular monolith with seven bounded contexts"
                 tags "Monolith,API"
 
-                // Figura 4.7: componentes añadidos desde la captura.
-
-                telemetryApi = component "Telemetry API" {
-                    technology "ASP.NET Core Controllers"
-                    description "Interfaz de ingesta y consulta de telemetría"
-                    tags "Interface"
-                }
-
-                operationsApi = component "Operations API" {
-                    technology "ASP.NET Core Controllers"
-                    description "Interfaz de eventos de campo e intervenciones clínicas"
-                    tags "Interface"
-                }
-
-                edgeConfigurationApi = component "Edge Configuration API" {
-                    technology "ASP.NET Core Controllers"
-                    description "Interfaz de configuración y sincronización del borde"
-                    tags "Interface"
-                }
-
-                telemetryIngestionService = component "Telemetry Ingestion Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación que valida y persiste lecturas"
-                    tags "Application"
-                }
-
-                operationsApplicationService = component "Operations Application Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación de alertas y operaciones"
-                    tags "Application"
-                }
-
-                edgeConfigurationService = component "Edge Configuration Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación que entrega umbrales, geocercas y asignaciones de collares"
-                    tags "Application"
-                }
-
-                monitoringAggregate = component "Monitoring Aggregate" {
-                    technology ".NET"
-                    description "Agregado de la alerta y su regla de deduplicación"
-                    tags "DomainAggregate"
-                }
-
-                livestockOperationAggregate = component "Livestock Operation Aggregate" {
-                    technology ".NET"
-                    description "Agregado del evento de campo y la intervención clínica"
-                    tags "DomainAggregate"
-                }
-
-                cattleLookupAcl = component "Cattle Lookup ACL" {
-                    technology ".NET"
-                    description "ACL hacia Cattle Information"
-                    tags "ACL"
-                }
-
-                iotAssetsLookupAcl = component "IoT Assets Lookup ACL" {
-                    technology ".NET"
-                    description "ACL hacia IoT Assets"
-                    tags "ACL"
-                }
-
-                monitoringRulesDomainService = component "Monitoring Rules Domain Service" {
-                    technology ".NET"
-                    description "Servicio de dominio que evalúa umbrales y geocercas"
-                    tags "DomainService"
-                }
-
-                monitoringRepository = component "Monitoring Repository" {
-                    technology ".NET + Entity Framework Core"
-                    description "Repositorio del esquema monitoring"
-                    tags "Infrastructure"
-                }
-
-                cattleApplicationService = component "Cattle Application Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación de información del ganado"
-                    tags "Application"
-                }
-
-                iotAssetsApplicationService = component "IoT Assets Application Service" {
-                    technology ".NET"
-                    description "Servicio de aplicación de activos IoT"
-                    tags "Application"
-                }
-
-                internalDomainEventDispatcher = component "Internal Domain Event Dispatcher" {
-                    technology ".NET Domain Events"
-                    description "Publica eventos de dominio entre módulos del monolito"
-                    tags "Infrastructure"
-                }
-
-                firebaseMessagingAdapter = component "Firebase Messaging Adapter" {
-                    technology ".NET + Entity Framework Core"
-                    description "Adaptador hacia el servicio de notificaciones push"
-                    tags "ACL"
-                }
+                !include backend-components.dsl
             }
 
             cloudDatabase = container "ICHU Cloud Database" {
@@ -329,134 +231,94 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         fieldOperator -> ichu "Supervises cattle and records field tasks"
         veterinarian -> ichu "Reviews authorized animal health and history"
         visitor -> ichu "Reviews the value proposition and plans"
-
-        cattleBandHardware -> ichu "Provides temperature, movement and position"
-
-        ichu -> firebaseMessaging "Sends push notifications"
+        cattleBandHardware -> ichu "Provides temperature, movement, position, pulse and methane index"
+        ichu -> alertPanelHardware "Shows the alert state at the ranch"
+        ichu -> firebaseAuthentication "Signs users in and verifies their tokens"
         ichu -> mapProvider "Displays positions and geofences"
-        ichu -> paymentProvider "Processes subscription payments"
+        ichu -> paymentProvider "Charges subscriptions"
+        alertPanelHardware -> fieldOperator "Warns about active alerts with LEDs, buzzer and LCD"
 
         visitor -> landingPageUxUi "Browses the public website" "HTTPS"
-
         ranchManager -> webApplication "Loads the UI from" "HTTPS"
-        ranchManager -> spa "Manages cattle and reviews indicators" "HTTPS"
-        veterinarian -> mobileApplication "Reviews cattle and receives alerts" "HTTPS"
-
-        fieldOperator -> mobileApplication "Performs field tasks" "HTTPS / Local Network"
-
+        ranchManager -> spa "Manages cattle, subscriptions and indicators" "HTTPS"
         veterinarian -> webApplication "Loads the UI from" "HTTPS"
         veterinarian -> spa "Reviews authorized information" "HTTPS"
-        veterinarian -> mobileApplication "Reviews authorized cattle information during farm visits" "HTTPS"
-
-        landingPageUxUi -> webApplication "Redirects users to the web application when CTA is clicked" "HTTPS"
-
+        veterinarian -> mobileApplication "Reviews authorized cattle during farm visits" "HTTPS"
+        fieldOperator -> mobileApplication "Reviews cattle and alerts in the field" "HTTPS"
+        landingPageUxUi -> webApplication "Links to the web application" "HTTPS"
         webApplication -> spa "Delivers"
-
-    
-        spa -> mapProvider "Displays positions and geofences" "HTTPS"
-        mobileApplication -> mapProvider "Displays positions and geofences" "HTTPS"
-
-        landingPageUxUi -> backend "Requests plans and public content" "HTTPS / JSON"
-        spa -> backend "Retrieves alerts and monitoring" "HTTPS / JSON"
-        backend -> spa "Streams real time alerts and notifications" "HTTPS / WSS"
-
-        mobileApplication -> backend "Calls the REST API" "HTTPS / JSON"
-        mobileApplication -> mobileCacheDatabase "Reads and writes cached information for offline use" "SQLite"
-
-        cattleBandEmbeddedApp -> cattleBandHardware "Reads sensors and position"
-        cattleBandEmbeddedApp -> edgeGateway "Sends telemetry over local Wi-Fi; BLE planned" "HTTP / JSON"
-
-        edgeGateway -> edgeDatabase "Stores local telemetry and configuration" "SQLite"
+        spa -> firebaseAuthentication "Signs the user in" "HTTPS"
+        mobileApplication -> firebaseAuthentication "Signs the user in" "HTTPS"
+        spa -> mapProvider "Loads map tiles" "HTTPS"
+        spa -> backend "Calls the REST API with the Firebase ID token" "HTTPS / JSON"
+        spa -> paymentProvider "Redirects the manager to the hosted Checkout page" "HTTPS"
+        mobileApplication -> backend "Calls the REST API and polls pending alerts every 30 s" "HTTPS / JSON"
+        cattleBandEmbeddedApp -> cattleBandHardware "Reads sensors, position and battery"
+        cattleBandEmbeddedApp -> edgeGateway "POST /api/v1/monitoring/telemetry-readings with the device key" "HTTP / JSON over Wi-Fi"
+        alertPanelEmbeddedApp -> edgeGateway "GET /api/v1/monitoring/alerts every 3 s" "HTTP / JSON over Wi-Fi"
+        alertPanelEmbeddedApp -> alertPanelHardware "Drives the LEDs, buzzer and LCD" "GPIO / I2C"
+        edgeGateway -> edgeDatabase "Stores readings, alerts and cached rules" "SQLite"
         edgeGateway -> backend "Synchronizes pending records and downloads rules and assignments" "HTTPS / JSON"
-        edgeGateway -> mobileApplication "Delivers local alerts without Internet" "Local Wi-Fi"
-        edgeGateway -> ledHardwareDisplay "Activates visual warnings for critical local events" "GPIO"
-        edgeGateway -> fieldOperator "Notifies the operator about critical local alerts" "Visual LED signal"
-
-
         backend -> cloudDatabase "Reads and writes cloud data" "Entity Framework Core / Npgsql"
-        backend -> firebaseMessaging "Requests push notifications" "Firebase Admin SDK"
-        backend -> paymentProvider "Requests subscription payment" "HTTPS"
+        backend -> firebaseAuthentication "Verifies ID tokens" "HTTPS"
+        backend -> paymentProvider "Creates Checkout sessions" "HTTPS"
+        paymentProvider -> backend "Sends signed payment events" "HTTPS webhook"
 
-        firebaseMessaging -> mobileApplication "Delivers the notification to the device" "Push Notification"
-
-        // Figura 4.7: Operations & Monitoring.
-
-        telemetryApi -> telemetryIngestionService "Invokes telemetry ingestion"
-        operationsApi -> operationsApplicationService "Invokes livestock operational workflows"
-        edgeConfigurationApi -> edgeConfigurationService "Requests Edge monitoring configuration"
-
-        telemetryIngestionService -> monitoringAggregate "Updates cloud monitoring state"
-        telemetryIngestionService -> cattleLookupAcl "Validates cattle identity"
-        telemetryIngestionService -> iotAssetsLookupAcl "Validates device registration and assignment"
-        telemetryIngestionService -> monitoringRulesDomainService "Evaluates telemetry rules"
-        telemetryIngestionService -> monitoringRepository "Stores accepted telemetry"
-
-        operationsApplicationService -> livestockOperationAggregate "Creates and updates livestock operational events"
-        operationsApplicationService -> cattleLookupAcl "Resolves cattle identity when required"
-        operationsApplicationService -> iotAssetsLookupAcl "Resolves device-to-cattle assignments"
-        operationsApplicationService -> monitoringRulesDomainService "Evaluates operational monitoring conditions"
-        operationsApplicationService -> monitoringRepository "Stores operational events"
-
-        edgeConfigurationService -> monitoringRepository "Loads fever thresholds and geofence configuration"
-        edgeConfigurationService -> iotAssetsLookupAcl "Loads collar assignments"
-
-        cattleLookupAcl -> cattleApplicationService "Queries Cattle Information module"
-        iotAssetsLookupAcl -> iotAssetsApplicationService "Queries IoT Assets module"
-
-        monitoringRulesDomainService -> internalDomainEventDispatcher "Publishes monitoring domain events"
-        monitoringRulesDomainService -> firebaseMessagingAdapter "Requests notification when a critical condition exists"
-
-        firebaseMessagingAdapter -> firebaseMessaging "Sends cloud push notification" "Firebase Admin SDK"
-        monitoringRepository -> cloudDatabase "Stores telemetry, monitoring and livestock operational data" "Entity Framework Core / Npgsql"
+        // Backend components: generated relationships plus the clients that call each controller.
+        !include backend-relationships.dsl
+        edgeGateway -> beTelemetryController "POST /api/v1/telemetry/batch" "HTTPS / JSON"
+        edgeGateway -> beEdgeGatewaysController "Downloads rules and collar assignments" "HTTPS / JSON"
+        spa -> beAlertsController "Lists and attends alerts" "HTTPS / JSON"
+        mobileApplication -> beAlertsController "Polls pending alerts" "HTTPS / JSON"
+        spa -> beMonitoringThresholdsController "Manages thresholds" "HTTPS / JSON"
+        spa -> beGeofencesController "Manages geofences" "HTTPS / JSON"
+        spa -> beCattleController "Registers and queries cattle" "HTTPS / JSON"
+        spa -> beSubscriptionsController "Requests and pays subscriptions" "HTTPS / JSON"
+        paymentProvider -> beStripeWebhooksController "Sends signed payment events" "HTTPS webhook"
 
         // Figura 4.8: firmware del collar inteligente.
-
-        bandTelemetryInterface -> bandTelemetryService "Starts telemetry acquisition"
-        bandTelemetryService -> cattleBandAggregate "Updates cattle band state"
-        bandTelemetryService -> cattleTelemetryProcessor "Processes cattle sensor readings"
-        bandTelemetryService -> bandConnectivityService "Requests telemetry transmission"
-        bandTelemetryService -> cattleBandLocalBuffer "Stores telemetry when communication is unavailable"
-
-        cattleBandAggregate -> cattleBandHal "Accesses device state and hardware"
-        cattleTelemetryProcessor -> cattleBandHal "Reads normalized temperature, movement and GPS data"
-        cattleBandHal -> cattleBandHardwareAcl "Uses hardware-specific drivers"
-        cattleBandHardwareAcl -> cattleBandHardware "Reads physical sensors and GPS/GNSS module"
-
-        bandConnectivityService -> bandEdgeHttpAdapter "Uses the Wi-Fi route to the Edge API"
-        bandConnectivityService -> bandBleAdapter "Uses the planned BLE route when a gateway subscribes"
-        bandEdgeHttpAdapter -> edgeGateway "POST /api/v1/monitoring/telemetry-readings with X-API-Key" "HTTP / JSON over Wi-Fi"
-        bandBleAdapter -> edgeGateway "Planned: notifies the reading and waits for the event_id acknowledgement" "Bluetooth Low Energy"
+        collarSketch -> collarDevice "Builds and starts"
+        frameworkSensors -> collarDevice "Notifies sensor events"
+        collarDevice -> temperatureProbe "Reads body temperature"
+        collarDevice -> heartRateEstimator "Requests the heart rate"
+        collarDevice -> activityIndexCalculator "Requests the activity index"
+        collarDevice -> telemetryReading "Builds one reading per interval"
+        collarDevice -> telemetryBuffer "Queues the reading"
+        collarDevice -> telemetryPayload "Builds the request body"
+        collarDevice -> httpGatewayClient "Sends the queued reading"
+        frameworkSensors -> cattleBandHardware "Samples the MPU-6050, NEO-6M, MQ-2 and battery"
+        temperatureProbe -> cattleBandHardware "Reads the DS18B20"
+        heartRateEstimator -> cattleBandHardware "Samples the SP-203"
+        httpGatewayClient -> monitoringBlueprint "POST /api/v1/monitoring/telemetry-readings" "HTTP / JSON over Wi-Fi"
 
         // Figura 4.9: pasarela de borde.
-
-        deviceTelemetryApi -> edgeTelemetryCollectionService "Provides telemetry received from cattle bands"
-        edgeTelemetryCollectionService -> localMonitoringService "Evaluates critical offline monitoring rules"
-        edgeTelemetryCollectionService -> edgeTelemetryAggregate "Creates and updates local telemetry state"
-        edgeTelemetryCollectionService -> edgeRepository "Stores received telemetry"
-
-        localMonitoringService -> localAlertAdapter "Requests local alert when a critical condition is detected"
-        localMonitoringService -> edgeRepository "Loads cached cattle mappings, thresholds and geofences"
-        localAlertAdapter -> mobileApplication "Delivers local fever or geofence alert" "Local Wi-Fi"
-
-        edgeSyncOrchestrator -> edgeRepository "Loads pending telemetry and stores synchronized configuration"
-        edgeSyncOrchestrator -> ichuCloudApiAcl "Requests upload of pending telemetry and download of monitoring configuration"
-
-        edgeRepository -> edgeDatabase "Persists telemetry, rules, mappings and synchronization state" "SQLite"
-        ichuCloudApiAcl -> backend "Synchronizes telemetry, assignments, thresholds and geofences" "HTTPS / JSON"
-
-
-
+        alertPanelEmbeddedApp -> monitoringBlueprint "GET /api/v1/monitoring/alerts" "HTTP / JSON over Wi-Fi"
+        monitoringBlueprint -> iamAcl "Authenticates the device key"
+        monitoringBlueprint -> ingestionService "Submits the reading"
+        synchronizeCommand -> synchronizationService "Runs a synchronization"
+        ingestionService -> ruleEvaluator "Evaluates the reading"
+        ingestionService -> edgeAggregates "Creates the reading and its alerts"
+        ingestionService -> edgeRepositories "Stores the reading and alerts"
+        ruleEvaluator -> edgeRepositories "Loads the cached rules and assignment"
+        synchronizationService -> edgeRepositories "Loads pending records and stores refreshed rules"
+        synchronizationService -> cloudAcl "Uploads batches and downloads rules"
+        edgeRepositories -> edgeDatabase "Persists the monitoring data" "SQLite"
+        cloudAcl -> backend "Synchronizes readings, alerts, rules and assignments" "HTTPS / JSON"
 
         production = deploymentEnvironment "Production" {
             deploymentNode "Ranch / Grazing Environment" {
-
                 deploymentNode "Cattle Band Device" {
-                    technology "ESP32-S3 + Wi-Fi (BLE planned)"
+                    technology "ESP32-S3 DevKitC-1 + Wi-Fi"
                     containerInstance cattleBandEmbeddedApp
                 }
 
+                deploymentNode "Alert Panel Device" {
+                    technology "ESP32 DevKitC + Wi-Fi"
+                    containerInstance alertPanelEmbeddedApp
+                }
+
                 deploymentNode "Portable Edge Gateway Device" {
-                    technology "Raspberry Pi or similar portable Edge computer with Wi-Fi (BLE receiver planned)"
+                    technology "Raspberry Pi or similar Linux computer with Wi-Fi"
                     containerInstance edgeGateway
                     containerInstance edgeDatabase
                 }
@@ -464,49 +326,52 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                 deploymentNode "Mobile User Device" {
                     technology "Android / iOS"
                     containerInstance mobileApplication
-                    containerInstance mobileCacheDatabase
                 }
             }
 
             deploymentNode "User Computer" {
                 deploymentNode "Web Browser" {
                     technology "HTML, CSS and JavaScript execution"
-                    containerInstance landingPageUxUi
-                    containerInstance webApplication
                     containerInstance spa
                 }
             }
 
-            deploymentNode "Cloud Platform" {
-                deploymentNode "Angular Application Web Hosting" {
-                    technology "HTTPS static file hosting"
-                }
+            deploymentNode "GitHub Pages" {
+                technology "Static HTTPS hosting"
+                containerInstance landingPageUxUi
+            }
 
-                deploymentNode ".NET Application Runtime" {
-                    technology ".NET / ASP.NET Core"
+            deploymentNode "Firebase Hosting" {
+                technology "Static HTTPS hosting"
+                containerInstance webApplication
+            }
+
+            deploymentNode "Render" {
+                deploymentNode "Web Service" {
+                    technology "Docker container with ASP.NET Core"
                     containerInstance backend
                 }
 
-                deploymentNode "PostgreSQL Database Host" {
-                    technology "PostgreSQL"
+                deploymentNode "Render PostgreSQL" {
+                    technology "Managed PostgreSQL"
                     containerInstance cloudDatabase
                 }
             }
 
             deploymentNode "External Service Providers" {
-                deploymentNode "Firebase Services" {
-                    technology "Google Firebase"
-                    softwareSystemInstance firebaseMessaging
+                deploymentNode "Google Firebase" {
+                    technology "Managed identity service"
+                    softwareSystemInstance firebaseAuthentication
                 }
 
-                deploymentNode "Map Service Provider" {
-                    technology "Managed HTTPS service"
-                    softwareSystemInstance mapProvider
-                }
-
-                deploymentNode "Payment Service Provider" {
-                    technology "Managed HTTPS service"
+                deploymentNode "Stripe Platform" {
+                    technology "Managed payment service"
                     softwareSystemInstance paymentProvider
+                }
+
+                deploymentNode "OpenStreetMap" {
+                    technology "Public tile servers"
+                    softwareSystemInstance mapProvider
                 }
             }
         }
@@ -523,145 +388,68 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         systemContext ichu "SystemContext" {
             title "ICHU - System Context"
             description "Users, IoT hardware and external services interacting with ICHU"
-
-            include ichu
-            include ranchManager
-            include fieldOperator
-            include veterinarian
-            include visitor
-            include cattleBandHardware
-            include ledHardwareDisplay
-            include firebaseMessaging
-            include mapProvider
-            include paymentProvider
-
+            include *
             autoLayout lr
         }
 
         container ichu "ContainerDiagram" {
             title "ICHU - Container Diagram"
-            description "Browser clients, static hosting, mobile, IoT, Edge, Web Service and databases"
-
+            description "Browser clients, static hosting, mobile, embedded, Edge, Web Service and databases"
             include *
-
             autoLayout lr
         }
 
         deployment * "Production" "ProductionDeployment" {
             title "ICHU - Production Deployment"
-            description "Static hosting is separated from browser execution, Edge and cloud services"
-
+            description "Ranch devices, static hosting, Render and external providers"
             include *
-
             autoLayout lr
         }
 
-        // Figuras 4.7 a 4.12: seis vistas de componentes y flujos dinámicos.
-
-        component backend "OperationsMonitoringComponents" {
-            title "Figura 4.7. Componentes del módulo Operations & Monitoring"
-            description "Elaboración propia con Structurizr."
-
-            include telemetryApi
-            include operationsApi
-            include edgeConfigurationApi
-            include telemetryIngestionService
-            include operationsApplicationService
-            include edgeConfigurationService
-            include monitoringAggregate
-            include livestockOperationAggregate
-            include cattleLookupAcl
-            include iotAssetsLookupAcl
-            include monitoringRulesDomainService
-            include monitoringRepository
-            include cattleApplicationService
-            include iotAssetsApplicationService
-            include internalDomainEventDispatcher
-            include firebaseMessagingAdapter
-
-            include cloudDatabase
-            include firebaseMessaging
-
-            autoLayout lr
-        }
+        // Figuras 4.7 a 4.12: vistas de componentes y flujos dinámicos.
+        !include backend-views.dsl
 
         component cattleBandEmbeddedApp "CattleBandComponents" {
             title "Figura 4.8. Componentes del firmware del collar inteligente"
             description "Elaboración propia con Structurizr."
-
-            include bandTelemetryInterface
-            include bandTelemetryService
-            include cattleBandAggregate
-            include cattleTelemetryProcessor
-            include bandConnectivityService
-            include cattleBandHal
-            include cattleBandHardwareAcl
-            include bandEdgeHttpAdapter
-            include bandBleAdapter
-            include cattleBandLocalBuffer
-
-            include cattleBandHardware
-            include edgeGateway
-
+            include *
             autoLayout lr
         }
 
         component edgeGateway "EdgeGatewayComponents" {
             title "Figura 4.9. Componentes de la pasarela de borde"
             description "Elaboración propia con Structurizr."
-
-            include deviceTelemetryApi
-            include edgeTelemetryCollectionService
-            include localMonitoringService
-            include edgeTelemetryAggregate
-            include edgeSyncOrchestrator
-            include localAlertAdapter
-            include edgeRepository
-            include ichuCloudApiAcl
-
-            include mobileApplication
-            include cattleBandEmbeddedApp
-            include edgeDatabase
-            include backend
-
+            include *
             autoLayout lr
         }
-
 
         dynamic ichu "ConnectedCattleMonitoringFlow" {
             title "Figura 4.10. Flujo completo cuando el gateway tiene Internet"
             description "Elaboración propia con Structurizr."
-
-            cattleBandEmbeddedApp -> edgeGateway "1. Sends temperature, movement and GPS telemetry over local Wi-Fi"
-            edgeGateway -> edgeDatabase "2. Stores the reading and evaluates the cached rules"
+            cattleBandEmbeddedApp -> edgeGateway "1. Sends a reading every 10 s over local Wi-Fi"
+            edgeGateway -> edgeDatabase "2. Stores the reading and the alerts raised by the cached rules"
             edgeGateway -> backend "3. Sends pending readings and alerts in the next 15 s batch"
-            backend -> cloudDatabase "4. Stores telemetry and monitoring state"
-            backend -> firebaseMessaging "5. Requests push notification when a critical rule is detected"
-            firebaseMessaging -> mobileApplication "6. Delivers cattle alert to the user"
-
+            backend -> cloudDatabase "4. Stores telemetry and alerts"
+            mobileApplication -> backend "5. Finds the new alert in its 30 s poll and shows a local notification"
             autoLayout lr
         }
 
         dynamic ichu "OfflineGrazingFlow" {
             title "Figura 4.11. Flujo completo durante el pastoreo sin cobertura"
             description "Elaboración propia con Structurizr."
-
-            cattleBandEmbeddedApp -> edgeGateway "1. Sends telemetry over local Wi-Fi"
-            edgeGateway -> edgeDatabase "2. Stores telemetry and uses cached monitoring configuration"
-            edgeGateway -> mobileApplication "3. Delivers local fever or geofence alerts"
-
+            cattleBandEmbeddedApp -> edgeGateway "1. Sends a reading over local Wi-Fi"
+            edgeGateway -> edgeDatabase "2. Stores the reading and raises alerts with the cached rules"
+            alertPanelEmbeddedApp -> edgeGateway "3. Reads the active alerts every 3 s"
+            alertPanelEmbeddedApp -> alertPanelHardware "4. Turns on the LED and buzzer of the alert level"
             autoLayout lr
         }
 
         dynamic ichu "EdgeGatewaySynchronization" {
             title "Figura 4.12. Sincronización al recuperar la conexión"
             description "Elaboración propia con Structurizr."
-
             edgeGateway -> backend "1. Uploads pending readings and alerts in batches and downloads rules and collar assignments"
-            backend -> cloudDatabase "2. Stores synchronized telemetry"
-            backend -> firebaseMessaging "3. Requests cloud notifications when required"
-            firebaseMessaging -> mobileApplication "4. Delivers cloud notification"
-
+            backend -> cloudDatabase "2. Stores the synchronized records"
+            mobileApplication -> backend "3. Reads the synchronized alerts"
             autoLayout lr
         }
 
@@ -669,114 +457,82 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
             element "Element" {
                 shape RoundedBox
             }
-
             element "Person" {
                 shape Person
                 background #08427b
                 color #ffffff
             }
-
             element "Visitor" {
                 shape Person
                 background #777777
                 color #ffffff
             }
-
             element "Software System" {
                 background #1168bd
                 color #ffffff
             }
-
             element "Container" {
                 background #438dd5
                 color #ffffff
             }
-
             element "Monolith" {
                 background #277da1
                 color #ffffff
             }
-
             element "Database" {
                 shape Cylinder
                 background #f4a261
                 color #000000
             }
-
             element "Hardware" {
                 background #666666
                 color #ffffff
             }
-
             element "External" {
                 background #999999
                 color #ffffff
             }
-
             element "IoT" {
                 background #168aad
                 color #ffffff
             }
-
             element "Edge" {
                 background #2a9d8f
                 color #ffffff
             }
-
             element "BrowserClient" {
                 shape WebBrowser
             }
-
             element "WebApplicationFolder" {
                 shape Folder
             }
-
-            element "LandingPageUxUi" {
-                shape WebBrowser
-                background #3a86ff
-                color #ffffff
-            }
-
-            element "StaticHosting" {
-                shape Box
-                background #35689c
-                color #ffffff
-            }
-
             element "Mobile" {
                 shape MobileDeviceLandscape
             }
-
             element "Component" {
                 background #85bbf0
                 color #000000
             }
-
             element "Interface" {
                 background #fff2cc
                 color #000000
             }
-
             element "Application" {
                 background #cfe2f3
                 color #000000
             }
-
             element "DomainAggregate" {
                 background #d9ead3
                 color #000000
             }
-
             element "DomainService" {
                 background #d0e0e3
                 color #000000
             }
-
             element "Infrastructure" {
                 background #f4cccc
                 color #000000
             }
-
             element "ACL" {
                 shape Component
                 background #f8f8f8
