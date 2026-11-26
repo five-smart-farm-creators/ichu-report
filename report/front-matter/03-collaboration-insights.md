@@ -142,4 +142,20 @@ La reunión de planificación se realizó de forma virtual el 4 de noviembre de 
 
 La revisión del alcance mantuvo las 30 historias del Sprint 2 y organizó el backlog completo en 72 historias y 334 SP. El trabajo conjunto permitió relacionar las necesidades de los usuarios con los requisitos, el diseño técnico y la planificación. La distribución por entregable ayudó a definir quién coordina cada área y con quién colabora para mantener alineados los avances del producto y del informe.
 
+## TB2
+
+### Organización del trabajo
+
+Para la entrega final, el informe se corrigió frente al enunciado y a las rúbricas, y se alineó con los productos construidos. Las correcciones se organizaron por capítulo en commits pequeños sobre la rama `feature/tb2-report-corrections`, revisados en el PR #57 antes de integrarse en `develop`. Los diagramas de componentes, de clases y de base de datos se generan desde el código de `ichu-web-service`, de modo que el informe y la API describen lo mismo.
+
+### Actividad registrada en el repositorio del informe
+
+| Integrante | Commits desde AV2 (`v1.0.0`) | Aporte |
+|---|---:|---|
+| Contreras Leon, Flor de María | 18 | Alineación de los capítulos I a VI, regeneración del modelo C4 y de los diagramas desde el código, diseño móvil, Sprint 3, conclusiones y registro de versiones. |
+
+El recuento cuenta los commits de autoría en la rama de la entrega, sin los commits de fusión. Los aportes de los demás integrantes a TB2 se registran al integrar sus cambios en esta misma rama.
+
+[Gráfico de colaboradores del repositorio](https://github.com/five-smart-farm-creators/ichu-report/graphs/contributors)
+
 <div style="break-after: page; page-break-after: always;"></div>
