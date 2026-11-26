@@ -919,6 +919,665 @@ La identificación y registro de los commits incluyen cambios a pruebas unitaria
 | ichu-edge-service | `feature/device-authentication` | [5240f7d](https://github.com/five-smart-farm-creators/ichu-edge-service/commit/5240f7daf7d4320f7ec88713d063b574cd1db8a8) | feat(iam): add device aggregate with salted api credentials | — | 2026-11-07 |
 | ichu-edge-service | `feature/device-authentication` | [3a34ee1](https://github.com/five-smart-farm-creators/ichu-edge-service/commit/3a34ee1c9c79ceceeb6e07536b27b7441c10cdb7) | build(config): add environment settings and shared sqlite database | — | 2026-11-07 |
 
+##### Pruebas de aceptación BDD (Gherkin)
+
+Los escenarios de aceptación de la API central están escritos en Gherkin y se ejecutan con Reqnroll dentro del proyecto de pruebas de integración, contra la API levantada en memoria y una base PostgreSQL de prueba. Cada archivo `.feature` lleva la etiqueta de la historia del Capítulo III que verifica. El código corresponde a la rama `develop` en el commit [e17e23a](https://github.com/five-smart-farm-creators/ichu-web-service/commit/e17e23aae7250a0053e5fe276b7abd295e1c7216).
+
+| Bounded Context | Archivo | Historia | Escenarios |
+|---|---|---|---|
+| Iam | [`RequestAdvisoryAccessWithAccessCode.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/Iam/RequestAdvisoryAccessWithAccessCode.feature) | US-39 | 1 |
+| OperationsMonitoring | [`DefinePermittedGrazingZones.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/OperationsMonitoring/DefinePermittedGrazingZones.feature) | US-15 | 3 |
+| OperationsMonitoring | [`QueryAnimalBiometricHistory.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/OperationsMonitoring/QueryAnimalBiometricHistory.feature) | US-14 | 6 |
+| OperationsMonitoring | [`QueryReproductiveHistory.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/OperationsMonitoring/QueryReproductiveHistory.feature) | US-45 | 1 |
+| OperationsMonitoring | [`ReceiveAlertForLeavingPermittedArea.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/OperationsMonitoring/ReceiveAlertForLeavingPermittedArea.feature) | US-17 | 2 |
+| OperationsMonitoring | [`ReceiveHealthAnomalyAlert.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/OperationsMonitoring/ReceiveHealthAnomalyAlert.feature) | US-16 | 5 |
+| OperationsMonitoring | [`RecordHealthEventDuringFieldWork.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/OperationsMonitoring/RecordHealthEventDuringFieldWork.feature) | US-21 | 2 |
+| OperationsMonitoring | [`SynchronizeEdgeNodeWithCentralApi.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/OperationsMonitoring/SynchronizeEdgeNodeWithCentralApi.feature) | TS-06 | 2 |
+| OperationsMonitoring | [`ValidateAndPersistSynchronizedRecords.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/OperationsMonitoring/ValidateAndPersistSynchronizedRecords.feature) | TS-07 | 8 |
+| Planning | [`QueryCurrentNutritionPlan.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/Planning/QueryCurrentNutritionPlan.feature) | US-46 | 1 |
+| SubscriptionPlans | [`ComparePlansAndEstimateCost.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/SubscriptionPlans/ComparePlansAndEstimateCost.feature) | US-35 | 4 |
+| SubscriptionPlans | [`StartPlanSubscription.feature`](https://github.com/five-smart-farm-creators/ichu-web-service/blob/e17e23aae7250a0053e5fe276b7abd295e1c7216/tests/FiveSmartFarmCreators.Ichu.Platform.IntegrationTests/Features/SubscriptionPlans/StartPlanSubscription.feature) | US-34 | 4 |
+
+<details>
+<summary><code>RequestAdvisoryAccessWithAccessCode.feature</code> (US-39)</summary>
+
+```gherkin
+@US-39
+Feature: Request advisory access to a ranch with its access code
+  As a veterinarian, I want to find a ranch by the access code that its manager shares,
+  so that I can request advisory access without knowing the ranch identifier.
+
+  Background:
+    Given a verified ranch manager with a ranch
+
+  Scenario: A veterinarian with a complete profile finds the ranch by its code and requests advisory access
+    Given a veterinarian with a complete profile
+    When the veterinarian looks up the ranch with the access code of the ranch manager
+    Then the request returns status 200
+    And the response has:
+      | field    | value     |
+      | ranchId  | <ranch>   |
+      | name     | Los Andes |
+      | region   | Cusco     |
+      | district | Urubamba  |
+    When the veterinarian requests advisory access to the ranch found by its code
+    Then the request returns status 201
+    And the response has:
+      | field  | value   |
+      | status | Pending |
+    When the ranch manager lists the herd advisories of the ranch
+    Then the response lists 1 items
+    And the herd advisory of the veterinarian has:
+      | field  | value   |
+      | status | Pending |
+```
+
+</details>
+
+<details>
+<summary><code>DefinePermittedGrazingZones.feature</code> (US-15)</summary>
+
+```gherkin
+@US-15
+Feature: Define the permitted grazing zones
+  As a livestock administrator, I want to delimit the permitted geofences of my farm,
+  so that the system can determine when cattle are outside them.
+
+  Background:
+    Given a ranch manager with monitored cattle
+    And a lot "North pasture" exists in the ranch
+
+  Scenario: A closed area of at least three vertices is saved for a lot and reaches the edge gateway
+    When the ranch manager defines the geofence "North boundary" for the lot "North pasture" with the boundary:
+      | latitude | longitude |
+      | -13.50   | -72.10    |
+      | -13.50   | -72.09    |
+      | -13.49   | -72.09    |
+      | -13.49   | -72.10    |
+    Then the request returns status 201
+    And the response has:
+      | field | value           |
+      | name  | North boundary  |
+      | lotId | <North pasture> |
+    When the edge gateway reads its monitoring rules
+    Then the monitoring rules include the geofence "North boundary"
+
+  Scenario: A boundary whose sides cross is refused and nothing is stored
+    When the ranch manager defines the geofence "Crossing boundary" for the lot "North pasture" with the boundary:
+      | latitude | longitude |
+      | -13.50   | -72.10    |
+      | -13.46   | -72.06    |
+      | -13.50   | -72.06    |
+      | -13.48   | -72.09    |
+    Then the request is refused with status 400 and code "OperationsMonitoring.GeofenceBoundaryCrossing"
+    When the ranch manager lists the geofences of the ranch
+    Then the response lists 0 items
+
+  Scenario: A boundary with fewer than three vertices is refused
+    When the ranch manager defines the geofence "Segment" for the lot "North pasture" with the boundary:
+      | latitude | longitude |
+      | -13.50   | -72.10    |
+      | -13.49   | -72.09    |
+    Then the request is refused with status 400 and code "OperationsMonitoring.GeofenceVertexCount"
+```
+
+</details>
+
+<details>
+<summary><code>QueryAnimalBiometricHistory.feature</code> (US-14)</summary>
+
+```gherkin
+@US-14
+Feature: Query the biometric history of cattle
+  As a veterinarian, I want to review the temperature, activity and rumination of cattle over a period,
+  so that my diagnosis rests on data instead of a single observation.
+
+  Background:
+    Given a ranch manager with monitored cattle
+
+  Scenario: An authorized veterinarian reads the valid readings of the period with units and capture time
+    Given a veterinarian with a valid authorization over the ranch
+    And the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 38.6
+    When the edge gateway synchronizes its pending records
+    And the veterinarian requests the telemetry of the cattle "monitored cattle" for the last 1 days
+    Then the response has:
+      | field      | value |
+      | totalCount | 1     |
+    And the telemetry item "first" has:
+      | field                  | value           |
+      | recordedAt             | <time of first> |
+      | bodyTemperature.value  | 38.6            |
+      | bodyTemperature.unit   | celsius         |
+      | bodyTemperature.status | Valid           |
+
+  Scenario: Rumination is reported when a validated measurement exists
+    Given a veterinarian with a valid authorization over the ranch
+    And the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 38.6
+    And the reading "first" also reports rumination of 420 minutes
+    When the edge gateway synchronizes its pending records
+    And the veterinarian requests the telemetry of the cattle "monitored cattle" for the last 1 days
+    Then the telemetry item "first" has:
+      | field                    | value   |
+      | ruminationMinutes.value  | 420     |
+      | ruminationMinutes.unit   | minutes |
+      | ruminationMinutes.status | Valid   |
+
+  Scenario: Rumination is marked absent without an invented value when no measurement exists
+    Given a veterinarian with a valid authorization over the ranch
+    And the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 38.6
+    When the edge gateway synchronizes its pending records
+    And the veterinarian requests the telemetry of the cattle "monitored cattle" for the last 1 days
+    Then the telemetry item "first" has:
+      | field                    | value  |
+      | ruminationMinutes.status | Absent |
+      | ruminationMinutes.value  | null   |
+
+  Scenario: The veterinarian reads the alerts and clinical events of the cattle next to its readings
+    Given the ranch has the fever threshold configured
+    And a veterinarian with a valid authorization over the ranch
+    And the edge gateway holds a reading "fever" from the collar "monitored collar" with body temperature 40.2
+    And the edge gateway holds a fever alert "fever alert" citing the reading "fever"
+    When the edge gateway synchronizes its pending records
+    And the ranch manager records the clinical intervention "vaccination" of type "Vaccination" for the cattle "monitored cattle" with product "Foot-and-mouth vaccine" and dose "2 ml"
+    And the veterinarian lists the alerts of the ranch
+    Then the alert "fever alert" has:
+      | field  | value   |
+      | status | Pending |
+    When the veterinarian requests the livestock operations of the cattle "monitored cattle" for the last 1 days
+    Then the response lists 1 items
+    And the operation "vaccination" has:
+      | field      | value                  |
+      | isClinical | true                   |
+      | product    | Foot-and-mouth vaccine |
+
+  Scenario: A period longer than the retained data returns the oldest retained reading
+    Given a veterinarian with a valid authorization over the ranch
+    And the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 38.6
+    When the edge gateway synchronizes its pending records
+    And the veterinarian requests the telemetry of the cattle "monitored cattle" for the last 730 days
+    Then the response has:
+      | field                    | value           |
+      | oldestRetainedRecordedAt | <time of first> |
+      | totalCount               | 1               |
+
+  Scenario: A revoked authorization rejects the history query
+    Given a veterinarian with a valid authorization over the ranch
+    When the ranch owner revokes the authorization of the veterinarian
+    And the veterinarian requests the telemetry of the cattle "monitored cattle" for the last 1 days
+    Then the request is refused with status 403 and code "OperationsMonitoring.Forbidden"
+```
+
+</details>
+
+<details>
+<summary><code>QueryReproductiveHistory.feature</code> (US-45)</summary>
+
+```gherkin
+@US-45
+Feature: Query the reproductive history of a female
+  As a veterinarian, I want to review the breeding services, pregnancies and calvings of a female,
+  so that my reproductive decisions rest on its recorded history.
+
+  Background:
+    Given a ranch manager with monitored cattle
+    And a veterinarian with a valid authorization over the ranch
+
+  Scenario: A veterinarian reads a confirmed pregnancy after a service and a calving
+    When the ranch manager records the breeding service "first service" for the cattle "monitored cattle" 200 days ago with sire "Bull 07"
+    And the ranch manager records the pregnancy diagnosis "pregnancy check" for the cattle "monitored cattle" 180 days ago with result "Pregnant"
+    And the ranch manager records the calving "calving" for the cattle "monitored cattle" 10 days ago
+    And the veterinarian requests the reproductive history of the cattle "monitored cattle"
+    Then the request returns status 200
+    And the response has:
+      | field                | value      |
+      | sex                  | Female     |
+      | lifeStage            | MilkingCow |
+      | hasHistory           | true       |
+      | pregnanciesConfirmed | 1          |
+      | servicesPerPregnancy | 1          |
+```
+
+</details>
+
+<details>
+<summary><code>ReceiveAlertForLeavingPermittedArea.feature</code> (US-17)</summary>
+
+```gherkin
+@US-17
+Feature: Receive an alert when cattle leave the permitted area
+  As a livestock administrator, I want to be alerted when cattle leave their assigned geofence,
+  so that I reduce the risk of cattle rustling or loss.
+
+  Background:
+    Given a ranch manager with monitored cattle
+    And a lot "North pasture" exists in the ranch
+    And the cattle "monitored cattle" belongs to the lot "North pasture"
+    And the lot "North pasture" has the geofence "North boundary"
+
+  Scenario: Cattle outside its geofence raises a security alert with its position and distance to the boundary
+    Given the edge gateway holds a reading "outside" from the collar "monitored collar" at latitude -13.52 and longitude -72.12
+    And the edge gateway holds a geofence alert "exit" citing the reading "outside" at 12.5 meters from the boundary of the geofence "North boundary"
+    When the edge gateway synchronizes its pending records
+    Then the entry "exit" is "Accepted"
+    When the ranch manager lists the alerts of the ranch
+    Then the alert "exit" has:
+      | field                    | value              |
+      | type                     | Geofence           |
+      | status                   | Pending            |
+      | cattleId                 | <monitored cattle> |
+      | geofenceId               | <North boundary>   |
+      | latitude                 | -13.52             |
+      | longitude                | -72.12             |
+      | distanceToBoundaryMeters | 12.5               |
+      | raisedAt                 | <time of outside>  |
+
+  Scenario: The return to the geofence closes the alert and keeps the total time outside
+    Given the edge gateway holds a reading "outside" from the collar "monitored collar" at latitude -13.52 and longitude -72.12
+    And the edge gateway holds a geofence alert "exit" citing the reading "outside" at 12.5 meters from the boundary of the geofence "North boundary"
+    When the edge gateway synchronizes its pending records
+    And the edge gateway records the return to the geofence of the alert "exit" as "return"
+    And the edge gateway synchronizes its pending records
+    Then the entry "return" is "Accepted"
+    When the ranch manager lists the alerts of the ranch
+    Then the alert "exit" has:
+      | field     | value            |
+      | clearedAt | <time of return> |
+    And the exit duration of the alert "exit" equals the time from its raising to its return
+```
+
+</details>
+
+<details>
+<summary><code>ReceiveHealthAnomalyAlert.feature</code> (US-16)</summary>
+
+```gherkin
+@US-16
+Feature: Receive an alert for a health anomaly
+  As a livestock administrator, I want to be alerted when the temperature or activity of cattle deviates,
+  so that I can review the cattle and request professional care when needed.
+
+  Background:
+    Given a ranch manager with monitored cattle
+
+  Scenario: The alert carries the cattle, the value, the threshold, the reading and the capture time
+    Given the ranch has the fever threshold configured
+    And the edge gateway holds a reading "fever" from the collar "monitored collar" with body temperature 40.2
+    And the edge gateway holds a fever alert "fever alert" citing the reading "fever"
+    When the edge gateway synchronizes its pending records
+    Then the entry "fever alert" is "Accepted"
+    When the ranch manager lists the alerts of the ranch
+    Then the alert "fever alert" has:
+      | field             | value              |
+      | cattleId          | <monitored cattle> |
+      | type              | Temperature        |
+      | status            | Pending            |
+      | detectedValue     | 40.2               |
+      | thresholdMinValue | 37.5               |
+      | thresholdMaxValue | 39.5               |
+      | unit              | celsius            |
+      | readingIds        | <fever>            |
+      | raisedAt          | <time of fever>    |
+
+  Scenario: A later reading of the same condition joins the open alert instead of raising another one
+    Given the ranch has the fever threshold configured
+    And the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 40.2
+    And the edge gateway holds a fever alert "first alert" citing the reading "first"
+    When the edge gateway synchronizes its pending records
+    Then the entry "first alert" is "Accepted"
+    Given the edge gateway holds a reading "second" from the collar "monitored collar" with body temperature 40.4
+    And the edge gateway holds a fever alert "second alert" citing the reading "second"
+    When the edge gateway synchronizes its pending records
+    Then the entry "second alert" is "Duplicate" and joins the alert "first alert"
+    When the ranch manager lists the alerts of the ranch
+    Then the response lists 1 items
+    And the alert "first alert" has:
+      | field      | value             |
+      | readingIds | <first>, <second> |
+
+  Scenario: An invalid measurement never supports an alert
+    Given the ranch has the fever threshold configured
+    And the edge gateway holds a reading "faulty" from the collar "monitored collar" with an invalid body temperature because "sensor fault"
+    And the edge gateway holds a fever alert "faulty alert" citing the reading "faulty"
+    When the edge gateway synchronizes its pending records
+    Then the entry "faulty" is "Accepted"
+    And the entry "faulty alert" is "Rejected" with a reason containing "does not support"
+    When the ranch manager lists the alerts of the ranch
+    Then the response lists 0 items
+
+  Scenario: Evidence captured while the collar was not assigned cannot raise an alert
+    Given the ranch has the fever threshold configured
+    And a collar "unassigned collar" is registered without an assignment
+    And the edge gateway holds a reading "loose" from the collar "unassigned collar" with body temperature 40.2
+    And the edge gateway holds a fever alert "loose alert" citing the reading "loose"
+    When the edge gateway synchronizes its pending records
+    Then the entry "loose" is "Accepted"
+    And the entry "loose alert" is "Rejected" with a reason containing "attributed to an animal"
+    When the ranch manager lists the alerts of the ranch
+    Then the response lists 0 items
+
+  Scenario: No alert is raised before a threshold has been published
+    Given the edge gateway holds a reading "untreated" from the collar "monitored collar" with body temperature 40.2
+    And the edge gateway holds a fever alert "untreated alert" citing the reading "untreated"
+    When the edge gateway synchronizes its pending records
+    Then the entry "untreated alert" is "Rejected" with a reason containing "never published"
+    When the ranch manager lists the alerts of the ranch
+    Then the response lists 0 items
+```
+
+</details>
+
+<details>
+<summary><code>RecordHealthEventDuringFieldWork.feature</code> (US-21)</summary>
+
+```gherkin
+@US-21
+Feature: Record a health event during field work
+  As a field operator, I want to record what I observe in cattle at the moment I observe it,
+  so that the information is not lost at the end of the working day.
+
+  Background:
+    Given a ranch manager with monitored cattle
+
+  Scenario: A field event is stored with its cattle, type, date and author and joins the cattle's history
+    When the ranch manager records the field event "health check" of type "HealthEvent" for the cattle "monitored cattle" with observation "Mild lameness"
+    Then the request returns status 201
+    And the response has:
+      | field       | value                  |
+      | cattleId    | <monitored cattle>     |
+      | type        | HealthEvent            |
+      | isClinical  | false                  |
+      | authorId    | <manager account>      |
+      | observation | Mild lameness          |
+      | occurredAt  | <time of health check> |
+    When the ranch manager requests the livestock operations of the cattle "monitored cattle" for the last 1 days
+    Then the response lists 1 items
+    And the operation "health check" has:
+      | field | value       |
+      | type  | HealthEvent |
+
+  Scenario Outline: A field event without its mandatory <missing> is not recorded
+    When the ranch manager records a field event without its <missing>
+    Then the request is refused with status 400 and code "OperationsMonitoring.RequiredFieldsMissing"
+    When the ranch manager requests the livestock operations of the cattle "monitored cattle" for the last 1 days
+    Then the response lists 0 items
+
+    Examples:
+      | missing |
+      | cattle  |
+      | type    |
+```
+
+</details>
+
+<details>
+<summary><code>SynchronizeEdgeNodeWithCentralApi.feature</code> (TS-06)</summary>
+
+```gherkin
+@TS-06
+Feature: Synchronize the portable edge node with the central API
+  As a portable edge node, I want to send my readings, alerts and pending changes to the central API,
+  so that the local records reach the applications when connectivity exists.
+
+  Background:
+    Given a ranch manager with monitored cattle
+
+  Scenario: Every entry of a batch receives its own result and a rejected entry does not block the others
+    Given the ranch has the fever threshold configured
+    And a collar "foreign collar" is registered in another ranch
+    And the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 40.2
+    And the edge gateway holds a fever alert "fever alert" citing the reading "first"
+    And the edge gateway holds a reading "stray" from the collar "foreign collar" with body temperature 38.6
+    When the edge gateway synchronizes its pending records
+    Then the entry "first" is "Accepted"
+    And the entry "fever alert" is "Accepted"
+    And the entry "stray" is "Rejected"
+
+  Scenario: Resending the same batch confirms the stored records without duplicating them
+    Given the ranch has the fever threshold configured
+    And the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 40.2
+    And the edge gateway holds a fever alert "fever alert" citing the reading "first"
+    When the edge gateway synchronizes its pending records
+    And the edge gateway resends the last batch
+    Then the entry "first" is "Duplicate"
+    And the entry "fever alert" is "Duplicate"
+    When the ranch manager lists the alerts of the ranch
+    Then the response lists 1 items
+```
+
+</details>
+
+<details>
+<summary><code>ValidateAndPersistSynchronizedRecords.feature</code> (TS-07)</summary>
+
+```gherkin
+@TS-07
+Feature: Validate and persist the records synchronized by the edge node
+  As a portable edge node, I need the central API to validate and confirm my synchronized records,
+  so that the cloud keeps the information captured offline without duplicating it.
+
+  Background:
+    Given a ranch manager with monitored cattle
+
+  Scenario: A reading is attributed to the cattle whose collar was assigned at its capture time
+    Given the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 38.6
+    When the edge gateway synchronizes its pending records
+    Then the entry "first" is "Accepted"
+    When the ranch manager requests the telemetry of the cattle "monitored cattle" for the last 1 days
+    Then the response has:
+      | field      | value |
+      | totalCount | 1     |
+    And the telemetry item "first" has:
+      | field                 | value           |
+      | recordedAt            | <time of first> |
+      | receivedAt            | not null        |
+      | bodyTemperature.value | 38.6            |
+
+  Scenario: A repeated identifier with the same content is a duplicate
+    Given the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 38.6
+    When the edge gateway synchronizes its pending records
+    Given the edge gateway holds a copy "again" of the reading "first"
+    When the edge gateway synchronizes its pending records
+    Then the entry "again" is "Duplicate"
+
+  Scenario: A repeated identifier with different content is a conflict that keeps the original reading
+    Given the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 40.2
+    When the edge gateway synchronizes its pending records
+    Given the edge gateway holds a copy "altered" of the reading "first" with body temperature 38.6
+    When the edge gateway synchronizes its pending records
+    Then the entry "altered" is "Conflict"
+    When the ranch manager requests the telemetry of the cattle "monitored cattle" for the last 1 days
+    Then the telemetry item "first" has:
+      | field                 | value |
+      | bodyTemperature.value | 40.2  |
+
+  Scenario: A reading captured without an effective assignment is kept as device data and left out of the cattle's history
+    Given a collar "unassigned collar" is registered without an assignment
+    And the edge gateway holds a reading "unassigned reading" from the collar "unassigned collar" with body temperature 38.6
+    When the edge gateway synchronizes its pending records
+    Then the entry "unassigned reading" is "Accepted" with a reason containing "No device assignment"
+    When the ranch manager requests the telemetry of the cattle "monitored cattle" for the last 1 days
+    Then the response has:
+      | field      | value |
+      | totalCount | 0     |
+
+  Scenario: A later reassignment keeps the attribution that the reading had at its capture
+    Given the edge gateway holds a reading "first" from the collar "monitored collar" with body temperature 38.6
+    And cattle "second cattle" is registered in the ranch
+    When the edge gateway synchronizes its pending records
+    And the ranch manager releases the collar "monitored collar"
+    And the ranch manager assigns the collar "monitored collar" to the cattle "second cattle"
+    And the ranch manager requests the telemetry of the cattle "monitored cattle" for the last 1 days
+    Then the response has:
+      | field      | value |
+      | totalCount | 1     |
+    When the ranch manager requests the telemetry of the cattle "second cattle" for the last 1 days
+    Then the response has:
+      | field      | value |
+      | totalCount | 0     |
+
+  Scenario: A collar of another ranch is rejected while the valid entries of the batch are accepted
+    Given a collar "foreign collar" is registered in another ranch
+    And the edge gateway holds a reading "foreign reading" from the collar "foreign collar" with body temperature 38.6
+    And the edge gateway holds a reading "valid reading" from the collar "monitored collar" with body temperature 38.6
+    When the edge gateway synchronizes its pending records
+    Then the entry "foreign reading" is "Rejected" with a reason containing "no access"
+    And the entry "valid reading" is "Accepted"
+
+  Scenario: A capture time beyond the clock tolerance is rejected
+    Given the edge gateway holds a reading "future reading" from the collar "monitored collar" with body temperature 38.6 captured 10 minutes from now
+    When the edge gateway synchronizes its pending records
+    Then the entry "future reading" is "Rejected" with a reason containing "ahead of the server clock"
+
+  Scenario: An old capture is not rejected merely because it arrives late
+    Given the edge gateway holds a reading "old reading" from the collar "monitored collar" with body temperature 38.6 captured -2880 minutes from now
+    When the edge gateway synchronizes its pending records
+    Then the entry "old reading" is "Accepted"
+```
+
+</details>
+
+<details>
+<summary><code>QueryCurrentNutritionPlan.feature</code> (US-46)</summary>
+
+```gherkin
+@US-46
+Feature: Query the current nutrition plan of a lot
+  As a veterinarian, I want to read the nutrition plan in force for a lot on a given date,
+  so that I can compare its ration with the evolution of the lot.
+
+  Background:
+    Given a ranch manager with monitored cattle
+    And a lot "North pasture" exists in the ranch
+    And a veterinarian with a valid authorization over the ranch
+
+  Scenario: A ration change keeps the earlier plan in force until the day before the change
+    When the ranch manager registers the nutrition plan "Dry season ration" for the lot "North pasture" valid from "2026-11-01" with the feed "Alfalfa hay" of kind "Forage" at 6 kilograms per head per day
+    And the ranch manager registers the nutrition plan "Rainy season ration" for the lot "North pasture" valid from "2026-11-15" with the feed "Maize silage" of kind "Forage" at 8 kilograms per head per day
+    And the veterinarian requests the nutrition plan of the lot "North pasture" in force on "2026-11-14"
+    Then the request returns status 200
+    And the response has:
+      | field   | value             |
+      | name    | Dry season ration |
+      | validTo | 2026-11-14        |
+    When the veterinarian requests the nutrition plan of the lot "North pasture" in force on "2026-11-15"
+    Then the response has:
+      | field   | value               |
+      | name    | Rainy season ration |
+      | validTo | null                |
+```
+
+</details>
+
+<details>
+<summary><code>ComparePlansAndEstimateCost.feature</code> (US-35)</summary>
+
+```gherkin
+@US-35
+Feature: Compare the plans and estimate the cost
+  As a livestock administrator, I want to compare the plans according to my herd size,
+  so that I know the coverage and the estimated cost before subscribing.
+
+  Scenario Outline: Each plan shows its device limit, features, currency, recurring fee and device price separately
+    When a visitor lists the subscription plans
+    Then the plan "<plan>" has:
+      | field                  | value         |
+      | deviceLimit            | <deviceLimit> |
+      | features               | <features>    |
+      | annualFee.amount       | <annualFee>   |
+      | annualFee.currency     | PEN           |
+      | deviceUnitPrice.amount | 120           |
+
+    Examples:
+      | plan     | deviceLimit | annualFee | features                                              |
+      | Basic    | 50          | 600       | Monitoring, Alerts                                    |
+      | Standard | 200         | 1800      | Monitoring, Alerts, Planning, Analytics               |
+      | Pro      | 500         | 3900      | Monitoring, Alerts, Planning, Analytics, ReportExport |
+
+  Scenario: The estimate for a valid head count breaks the total into the annual fee and the devices cost
+    When a visitor requests a quote for the "Standard" plan with the head count "10"
+    Then the request returns status 200
+    And the response has:
+      | field                  | value      |
+      | planId                 | <Standard> |
+      | headCount              | 10         |
+      | annualFee.amount       | 1800       |
+      | devicesCost.amount     | 1200       |
+      | deviceUnitPrice.amount | 120        |
+      | total.amount           | 3000       |
+      | total.currency         | PEN        |
+
+  Scenario Outline: An estimate for a head count the plan does not admit yields no quote
+    When a visitor requests a quote for the "<plan>" plan with the head count "<headCount>"
+    Then the request is refused with status 400 and code "<code>"
+
+    Examples:
+      | plan     | headCount | code                                   |
+      | Standard | 0         | SubscriptionPlans.InvalidHeadCount     |
+      | Standard | -3        | SubscriptionPlans.InvalidHeadCount     |
+      | Basic    | 51        | SubscriptionPlans.HeadCountExceedsPlan |
+
+  Scenario: A head count that is not a whole number yields no quote
+    When a visitor requests a quote for the "Standard" plan with the head count "2.5"
+    Then the request is refused with status 400
+```
+
+</details>
+
+<details>
+<summary><code>StartPlanSubscription.feature</code> (US-34)</summary>
+
+```gherkin
+@US-34
+Feature: Start the subscription of a plan
+  As a visitor from the livestock segment, I want to start the subscription of the plan I chose,
+  so that I register my production unit and move toward an ICHU subscription.
+
+  Background:
+    Given a verified ranch manager with a ranch
+
+  Scenario: A verified manager's request is recorded as pending without activating the coverage
+    When the ranch manager requests a subscription to the "Standard" plan for the head count "10" with terms "2026-11" and an expected total of 3000
+    Then the request returns status 201
+    And the response has:
+      | field          | value      |
+      | status         | Pending    |
+      | planId         | <Standard> |
+      | total.amount   | 3000       |
+      | total.currency | PEN        |
+      | requestedAt    | not null   |
+      | activatedAt    | null       |
+      | validUntil     | null       |
+    When the ranch manager reads the subscription of the ranch
+    Then the response has:
+      | field  | value   |
+      | status | Pending |
+
+  Scenario: A request with outdated terms is refused and nothing is recorded
+    When the ranch manager requests a subscription to the "Standard" plan for the head count "10" with terms "2020-01" and an expected total of 3000
+    Then the request is refused with status 409 and code "SubscriptionPlans.TermsVersionOutdated"
+    When the ranch manager reads the subscription of the ranch
+    Then the request is refused with status 404 and code "SubscriptionPlans.SubscriptionNotFound"
+
+  Scenario: A request with a stale estimate is refused and nothing is recorded
+    When the ranch manager requests a subscription to the "Standard" plan for the head count "10" with terms "2026-11" and an expected total of 2999
+    Then the request is refused with status 409 and code "SubscriptionPlans.QuoteChanged"
+    When the ranch manager reads the subscription of the ranch
+    Then the request is refused with status 404 and code "SubscriptionPlans.SubscriptionNotFound"
+
+  Scenario Outline: A request with a head count the plan does not admit is refused and nothing is recorded
+    When the ranch manager requests a subscription to the "<plan>" plan for the head count "<headCount>" with terms "2026-11" and an expected total of 0
+    Then the request is refused with status 400 and code "<code>"
+    When the ranch manager reads the subscription of the ranch
+    Then the request is refused with status 404 and code "SubscriptionPlans.SubscriptionNotFound"
+
+    Examples:
+      | plan     | headCount | code                                   |
+      | Standard | 0         | SubscriptionPlans.InvalidHeadCount     |
+      | Basic    | 51        | SubscriptionPlans.HeadCountExceedsPlan |
+```
+
+</details>
+
 ##### Pruebas de simulación en Wokwi CI
 
 | Repositorio | Escenario | Qué verifica |
