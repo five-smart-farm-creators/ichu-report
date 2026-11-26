@@ -1,53 +1,48 @@
 @startuml
 !pragma layout smetana
-hide circle
 skinparam shadowing false
 skinparam linetype ortho
+hide circle
+hide methods
 skinparam class {
   BackgroundColor #FFFFFF
-  BorderColor #2E7D32
-  ArrowColor #2E7D32
+  BorderColor #4A6FA5
 }
-title Subscription Plans - Database Design (schema subscription)
+title Esquema subscription — Subscription Plans
 
-entity "subscription.plan" as pl {
-  * id : uuid <<PK>>
-  --
-  * plan_type : varchar(15) <<UNIQUE>> <<CHECK>>
-  * max_devices : integer
-  * price_per_head : numeric(10,2)
-  * currency : char(3)
-  * is_active : boolean
+entity "plans" as plans {
+  * PlanId : uuid <<PK>>
+  id : uuid
+  annual_fee_amount : numeric(12,2)
+  annual_fee_currency : character(3)
+  device_limit : integer
+  device_unit_price_amount : numeric(12,2)
+  device_unit_price_currency : character(3)
+  is_published : boolean
+  name : varchar(40)
+  tier : varchar(32)
 }
-entity "subscription.plan_feature" as pf {
-  * plan_id : uuid <<PK>> <<FK>>
-  * feature_code : varchar(30) <<PK>> <<CHECK>>
+entity "subscriptions" as subscriptions {
+  * SubscriptionId : uuid <<PK>>
+  id : uuid
+  acquisition_source : varchar(64) NULL
+  activated_at : timestamptz NULL
+  annual_fee_amount : numeric(12,2)
+  annual_fee_currency : character(3)
+  cancellation_reason : varchar(200) NULL
+  cancelled_at : timestamptz NULL
+  devices_cost_amount : numeric(12,2)
+  devices_cost_currency : character(3)
+  head_count : integer
+  operation_id : uuid <<UQ>>
+  plan_id : uuid
+  ranch_id : uuid <<UQ>>
+  requested_at : timestamptz
+  status : varchar(32)
+  terms_version : varchar(16)
+  total_amount : numeric(12,2)
+  total_currency : character(3)
+  valid_until : timestamptz NULL
 }
-entity "subscription.subscription" as sub {
-  * id : uuid <<PK>>
-  --
-  * ranch_id : uuid <<UNIQUE>>
-  * plan_id : uuid <<FK>>
-  * head_count : integer <<CHECK>>
-  * status : varchar(15) <<CHECK>>
-  * started_at : date
-  * renews_at : date
-  cancelled_at : date
-  cancel_reason : varchar(200)
-}
-entity "subscription.payment" as pay {
-  * id : uuid <<PK>>
-  --
-  * subscription_id : uuid <<FK>>
-  * amount : numeric(10,2)
-  * currency : char(3)
-  * status : varchar(12) <<CHECK>>
-  * requested_at : timestamptz
-  processed_at : timestamptz
-  external_reference : varchar(120)
-  rejection_reason : varchar(200)
-}
-pl ||--|{ pf
-pl ||--o{ sub
-sub ||--o{ pay
+
 @enduml

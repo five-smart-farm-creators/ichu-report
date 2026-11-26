@@ -1,84 +1,31 @@
 @startuml
 !pragma layout smetana
-skinparam classAttributeIconSize 0
 skinparam shadowing false
-skinparam linetype ortho
-skinparam class {
-  BackgroundColor #FFFFFF
-  BorderColor #4A6FA5
-  ArrowColor #4A6FA5
-}
+skinparam classAttributeIconSize 0
 hide empty members
-title Operations and Monitoring - Domain Layer
+title Domain Layer — Operations & Monitoring
 
-class TelemetryReading <<Aggregate Root>> {
-  -id: Guid
-  -deviceId: Guid
-  -cattleId: Guid
-  -bodyTemperature: decimal
-  -activityIndex: int
-  -ruminationMinutes: int
-  -position: GeoPosition
-  -recordedAt: DateTime
-  -receivedAt: DateTime
-  -origin: ReadingOrigin
-  +IsValid(): bool
-  +IsStale(now: DateTime): bool
+class AlertChange <<Entity>> {
+  +OperationId : Guid
+  +Kind : AlertChangeKind
+  +OperationData : string
+  +AppliedAt : DateTimeOffset
+  --
+  +IsSameOperationAs(kind, operationData) : bool
 }
-class MonitoringAlert <<Aggregate Root>> {
-  -id: Guid
-  -cattleId: Guid
-  -type: AlertType
-  -severity: AlertSeverity
-  -status: AlertStatus
-  -detectedValue: decimal
-  -threshold: Threshold
-  -raisedAt: DateTime
-  -acknowledgedAt: DateTime
-  +Raise(v: decimal, t: Threshold): void
-  +Absorb(r: TelemetryReading): void
-  +Acknowledge(finding: string, at: DateTime): void
-  +ExpireWithoutAttention(): void
-  +ResponseTime(): TimeSpan
+enum AlertChangeKind {
+  Evidence
+  Cleared
+  Acknowledged
 }
-class Geofence <<Aggregate Root>> {
-  -id: Guid
-  -ranchId: Guid
-  -name: string
-  -toleranceMeters: int
-  +IsClosedPolygon(): bool
-  +Contains(p: GeoPosition): bool
-  +DistanceToBoundary(p: GeoPosition): decimal
+enum AlertChangeOutcome {
+  Applied
+  AlreadyApplied
+  Conflict
 }
-class LivestockOperation <<Aggregate Root>> {
-  -id: Guid
-  -cattleId: Guid
-  -type: OperationType
-  -occurredAt: DateTime
-  -authorId: Guid
-  -observation: string
-  -syncState: SyncState
-  +Register(): void
-  +MarkSynchronized(): void
-  +MarkConflict(reason: string): void
-}
-class Threshold <<Value Object>> {
-  -lifeStage: string
-  -minValue: decimal
-  -maxValue: decimal
-  +IsExceededBy(v: decimal): bool
-}
-class GeoPosition <<Value Object>> {
-  -latitude: decimal
-  -longitude: decimal
-  -accuracyMeters: int
-  +DistanceTo(o: GeoPosition): decimal
-}
-enum AlertType {
-  Temperature
-  Geofence
-  Activity
-  Reproductive
+class AlertEvidence <<Entity>> {
+  +DeviceId : Guid
+  +ReadingId : Guid
 }
 enum AlertSeverity {
   Informative
@@ -86,54 +33,271 @@ enum AlertSeverity {
   Critical
 }
 enum AlertStatus {
-  Open
+  Pending
   Acknowledged
-  ExpiredWithoutAttention
+}
+enum AlertType {
+  Temperature
+  Activity
+  HeartRate
+  Methane
+  Geofence
+}
+enum AnimalSex {
+  Female
+  Male
+}
+class GeoCoordinate <<Value Object>> {
+  +Latitude : double
+  +Longitude : double
+  --
+  +Create(latitude, longitude) : Result<GeoCoordinate>
+  +IsValidLatitude(latitude) : bool
+  +IsValidLongitude(longitude) : bool
+}
+class Geofence <<Aggregate Root>> {
+  +Id : GeofenceId
+  +RanchId : Guid
+  +LotId : Guid
+  +Name : string
+  +ToleranceMeters : int
+  +Severity : AlertSeverity
+  +Revision : long
+  +Vertices : GeofenceVertex[*]
+  --
+  +Create(ranchId, lotId, name, toleranceMeters, severity, boundary, revision) : Result<Geofence>
+  +Redefine(name, toleranceMeters, severity, boundary, revision) : Result
+  +Boundary() : GeofenceVertex[*]
+}
+class GeofenceId <<Value Object>> {
+  +Value : Guid
+}
+class GeofenceVertex <<Entity>> {
+  +Sequence : int
+  +Latitude : double
+  +Longitude : double
+}
+class LivestockOperation <<Aggregate Root>> {
+  +Id : LivestockOperationId
+  +RanchId : Guid
+  +CattleId : Guid
+  +Type : OperationType
+  +OccurredAt : DateTimeOffset
+  +ReceivedAt : DateTimeOffset
+  +AuthorId : Guid
+  +Observation : string
+  ...
+  --
+  +Create(operationId, ranchId, cattleId, type, occurredAt, authorId, observation, product, dose, receivedAt, reproductive) : Result<LivestockOperation>
+  +IsClinical(type) : bool
+  +IsReproductive(type) : bool
+  +HasSameContentAs(other) : bool
+}
+class LivestockOperationId <<Value Object>> {
+  +Value : Guid
+}
+class Measurement <<Value Object>> {
+  +Value : double
+  +InvalidReason : string
+  +Status : MeasurementStatus
+  +IsValid : bool
+  --
+  +Absent() : Measurement
+  +From(value, invalidReason) : Result<Measurement>
+  +NormalizeReason(reason) : Result<string>
+}
+enum MeasurementStatus {
+  Valid
+  Invalid
+  Absent
+}
+enum MonitoredMetric {
+  BodyTemperature
+  ActivityIndex
+  HeartRate
+  MethaneIndex
+}
+class MonitoringAlert <<Aggregate Root>> {
+  +Id : MonitoringAlertId
+  +RanchId : Guid
+  +CattleId : Guid
+  +DeviceId : Guid
+  +TriggerReadingId : Guid
+  +GatewayId : Guid
+  +Type : AlertType
+  +Severity : AlertSeverity
+  ...
+  --
+  +RaiseForThreshold(alertId, type, severity, threshold, configurationRevision, gatewayId, supportingReadings, receivedAt) : Result<MonitoringAlert>
+  +RaiseForGeofence(alertId, severity, geofenceId, distanceToBoundaryMeters, configurationRevision, gatewayId, supportingReadings, receivedAt) : Result<MonitoringAlert>
+  +IsOpenDuplicateCandidate(type, severity, cattleId, raisedAt) : bool
+  +HasSameOriginAs(other) : bool
+  +HasApplied(operationId) : bool
+  +AddEvidence(operationId, readings, appliedAt) : Result<AlertChangeOutcome>
+  ...
+}
+class MonitoringAlertId <<Value Object>> {
+  +Value : Guid
+}
+class MonitoringRuleSet <<Aggregate Root>> {
+  +RanchId : Guid
+  +Revision : long
+  --
+  +Advance() : long
+}
+class MonitoringRuleSnapshot <<Value Object>> {
+}
+class MonitoringThreshold <<Aggregate Root>> {
+  +Id : MonitoringThresholdId
+  +RanchId : Guid
+  +LifeStage : string
+  +Metric : MonitoredMetric
+  +Range : ThresholdRange
+  +Severity : AlertSeverity
+  +Revision : long
+  --
+  +Create(ranchId, lifeStage, metric, range, severity, revision) : Result<MonitoringThreshold>
+  +NormalizeLifeStage(lifeStage) : Result<string>
+  +Reconfigure(range, severity, revision) : void
+}
+class MonitoringThresholdId <<Value Object>> {
+  +Value : Guid
+}
+class MonitoringTime <<Value Object>> {
+  --
+  +Normalize(instant) : DateTimeOffset
 }
 enum OperationType {
   HealthEvent
+  Birth
   Vaccination
   Treatment
   Insemination
-  Birth
+  NaturalMating
+  PregnancyDiagnosis
+  Abortion
+  HeatObserved
 }
-enum ReadingOrigin {
-  DirectFromDevice
-  EdgeGateway
+class PositionMeasurement <<Value Object>> {
+  +Latitude : double
+  +Longitude : double
+  +AccuracyMeters : double
+  +InvalidReason : string
+  +Status : MeasurementStatus
+  +IsValid : bool
+  --
+  +Absent() : PositionMeasurement
+  +From(latitude, longitude, accuracyMeters, invalidReason) : Result<PositionMeasurement>
 }
-enum SyncState {
-  Pending
-  Synchronized
-  Conflict
+enum PregnancyResult {
+  Pregnant
+  Open
 }
-class MonitoringRulesDomainService <<Domain Service>> {
-  +EvaluateTemperature(r: TelemetryReading, t: Threshold): MonitoringAlert
-  +EvaluateGeofence(r: TelemetryReading, g: Geofence): MonitoringAlert
-  +DetectReproductivePattern(h: TelemetryReading[]): bool
-  +IsDuplicateWithinWindow(a: MonitoringAlert, r: TelemetryReading): bool
+class ReproductiveDetails <<Value Object>> {
+  +SireReference : string
+  +PregnancyResult : PregnancyResult
+  +ExpectedCalvingDate : DateOnly
+  +IsEmpty : bool
+  --
+  +Create(sireReference, pregnancyResult, expectedCalvingDate) : Result<ReproductiveDetails>
 }
-interface IMonitoringRepository <<Repository>> {
-  +FindReadings(cattleId: Guid, from: DateTime, to: DateTime): TelemetryReading[]
-  +FindOpenAlert(cattleId: Guid, type: AlertType): MonitoringAlert
-  +Save(alert: MonitoringAlert): void
-  +SaveReading(r: TelemetryReading): void
+class ReproductiveHistory <<Value Object>> {
+  +HasHistory : bool
 }
-interface IGeofenceRepository <<Repository>> {
-  +FindByLot(lotId: Guid): Geofence
-  +Save(g: Geofence): void
+class ReproductiveInterval <<Value Object>> {
+  +CalvingAt : DateTimeOffset
+  +ConceptionServiceAt : DateTimeOffset
+  +DaysOpen : int
 }
-MonitoringAlert "1" o-- "1..*" TelemetryReading : sustentada por >
-MonitoringAlert "1" *-- "1" Threshold
-TelemetryReading "1" *-- "1" GeoPosition
-Geofence "1" *-- "3..*" GeoPosition : vertices >
-MonitoringAlert ..> AlertType
-MonitoringAlert ..> AlertSeverity
-MonitoringAlert ..> AlertStatus
-TelemetryReading ..> ReadingOrigin
-LivestockOperation ..> OperationType
-LivestockOperation ..> SyncState
-MonitoringRulesDomainService ..> MonitoringAlert : genera >
-MonitoringRulesDomainService ..> Geofence : evalua >
-IMonitoringRepository ..> MonitoringAlert
-IGeofenceRepository ..> Geofence
+enum TelemetryField {
+  BodyTemperature
+  ActivityIndex
+  HeartRate
+  MethaneIndex
+  RuminationMinutes
+  BatteryPercent
+  Position
+}
+class TelemetryReading <<Aggregate Root>> {
+  +Id : TelemetryReadingId
+  +ReadingId : Guid
+  +DeviceId : Guid
+  +GatewayId : Guid
+  +RanchId : Guid
+  +CattleId : Guid
+  +RecordedAt : DateTimeOffset
+  +ReceivedAt : DateTimeOffset
+  ...
+  --
+  +Create(readingId, deviceId, recordedAt, bodyTemperature, activityIndex, heartRate, methaneIndex, ruminationMinutes, batteryPercent, position, gatewayId, ranchId, cattleId, receivedAt) : Result<TelemetryReading>
+  +IsStale(now) : bool
+  +MeasurementOf(metric) : Measurement
+  +HasSameCaptureAs(other) : bool
+}
+class TelemetryReadingId <<Value Object>> {
+  +Value : Guid
+}
+class ThresholdRange <<Value Object>> {
+  +MinValue : double
+  +MaxValue : double
+  --
+  +Create(minValue, maxValue) : Result<ThresholdRange>
+  +IsExceededBy(value) : bool
+  +Contains(other) : bool
+}
+class TimePeriod <<Value Object>> {
+  +From : DateTimeOffset
+  +To : DateTimeOffset
+  --
+  +Create(from, to) : Result<TimePeriod>
+}
+enum WaterHeaterState {
+  Off
+  On
+}
+enum WaterTemperatureUnit {
+  Celsius
+}
+class WaterTroughReading <<Aggregate Root>> {
+  +Id : Guid
+  +ReadingId : Guid
+  +ControllerId : Guid
+  +WaterTroughId : Guid
+  +RanchId : Guid
+  +GatewayId : Guid
+  +Temperature : decimal
+  +TemperatureUnit : WaterTemperatureUnit
+  ...
+  --
+  +Create(command) : Result<WaterTroughReading>
+  +HasSameObservation(command) : bool
+}
+
+AlertChange --> "1" AlertChangeKind
+Geofence *-- "0..*" GeofenceVertex
+Geofence --> "1" AlertSeverity
+Geofence --> "1" GeofenceId
+LivestockOperation --> "1" LivestockOperationId
+LivestockOperation --> "1" OperationType
+LivestockOperation --> "1" ReproductiveDetails
+Measurement --> "1" MeasurementStatus
+MonitoringAlert *-- "0..*" AlertChange
+MonitoringAlert *-- "0..*" AlertEvidence
+MonitoringAlert --> "1" AlertSeverity
+MonitoringAlert --> "1" AlertStatus
+MonitoringAlert --> "1" AlertType
+MonitoringAlert --> "1" GeofenceId
+MonitoringAlert --> "1" MonitoringAlertId
+MonitoringAlert --> "1" ThresholdRange
+MonitoringThreshold --> "1" AlertSeverity
+MonitoringThreshold --> "1" MonitoredMetric
+MonitoringThreshold --> "1" MonitoringThresholdId
+MonitoringThreshold --> "1" ThresholdRange
+PositionMeasurement --> "1" MeasurementStatus
+ReproductiveDetails --> "1" PregnancyResult
+TelemetryReading --> "1" Measurement
+TelemetryReading --> "1" PositionMeasurement
+TelemetryReading --> "1" TelemetryReadingId
+WaterTroughReading --> "1" WaterHeaterState
+WaterTroughReading --> "1" WaterTemperatureUnit
 @enduml

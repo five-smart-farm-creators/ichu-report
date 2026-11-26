@@ -1,91 +1,64 @@
 @startuml
 !pragma layout smetana
-skinparam classAttributeIconSize 0
 skinparam shadowing false
-skinparam linetype ortho
-skinparam class {
-  BackgroundColor #FFFFFF
-  BorderColor #4A6FA5
-  ArrowColor #4A6FA5
-}
+skinparam classAttributeIconSize 0
 hide empty members
-title Dashboard and Analytics - Domain Layer
+title Domain Layer — Dashboard & Analytics
 
-class HerdIndicatorSet <<Aggregate Root>> {
-  -id: Guid
-  -ranchId: Guid
-  -period: DateRange
-  -monitoredCattle: int
-  -outsideGeofence: int
-  -mortalityRate: decimal
-  -excludedCattle: int
-  +Calculate(): void
-  +HasSufficientData(): bool
+class AlertSnapshot <<Value Object>> {
+  +AlertId : Guid
+  +AnimalId : Guid
+  +Type : string
+  +RaisedAt : DateTimeOffset
+  +ClosedAt : DateTimeOffset
 }
-class TrendSeries <<Entity>> {
-  -id: Guid
-  -indicator: IndicatorType
-  -lotId: Guid
-  -lotAverage: decimal
-  +Outliers(criterion: decimal): Guid[]
-  +MissingReadings(): int
+class AnalyticsSnapshot <<Value Object>> {
+  +BirthCount : int
+  +ConfirmedPregnancies : int
 }
-class TrendPoint <<Value Object>> {
-  -date: Date
-  -value: decimal
+class AnimalComparison <<Value Object>> {
 }
-class EpidemiologicalCurve <<Entity>> {
-  -id: Guid
-  -conditionType: string
-  -firstCaseAt: Date
-  -incubationDays: int
-  +DaysWithoutNewCases(): int
-  +SupportsRestrictionLifting(): bool
-  +IsBuildable(): bool
-}
-class ExecutiveReport <<Entity>> {
-  -id: Guid
-  -ranchId: Guid
-  -period: DateRange
-  -format: ReportFormat
-  -generatedAt: DateTime
-  +IsEmpty(): bool
+class AnimalSnapshot <<Value Object>> {
+  +AnimalId : Guid
+  +LotId : Guid
+  +DiedInPeriod : bool
+  +OutsideGeofence : bool
+  +null : int ExpectedReadings =
 }
 class DateRange <<Value Object>> {
-  -from: Date
-  -to: Date
-  +Days(): int
-  +Contains(d: Date): bool
+  +From : DateTimeOffset
+  +To : DateTimeOffset
+  --
+  +Create(from, to) : Result<DateRange>
+  +Contains(timestamp) : bool
 }
-enum IndicatorType {
-  BodyTemperature
-  ActivityIndex
-  Rumination
-  AlertDistribution
-  Mortality
+class EpidemiologicalCurve <<Value Object>> {
 }
-enum ReportFormat {
-  Pdf
-  Excel
+class HealthCaseSnapshot <<Value Object>> {
+  +CaseId : Guid
+  +AnimalId : Guid
+  +Condition : string
+  +Onset : DateTimeOffset
 }
-class AnalyticsDomainService <<Domain Service>> {
-  +BuildIndicators(ranchId: Guid, p: DateRange): HerdIndicatorSet
-  +BuildTrend(lotId: Guid, i: IndicatorType, p: DateRange): TrendSeries
-  +BuildCurve(ranchId: Guid, condition: string): EpidemiologicalCurve
-  +CompareAgainstLot(cattleId: Guid, lotId: Guid): TrendSeries
+class HerdIndicatorSet <<Value Object>> {
 }
-interface IAnalyticsRepository <<Repository>> {
-  +ReadingsForPeriod(ranchId: Guid, p: DateRange): TrendPoint[]
-  +AlertsForPeriod(ranchId: Guid, p: DateRange): TrendPoint[]
-  +Save(r: ExecutiveReport): void
+class IndicatorValue <<Value Object>> {
+  +Value : double
+  +Unit : string
+  +Formula : string
+  +Denominator : int
+  +UnavailableReason : string
 }
-HerdIndicatorSet "1" *-- "1" DateRange
-HerdIndicatorSet "1" o-- "0..*" TrendSeries : incluye >
-TrendSeries "1" *-- "0..*" TrendPoint
-TrendSeries ..> IndicatorType
-ExecutiveReport "1" *-- "1" DateRange
-ExecutiveReport ..> ReportFormat
-AnalyticsDomainService ..> HerdIndicatorSet : calcula >
-AnalyticsDomainService ..> EpidemiologicalCurve : construye >
-IAnalyticsRepository ..> ExecutiveReport
+class RanchPortfolioEntry <<Value Object>> {
+}
+class ReadingSnapshot <<Value Object>> {
+}
+class TrendPoint <<Value Object>> {
+  +AnimalId : Guid
+  +RecordedAt : DateTimeOffset
+  +Value : double
+}
+class TrendSeries <<Value Object>> {
+}
+
 @enduml

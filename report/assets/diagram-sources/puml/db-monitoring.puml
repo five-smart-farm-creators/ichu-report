@@ -1,87 +1,149 @@
 @startuml
 !pragma layout smetana
-hide circle
 skinparam shadowing false
 skinparam linetype ortho
+hide circle
+hide methods
 skinparam class {
   BackgroundColor #FFFFFF
-  BorderColor #2E7D32
-  ArrowColor #2E7D32
+  BorderColor #4A6FA5
 }
-title Operations and Monitoring - Database Design (schema monitoring)
+title Esquema monitoring — Operations & Monitoring
 
-entity "monitoring.telemetry_reading" as tr {
-  * id : uuid <<PK>>
-  --
-  * device_id : uuid
-  cattle_id : uuid
-  body_temperature : numeric(4,1)
-  activity_index : smallint
-  rumination_minutes : smallint
-  latitude : numeric(9,6)
-  longitude : numeric(9,6)
-  accuracy_meters : smallint
-  * recorded_at : timestamptz
-  * received_at : timestamptz
-  * origin : varchar(20) <<CHECK>>
-  --
-  INDEX (cattle_id, recorded_at)
+entity "AlertChanges" as AlertChanges {
+  * OperationId : uuid <<PK>>
+  AlertId : uuid
+  AppliedAt : timestamptz
+  Kind : varchar(32)
+  OperationData : text
 }
-entity "monitoring.alert" as al {
-  * id : uuid <<PK>>
-  --
-  * cattle_id : uuid
-  * alert_type : varchar(20) <<CHECK>>
-  * severity : varchar(15) <<CHECK>>
-  * status : varchar(25) <<CHECK>>
-  detected_value : numeric(8,2)
-  threshold_min : numeric(8,2)
-  threshold_max : numeric(8,2)
-  * raised_at : timestamptz
-  acknowledged_at : timestamptz
-  finding : varchar(400)
+entity "AlertEvidence" as AlertEvidence {
+  * AlertId : uuid <<PK>>
+  * DeviceId : uuid <<PK>>
+  * ReadingId : uuid <<PK>>
 }
-entity "monitoring.alert_reading" as ar {
-  * alert_id : uuid <<PK>> <<FK>>
-  * reading_id : uuid <<PK>> <<FK>>
+entity "GeofenceVertices" as GeofenceVertices {
+  * Id : bigint <<PK>>
+  GeofenceId : uuid
+  Latitude : double precision
+  Longitude : double precision
+  Sequence : integer
+  .. UNIQUE (GeofenceId, Sequence) ..
 }
-entity "monitoring.geofence" as gf {
-  * id : uuid <<PK>>
-  --
-  * ranch_id : uuid
-  * name : varchar(80)
-  lot_id : uuid
-  * tolerance_meters : smallint
+entity "Geofences" as Geofences {
+  * Id : uuid <<PK>>
+  LotId : uuid
+  Name : varchar(80)
+  RanchId : uuid
+  Revision : bigint
+  Severity : varchar(32)
+  ToleranceMeters : integer
+  .. UNIQUE (RanchId, LotId) ..
 }
-entity "monitoring.geofence_vertex" as gv {
-  * id : uuid <<PK>>
-  --
-  * geofence_id : uuid <<FK>>
-  * sequence : smallint
-  * latitude : numeric(9,6)
-  * longitude : numeric(9,6)
+entity "LivestockOperations" as LivestockOperations {
+  * Id : uuid <<PK>>
+  AuthorId : uuid
+  CattleId : uuid
+  Dose : varchar(60) NULL
+  Observation : varchar(500) NULL
+  OccurredAt : timestamptz
+  Product : varchar(120) NULL
+  RanchId : uuid
+  ReceivedAt : timestamptz
+  Reproductive_ExpectedCalvingDate : date NULL
+  Reproductive_PregnancyResult : varchar(20) NULL
+  Reproductive_SireReference : varchar(80) NULL
+  Type : varchar(32)
 }
-entity "monitoring.livestock_operation" as lo {
-  * id : uuid <<PK>>
-  --
-  * cattle_id : uuid
-  * operation_type : varchar(20) <<CHECK>>
-  * occurred_at : timestamptz
-  * author_id : uuid
-  observation : varchar(500)
-  * sync_state : varchar(15) <<CHECK>>
-  conflict_reason : varchar(200)
+entity "MonitoringAlerts" as MonitoringAlerts {
+  * Id : uuid <<PK>>
+  AcknowledgedAt : timestamptz NULL
+  AcknowledgedBy : uuid NULL
+  Action : varchar(400) NULL
+  CattleId : uuid
+  ClearedAt : timestamptz NULL
+  ConfigurationRevision : bigint
+  DetectedValue : double precision NULL
+  DeviceId : uuid
+  DistanceToBoundaryMeters : double precision NULL
+  Finding : varchar(400) NULL
+  GatewayId : uuid
+  GeofenceId : uuid NULL
+  Latitude : double precision NULL
+  Longitude : double precision NULL
+  RaisedAt : timestamptz
+  RanchId : uuid
+  ReceivedAt : timestamptz
+  Severity : varchar(32)
+  Status : varchar(32)
+  ThresholdMaxValue : double precision NULL
+  ThresholdMinValue : double precision NULL
+  TriggerReadingId : uuid
+  Type : varchar(32)
+  Version : integer
 }
-entity "monitoring.threshold" as th {
-  * id : uuid <<PK>>
-  --
-  * ranch_id : uuid
-  * life_stage : varchar(20)
-  * metric : varchar(25)
-  * min_value : numeric(8,2)
-  * max_value : numeric(8,2)
+entity "MonitoringRuleSets" as MonitoringRuleSets {
+  * RanchId : uuid <<PK>>
+  Revision : bigint
 }
-al ||--|{ ar
-tr ||--o{ ar
-gf ||--|{ gv
+entity "MonitoringThresholds" as MonitoringThresholds {
+  * Id : uuid <<PK>>
+  LifeStage : varchar(40)
+  Metric : varchar(32)
+  RanchId : uuid
+  Range_MaxValue : double precision
+  Range_MinValue : double precision
+  Revision : bigint
+  Severity : varchar(32)
+  .. UNIQUE (RanchId, LifeStage, Metric, Severity) ..
+}
+entity "TelemetryReadings" as TelemetryReadings {
+  * Id : uuid <<PK>>
+  ActivityIndex_InvalidReason : varchar(200) NULL
+  ActivityIndex_Value : double precision NULL
+  BatteryPercent_InvalidReason : varchar(200) NULL
+  BatteryPercent_Value : double precision NULL
+  BodyTemperature_InvalidReason : varchar(200) NULL
+  BodyTemperature_Value : double precision NULL
+  CattleId : uuid NULL
+  DeviceId : uuid
+  GatewayId : uuid
+  HeartRate_InvalidReason : varchar(200) NULL
+  HeartRate_Value : double precision NULL
+  MethaneIndex_InvalidReason : varchar(200) NULL
+  MethaneIndex_Value : double precision NULL
+  Position_AccuracyMeters : double precision NULL
+  Position_InvalidReason : varchar(200) NULL
+  Position_Latitude : double precision NULL
+  Position_Longitude : double precision NULL
+  RanchId : uuid
+  ReadingId : uuid
+  ReceivedAt : timestamptz
+  RecordedAt : timestamptz
+  RuminationMinutes_InvalidReason : varchar(200) NULL
+  RuminationMinutes_Value : double precision NULL
+  .. UNIQUE (DeviceId, ReadingId) ..
+}
+entity "WaterTroughReadings" as WaterTroughReadings {
+  * Id : uuid <<PK>>
+  CapturedAt : timestamptz
+  ControllerId : uuid
+  CreatedAt : timestamptz NULL
+  GatewayId : uuid
+  HeaterState : varchar(32)
+  IsValid : boolean
+  Origin : varchar(32)
+  RanchId : uuid
+  ReadingId : uuid
+  ReceivedAt : timestamptz
+  Temperature : numeric
+  TemperatureUnit : varchar(32)
+  UpdatedAt : timestamptz NULL
+  WaterTroughId : uuid
+  .. UNIQUE (ControllerId, ReadingId) ..
+}
+
+MonitoringAlerts ||--o{ AlertChanges
+MonitoringAlerts ||--o{ AlertEvidence
+Geofences ||--o{ GeofenceVertices
 @enduml

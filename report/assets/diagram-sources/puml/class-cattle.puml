@@ -1,79 +1,44 @@
 @startuml
 !pragma layout smetana
-skinparam classAttributeIconSize 0
 skinparam shadowing false
-skinparam linetype ortho
-skinparam class {
-  BackgroundColor #FFFFFF
-  BorderColor #4A6FA5
-  ArrowColor #4A6FA5
-}
+skinparam classAttributeIconSize 0
 hide empty members
-title Cattle Information - Domain Layer
+title Domain Layer — Cattle Information
 
-class Cattle <<Aggregate Root>> {
-  -id: Guid
-  -ranchId: Guid
-  -earTag: EarTag
-  -breed: Breed
-  -sex: Sex
-  -birthDate: Date
-  -status: CattleStatus
-  -currentStage: LifeStage
-  +Register(tag: EarTag): void
-  +ChangeStage(stage: LifeStage, from: Date): void
-  +Deactivate(reason: ExitReason, date: Date): void
-  +AgeInMonths(at: Date): int
-  +IsActive(): bool
-}
-class StagePeriod <<Entity>> {
-  -id: Guid
-  -stage: LifeStage
-  -validFrom: Date
-  -validTo: Date
-  +IsCurrent(): bool
-}
-class Genealogy <<Value Object>> {
-  -sireEarTag: EarTag
-  -damEarTag: EarTag
-}
-class EarTag <<Value Object>> {
-  -value: string
-  +Equals(other: EarTag): bool
-}
-class Lot <<Aggregate Root>> {
-  -id: Guid
-  -ranchId: Guid
-  -name: string
-  -criterion: string
-  +AddCattle(c: Cattle): void
-  +RemoveCattle(id: Guid): void
-  +Size(): int
-}
-class Paddock <<Entity>> {
-  -id: Guid
-  -name: string
-  -areaHectares: decimal
-}
 enum Breed {
   BrownSwiss
   Fleckvieh
   Criollo
   Crossbred
 }
-enum Sex {
-  Female
-  Male
+class Cattle <<Aggregate Root>> {
+  +Id : CattleId
+  +RanchId : Guid
+  +EarTag : EarTag
+  +Breed : Breed
+  +Sex : Sex
+  +BirthDate : DateOnly
+  +Status : CattleStatus
+  +CurrentStage : LifeStage
+  ...
+  --
+  +Register(command, today) : Result<Cattle>
+  +Update(command, today) : Result
+  +ChangeStage(command, today) : Result
+  +Patch(command, today) : Result
+  +Deactivate(command, today, recordedAt) : Result
 }
-enum LifeStage {
-  Calf
-  Heifer
-  MilkingCow
-  FatteningBull
+class CattleId <<Value Object>> {
+  +Value : Guid
 }
 enum CattleStatus {
   Active
   Inactive
+}
+class EarTag <<Value Object>> {
+  +Value : string
+  --
+  +Create(value) : Result<EarTag>
 }
 enum ExitReason {
   Death
@@ -81,26 +46,57 @@ enum ExitReason {
   Theft
   Culling
 }
-interface ICattleRepository <<Repository>> {
-  +FindById(id: Guid): Cattle
-  +FindByEarTag(ranchId: Guid, tag: EarTag): Cattle
-  +FindActiveByRanch(ranchId: Guid): Cattle[]
-  +Save(cattle: Cattle): void
+enum LifeStage {
+  Calf
+  Heifer
+  MilkingCow
+  FatteningBull
 }
-interface ILotRepository <<Repository>> {
-  +FindById(id: Guid): Lot
-  +Save(lot: Lot): void
+class Lot <<Aggregate Root>> {
+  +Id : LotId
+  +RanchId : Guid
+  +Name : string
+  +Criterion : string
+  +Version : Guid
+  +Memberships : LotMembership[*]
+  --
+  +Create(command) : Result<Lot>
+  +AddCattle(cattle, expectedVersion, assignedAt) : Result
+  +RemoveCattle(cattleId, expectedVersion) : Result
 }
-Cattle "1" *-- "1" EarTag
-Cattle "1" *-- "0..*" StagePeriod : historial >
-Cattle "1" *-- "0..1" Genealogy
-Cattle ..> Breed
-Cattle ..> Sex
-Cattle ..> CattleStatus
-Cattle ..> ExitReason
-StagePeriod ..> LifeStage
-Lot "1" o-- "0..*" Cattle : agrupa >
-Lot "0..*" --> "0..1" Paddock : pastorea en >
-ICattleRepository ..> Cattle
-ILotRepository ..> Lot
+class LotId <<Value Object>> {
+  +Value : Guid
+}
+class LotMembership <<Entity>> {
+  +LotId : LotId
+  +RanchId : Guid
+  +CattleId : CattleId
+  +AssignedAt : DateTimeOffset
+}
+enum Sex {
+  Female
+  Male
+}
+class StagePeriod <<Entity>> {
+  +Id : Guid
+  +CattleId : CattleId
+  +LifeStage : LifeStage
+  +ValidFrom : DateOnly
+  +ValidTo : DateOnly
+}
+
+Cattle *-- "0..*" StagePeriod
+Cattle --> "1" Breed
+Cattle --> "1" CattleId
+Cattle --> "1" CattleStatus
+Cattle --> "1" EarTag
+Cattle --> "1" ExitReason
+Cattle --> "1" LifeStage
+Cattle --> "1" Sex
+Lot *-- "0..*" LotMembership
+Lot --> "1" LotId
+LotMembership --> "1" CattleId
+LotMembership --> "1" LotId
+StagePeriod --> "1" CattleId
+StagePeriod --> "1" LifeStage
 @enduml

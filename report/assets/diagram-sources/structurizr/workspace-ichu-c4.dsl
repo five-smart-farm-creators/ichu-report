@@ -217,71 +217,7 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
                 description "Cloud REST API implemented as a modular monolith with seven bounded contexts"
                 tags "Monolith,API"
 
-                telemetryController = component "Telemetry Controller" {
-                    technology "ASP.NET Core Controller"
-                    description "Receives edge batches and serves the telemetry history"
-                    tags "Interface"
-                }
-
-                alertsController = component "Alerts Controller" {
-                    technology "ASP.NET Core Controller"
-                    description "Lists alerts of a ranch and records their attention"
-                    tags "Interface"
-                }
-
-                edgeGatewaysController = component "Edge Gateways Controller" {
-                    technology "ASP.NET Core Controller"
-                    description "Serves the monitoring rules and collar assignments to a gateway"
-                    tags "Interface"
-                }
-
-                rulesControllers = component "Rules Controllers" {
-                    technology "MonitoringThresholdsController, GeofencesController"
-                    description "Manage thresholds by life stage and severity, and geofences"
-                    tags "Interface"
-                }
-
-                edgeSyncService = component "Edge Synchronization Command Service" {
-                    technology ".NET"
-                    description "Stores readings and alerts of a batch and reports a result per entry"
-                    tags "Application"
-                }
-
-                alertServices = component "Monitoring Alert Services" {
-                    technology ".NET command and query services"
-                    description "Query alerts and record their attention"
-                    tags "Application"
-                }
-
-                ruleSetQueryService = component "Monitoring Rule Set Query Service" {
-                    technology ".NET"
-                    description "Builds the rule revision that a gateway downloads"
-                    tags "Application"
-                }
-
-                monitoringAggregates = component "Monitoring Aggregates" {
-                    technology "TelemetryReading, MonitoringAlert, MonitoringThreshold, Geofence"
-                    description "Aggregates of the Operations & Monitoring context"
-                    tags "DomainAggregate"
-                }
-
-                ruleRevisionService = component "Monitoring Rule Revision Service" {
-                    technology ".NET domain service"
-                    description "Computes the rule revision that tells a gateway its cache is outdated"
-                    tags "DomainService"
-                }
-
-                outboundLookups = component "Context Lookups" {
-                    technology "Cattle Information, IoT Assets and IAM facades"
-                    description "Resolve cattle, device assignments, gateway keys and ranch permissions"
-                    tags "ACL"
-                }
-
-                monitoringRepositories = component "Monitoring Repositories" {
-                    technology "Entity Framework Core + Npgsql"
-                    description "Repositories and unit of work of the monitoring schema"
-                    tags "Infrastructure"
-                }
+                !include backend-components.dsl
             }
 
             cloudDatabase = container "ICHU Cloud Database" {
@@ -328,25 +264,17 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         backend -> paymentProvider "Creates Checkout sessions" "HTTPS"
         paymentProvider -> backend "Sends signed payment events" "HTTPS webhook"
 
-        // Figura 4.7: Operations & Monitoring.
-        edgeGateway -> telemetryController "POST /api/v1/telemetry/batch" "HTTPS / JSON"
-        edgeGateway -> edgeGatewaysController "Downloads rules and collar assignments" "HTTPS / JSON"
-        spa -> alertsController "Lists and attends alerts" "HTTPS / JSON"
-        mobileApplication -> alertsController "Polls pending alerts" "HTTPS / JSON"
-        spa -> rulesControllers "Manages thresholds and geofences" "HTTPS / JSON"
-        telemetryController -> edgeSyncService "Invokes"
-        alertsController -> alertServices "Invokes"
-        edgeGatewaysController -> ruleSetQueryService "Invokes"
-        rulesControllers -> monitoringRepositories "Stores thresholds and geofences"
-        edgeSyncService -> outboundLookups "Authenticates the gateway and resolves collar assignments"
-        edgeSyncService -> monitoringAggregates "Creates readings and alerts"
-        edgeSyncService -> monitoringRepositories "Stores the batch"
-        alertServices -> outboundLookups "Checks ranch permissions"
-        alertServices -> monitoringAggregates "Records the attention of an alert"
-        alertServices -> monitoringRepositories "Loads and stores alerts"
-        ruleSetQueryService -> ruleRevisionService "Computes the rule revision"
-        ruleSetQueryService -> monitoringRepositories "Loads thresholds and geofences"
-        monitoringRepositories -> cloudDatabase "Reads and writes the monitoring schema" "Entity Framework Core / Npgsql"
+        // Backend components: generated relationships plus the clients that call each controller.
+        !include backend-relationships.dsl
+        edgeGateway -> beTelemetryController "POST /api/v1/telemetry/batch" "HTTPS / JSON"
+        edgeGateway -> beEdgeGatewaysController "Downloads rules and collar assignments" "HTTPS / JSON"
+        spa -> beAlertsController "Lists and attends alerts" "HTTPS / JSON"
+        mobileApplication -> beAlertsController "Polls pending alerts" "HTTPS / JSON"
+        spa -> beMonitoringThresholdsController "Manages thresholds" "HTTPS / JSON"
+        spa -> beGeofencesController "Manages geofences" "HTTPS / JSON"
+        spa -> beCattleController "Registers and queries cattle" "HTTPS / JSON"
+        spa -> beSubscriptionsController "Requests and pays subscriptions" "HTTPS / JSON"
+        paymentProvider -> beStripeWebhooksController "Sends signed payment events" "HTTPS webhook"
 
         // Figura 4.8: firmware del collar inteligente.
         collarSketch -> collarDevice "Builds and starts"
@@ -479,12 +407,7 @@ workspace "ICHU" "C4 model of ICHU, the livestock IoT platform by SmartFarm" {
         }
 
         // Figuras 4.7 a 4.12: vistas de componentes y flujos dinámicos.
-        component backend "OperationsMonitoringComponents" {
-            title "Figura 4.7. Componentes del módulo Operations & Monitoring"
-            description "Elaboración propia con Structurizr."
-            include *
-            autoLayout lr
-        }
+        !include backend-views.dsl
 
         component cattleBandEmbeddedApp "CattleBandComponents" {
             title "Figura 4.8. Componentes del firmware del collar inteligente"

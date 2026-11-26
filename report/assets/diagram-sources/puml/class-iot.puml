@@ -1,80 +1,107 @@
 @startuml
 !pragma layout smetana
-skinparam classAttributeIconSize 0
 skinparam shadowing false
-skinparam linetype ortho
-skinparam class {
-  BackgroundColor #FFFFFF
-  BorderColor #4A6FA5
-  ArrowColor #4A6FA5
-}
+skinparam classAttributeIconSize 0
 hide empty members
-title IoT Assets - Domain Layer
+title Domain Layer — IoT Assets
 
-class IoTDevice <<Aggregate Root>> {
-  -id: Guid
-  -ranchId: Guid
-  -serial: DeviceSerial
-  -type: DeviceType
-  -status: DeviceStatus
-  -lastCommunicationAt: DateTime
-  -batteryLevel: BatteryLevel
-  +AssignTo(animalId: Guid, at: DateTime): void
-  +Release(reason: string, at: DateTime): void
-  +RegisterCommunication(at: DateTime, b: BatteryLevel): void
-  +IsAvailable(): bool
-  +HasLostCommunication(now: DateTime): bool
-}
-class DeviceAssignment <<Entity>> {
-  -id: Guid
-  -animalId: Guid
-  -startedAt: DateTime
-  -endedAt: DateTime
-  -releaseReason: string
-  +IsOpen(): bool
-  +CoversInstant(at: DateTime): bool
-}
-class DeviceSerial <<Value Object>> {
-  -value: string
+enum AssignmentTargetType {
+  Cattle
+  WaterTrough
 }
 class BatteryLevel <<Value Object>> {
-  -percentage: int
-  +IsLow(): bool
+  +Percentage : int
+  --
+  +Create(percentage) : Result<BatteryLevel>
+  +IsLow(threshold) : bool
 }
-enum DeviceType {
-  SmartCollar
+enum CommunicationStatus {
+  NeverReported
+  Communicating
+  NoCommunication
+}
+class DeviceAssignment <<Entity>> {
+  +Id : DeviceAssignmentId
+  +DeviceId : DeviceId
+  +RanchId : Guid
+  +TargetId : Guid
+  +TargetType : AssignmentTargetType
+  +StartedAt : DateTimeOffset
+  +EndedAt : DateTimeOffset
+  +ReleaseReason : string
+  --
+  +IsOpen() : bool
+  +CoversInstant(instant) : bool
+}
+class DeviceAssignmentId <<Value Object>> {
+  +Value : Guid
+}
+class DeviceId <<Value Object>> {
+  +Value : Guid
+}
+class DeviceSerial <<Value Object>> {
+  +Value : string
+  --
+  +Create(value) : Result<DeviceSerial>
 }
 enum DeviceStatus {
   Available
   InService
-  NoCommunication
-  LowBattery
   Maintenance
 }
-class DeviceAssignmentDomainService <<Domain Service>> {
-  +CanAssign(d: IoTDevice, limit: int, used: int): bool
-  +Assign(d: IoTDevice, animalId: Guid): DeviceAssignment
+enum DeviceType {
+  SmartCollar
+  WaterController
 }
-interface IIoTDeviceRepository <<Repository>> {
-  +FindById(id: Guid): IoTDevice
-  +FindBySerial(serial: DeviceSerial): IoTDevice
-  +FindByRanch(ranchId: Guid): IoTDevice[]
-  +CountAssigned(ranchId: Guid): int
-  +Save(device: IoTDevice): void
+class EdgeGateway <<Aggregate Root>> {
+  +Id : EdgeGatewayId
+  +RanchId : Guid
+  +Name : string
+  +KeyHash : GatewayKeyHash
+  +Status : EdgeGatewayStatus
+  +RegisteredAt : DateTimeOffset
+  +RevokedAt : DateTimeOffset
+  +Version : Guid
+  --
+  +Register(command, keyHash, registeredAt) : Result<EdgeGateway>
+  +Revoke(at) : Result
+  +Authenticates(secret) : bool
 }
-interface ISubscriptionEntitlementPort <<Port>> {
-  +GetDeviceLimit(ranchId: Guid): int
+class EdgeGatewayId <<Value Object>> {
+  +Value : Guid
 }
-interface ICattleLookupPort <<Port>> {
-  +Exists(cattleId: Guid): bool
+enum EdgeGatewayStatus {
+  Active
+  Revoked
 }
-IoTDevice "1" *-- "0..*" DeviceAssignment : historial >
-IoTDevice "1" *-- "1" DeviceSerial
-IoTDevice "1" *-- "1" BatteryLevel
-IoTDevice ..> DeviceType
-IoTDevice ..> DeviceStatus
-DeviceAssignmentDomainService ..> IoTDevice : asigna >
-DeviceAssignmentDomainService ..> ISubscriptionEntitlementPort : consulta >
-DeviceAssignmentDomainService ..> ICattleLookupPort : valida >
-IIoTDeviceRepository ..> IoTDevice
+class GatewayKeyHash <<Value Object>> {
+  --
+  +Of(secret) : GatewayKeyHash
+  +Matches(secret) : bool
+  +ToBytes() : byte[]
+}
+class IoTDevice <<Aggregate Root>> {
+  +CreatedAt : DateTimeOffset
+  +UpdatedAt : DateTimeOffset
+}
+class TemperatureRange <<Value Object>> {
+  +MinimumCelsius : decimal
+  +MaximumCelsius : decimal
+  --
+  +Create(minimumCelsius, maximumCelsius) : Result<TemperatureRange>
+}
+class WaterTrough <<Aggregate Root>> {
+  +CreatedAt : DateTimeOffset
+  +UpdatedAt : DateTimeOffset
+}
+class WaterTroughId <<Value Object>> {
+  +Value : Guid
+}
+
+DeviceAssignment --> "1" AssignmentTargetType
+DeviceAssignment --> "1" DeviceAssignmentId
+DeviceAssignment --> "1" DeviceId
+EdgeGateway --> "1" EdgeGatewayId
+EdgeGateway --> "1" EdgeGatewayStatus
+EdgeGateway --> "1" GatewayKeyHash
 @enduml
