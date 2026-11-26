@@ -100,5 +100,12 @@ Esta sección resume las modificaciones relevantes realizadas al informe durante
 | 0.20.27 | 2026-11-15 | Avalos Cordova, Diego Andres | Actualicé la distribución transversal de Jira a 21 tareas simuladas, retirando la tarea del abrevadero. |
 | 0.20.28 | 2026-11-15 | Avalos Cordova, Diego Andres | Alineé las referencias de fuentes y dispositivos de los Anexos G y J con el alcance vigente. |
 | 0.20.29 | 2026-11-15 | Avalos Cordova, Diego Andres | Actualicé el índice para retirar las referencias de secciones fuera del alcance vigente. |
+| 1.0.0 | 2026-11-15 | Avalos Cordova, Diego Andres | Publicación de la entrega AV2 (release `v1.0.0`), con la auditoría del Capítulo VI del Sprint 2 y el segundo reporte de avance (PR #53 a #56). |
+| 1.0.0 | 2026-11-15 | Arrieta Quispe, Alison Jimena | Incorporación de las evidencias de documentación de servicios del Sprint 2 (PR #48). |
+| 1.0.0 | 2026-11-15 | Sanchez Arenas, Manuel Angel | Incorporación de las evidencias de ejecución y documentación del Sprint 2 y de la evaluación heurística (PR #49). |
+| 1.0.0 | 2026-11-15 | Contreras Leon, Flor de María | Incorporación de las evidencias de implementación IoT y de la demostración con la API desplegada (PR #50 a #52). |
+| 1.1.0 | 2026-11-25 | Contreras Leon, Flor de María | Alineación de los capítulos I a VI con la solución construida: sensores de pulso y metano, panel de alertas, pagos con Stripe, historias técnicas con rol Developer, supuestos e hipótesis uno a uno, Ubiquitous Language en inglés y bibliografía en APA 7. |
+| 1.1.0 | 2026-11-25 | Contreras Leon, Flor de María | Regeneración del modelo C4, los diagramas de clases y de base de datos desde el código, y de la sección 4.2 por bounded context. |
+| 1.1.0 | 2026-11-25 | Contreras Leon, Flor de María | Incorporación del diseño de la aplicación móvil (wireframes, wireflows, mockups y user flows), del código Gherkin, de las tablas de commits con rama y cuerpo, del Sprint 3 y de las conclusiones finales. |
 
 <div style="break-after: page; page-break-after: always;"></div>
