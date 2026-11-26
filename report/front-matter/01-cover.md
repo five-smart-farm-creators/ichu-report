@@ -43,7 +43,7 @@
 <div align="center">
   <p align="center" style="font-size: 11.5pt !important; line-height: 1.3 !important; margin: 0 0 8pt !important;"><strong>Integrantes</strong></p>
   <p align="center" style="font-size: 10.5pt !important; line-height: 1.35 !important; margin: 0 !important;">
-    <img src="../assets/images/cover-team-members.svg" width="376" style="width: 376px; max-width: 100%; height: auto; color-scheme: light;" alt="Código y apellidos y nombres: U202312031 - Arrieta Quispe, Alison Jimena; U202320574 - Sanchez Arenas, Manuel Angel; U202323243 - Contreras Leon, Flor de María; U202320442 - Awad Vargas, Giorgio Marzouk; U202321510 - Romero Meza, Jhimy Pool; U202313922 - Avalos Cordova, Diego Andres."/>
+    <img src="../assets/images/cover-team-members.svg" width="376" style="width: 376px; max-width: 100%; height: auto; color-scheme: light;" alt="Código y apellidos y nombres: U202312031 - Arrieta Quispe, Alison Jimena; U202320574 - Sanchez Arenas, Manuel Angel; U202323243 - Contreras Leon, Flor de María; U202320442 - Awad Vargas, Giorgio Marzouk; U202313922 - Avalos Cordova, Diego Andres."/>
   </p>
 </div>
 

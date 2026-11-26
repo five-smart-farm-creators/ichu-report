@@ -49,18 +49,6 @@ De esta manera, la startup busca contribuir a la modernización de la actividad 
     </tr>
     <tr>
       <td style="padding: 10px; border: 1px solid #aaa;">
-        Romero Meza, Jhimy Pool<br>
-        <span style="font-size:11px; color:#555;">(U202321510)</span>
-      </td>
-      <td style="padding: 10px; border: 1px solid #aaa; text-align: center;">
-        <img src="assets/images/members/jhimy-romero-meza.jpg" alt="Fotografía de Jhimy Pool Romero Meza" style="width:80px; height:107px; object-fit:cover; border-radius:6px;">
-      </td>
-      <td style="padding: 10px; border: 1px solid #aaa; text-align: justify;">
-        Ingeniería de Software, quinto ciclo. Se destaca por su responsabilidad, compromiso y disposición constante para colaborar. Cuenta con conocimientos previos en tecnología y en el desarrollo de proyectos, demostrando iniciativa y capacidad de aprendizaje autónomo.
-      </td>
-    </tr>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #aaa;">
         Arrieta Quispe, Alison Jimena<br>
         <span style="font-size:11px; color:#555;">(U202312031)</span>
       </td>
