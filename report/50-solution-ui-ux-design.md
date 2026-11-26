@@ -31,11 +31,11 @@ La identidad y el significado de los estados se mantienen entre pantallas; la co
 | **IoT digital** | Mostrar lectura, unidad, hora y vigencia; distinguir estados en línea, sin señal, almacenado y sincronizado, junto con batería y conectividad. |
 | **IoT físico** | Indicadores inequívocos y coherentes con la app. La función de luces, botones y sonidos se especifica junto con el diseño físico en 5.6. |
 
-Este capítulo desarrolla los artefactos de diseño de la Landing Page y la Web Application. Para la aplicación móvil nativa solo se documentan pautas generales: no se incluyen aquí wireframes, mockups ni flujos móviles. La implementación móvil del Sprint 2 y sus límites de evidencia se registran en el Capítulo VI. El diseño conceptual del collar y el receptor de alertas se documenta en 5.6.
+Este capítulo desarrolla los artefactos de diseño de la Landing Page, la Web Application y la aplicación móvil. El diseño del collar y del panel de alertas se documenta en 5.6.
 
 ## 5.2. Information Architecture
 
-La arquitectura de información de este capítulo corresponde al landing y a la Web Application ICHU; no describe la navegación de la aplicación móvil nativa. Se apoya en las tareas de César, administrador ganadero, y Leonardo, veterinario (2.3), las historias de usuario (3.1) y la arquitectura definida en 4.1.3.3. La estructura distingue la gestión del hato y la consulta clínica de unidades autorizadas. Las vistas descritas son decisiones de diseño; su implementación se identifica en 5.5.
+La arquitectura de información de este capítulo corresponde a la Landing Page y a la Web Application ICHU; la aplicación móvil reutiliza sus etiquetas y organiza la navegación en una sola columna, con una tarea por vista (5.4). Se apoya en las tareas de César, administrador ganadero, y Leonardo, veterinario (2.3), las historias de usuario (3.1) y la arquitectura definida en 4.1.3.3. La estructura distingue la gestión del hato y la consulta clínica de unidades autorizadas. Las vistas descritas son decisiones de diseño; su implementación se identifica en 5.5.
 
 ### 5.2.1. Organization Systems
 
@@ -198,7 +198,9 @@ Las capturas separan el recorrido para mantener legibles las secciones y conserv
 
 ## 5.4. Applications UX/UI Design
 
-Esta sección presenta la experiencia de la Web Application ICHU para el administrador ganadero y el médico veterinario. Sus wireframes, wireflows, mockups y user flows no representan la aplicación móvil nativa, que fue desarrollada durante el Sprint 2 pero no cuenta con artefactos de diseño móvil en este capítulo. Las vistas web traducen la arquitectura de información de 5.2 y las pautas visuales de 5.1, con contenido y acciones según el rol y sus permisos.
+Esta sección presenta la experiencia de la Web Application y de la aplicación móvil de ICHU para el administrador ganadero, el operario de campo y el médico veterinario. Las vistas traducen la arquitectura de información de 5.2 y las pautas visuales de 5.1, con contenido y acciones según el rol y sus permisos. Cada subsección presenta primero la aplicación web y luego la aplicación móvil.
+
+Los mockups móviles son capturas de las pantallas reales de la aplicación Flutter, generadas en GitHub Actions a partir de sus pruebas de widgets con datos de prueba; por eso muestran identificadores y nombres de ejemplo. Los wireframes móviles reproducen en baja fidelidad la estructura de esas mismas pantallas.
 
 ### 5.4.1. Applications Wireframes
 
@@ -228,6 +230,38 @@ Los wireframes de baja fidelidad organizan seis vistas de escritorio para las ta
 
 *Figura 5.4.1.6. Historial clínico y registro.*
 
+**Aplicación móvil**
+
+Los wireframes móviles priorizan una tarea por pantalla, con controles de ancho completo y al menos 48 px de alto, fáciles de pulsar en el campo. La cabecera mantiene el logotipo, el regreso y el selector de idioma (inglés o español) en todas las vistas.
+
+![Wireframe móvil de inicio de sesión](assets/images/mobile-design/wireframe-login.png)
+
+*Figura 5.4.1.7. Inicio de sesión de la aplicación móvil.*
+
+![Wireframe móvil de selección de rancho](assets/images/mobile-design/wireframe-ranch-selection.png)
+
+*Figura 5.4.1.8. Selección de la unidad productiva autorizada.*
+
+![Wireframe móvil de registro de animal](assets/images/mobile-design/wireframe-cattle-register.png)
+
+*Figura 5.4.1.9. Registro de un animal.*
+
+![Wireframe móvil de ficha del animal](assets/images/mobile-design/wireframe-cattle-profile.png)
+
+*Figura 5.4.1.10. Ficha del animal con sus acciones de gestión.*
+
+![Wireframe móvil de alertas](assets/images/mobile-design/wireframe-ranch-alerts.png)
+
+*Figura 5.4.1.11. Alertas de la unidad productiva.*
+
+![Wireframe móvil de atención de alerta](assets/images/mobile-design/wireframe-alert-acknowledgement.png)
+
+*Figura 5.4.1.12. Diálogo de atención de una alerta.*
+
+![Wireframe móvil de registro de campo](assets/images/mobile-design/wireframe-field-record.png)
+
+*Figura 5.4.1.13. Registro de un evento de campo sin conexión.*
+
 ### 5.4.2. Applications Wireflow Diagrams
 
 Cada wireflow representa una meta de usuario y muestra las acciones, decisiones y pantallas de baja fidelidad que resultan de cada interacción. Las metas se vinculan con las historias de usuario del alcance web:
@@ -256,6 +290,20 @@ Cada meta cuenta con un wireflow independiente. Las pantallas esquemáticas se c
 ![Wireflow de acceso veterinario y preparación de atención](assets/diagram-sources/chapter-v/wireflow-veterinary-care.svg)
 
 *Figura 5.4.2.4. Wireflow de autorización, consulta clínica y registro veterinario. Elaboración propia.*
+
+**Aplicación móvil**
+
+*User goal 1 (administrador ganadero):* atender una alerta del hato desde el teléfono. El usuario inicia sesión, elige la unidad productiva, abre las alertas y registra su hallazgo en una alerta pendiente.
+
+*User goal 2 (operario de campo):* registrar un evento de salud sin conexión. El operario elige la unidad productiva, busca el animal por su arete, guarda el evento en el teléfono y lo sincroniza al recuperar la señal.
+
+![Wireflow móvil para atender una alerta](assets/images/mobile-design/wireflow-attend-alert.png)
+
+*Figura 5.4.2.5. Wireflow móvil para atender una alerta. Elaboración propia.*
+
+![Wireflow móvil para registrar un evento de campo](assets/images/mobile-design/wireflow-field-record.png)
+
+*Figura 5.4.2.6. Wireflow móvil para registrar un evento de campo sin conexión. Elaboración propia.*
 
 ### 5.4.3. Applications Mock-ups
 
@@ -287,6 +335,42 @@ Las capturas siguientes corresponden a vistas implementadas del frontend. Se pre
 
 *Figura 5.4.3.6. Historial clínico desde el rol veterinario.*
 
+**Aplicación móvil**
+
+Los mockups aplican el design system de ICHU: la tipografía Outfit para títulos y Plus Jakarta Sans para textos, el verde oscuro de la marca en las acciones principales y tarjetas blancas sobre fondo claro. Los textos se traducen al inglés y al español.
+
+![Mockup móvil de inicio de sesión](assets/images/mobile-design/mockup-login.png)
+
+*Figura 5.4.3.7. Inicio de sesión con Firebase Authentication.*
+
+![Mockup móvil de selección de rancho](assets/images/mobile-design/mockup-ranch-selection.png)
+
+*Figura 5.4.3.8. Unidades productivas autorizadas y su nivel de acceso.*
+
+![Mockup móvil de registro de animal](assets/images/mobile-design/mockup-cattle-register-form.png)
+
+*Figura 5.4.3.9. Registro de un animal.*
+
+![Mockup móvil de ficha del animal](assets/images/mobile-design/mockup-cattle-profile.png)
+
+*Figura 5.4.3.10. Ficha del animal con corrección, cambio de etapa y baja.*
+
+![Mockup móvil de alertas del rancho](assets/images/mobile-design/mockup-ranch-alerts.png)
+
+*Figura 5.4.3.11. Alertas de la unidad productiva con su severidad y estado.*
+
+![Mockup móvil de atención de alerta](assets/images/mobile-design/mockup-alert-acknowledgement.png)
+
+*Figura 5.4.3.12. Atención de una alerta, en español.*
+
+![Mockup móvil de detalle de alerta del Edge](assets/images/mobile-design/mockup-edge-alert-detail.png)
+
+*Figura 5.4.3.13. Detalle de una alerta de frecuencia cardiaca generada por el Edge.*
+
+![Mockup móvil de registro de campo](assets/images/mobile-design/mockup-field-record-es.png)
+
+*Figura 5.4.3.14. Registro de un evento de campo sin conexión, en español.*
+
 ### 5.4.4. Applications User Flow Diagrams
 
 Cada User Flow corresponde a una meta de 5.4.2 y muestra el recorrido principal, las decisiones, las rutas alternativas y el retorno a la tarea cuando procede. Los identificadores remiten a las historias de usuario de 3.1; los flujos describen el comportamiento previsto, no sustituyen las restricciones declaradas del prototipo en 5.5.
@@ -308,6 +392,18 @@ Cada User Flow corresponde a una meta de 5.4.2 y muestra el recorrido principal,
 *Figura 5.4.4.4. User Flow de autorización, preparación de atención e intervención clínica (US-04, US-14, US-23, US-24 y US-39).*
 
 Si ya existe una autorización o una solicitud pendiente, la Web Application conserva ese estado y evita crear una solicitud duplicada (US-39).
+
+**Aplicación móvil**
+
+Los user flows móviles usan los mockups de las pantallas y anotan en cada transición el camino feliz y el camino alternativo.
+
+![User flow móvil para atender una alerta](assets/images/mobile-design/userflow-attend-alert.png)
+
+*Figura 5.4.4.5. User Flow móvil de atención de alertas (US-16 y US-19).*
+
+![User flow móvil para registrar un evento de campo](assets/images/mobile-design/userflow-field-record.png)
+
+*Figura 5.4.4.6. User Flow móvil de registro de campo sin conexión (US-21 y US-22).*
 
 ## 5.5. Applications Prototyping
 
