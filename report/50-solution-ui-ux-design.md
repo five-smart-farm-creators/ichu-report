@@ -14,7 +14,7 @@
 | Jerarquía y ritmo | Títulos 28–32 px, subtítulos 20–24 px, lectura 16 px y controles 14 px. Espaciado en escala de 4 px: 4, 8, 12, 16, 24 y 32 px. |
 | Componentes | Bordes discretos, etiquetas claras y estados visibles de foco, selección y error. Verde para acciones operativas y dorado para la acción principal del onboarding. |
 
-La Web Application usa una base de 16 px, Outfit para encabezados y Plus Jakarta Sans para lectura y controles. El tono es serio, cercano, profesional y sereno. Errores y alertas indican la situación y el siguiente paso sin presentar inferencias como diagnósticos. El diseño contempla contraste WCAG (4.5:1 en texto normal; 3:1 en texto grande), foco visible y objetivos táctiles de al menos 44 × 44 px [8].
+La Web Application usa una base de 16 px, Outfit para encabezados y Plus Jakarta Sans para lectura y controles. El tono es serio, cercano, profesional y sereno. Errores y alertas indican la situación y el siguiente paso sin presentar inferencias como diagnósticos. El diseño contempla contraste WCAG (4.5:1 en texto normal; 3:1 en texto grande), foco visible y objetivos táctiles de al menos 44 × 44 px (World Wide Web Consortium [W3C], 2023).
 
 ![Muestra de identidad visual y tokens de ICHU](assets/images/ichu-style-guidelines.svg)
 
@@ -71,7 +71,7 @@ Las etiquetas nombran destinos y acciones, no componentes técnicos. Se mantiene
 
 Las acciones usan verbo y objeto: **Registrar animal**, **Vincular collar**, **Atender alerta**, **Registrar intervención** y **Exportar reporte**. Arete identifica al animal; collar identifica el equipo de telemetría. Una lectura muestra unidad y hora; Sin datos no equivale a Normal, ni Sin conexión a Sin alertas.
 
-Las etiquetas se localizan de forma consistente en `en_US` y `es_419`, incluido el contenido de ayuda, errores, fechas y números (US-37). El idioma inicial definido por la historia es `en_US`, con preferencia persistente; los ejemplos de esta sección usan `es_419`. La configuración del idioma del documento y el tratamiento de formatos regionales siguen las pautas de internacionalización web del W3C [12].
+Las etiquetas se localizan de forma consistente en `en_US` y `es_419`, incluido el contenido de ayuda, errores, fechas y números (US-37). El idioma inicial definido por la historia es `en_US`, con preferencia persistente; los ejemplos de esta sección usan `es_419`. La configuración del idioma del documento y el tratamiento de formatos regionales siguen las pautas de internacionalización web del W3C (W3C, s. f.).
 
 ### 5.2.3. SEO Tags and Meta Tags
 
@@ -311,7 +311,7 @@ Si ya existe una autorización o una solicitud pendiente, la Web Application con
 
 ## 5.5. Applications Prototyping
 
-El prototipo de alta fidelidad documentado aquí corresponde a la Web Application de ICHU, construida con Angular [9]. Se puede explorar en la versión desplegada en Firebase Hosting ([https://ichu-smartfarm.web.app](https://ichu-smartfarm.web.app)), que consume el ICHU Web Service publicado en Render; el repositorio [ichu-web-app](https://github.com/five-smart-farm-creators/ichu-web-app) contiene su código fuente. Esta subsección cubre la aplicación web en navegadores de escritorio y ventanas estrechas. Su evidencia de ejecución se presenta en el Capítulo VI.
+El prototipo de alta fidelidad documentado aquí corresponde a la Web Application de ICHU, construida con Angular (Google, s. f.-a). Se puede explorar en la versión desplegada en Firebase Hosting ([https://ichu-smartfarm.web.app](https://ichu-smartfarm.web.app)), que consume el ICHU Web Service publicado en Render; el repositorio [ichu-web-app](https://github.com/five-smart-farm-creators/ichu-web-app) contiene su código fuente. Esta subsección cubre la aplicación web en navegadores de escritorio y ventanas estrechas. Su evidencia de ejecución se presenta en el Capítulo VI.
 
 La navegación sigue la arquitectura de información de 5.2.5: el menú lateral organiza las áreas de trabajo y la cabecera conserva visibles el rol y el hato activos. Los recorridos se relacionan con las metas de usuario de 5.4.4. En escritorio y en ventanas estrechas se muestran las mismas funciones, con una disposición adaptable; los formularios presentan validación y confirmación de las acciones disponibles.
 
