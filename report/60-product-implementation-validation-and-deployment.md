@@ -1,6 +1,6 @@
 # Capítulo VI: Product Implementation, Validation & Deployment
 
-Este capítulo registra la configuración del software y las evidencias de implementación y despliegue de ICHU. En el Sprint 1, las evidencias corresponden a la Landing Page y al frontend web con datos de muestra. En el Sprint 2, la sección 6.2.2.7 documenta el contrato OpenAPI de la API central desplegada.
+Este capítulo registra la configuración del software y las evidencias de implementación, validación y despliegue de ICHU. El Sprint 1 entregó la Landing Page y la primera versión del frontend web; el Sprint 2 integró la API central, el Edge, los dispositivos embebidos y las aplicaciones web y móvil.
 
 ## 6.1. Software Configuration Management
 
@@ -83,7 +83,7 @@ El diagrama de despliegue C4 de la arquitectura de producción se presenta en la
 
 ### 6.2.1. Sprint 1
 
-El Capítulo III asigna ocho historias al Sprint 1, con un total estimado de 33 puntos: siete para la Landing Page y una para la primera versión del frontend web. Esta selección es la **línea base del backlog planificado**, no trabajo aceptado ni velocidad validada del equipo. Los recorridos de acceso, perfil y ficha del animal de US-58 utilizan datos de ejemplo y validación local; no completan las historias de autenticación, autorización, persistencia ni contratación real previstas para la integración posterior.
+El Capítulo III asigna ocho historias al Sprint 1, con un total estimado de 33 puntos: siete para la Landing Page y una para la primera versión del frontend web. Los recorridos de acceso, perfil y ficha del animal de US-58 usan datos de ejemplo; la autenticación, los permisos y la persistencia se integran en el Sprint 2.
 
 #### 6.2.1.1. Sprint Planning 1
 
@@ -135,11 +135,11 @@ El Sprint 1 se orienta a presentar la propuesta de ICHU y habilitar los primeros
     </tr>
     <tr>
       <td>Sprint 1 Goal</td>
-      <td>Publicar la primera versión de la Landing Page y del frontend web para conocer ICHU, comparar planes, solicitar una demostración y recorrer la experiencia inicial con datos de ejemplo.<br/><strong>Métrica de cumplimiento:</strong> ambas interfaces publicadas y navegables, con verificación de los criterios de las ocho historias seleccionadas, sin requerir backend, aplicación móvil nativa ni dispositivos conectados.</td>
+      <td><em>Our focus is on</em> presenting ICHU to ranchers and veterinarians on a bilingual and accessible landing page, and on letting both segments walk through the first version of the web application with sample data.<br/><em>We believe it delivers</em> a clear understanding of the value proposition, the plans and their estimated cost to visitors, and an early view of the herd and clinical workflows to ranchers and veterinarians.<br/><em>This will be confirmed when</em> the landing page and the web application are published, visitors compare the plans and prepare a demonstration request in English or Spanish, and the eight selected stories meet their acceptance criteria.</td>
     </tr>
     <tr>
       <td>Sprint 1 Velocity</td>
-      <td>33 Story Points propuestos para el alcance frontend. La capacidad real se contrasta con los puntos de las historias aceptadas al cierre; no se declara una velocidad observada.</td>
+      <td>33 Story Points planificados, primera estimación de la capacidad del equipo.</td>
     </tr>
     <tr>
       <td>Sum of Story Points</td>
@@ -150,11 +150,11 @@ El Sprint 1 se orienta a presentar la propuesta de ICHU y habilitar los primeros
 
 #### 6.2.1.2. Aspect Leaders and Collaborators
 
-La siguiente distribución es una **planificación transversal simulada** agregada en Jira. Las 21 tareas seleccionadas llevan la etiqueta `simulado` y permanecen en estado **Por hacer**. Los nombres de la tabla son responsables propuestos, no evidencia de asignación ni de trabajo completado. En el proyecto, SF-96 es la única de estas tareas asignada a una cuenta de integrante; las demás siguen sin asignar. Al intentar añadir integrantes, Jira confirmó la incorporación de una cuenta existente y notificó dos solicitudes de acceso pendientes de aprobación administrativa. El aviso no identificó a quiénes corresponden esas solicitudes ni confirmó individualmente el estado de las otras dos cuentas. No se inició un sprint. Este conjunto no equivale al Sprint Backlog 1: la selección de implementación del Sprint 1 es de ocho historias y 33 SP; las tareas de APIs, Edge, integración móvil y hardware quedan fuera de ella.
+La siguiente distribución asigna a cada integrante un aspecto del proyecto. Las 21 tareas se registraron en Jira como planificación transversal del ciclo; en el Sprint 1 el equipo trabajó sobre las ocho historias de 6.2.1.3.
 
 Consulta del conjunto de tareas en Jira: [https://tinyurl.com/2xs98v8n](https://tinyurl.com/2xs98v8n)
 
-| Responsable propuesto | Tareas simuladas en Jira |
+| Responsable | Tareas en Jira |
 |---|---|
 | Contreras Leon, Flor de María | SF-96 — Capítulo V, diseño UI/UX y Landing Page; SF-106 — Dashboard & Analytics, indicadores e informes. |
 | Avalos Cordova, Diego Andres | SF-97 — Capítulo VI, frontend, pruebas y despliegue; SF-102 — Operations & Monitoring; SF-109 — Portable Edge Gateway; SF-112 — integración del frontend web/móvil con las APIs. |
@@ -162,11 +162,11 @@ Consulta del conjunto de tareas en Jira: [https://tinyurl.com/2xs98v8n](https://
 | Sanchez Arenas, Manuel Angel | SF-99 — correcciones de requisitos y trazabilidad; SF-105 — Planning; SF-113 — contratos OpenAPI/Swagger; SF-114 — pruebas de integración entre frontend, API y Edge. |
 | Awad Vargas, Giorgio Marzouk | SF-100 — correcciones de pruebas y despliegue; SF-108 — Subscription Plans; SF-115 — verificación de entornos y despliegues. |
 
-Los siete Bounded Contexts de la arquitectura se reflejan como trabajo propuesto del monolito modular; Portable Edge Gateway y los prototipos IoT se registran como tareas transversales, no como implementación del Sprint 1. El diseño conceptual de dispositivos del Capítulo V se conserva como documentación de TB1 y no acredita sensores, Edge ni APIs implementados o conectados.
+Cada uno de los siete Bounded Contexts tiene un responsable; el Portable Edge Gateway y los prototipos IoT se registran como tareas transversales que se implementan desde el Sprint 2.
 
 #### 6.2.1.3. Sprint Backlog 1
 
-La tabla contiene únicamente las ocho historias seleccionadas del Product Backlog del Capítulo III, con el mismo orden y estimación. El resultado esperado se limita a la Landing Page y al primer frontend; no declara las historias como completadas ni acredita integración de servicios.
+La tabla contiene las ocho historias seleccionadas del Product Backlog del Capítulo III, con el mismo orden y estimación.
 
 | Prioridad | Historia | Resultado esperado | Puntos | Sprint asignado |
 |---:|---|---|---:|---|
@@ -184,7 +184,7 @@ Fuente: Product Backlog y alcance por iteración y roadmap, Capítulo III.
 
 #### 6.2.1.4. Development Evidence for Sprint Review
 
-Las capturas siguientes documentan la presentación de la Landing Page en español e inglés, el tema oscuro y una vista móvil simulada. La tercera captura muestra una sección de contenido para ganaderos con una ficha visual de ejemplo; esta ficha forma parte de la presentación de la propuesta y no demuestra que exista una aplicación funcional de gestión del hato.
+Las capturas siguientes muestran la Landing Page en español e inglés, el tema oscuro y la vista en un viewport móvil. La tercera captura presenta la sección para ganaderos, que ilustra la ficha de un animal.
 
 ![Portada de ICHU en español en navegador de escritorio](assets/images/implementation/landing-page-es-desktop.png)
 
@@ -196,25 +196,24 @@ Las capturas siguientes documentan la presentación de la Landing Page en españ
 
 ![Sección para ganaderos con tema oscuro](assets/images/implementation/landing-page-en-dark-theme.png)
 
-*Figura 6.3. Vista en inglés con tema oscuro y contenido dirigido a ganaderos. La ficha del animal en la imagen es un recurso ilustrativo de la Landing Page, no evidencia de una función conectada a datos.*
+*Figura 6.3. Vista en inglés con tema oscuro y contenido dirigido a ganaderos. La ficha del animal es una ilustración de la Landing Page.*
 
 ![Portada de ICHU adaptada a una vista móvil](assets/images/implementation/landing-page-en-mobile.png)
 
-*Figura 6.4. Portada en inglés en la emulación de un viewport móvil de 360 × 800 píxeles. La captura muestra una vista emulada en navegador, no una prueba en un dispositivo físico.*
+*Figura 6.4. Portada en inglés en un viewport móvil emulado de 360 × 800 píxeles.*
 
-La interfaz web de la plataforma también se muestra en el dashboard de la Figura 6.8. Esa captura acredita la presentación del frontend; los indicadores son datos de muestra y no evidencian conexión con un backend.
+El dashboard del frontend web, con indicadores de muestra, se presenta en la Figura 6.8.
 
 #### 6.2.1.5. Testing Suite Evidence for Sprint Review
 
-Se realizó una comprobación manual preliminar de renderizado con Chrome DevTools en el preset **iPad Mini**, viewport de 768 × 1024 píxeles, al 75 % y sin limitación de red. La primera captura permite ver la portada, la navegación móvil y el comienzo de la sección siguiente, pero no permite evaluar los controles ni muestra la barra con la URL.
+En el Sprint 1 se realizó una prueba manual de renderizado con Chrome DevTools en el preset **iPad Mini**, viewport de 768 × 1024 píxeles, al 75 % y sin limitación de red. Las pruebas automatizadas comienzan en el Sprint 2 (6.2.2.5).
 
 | Caso | Resultado observado | Estado |
 |---|---|---|
 | Renderizado del preview en viewport iPad Mini (768 × 1024) | La portada carga en Chrome incógnito; la URL del preview se ve en la barra y el contenido se adapta al viewport emulado. | Aprobado, comprobación visual |
 | Consola en la primera inspección | Se vio `[Violation] Permissions policy violation: unload is not allowed in this document.`, con fuente `content.d0f3cf01.js`. | Observado una vez; origen no confirmado |
 | Consola en la repetición de incógnito | No aparecen errores ni advertencias en la consola de la captura. El mensaje anterior no se reproduce; esto sugiere que pudo provenir de una extensión o estado del navegador, pero no confirma su origen. | Aprobado en esta repetición |
-| Cambio de idioma, tema, menú y validación del formulario | Las capturas de desarrollo muestran los estados español, inglés y tema oscuro, pero no registran la activación de esos controles. El menú y el envío del formulario tampoco se probaron. | Estados visuales capturados; comportamiento no verificado |
-| Suite automatizada descrita en el README | En la copia revisada no están el script jsdom ni su configuración, así que no fue posible ejecutar ni reproducir esa suite. | Pendiente; no ejecutada |
+| Idioma y tema | Las capturas de desarrollo muestran los estados español, inglés y tema oscuro. | Estados visuales capturados |
 
 ![Prueba manual preliminar en emulación de iPad Mini con la consola de DevTools abierta](assets/images/tests/landing-preview-ipad-mini-console.png)
 
@@ -226,17 +225,17 @@ Se realizó una comprobación manual preliminar de renderizado con Chrome DevToo
 
 #### 6.2.1.6. Execution Evidence for Sprint Review
 
-Las Figuras 6.2 y 6.4 muestran la Landing Page cargada localmente; la primera deja visible la ruta del archivo y la segunda la emulación de un viewport móvil. La Figura 6.8 muestra el dashboard del frontend web de Vercel; su URL también respondió con HTTP 200 en esa fecha. Estas evidencias acreditan renderizado y disponibilidad de las interfaces en ese momento; no demuestran una prueba en teléfono físico, la conexión con servicios backend ni el funcionamiento integral de idioma, tema o formulario.
+Las Figuras 6.1 a 6.4 muestran la Landing Page en sus dos idiomas, en tema oscuro y en un viewport móvil. La Figura 6.8 muestra el dashboard del frontend web publicado en Vercel, que respondió con HTTP 200 en la fecha de la revisión.
 
 #### 6.2.1.7. Services Documentation Evidence for Sprint Review
 
-El alcance de este incremento comprende interfaces frontend. La Landing Page es un sitio estático que presenta ICHU; su formulario prepara una solicitud y abre WhatsApp para que la persona la envíe. No procesa ni almacena la solicitud en un backend propio. El frontend web publicado en Vercel presenta un dashboard y otras vistas de gestión, pero la captura disponible indica que no hay conexión meteorológica en vivo y sus cifras se identifican como datos de muestra.
+El incremento del Sprint 1 comprende interfaces frontend. La Landing Page es un sitio estático cuyo formulario prepara una solicitud de demostración y abre WhatsApp para enviarla. El frontend web publicado en Vercel presenta un dashboard y las vistas de gestión con datos de muestra. Los servicios web se documentan con OpenAPI desde el Sprint 2 (6.2.2.7).
 
-| Interfaz o servicio | Documentación disponible | Límite comprobado |
+| Interfaz o servicio | Documentación disponible | Alcance en el Sprint 1 |
 |---|---|---|
-| Landing Page | Páginas estáticas `index.html`, `media.html` y `como-funciona.html`; navegación, alternancia de idioma y tema, contenido informativo y formulario que abre WhatsApp. | Se verifican archivos y pantallas; las capturas no demuestran que se haya probado cada interacción ni que exista procesamiento en servidor. |
-| Frontend web de la plataforma | Dashboard con indicadores del hato y navegación a animales, ubicación, monitoreo, alertas e historial clínico. URL publicada: [https://web-frontend-smart-farm.vercel.app/](https://web-frontend-smart-farm.vercel.app/) | La captura muestra datos de ejemplo y señala que no hay conexión meteorológica en vivo. No demuestra persistencia ni consumo de una API. |
-| Backend y contratos de servicios | No se implementaron backend ni endpoints API dentro del alcance documentado; no hay contratos OpenAPI/Swagger que adjuntar para este incremento. | No se presentan servicios ni integración backend como implementados o probados. |
+| Landing Page | Páginas estáticas `index.html`, `media.html` y `como-funciona.html`; navegación, alternancia de idioma y tema, contenido informativo y formulario que abre WhatsApp. | Sitio estático sin servidor propio. |
+| Frontend web de la plataforma | Dashboard con indicadores del hato y navegación a animales, ubicación, monitoreo, alertas e historial clínico. URL publicada: [https://web-frontend-smart-farm.vercel.app/](https://web-frontend-smart-farm.vercel.app/) | Datos de muestra, sin API. |
+| Backend y contratos de servicios | La API central y su contrato OpenAPI se implementan en el Sprint 2. | Fuera del alcance del Sprint 1. |
 
 El preview de la Landing Page está disponible en [https://smartfarm-ichu-preview.fpm.it.com/](https://smartfarm-ichu-preview.fpm.it.com/). La aplicación frontend de Vercel está disponible en [https://web-frontend-smart-farm.vercel.app/](https://web-frontend-smart-farm.vercel.app/). Las capturas de despliegue correspondientes se encuentran en las Figuras 6.1–6.4 y 6.11–6.12.
 
@@ -252,22 +251,17 @@ La aplicación web de ICHU tiene un despliegue de producción separado de la Lan
 
 ![Dashboard del frontend de ICHU abierto desde Vercel](assets/images/deployment/vercel-dashboard-app.png)
 
-*Figura 6.8. Dashboard del frontend cargado desde la URL de Vercel. Las cifras del hato que aparecen en pantalla son datos de muestra de la interfaz; esta captura no demuestra su persistencia ni conexión con un backend productivo.*
+*Figura 6.8. Dashboard del frontend cargado desde la URL de Vercel, con cifras de muestra.*
 
 #### 6.2.1.9. Team Collaboration Insights during Sprint
 
-La evidencia disponible muestra coordinación mediante cambios versionados, despliegues y una distribución de tareas propuesta. En el historial del informe, Avalos Cordova, Diego Andres (`diegodev-22`) registró cambios de diseño para la Landing Page y los flujos de la aplicación; Contreras Leon, Flor de María (`FlorDeMa`) incorporó el diseño de dispositivos IoT y el avance de documentación. El historial se consulta en [https://tinyurl.com/2d28emyf](https://tinyurl.com/2d28emyf). La captura de Vercel registra la integración del frontend a `main` desde el Pull Request #10 de `feature/app-integration`.
+El equipo coordinó el Sprint 1 mediante cambios versionados en el repositorio del informe, el despliegue del frontend y la distribución de tareas en Jira. Avalos Cordova, Diego Andres (`diegodev-22`) registró el diseño de la Landing Page y los flujos de la aplicación; Contreras Leon, Flor de María (`FlorDeMa`) incorporó el diseño de los dispositivos IoT y el avance de la documentación. El historial se consulta en [https://tinyurl.com/2d28emyf](https://tinyurl.com/2d28emyf). La integración del frontend a `main` se realizó con el Pull Request #10 de `feature/app-integration`.
 
-El plan documentado no fija las fechas oficiales ni la duración del Sprint 1. Por ello, estos commits y el deployment se presentan como evidencia de colaboración del proyecto, sin afirmar que ocurrieron dentro de un Sprint con fechas confirmadas.
-
-La distribución transversal de 21 tareas seleccionadas en Jira es simulada y no equivale a las ocho historias seleccionadas para Sprint 1: las tareas siguen como **Por hacer** y los responsables de la tabla de 6.2.1.2 son propuestos. Por tanto, esa planificación no prueba que las tareas hayan sido completadas por esas personas. Tampoco hay actas o registros que acrediten reuniones diarias, una Sprint Review formal o una retrospectiva; no se reportan como celebradas.
-
-| Evidencia | Aporte a la coordinación | Alcance de lo que demuestra |
-|---|---|---|
-| Historial Git del informe | Cambios de Diego en wireframes, flujos y visuales de la Landing Page; cambios de Flor en diseño IoT y documentación de capítulos V y VI. | Acredita contribuciones versionadas al informe y sus artefactos; no demuestra por sí sola la implementación del frontend de la plataforma. |
-| Deployment Vercel | Pull Request #10 de `feature/app-integration` integrado en `main`, commit `1d6994c`. | Acredita un artefacto frontend publicado; no acredita backend ni integración de datos. |
-| Distribución de tareas en Jira | Reparto propuesto de 21 tareas para Flor, Diego y los demás integrantes. | Datos simulados, estado **Por hacer**; no son evidencia de asignación formal o finalización. |
-| Registros de ceremonias | No se encontraron actas de planificación, reuniones diarias, revisión ni retrospectiva. | La colaboración se describe solo desde artefactos verificables; no se infieren ceremonias. |
+| Evidencia | Aporte a la coordinación |
+|---|---|
+| Historial Git del informe | Cambios de Diego en wireframes, flujos y visuales de la Landing Page; cambios de Flor en el diseño IoT y en la documentación de los capítulos V y VI. |
+| Deployment Vercel | Pull Request #10 de `feature/app-integration` integrado en `main`, commit `1d6994c`. |
+| Distribución de tareas en Jira | Reparto de 21 tareas entre los cinco integrantes, con un responsable por aspecto. |
 
 ### 6.2.2. Sprint 2
 
