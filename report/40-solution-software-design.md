@@ -348,13 +348,13 @@ El mapa se presenta en dos vistas. La primera muestra las relaciones entre los c
 
 ![Relaciones entre los Bounded Contexts de la solución](assets/images/diagrams/context-map.png)
 
-*Figura 4.1. Context Map de los Bounded Contexts. Elaboración propia con PlantUML.*
+*Figura 4.2. Context Map de los Bounded Contexts. Elaboración propia con PlantUML.*
 
 Abrir código fuente PlantUML del Context Map ([https://tinyurl.com/249fhr4v](https://tinyurl.com/249fhr4v))
 
 ![Integraciones con el borde y con sistemas externos](assets/images/diagrams/context-map-external.png)
 
-*Figura 4.2. Integraciones con el borde y con sistemas externos. Elaboración propia con PlantUML.*
+*Figura 4.3. Integraciones con el borde y con sistemas externos. Elaboración propia con PlantUML.*
 
 Abrir código fuente PlantUML de integraciones externas ([https://tinyurl.com/25ogx3j8](https://tinyurl.com/25ogx3j8))
 
@@ -397,7 +397,7 @@ El Ubiquitous Language del capítulo anterior conserva ambos bloques separados p
 
 ### 4.1.3. Software Architecture
 
-La arquitectura de la solución se representa aplicando el C4 Model, elaborado como Diagram-as-Code en Structurizr DSL. El modelo reúne cuatro personas, cinco sistemas externos, diez containers, treinta componentes clasificados por capa y diez vistas: System Landscape, System Context, Containers, Deployment, tres vistas de componentes y tres flujos dinámicos. La separación entre el alojamiento de archivos web y su ejecución en el navegador se hace explícita en las vistas de containers y despliegue.
+La arquitectura de la solución se representa aplicando el C4 Model, elaborado como Diagram-as-Code en Structurizr DSL. El modelo reúne cuatro personas, cinco sistemas externos, diez containers, 156 componentes clasificados por capa y dieciséis vistas: System Landscape, System Context, Containers, Deployment, una vista de componentes por cada bounded context del backend, las vistas de componentes del collar y del Edge, y tres flujos dinámicos. Los 137 componentes del backend se generan desde el código de `ichu-web-service` en `backend-components.dsl`. La separación entre el alojamiento de archivos web y su ejecución en el navegador se hace explícita en las vistas de containers y despliegue.
 
 El código fuente de todos los diagramas de este capítulo forma parte del repositorio. El modelo C4 se encuentra en `report/assets/diagram-sources/structurizr/workspace-ichu-c4.dsl` ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw)) y las vistas se exportaron desde esa fuente. Los diagramas UML y de base de datos se encuentran en la carpeta assets/diagram-sources/puml ([https://tinyurl.com/246ycxz2](https://tinyurl.com/246ycxz2)).
 
@@ -409,7 +409,7 @@ El System Landscape presenta el panorama completo en el que se inserta la soluci
 
 ![System Landscape de ICHU](assets/images/diagrams/c4/c4-system-landscape.png)
 
-*Figura 4.3. System Landscape. Elaboración propia con Structurizr.*
+*Figura 4.4. System Landscape. Elaboración propia con Structurizr.*
 
 #### 4.1.3.2. Software Architecture Context Level Diagram
 
@@ -421,7 +421,7 @@ Los sistemas externos son el **hardware del collar inteligente**, que aporta tem
 
 ![System Context de ICHU](assets/images/diagrams/c4/c4-system-context.png)
 
-*Figura 4.4. System Context. Elaboración propia con Structurizr.*
+*Figura 4.5. System Context. Elaboración propia con Structurizr.*
 
 #### 4.1.3.3. Software Architecture Container Level Diagram
 
@@ -450,7 +450,7 @@ El Cattle Band transmite por Wi-Fi al Portable Edge Service con `POST /api/v1/mo
 
 ![Container Diagram de ICHU](assets/images/diagrams/c4/c4-container.png)
 
-*Figura 4.5. Container Diagram. Elaboración propia con Structurizr.*
+*Figura 4.6. Container Diagram. Elaboración propia con Structurizr.*
 
 #### 4.1.3.4. Software Architecture Deployment Diagrams
 
@@ -472,15 +472,15 @@ La Landing Page y la SPA se publican en servicios distintos: GitHub Pages y Fire
 
 ![Deployment Diagram de producción](assets/images/diagrams/c4/c4-deployment.png)
 
-*Figura 4.6. Deployment Diagram del entorno de producción. Elaboración propia con Structurizr.*
+*Figura 4.7. Deployment Diagram del entorno de producción. Elaboración propia con Structurizr.*
 
 ## 4.2. Tactical-Level Domain-Driven Design
 
 Esta sección detalla el diseño interno de cada contexto acotado. Los siete contextos se implementan como módulos del monolito modular y comparten la misma organización en cuatro capas, de modo que un integrante del equipo que conoce un módulo puede orientarse en cualquier otro.
 
-La **Domain Layer** contiene las reglas del negocio: Aggregates, Entities, Value Objects, Domain Services y las interfaces de los Repositories. No depende de ninguna otra capa. La **Interface Layer** expone las capacidades del contexto mediante Controllers, y es la única que conoce el protocolo HTTP. La **Application Layer** orquesta los casos de uso mediante Command Handlers y Event Handlers, sin contener reglas de negocio propias. La **Infrastructure Layer** implementa los Repositories definidos en el dominio y contiene los adaptadores hacia servicios externos y los Anti-corruption Layers.
+La **Domain Layer** contiene las reglas del negocio: Aggregates, Entities, Value Objects, Domain Services y las interfaces de los Repositories. No depende de ninguna otra capa. La **Interface Layer** expone las capacidades del contexto mediante Controllers, y es la única que conoce el protocolo HTTP. La **Application Layer** orquesta los casos de uso mediante Command Services, Query Services y Event Handlers, sin contener reglas de negocio propias; sus Outbound Services son los Anti-corruption Layers que consultan a otros contextos a través de su Context Facade. La **Infrastructure Layer** implementa los Repositories definidos en el dominio con Entity Framework Core y contiene los adaptadores hacia servicios externos, como Firebase y Stripe.
 
-Los contextos se presentan en orden de importancia para el negocio, empezando por el core domain.
+Los contextos se presentan en orden de importancia para el negocio, empezando por el core domain. Las clases de cada tabla corresponden al código de `ichu-web-service`, y los diagramas de componentes, de clases y de base de datos se generan desde ese mismo código.
 
 ### 4.2.1. Bounded Context: Operations & Monitoring
 
@@ -488,58 +488,63 @@ Es el core domain de la solución. Recibe la telemetría de los dispositivos y d
 
 #### 4.2.1.1. Domain Layer
 
-| Clase | Categoría | Propósito | Miembros destacados |
-|---|---|---|---|
-| `TelemetryReading` | Aggregate Root | Representa una lectura recibida de un dispositivo, con su origen y su instante de captura. | Atributos: `bodyTemperature`, `activityIndex`, `heartRate`, `methaneIndex`, `position`, `batteryLevel`, `recordedAt`, `origin`. Métodos: `IsValid()`, `IsStale(now)`. |
-| `MonitoringAlert` | Aggregate Root | Concentra la regla de generación, deduplicación y atención de una alerta. Es el agregado que garantiza que no se dupliquen alertas del mismo tipo dentro de la ventana definida. | Métodos: `Raise(value, threshold)`, `Absorb(reading)`, `Acknowledge(finding, at)`, `ExpireWithoutAttention()`, `ResponseTime()`. |
-| `Geofence` | Aggregate Root | Delimita el área de pastoreo permitida y resuelve si una posición está dentro o fuera de ella. | Métodos: `IsClosedPolygon()`, `Contains(position)`, `DistanceToBoundary(position)`. |
-| `LivestockOperation` | Aggregate Root | Registra un evento de campo o una intervención clínica, con su autoría y su estado de sincronización. | Métodos: `Register()`, `MarkSynchronized()`, `MarkConflict(reason)`. |
-| `Threshold` | Value Object | Rango válido de una métrica (temperatura, actividad, frecuencia cardiaca o índice de metano) para una etapa productiva y una severidad (`Warning` o `Critical`). Es inmutable y su identidad la componen la etapa, la métrica y la severidad. | Método: `IsExceededBy(value)`. |
-| `GeoPosition` | Value Object | Coordenada con su precisión declarada. La precisión es parte del valor porque determina si la lectura es concluyente. | Método: `DistanceTo(other)`. |
-| `AlertType`, `AlertSeverity`, `AlertStatus`, `OperationType`, `ReadingOrigin`, `SyncState` | Enumeraciones | Fijan los valores admitidos de cada clasificación del contexto. | |
-| `MonitoringRulesDomainService` | Domain Service | Concentra las reglas que involucran a más de un agregado y que no pertenecen a ninguno en particular. | Métodos: `EvaluateTemperature()`, `EvaluateGeofence()`, `DetectReproductivePattern()`, `IsDuplicateWithinWindow()`. |
-| `IMonitoringRepository`, `IGeofenceRepository` | Repository (interfaz) | Abstraen la persistencia. Se definen en el dominio y se implementan en la infraestructura. | |
+| Clase | Categoría | Propósito |
+|---|---|---|
+| `TelemetryReading` | Aggregate Root | Lectura de un collar retransmitida por el Edge. Su identidad es el dispositivo más el identificador que genera el firmware, de modo que un reintento no la duplica. Guarda temperatura, actividad, frecuencia cardiaca, índice de metano, batería y posición como `Measurement`. |
+| `MonitoringAlert` | Aggregate Root | Alerta evaluada por el Edge. Se emite con la hora de captura de la lectura que la origina, la sustentan lecturas válidas (`AlertEvidence`) y registra cada atención como `AlertChange`. |
+| `MonitoringThreshold` | Aggregate Root | Rango normal que la unidad productiva define para una métrica, una etapa productiva y una severidad (`Warning` o `Critical`). ICHU no impone rangos clínicos por defecto. |
+| `Geofence` | Aggregate Root | Zona de pastoreo permitida de un lote: un polígono cerrado y simple, con una tolerancia de precisión para no concluir con posiciones imprecisas. |
+| `MonitoringRuleSet` | Aggregate Root | Contador de revisión de los umbrales y geocercas de la unidad productiva; cada cambio lo avanza para que el Edge detecte la configuración nueva. |
+| `LivestockOperation` | Aggregate Root | Evento de campo o intervención clínica, identificado por el identificador de operación que genera el cliente; con él la sincronización desde el móvil es idempotente. |
+| `WaterTroughReading` | Aggregate Root | Lectura de temperatura de un bebedero y estado de su calentador, enviada por el controlador del bebedero. |
+| `AlertChange`, `AlertEvidence`, `GeofenceVertex` | Entity | Operación aplicada a una alerta, lectura que la sustenta y vértice ordenado de una geocerca. |
+| `Measurement`, `PositionMeasurement` | Value Object | Métrica capturada: un valor finito, una captura inválida con su motivo o una ausencia. Nunca se sustituye un dato faltante por cero. |
+| `ThresholdRange`, `GeoCoordinate`, `TimePeriod`, `ReproductiveDetails`, `ReproductiveHistory` | Value Object | Rango normal, coordenada, periodo semiabierto y datos reproductivos de una hembra. |
+| `AlertType`, `AlertSeverity`, `AlertStatus`, `MonitoredMetric`, `OperationType` y otras | Enumeraciones | Fijan los valores admitidos de cada clasificación del contexto. |
+| `MonitoringRuleRevisionService` | Domain Service | Avanza la revisión de reglas cada vez que cambia un umbral o una geocerca. |
+| `ReproductiveHistoryCalculator` | Domain Service | Calcula el historial reproductivo de una hembra: servicios, partos, preñeces confirmadas y días abiertos. |
+| `ITelemetryReadingRepository`, `IMonitoringAlertRepository`, `IMonitoringThresholdRepository`, `IGeofenceRepository`, `IMonitoringRuleSetRepository`, `ILivestockOperationRepository`, `IOperationsMonitoringUnitOfWork` | Repository (interfaz) | Abstraen la persistencia de cada agregado y guardan los cambios como una sola unidad. |
 
 #### 4.2.1.2. Interface Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `TelemetryController` | Controller | Recibe las lecturas del collar y del Edge Gateway, y expone la consulta de telemetría por animal y rango de fechas. |
-| `AlertsController` | Controller | Expone la creación de alertas, la consulta por estado y la transición a atendida. |
-| `OperationsController` | Controller | Recibe los eventos de campo del operario y las intervenciones clínicas del veterinario. |
-| `GeofencesController` | Controller | Expone la definición y consulta de las zonas de pastoreo. |
-| `EdgeConfigurationController` | Controller | Entrega al borde los umbrales, geocercas y asignaciones vigentes, y recibe los lotes de sincronización. |
+| `TelemetryController` | Controller | Recibe los lotes que sincroniza el Edge (`POST /api/v1/telemetry/batch`) y devuelve las lecturas y los últimos indicadores de un animal. |
+| `AlertsController` | Controller | Lista las alertas de la unidad productiva y registra su atención. |
+| `EdgeGatewaysController` | Controller | Publica al Edge las reglas por revisión y las asignaciones de collares; la credencial del gateway reemplaza al usuario. |
+| `MonitoringThresholdsController`, `GeofencesController` | Controller | Configuran y listan los umbrales y las geocercas. |
+| `LivestockOperationsController` | Controller | Registra eventos de campo e intervenciones clínicas, sincroniza los lotes del móvil y expone el historial reproductivo. |
+| `WaterTroughMonitoringController`, `WaterControllersController` | Controller | Reciben y consultan las lecturas de los bebederos. |
+| `IOperationsMonitoringContextFacade` | Context Facade | Contrato de lectura para otros contextos: lecturas, alertas y operaciones como proyecciones inmutables. |
 
 #### 4.2.1.3. Application Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `IngestTelemetryCommandHandler` | Command Handler | Valida la lectura, resuelve el animal asociado, la persiste y solicita la evaluación de reglas. |
-| `SynchronizeEdgeBatchCommandHandler` | Command Handler | Procesa un lote del borde, devuelve el resultado individual de cada registro y conserva los rechazados con su motivo. |
-| `AcknowledgeAlertCommandHandler` | Command Handler | Registra la atención de una alerta y calcula el tiempo de respuesta. |
-| `RegisterFieldEventCommandHandler` | Command Handler | Registra el evento observado y resuelve el conflicto cuando el animal fue dado de baja. |
-| `RegisterClinicalInterventionCommandHandler` | Command Handler | Registra la intervención, verifica la autorización del profesional y publica el hecho que origina el periodo de retiro. |
-| `DefineGeofenceCommandHandler` | Command Handler | Valida que el polígono sea cerrado y lo asocia al lote. |
-| `ThresholdExceededEventHandler` | Event Handler | Reacciona al hecho de umbral superado generando o absorbiendo la alerta según la ventana de deduplicación. |
-| `CattleDeactivatedEventHandler` | Event Handler | Descarta las lecturas posteriores a la baja del animal. |
+| `EdgeSynchronizationCommandService` | Command Service | Procesa un lote del Edge: primero las lecturas y luego las alertas, de modo que una alerta del mismo lote puede citar sus lecturas. Devuelve un resultado por entrada. |
+| `TelemetryReadingCommandService`, `MonitoringAlertCommandService` | Command Service | Guardan lecturas y alertas sincronizadas sin duplicarlas y registran la atención de una alerta. |
+| `MonitoringThresholdCommandService`, `GeofenceCommandService` | Command Service | Configuran umbrales y geocercas y avanzan la revisión de reglas en la misma unidad de trabajo. |
+| `LivestockOperationCommandService`, `WaterTroughReadingCommandService` | Command Service | Registran operaciones de campo y lecturas de bebederos. |
+| `TelemetryReadingQueryService`, `MonitoringAlertQueryService`, `MonitoringThresholdQueryService`, `GeofenceQueryService`, `LivestockOperationQueryService`, `ReproductiveHistoryQueryService`, `WaterTroughMonitoringQueryService` | Query Service | Responden las consultas de las aplicaciones después de comprobar el permiso de lectura sobre la unidad productiva. |
+| `MonitoringRuleSetQueryService`, `EdgeDeviceAssignmentQueryService` | Query Service | Entregan al Edge las reglas vigentes y las asignaciones de collares. |
+| `OperationsMonitoringContextFacade` | Context Facade | Implementa el contrato de lectura para otros contextos sobre los repositorios del módulo. |
+| `CattleInformationCattleLookup`, `IoTAssetsDeviceAttributionLookup`, `IoTAssetsEdgeDeviceAssignmentLookup`, `IamOperationsMonitoringAccessControl` | Outbound Service (ACL) | Consultan Cattle Information, IoT Assets e IAM a través de sus Context Facades para atribuir cada lectura a un animal y autorizar cada operación. |
 
 #### 4.2.1.4. Infrastructure Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `MonitoringRepository` | Repository | Implementa `IMonitoringRepository` con Entity Framework Core sobre el esquema `monitoring`. |
-| `GeofenceRepository` | Repository | Implementa `IGeofenceRepository`, incluida la persistencia ordenada de los vértices del polígono. |
-| `CattleLookupAcl` | Anti-corruption Layer | Traduce la ficha del animal publicada por Cattle Information a la etapa productiva que la regla necesita. |
-| `IoTAssetsLookupAcl` | Anti-corruption Layer | Resuelve a qué animal está asignado un dispositivo en el instante de la lectura. |
-| `InternalDomainEventDispatcher` | Infrastructure | Publica los eventos de dominio hacia los handlers de los demás módulos dentro del mismo proceso. |
+| `TelemetryReadingRepository`, `MonitoringAlertRepository`, `MonitoringThresholdRepository`, `GeofenceRepository`, `MonitoringRuleSetRepository`, `LivestockOperationRepository`, `WaterTroughReadingRepository` | Repository | Implementan los repositorios con Entity Framework Core sobre el esquema `monitoring`. |
+| `OperationsMonitoringUnitOfWork` | Unit of Work | Guarda los cambios del módulo y reporta un conflicto de concurrencia como resultado, no como excepción. |
+| `IoTAssetsEdgeGatewayAuthenticator` | Adapter | Verifica la clave del gateway de cada solicitud a través de IoT Assets, que custodia las claves. |
 
 #### 4.2.1.5. Bounded Context Software Architecture Component Level Diagrams
 
-La vista `MonitoringComponents` del workspace representa la descomposición interna de este módulo dentro del container del monolito, mostrando las tres interfaces HTTP, los tres servicios de aplicación, los dos agregados, el servicio de dominio, los dos Anti-corruption Layers y el repositorio.
+La vista `OperationsMonitoringComponents` del workspace muestra los controllers, servicios, Outbound Services y repositorios del módulo, con las dependencias que declaran sus constructores, además de los Context Facades de los contextos que consulta.
 
 ![Component Diagram del módulo Operations & Monitoring](assets/images/diagrams/c4/c4-components-monitoring.png)
 
-*Figura 4.7. Componentes del módulo Operations & Monitoring. Elaboración propia con Structurizr.*
+*Figura 4.8. Componentes del módulo Operations & Monitoring. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -547,13 +552,13 @@ Este contexto se realiza además en dos containers fuera del backend: la aplicac
 
 ![Component Diagram del Cattle Band Embedded Application](assets/images/diagrams/c4/c4-components-cattle-band.png)
 
-*Figura 4.8. Componentes del firmware del collar inteligente. Elaboración propia con Structurizr.*
+*Figura 4.9. Componentes del firmware del collar inteligente. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
 ![Component Diagram del Portable Edge Gateway](assets/images/diagrams/c4/c4-components-edge-gateway.png)
 
-*Figura 4.9. Componentes de la pasarela de borde. Elaboración propia con Structurizr.*
+*Figura 4.10. Componentes de la pasarela de borde. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -563,19 +568,19 @@ Los diagramas dinámicos ilustran la secuencia de colaboración entre componente
 
 ![Flujo de telemetría con cobertura](assets/images/diagrams/c4/c4-flow-connected-telemetry.png)
 
-*Figura 4.10. Flujo completo cuando el gateway tiene Internet. Elaboración propia con Structurizr.*
+*Figura 4.11. Flujo completo cuando el gateway tiene Internet. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
 ![Flujo de pastoreo sin cobertura](assets/images/diagrams/c4/c4-flow-offline-grazing.png)
 
-*Figura 4.11. Flujo completo durante el pastoreo sin cobertura. Elaboración propia con Structurizr.*
+*Figura 4.12. Flujo completo durante el pastoreo sin cobertura. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
 ![Flujo de sincronización del borde](assets/images/diagrams/c4/c4-flow-edge-synchronization.png)
 
-*Figura 4.12. Sincronización al recuperar la conexión. Elaboración propia con Structurizr.*
+*Figura 4.13. Sincronización al recuperar la conexión. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -585,21 +590,21 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de Operations & Monitoring](assets/images/diagrams/class-monitoring.png)
 
-*Figura 4.13. Domain Layer de Operations & Monitoring. Elaboración propia con PlantUML.*
+*Figura 4.14. Domain Layer de Operations & Monitoring. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/28ov3gyo](https://tinyurl.com/28ov3gyo))
 
-El diagrama muestra la composición de `MonitoringAlert` con su `Threshold` y su agregación con las lecturas que la sustentan, con multiplicidad de uno a muchos. `Geofence` compone al menos tres vértices, que es la condición mínima para que el polígono sea cerrado. `TelemetryReading` compone su posición, de modo que la precisión viaja junto a la coordenada.
+`TelemetryReading` compone sus mediciones como Value Objects, de modo que cada valor viaja con su estado de validez. `MonitoringAlert` compone sus evidencias y sus cambios, y `Geofence` compone sus vértices en orden. Los demás agregados se relacionan con animales, collares y lotes solo por identificador.
 
 ##### 4.2.1.6.2. Bounded Context Database Design Diagram
 
 ![Diagrama de base de datos del esquema monitoring](assets/images/diagrams/db-monitoring.png)
 
-*Figura 4.14. Esquema `monitoring`. Elaboración propia con PlantUML.*
+*Figura 4.15. Esquema `monitoring`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/2bdd3ydl](https://tinyurl.com/2bdd3ydl))
 
-La tabla `alert_reading` resuelve la relación de muchos a muchos entre alertas y lecturas con una clave primaria compuesta. Los vértices de la geocerca se almacenan con su número de secuencia para preservar el orden del polígono. La tabla `telemetry_reading` lleva un índice compuesto por animal y fecha de captura, porque es el criterio de todas las consultas de historial.
+Las mediciones de `TelemetryReadings` se guardan como columnas complejas (valor y motivo de invalidez por métrica), y la restricción `UNIQUE (DeviceId, ReadingId)` impide duplicar una lectura reenviada. `MonitoringThresholds` admite un solo rango por etapa, métrica y severidad.
 
 ### 4.2.2. Bounded Context: Cattle Information
 
@@ -607,47 +612,45 @@ Mantiene la identidad y los datos productivos de cada animal. Es la fuente únic
 
 #### 4.2.2.1. Domain Layer
 
-| Clase | Categoría | Propósito | Miembros destacados |
-|---|---|---|---|
-| `Cattle` | Aggregate Root | Representa al animal como sujeto del dominio y garantiza la coherencia de su ciclo de vida. | Métodos: `Register(tag)`, `ChangeStage(stage, from)`, `Deactivate(reason, date)`, `AgeInMonths(at)`, `IsActive()`. |
-| `StagePeriod` | Entity | Registra una etapa productiva con su periodo de vigencia, de modo que el historial quede completo. | Método: `IsCurrent()`. |
-| `Lot` | Aggregate Root | Agrupa animales bajo un criterio de manejo y es la unidad sobre la que operan las campañas y las geocercas. | Métodos: `AddCattle()`, `RemoveCattle()`, `Size()`. |
-| `Paddock` | Entity | Parcela de pastoreo donde se ubica un lote. | |
-| `EarTag` | Value Object | Número de arete. Su unicidad se evalúa dentro de la unidad productiva, no globalmente. | Método: `Equals(other)`. |
-| `Genealogy` | Value Object | Ascendencia del animal, requerida para los registros de pedigrí. | |
-| `Breed`, `Sex`, `LifeStage`, `CattleStatus`, `ExitReason` | Enumeraciones | Fijan las clasificaciones admitidas del animal. | |
-| `ICattleRepository`, `ILotRepository` | Repository (interfaz) | Abstraen la persistencia del animal y del lote. | |
+| Clase | Categoría | Propósito |
+|---|---|---|
+| `Cattle` | Aggregate Root | Identidad, historial de etapas productivas y ciclo de vida del animal dentro de una unidad productiva. Un cambio de etapa o una baja cierran el periodo vigente en lugar de borrarlo. |
+| `Lot` | Aggregate Root | Agrupa animales para su manejo sin que la identidad del animal dependa del lote. |
+| `StagePeriod` | Entity | Etapa productiva con fecha de inicio incluida y fecha de fin excluida. |
+| `LotMembership` | Entity | Pertenencia de un animal a un lote de la misma unidad productiva, con su fecha de asignación. |
+| `EarTag` | Value Object | Arete del animal; su unicidad se evalúa dentro de la unidad productiva. |
+| `CattleId`, `LotId` | Value Object | Identificadores tipados del animal y del lote. |
+| `Breed`, `Sex`, `LifeStage`, `CattleStatus`, `ExitReason` | Enumeraciones | Clasificaciones admitidas del animal; `ExitReason` distingue muerte, venta, robo y descarte. |
+| `ICattleRepository`, `ILotRepository` | Repository (interfaz) | Persistencia del animal y del lote, siempre filtrada por unidad productiva. |
 
 #### 4.2.2.2. Interface Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `CattleController` | Controller | Expone el registro, la consulta de ficha, el cambio de etapa y la baja del animal. |
-| `LotsController` | Controller | Expone la creación de lotes y la incorporación o retiro de animales. |
+| `CattleController` | Controller | Expone el registro, la ficha, el cambio de etapa y la baja del animal. |
+| `LotsController` | Controller | Expone los lotes y la incorporación o retiro de animales. |
+| `ICattleInformationContextFacade` | Context Facade | Entrega a otros contextos instantáneas inmutables del animal, del lote y de la población del hato. |
 
 #### 4.2.2.3. Application Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `RegisterCattleCommandHandler` | Command Handler | Verifica la unicidad del arete dentro del predio y publica el alta del animal. |
-| `ChangeLifeStageCommandHandler` | Command Handler | Cierra el periodo vigente, abre el nuevo y rechaza fechas futuras. |
-| `DeactivateCattleCommandHandler` | Command Handler | Registra la baja con su motivo y publica el hecho que libera el collar asignado. |
-| `AssignCattleToLotCommandHandler` | Command Handler | Incorpora el animal al lote validando que pertenezca al mismo predio. |
-| `GetCattleProfileQueryHandler` | Query Handler | Compone la ficha con la identificación, la etapa vigente y el dispositivo asignado. |
+| `CattleCommandService`, `LotCommandService` | Command Service | Comprueban el permiso y la unicidad del arete y delegan las reglas del ciclo de vida en los agregados. |
+| `CattleQueryService`, `LotQueryService` | Query Service | Componen la ficha del animal con su collar y su última lectura sin copiar datos de otros contextos. |
+| `CattleInformationContextFacade` | Context Facade | Atiende las consultas de otros contextos con el permiso de lectura de la unidad productiva. |
+| `IamCattleAccessService`, `IoTAssetsCattleProfileIntegrationService` | Outbound Service (ACL) | Consultan IAM para el permiso, e IoT Assets y Operations & Monitoring para el collar y la última lectura. |
 
 #### 4.2.2.4. Infrastructure Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `CattleRepository` | Repository | Implementa `ICattleRepository` con Entity Framework Core sobre el esquema `cattle`. |
-| `LotRepository` | Repository | Implementa `ILotRepository`, incluida la tabla de asociación entre lote y animal. |
-| `CattleEventPublisher` | Infrastructure | Publica el alta, el cambio de etapa y la baja hacia los demás módulos. |
+| `CattleRepository`, `LotRepository` | Repository | Implementan los repositorios con Entity Framework Core sobre el esquema `cattle`. |
 
 #### 4.2.2.5. Bounded Context Software Architecture Component Level Diagrams
 
 ![Component Diagram del módulo Cattle Information](assets/images/diagrams/c4/c4-components-cattle.png)
 
-*Figura 4.15. Componentes del módulo Cattle Information. Elaboración propia con Structurizr.*
+*Figura 4.16. Componentes del módulo Cattle Information. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -657,21 +660,21 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de Cattle Information](assets/images/diagrams/class-cattle.png)
 
-*Figura 4.16. Domain Layer de Cattle Information. Elaboración propia con PlantUML.*
+*Figura 4.17. Domain Layer de Cattle Information. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/255khm8u](https://tinyurl.com/255khm8u))
 
-`Cattle` compone su arete y su historial de etapas, y agrega opcionalmente su genealogía. `Lot` agrega animales sin poseerlos, porque un animal existe con independencia del lote al que pertenezca en un momento dado.
+`Cattle` compone su historial de etapas y `Lot` compone las pertenencias de sus animales. Un lote no posee a los animales: los referencia por `CattleId`, porque un animal existe con independencia del lote al que pertenece.
 
 ##### 4.2.2.6.2. Bounded Context Database Design Diagram
 
 ![Diagrama de base de datos del esquema cattle](assets/images/diagrams/db-cattle.png)
 
-*Figura 4.17. Esquema `cattle`. Elaboración propia con PlantUML.*
+*Figura 4.18. Esquema `cattle`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/26kkwvn7](https://tinyurl.com/26kkwvn7))
 
-La restricción `UNIQUE (ranch_id, ear_tag)` implementa en la base la regla de unicidad del arete dentro del predio. La tabla `lot_membership` resuelve la pertenencia de un animal a un lote con clave primaria compuesta y fecha de asignación.
+La restricción `UNIQUE (ranch_id, ear_tag)` implementa en la base la regla de unicidad del arete dentro de la unidad productiva. `lot_memberships` usa una clave primaria compuesta por animal y lote, y `stage_periods` conserva el historial de etapas.
 
 ### 4.2.3. Bounded Context: IoT Assets
 
@@ -679,47 +682,49 @@ Administra el inventario de collares inteligentes y controla a qué animal está
 
 #### 4.2.3.1. Domain Layer
 
-| Clase | Categoría | Propósito | Miembros destacados |
-|---|---|---|---|
-| `IoTDevice` | Aggregate Root | Representa el collar y garantiza que solo tenga una asignación abierta a la vez. | Métodos: `AssignTo(animalId, at)`, `Release(reason, at)`, `RegisterCommunication(at, battery)`, `IsAvailable()`, `HasLostCommunication(now)`. |
-| `DeviceAssignment` | Entity | Periodo durante el cual el collar estuvo asignado a un animal concreto. | Métodos: `IsOpen()`, `CoversInstant(at)`. |
-| `DeviceSerial` | Value Object | Número de serie del dispositivo, único en el sistema. | |
-| `BatteryLevel` | Value Object | Porcentaje de carga con la regla que determina cuándo es bajo. | Método: `IsLow()`. |
-| `DeviceType`, `DeviceStatus` | Enumeraciones | Identifican el tipo de collar y las condiciones operativas del dispositivo. | |
-| `DeviceAssignmentDomainService` | Domain Service | Concentra la regla que cruza el límite del plan con los dispositivos ya asignados. | Métodos: `CanAssign()`, `Assign()`. |
-| `IIoTDeviceRepository` | Repository (interfaz) | Abstrae la persistencia del dispositivo y el conteo de asignaciones vigentes. | |
-| `ISubscriptionEntitlementPort`, `ICattleLookupPort` | Port | Declaran en el dominio lo que el contexto necesita de otros contextos, sin conocer su implementación. | |
+| Clase | Categoría | Propósito |
+|---|---|---|
+| `IoTDevice` | Aggregate Root | Collar o controlador de bebedero de la unidad productiva. Atiende a un solo destino a la vez y conserva cada asignación como historial. |
+| `EdgeGateway` | Aggregate Root | Gateway de borde que se autentica con su secreto; el secreto se guarda solo como resumen SHA-256 y un gateway revocado no vuelve a autenticarse. |
+| `WaterTrough` | Aggregate Root | Bebedero de la unidad productiva con su rango de temperatura deseado. |
+| `DeviceAssignment` | Entity | Periodo en que un dispositivo atendió a un animal o a un bebedero, con el motivo de su liberación. |
+| `DeviceSerial`, `BatteryLevel`, `GatewayKeyHash`, `TemperatureRange` | Value Object | Serie única del fabricante, carga de batería, resumen de la clave del gateway y rango de temperatura del agua. |
+| `DeviceType`, `DeviceStatus`, `CommunicationStatus`, `EdgeGatewayStatus`, `AssignmentTargetType` | Enumeraciones | Clasificaciones admitidas de dispositivos, gateways y asignaciones. |
+| `DeviceAssignmentDomainService` | Domain Service | Aplica el límite de collares del plan contratado antes de que un dispositivo empiece a atender a un animal. |
+| `IIoTDeviceRepository`, `IEdgeGatewayRepository`, `IWaterTroughRepository` | Repository (interfaz) | Persistencia de dispositivos, gateways y bebederos. |
 
 #### 4.2.3.2. Interface Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `DevicesController` | Controller | Expone el registro del dispositivo, la consulta del inventario y su estado. |
-| `DeviceAssignmentsController` | Controller | Expone la asignación y la liberación del dispositivo. |
+| `DevicesController` | Controller | Expone el registro y la consulta de collares y su estado de batería y comunicación. |
+| `DeviceAssignmentsController` | Controller | Asigna y libera collares de los animales. |
+| `RanchEdgeGatewaysController` | Controller | Registra y revoca los gateways de borde de la unidad productiva. |
+| `WaterTroughsController` | Controller | Registra y configura los bebederos. |
+| `IIoTAssetsContextFacade` | Context Facade | Entrega a otros contextos los datos de dispositivos y verifica las claves de los gateways. |
 
 #### 4.2.3.3. Application Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `AssignDeviceCommandHandler` | Command Handler | Consulta el límite del plan, valida la disponibilidad y crea la asignación. |
-| `ReleaseDeviceCommandHandler` | Command Handler | Cierra la asignación conservando la telemetría del periodo. |
-| `GetDeviceInventoryQueryHandler` | Query Handler | Compone el inventario con batería, animal asignado y detección de collares sin comunicación. |
-| `CattleDeactivatedEventHandler` | Event Handler | Libera automáticamente el collar del animal dado de baja. |
-| `SubscriptionActivatedEventHandler` | Event Handler | Actualiza el límite de dispositivos habilitados al activarse un plan. |
+| `DeviceCommandService`, `EdgeGatewayCommandService`, `WaterTroughCommandService` | Command Service | Ejecutan cada cambio en una transacción con su control de versión; los agregados deciden si el cambio está permitido. |
+| `DeviceQueryService`, `EdgeGatewayQueryService`, `WaterTroughQueryService` | Query Service | Responden las consultas de dispositivos, gateways y bebederos. |
+| `CattleDeactivatedEventHandler` | Event Handler | Libera el collar de un animal dado de baja para que pueda asignarse a otro. |
+| `IoTAssetsContextFacade` | Context Facade | Atiende las consultas de otros contextos con el permiso de la unidad productiva. |
+| `CattleInformationCattleLookup`, `SubscriptionPlansEntitlementAdapter`, `IamIoTAssetsAccessService` | Outbound Service (ACL) | Consultan Cattle Information para los animales, Subscription Plans para el límite de collares e IAM para el permiso. |
 
 #### 4.2.3.4. Infrastructure Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `IoTAssetsRepository` | Repository | Implementa `IIoTDeviceRepository` con Entity Framework Core sobre el esquema `iot`. |
-| `SubscriptionEntitlementAcl` | Anti-corruption Layer | Traduce el plan comercial al número de dispositivos permitidos. |
-| `CattleAssignmentAcl` | Anti-corruption Layer | Valida la existencia del animal sin acoplar el inventario al modelo del ganado. |
+| `IoTDeviceRepository`, `EdgeGatewayRepository`, `WaterTroughRepository` | Repository | Implementan los repositorios con Entity Framework Core sobre el esquema `iot`. |
+| `IoTAssetsTransaction` | Unit of Work | Ejecuta y guarda una operación de forma atómica. |
 
 #### 4.2.3.5. Bounded Context Software Architecture Component Level Diagrams
 
 ![Component Diagram del módulo IoT Assets](assets/images/diagrams/c4/c4-components-iot-assets.png)
 
-*Figura 4.18. Componentes del módulo IoT Assets. Elaboración propia con Structurizr.*
+*Figura 4.19. Componentes del módulo IoT Assets. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -729,79 +734,71 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de IoT Assets](assets/images/diagrams/class-iot.png)
 
-*Figura 4.19. Domain Layer de IoT Assets. Elaboración propia con PlantUML.*
+*Figura 4.20. Domain Layer de IoT Assets. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/27ybn63o](https://tinyurl.com/27ybn63o))
 
-El diagrama muestra los dos puertos que el dominio declara hacia otros contextos. Definirlos como interfaces dentro de la capa de dominio permite que la regla de asignación se pruebe sin depender de Subscription Plans ni de Cattle Information.
+`IoTDevice` compone su historial de `DeviceAssignment`; cada asignación apunta a un animal o a un bebedero por identificador. `EdgeGateway` guarda solo el resumen de su clave en `GatewayKeyHash`.
 
 ##### 4.2.3.6.2. Bounded Context Database Design Diagram
 
 ![Diagrama de base de datos del esquema iot](assets/images/diagrams/db-iot.png)
 
-*Figura 4.20. Esquema `iot`. Elaboración propia con PlantUML.*
+*Figura 4.21. Esquema `iot`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/24ekayyp](https://tinyurl.com/24ekayyp))
 
-La tabla `device_assignment` conserva el animal al que estuvo vinculado el collar durante cada periodo, de modo que la telemetría histórica pueda interpretarse aunque el dispositivo se reasigne.
+`device_assignments` conserva cada periodo de asignación con su inicio, fin y motivo de liberación. `edge_gateways` guarda el resumen de la clave, nunca la clave presentada.
 
 ### 4.2.4. Bounded Context: Planning
 
-Programa las faenas sanitarias y reproductivas del hato, emite los recordatorios anticipados y da seguimiento a su ejecución. Custodia además los periodos de retiro que condicionan el destino de la producción.
+Programa las faenas sanitarias y reproductivas del hato en campañas y en un calendario, registra su aplicación y sus seguimientos, administra los planes de nutrición de cada lote y custodia los periodos de retiro que condicionan el destino de la producción.
 
 #### 4.2.4.1. Domain Layer
 
-| Clase | Categoría | Propósito | Miembros destacados |
-|---|---|---|---|
-| `LivestockCalendar` | Aggregate Root | Agrupa las campañas de una unidad productiva en un año y responde qué faenas se aproximan. | Métodos: `Schedule(campaign)`, `UpcomingWithin(days)`. |
-| `HealthCampaign` | Aggregate Root | Concentra las reglas de programación, avance y cierre de una campaña sanitaria. | Métodos: `Schedule(date, lotId)`, `RegisterApplication(cattleId, at)`, `ProgressPercentage()`, `Close()`, `OverlapsWithdrawal(period)`. |
-| `CampaignApplication` | Entity | Registra si un animal concreto recibió la aplicación y cuándo. | |
-| `FollowUpReview` | Entity | Revisión posterior programada por el veterinario sobre un animal tratado. | Método: `MarkNotApplicable(reason)`. |
-| `Reminder` | Entity | Aviso anticipado emitido una sola vez al alcanzarse el plazo configurado. | Método: `ShouldEmit(today, scheduled)`. |
-| `WithdrawalPeriod` | Value Object | Periodo durante el cual la producción del animal tiene restricción por un producto aplicado. | Método: `IsActiveOn(date)`. |
-| `CampaignType`, `CampaignStatus`, `ReviewStatus` | Enumeraciones | Fijan los tipos de faena y los estados de campaña y revisión. | |
-| `ReminderDomainService` | Domain Service | Determina qué campañas alcanzaron su plazo de aviso y cuántos animales siguen pendientes. | Métodos: `EmitDue()`, `PendingCattle()`. |
-| `IPlanningRepository` | Repository (interfaz) | Abstrae la persistencia del calendario y la consulta de campañas vencidas. | |
+| Clase | Categoría | Propósito |
+|---|---|---|
+| `PlannedActivity` | Aggregate Root | Trabajo programado para la unidad productiva o para un animal; posee sus aplicaciones y seguimientos. |
+| `PlanningCampaign` | Aggregate Root | Agrupa actividades bajo un propósito sanitario o reproductivo y un rango de fechas. |
+| `NutritionPlan` | Aggregate Root | Ración que recibe un lote en un rango de fechas; un plan sin fecha de fin rige hasta que otro lo reemplaza. |
+| `WithdrawalPeriod` | Aggregate Root | Periodo de retiro de un animal, con los límites que indica el profesional; Planning no los calcula. |
+| `ApplicationRecord`, `FollowUp` | Entity | Aplicación de una actividad a un animal y seguimiento que vence después de ella. |
+| `RationItem` | Value Object | Alimento de la ración con la cantidad diaria por cabeza. |
+| `CampaignKind`, `RationKind` | Enumeraciones | Propósito de la campaña y papel del alimento en la dieta. |
+| `NutritionPlanScheduler` | Domain Service | Decide si un plan nuevo puede incorporarse a los planes del lote sin superponerse. |
+| `IPlannedActivityRepository`, `IPlanningCampaignRepository`, `INutritionPlanRepository`, `IWithdrawalPeriodRepository` | Repository (interfaz) | Persistencia de cada agregado. |
 
 #### 4.2.4.2. Interface Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `CampaignsController` | Controller | Expone la programación de campañas, el registro de aplicaciones y la consulta de avance. |
-| `RemindersController` | Controller | Expone la consulta de recordatorios emitidos y la configuración del plazo de aviso. |
-| `FollowUpReviewsController` | Controller | Expone la programación y consulta de revisiones de seguimiento. |
-| `WithdrawalPeriodsController` | Controller | Expone la consulta de periodos de retiro vigentes por animal. |
+| `PlanningActivitiesController` | Controller | Expone las actividades programadas con sus aplicaciones y seguimientos. |
+| `PlanningCalendarController` | Controller | Expone el calendario de actividades de la unidad productiva en un intervalo. |
+| `PlanningCampaignsController` | Controller | Expone las campañas sanitarias y reproductivas. |
+| `NutritionPlansController` | Controller | Expone los planes de nutrición de un lote y el plan vigente en una fecha. |
+| `WithdrawalPeriodsController` | Controller | Expone los periodos de retiro. |
 
 #### 4.2.4.3. Application Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `ScheduleCampaignCommandHandler` | Command Handler | Crea la campaña, asocia los animales del lote y detecta superposición con periodos de retiro. |
-| `RegisterApplicationCommandHandler` | Command Handler | Registra la aplicación por animal, actualiza el avance y cierra la campaña cuando corresponde. |
-| `ScheduleFollowUpReviewCommandHandler` | Command Handler | Vincula la revisión a la intervención que la origina. |
-| `EmitDueRemindersCommandHandler` | Command Handler | Ejecuta periódicamente la emisión de recordatorios pendientes. |
-| `ClinicalInterventionRegisteredEventHandler` | Event Handler | Abre el periodo de retiro del producto aplicado al recibir el hecho desde Monitoring. |
-| `CattleDeactivatedEventHandler` | Event Handler | Marca como no aplicables las revisiones programadas del animal dado de baja. |
+| `PlannedActivityCommandService`, `PlanningCampaignCommandService`, `NutritionPlanCommandService`, `WithdrawalPeriodCommandService` | Command Service | Comprueban el permiso y las referencias a otros contextos y guardan cada cambio. |
+| `PlannedActivityQueryService`, `PlanningCampaignQueryService`, `NutritionPlanQueryService`, `WithdrawalPeriodQueryService` | Query Service | Responden las consultas de las aplicaciones con el permiso de lectura de la unidad productiva. |
+| `PlanningGuard` | Application Service | Reúne las comprobaciones que dependen de otros contextos para que todos los casos de uso rechacen las mismas entradas con el mismo error. |
+| `CattleInformationPlanningCattleLookup`, `CattleInformationPlanningLotLookup`, `OperationsMonitoringClinicalInterventionLookup`, `IamPlanningAccessControl` | Outbound Service (ACL) | Consultan Cattle Information, Operations & Monitoring e IAM a través de sus Context Facades. |
 
 #### 4.2.4.4. Infrastructure Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `PlanningRepository` | Repository | Implementa `IPlanningRepository` con Entity Framework Core sobre el esquema `planning`. |
-| `CampaignNotificationAdapter` | Adapter | Entrega el recordatorio al responsable a través del servicio de mensajería. |
-| `CattleLookupAcl` | Anti-corruption Layer | Resuelve la composición del lote al programar una campaña. |
+| `PlannedActivityRepository`, `PlanningCampaignRepository`, `NutritionPlanRepository`, `WithdrawalPeriodRepository` | Repository | Implementan los repositorios con Entity Framework Core sobre el esquema `planning`. |
+| `PlanningTransaction` | Unit of Work | Ejecuta la comprobación y el guardado en una transacción serializable, para que un cambio concurrente no se cuele entre ambos. |
 
 #### 4.2.4.5. Bounded Context Software Architecture Component Level Diagrams
 
 ![Component Diagram del módulo Planning](assets/images/diagrams/c4/c4-components-planning.png)
 
-*Figura 4.21. Componentes del módulo Planning. Elaboración propia con Structurizr.*
-
-Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
-
-![Flujo de emisión de recordatorios](assets/images/diagrams/c4/c4-flow-planning-reminder.png)
-
-*Figura 4.22. Flujo interno de recordatorios del calendario ganadero. Elaboración propia con Structurizr.*
+*Figura 4.22. Componentes del módulo Planning. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -815,7 +812,7 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 Abrir fuente PlantUML ([https://tinyurl.com/22zt4h6v](https://tinyurl.com/22zt4h6v))
 
-`HealthCampaign` compone sus aplicaciones y su recordatorio, porque ninguno de los dos tiene sentido fuera de la campaña. `WithdrawalPeriod` se modela como Value Object consultado por la campaña, no como entidad propia, porque su identidad la determinan el animal y el producto.
+`PlannedActivity` compone sus aplicaciones y seguimientos, y `NutritionPlan` compone los alimentos de su ración. Las actividades se relacionan con su campaña, con animales y con intervenciones clínicas solo por identificador.
 
 ##### 4.2.4.6.2. Bounded Context Database Design Diagram
 
@@ -825,51 +822,49 @@ Abrir fuente PlantUML ([https://tinyurl.com/22zt4h6v](https://tinyurl.com/22zt4h
 
 Abrir fuente PlantUML ([https://tinyurl.com/29l33b5n](https://tinyurl.com/29l33b5n))
 
-La restricción `UNIQUE (campaign_id, cattle_id)` impide registrar dos veces la aplicación sobre el mismo animal dentro de una campaña, que es el error que los entrevistados asociaron al riesgo de intoxicación por dosis repetida.
+`planned_activities` se relaciona con `campaigns`, `application_records` y `follow_ups` mediante claves foráneas. Los alimentos de cada ración se guardan en `nutrition_plan_items`.
 
 ### 4.2.5. Bounded Context: Dashboard & Analytics
 
-Transforma la información acumulada por los demás contextos en indicadores, tendencias y reportes. Es un contexto de solo lectura: no produce hechos del negocio ni escribe en los contextos de origen.
+Transforma la información acumulada por los demás contextos en indicadores, tendencias, curvas epidemiológicas y reportes. Es un contexto de solo lectura: no produce hechos del negocio, no escribe en los contextos de origen y no guarda resultados.
 
 #### 4.2.5.1. Domain Layer
 
-| Clase | Categoría | Propósito | Miembros destacados |
-|---|---|---|---|
-| `HerdIndicatorSet` | Aggregate Root | Conjunto de indicadores del hato para un periodo, con la declaración explícita de cuántos animales quedaron excluidos del cálculo. | Métodos: `Calculate()`, `HasSufficientData()`. |
-| `TrendSeries` | Entity | Serie temporal de un indicador para un lote, con su promedio y sus valores atípicos. | Métodos: `Outliers(criterion)`, `MissingReadings()`. |
-| `EpidemiologicalCurve` | Entity | Progresión de casos nuevos de un mismo cuadro, usada para sustentar el aislamiento o su levantamiento. | Métodos: `DaysWithoutNewCases()`, `SupportsRestrictionLifting()`, `IsBuildable()`. |
-| `ExecutiveReport` | Entity | Documento exportable con los indicadores del periodo. | Método: `IsEmpty()`. |
-| `TrendPoint` | Value Object | Par de fecha y valor dentro de una serie. | |
-| `DateRange` | Value Object | Periodo de análisis. Aparece en todos los cálculos porque ningún indicador se entrega sin declarar su rango. | Métodos: `Days()`, `Contains(date)`. |
-| `IndicatorType`, `ReportFormat` | Enumeraciones | Fijan los indicadores disponibles y los formatos de exportación. | |
-| `AnalyticsDomainService` | Domain Service | Concentra la lógica de cálculo, que no pertenece a ningún agregado porque atraviesa varios contextos de origen. | Métodos: `BuildIndicators()`, `BuildTrend()`, `BuildCurve()`, `CompareAgainstLot()`. |
-| `IAnalyticsRepository` | Repository (interfaz) | Abstrae la lectura consolidada de los datos de origen y la persistencia de los reportes generados. | |
+| Clase | Categoría | Propósito |
+|---|---|---|
+| `HerdIndicatorSet`, `IndicatorValue` | Value Object | Indicadores del hato en un periodo: animales monitoreados, alertas abiertas por tipo, animales fuera de su zona, mortalidad, nacimientos y preñeces confirmadas. |
+| `TrendSeries`, `TrendPoint` | Value Object | Evolución de una métrica del hato en el tiempo. |
+| `EpidemiologicalCurve` | Value Object | Casos de un mismo cuadro por día dentro del hato. |
+| `AnimalComparison` | Value Object | Constantes de un animal frente al promedio de su lote en el mismo periodo. |
+| `RanchPortfolioEntry` | Value Object | Resumen de una unidad productiva en la cartera de un veterinario. |
+| `ExecutiveReport` | Value Object | Reporte ejecutivo exportable del periodo. |
+| `DateRange` | Value Object | Periodo semiabierto, para que dos periodos consecutivos no cuenten dos veces el mismo instante. |
+| `AnalyticsDomainService` | Domain Service | Calcula los indicadores, tendencias, curvas y comparaciones con fórmulas estadísticas sobre los datos de los otros contextos. |
 
 #### 4.2.5.2. Interface Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `DashboardController` | Controller | Expone los indicadores agregados del hato para un periodo. |
-| `TrendsController` | Controller | Expone las tendencias por lote y la comparación de un animal contra su lote. |
-| `EpidemiologicalCurveController` | Controller | Expone la curva de casos de un cuadro sanitario. |
-| `ReportsController` | Controller | Expone la generación y descarga del reporte ejecutivo. |
+| `DashboardController` | Controller | Expone los indicadores del hato. |
+| `TrendsController` | Controller | Expone las tendencias de temperatura, actividad y alertas. |
+| `EpidemiologicalCurveController` | Controller | Expone la curva epidemiológica de un evento sanitario. |
+| `PortfolioController` | Controller | Expone el consolidado de las unidades productivas que asesora un veterinario. |
+| `ReportsController` | Controller | Exporta el reporte ejecutivo del periodo. |
 
 #### 4.2.5.3. Application Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `BuildHerdIndicatorsQueryHandler` | Query Handler | Compone los indicadores del periodo e informa los animales excluidos. |
-| `BuildTrendQueryHandler` | Query Handler | Construye la serie, calcula el promedio del lote e identifica los valores atípicos. |
-| `BuildEpidemiologicalCurveQueryHandler` | Query Handler | Construye la curva y evalúa el criterio de levantamiento de restricción. |
-| `ExportExecutiveReportCommandHandler` | Command Handler | Genera el archivo del periodo y rechaza la exportación cuando no hay datos. |
-| `SubscriptionActivatedEventHandler` | Event Handler | Habilita los reportes avanzados cuando el plan los incluye. |
+| `AnalyticsQueryService` | Query Service | Comprueba el acceso y la coherencia de las fuentes antes de calcular cualquier indicador. |
+| `ExecutiveReportQueryService` | Query Service | Genera el reporte después de comprobar el formato, el acceso y que el plan incluya la exportación. |
+| `PlatformAnalyticsSource` | Outbound Service (ACL) | Arma las instantáneas de análisis con los Context Facades de los demás contextos y traduce su vocabulario al de este contexto. |
+| `IamAnalyticsAccessControl`, `SubscriptionPlansAnalyticsEntitlements` | Outbound Service (ACL) | Consultan IAM para el permiso de lectura y Subscription Plans para la funcionalidad de exportación del plan. |
 
 #### 4.2.5.4. Infrastructure Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `AnalyticsRepository` | Repository | Implementa `IAnalyticsRepository` con consultas de solo lectura sobre los esquemas de origen. |
-| `ReportFileStorageAdapter` | Adapter | Persiste el archivo generado y devuelve su ruta de descarga. |
+| (sin clases propias) | — | El contexto no persiste datos: no tiene repositorios ni esquema propio, porque calcula sus resultados en cada consulta a partir de los otros contextos. |
 
 #### 4.2.5.5. Bounded Context Software Architecture Component Level Diagrams
 
@@ -889,17 +884,11 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 Abrir fuente PlantUML ([https://tinyurl.com/2ycxfd6s](https://tinyurl.com/2ycxfd6s))
 
-`DateRange` aparece compuesto tanto en el conjunto de indicadores como en el reporte, lo que refleja la regla de que ningún resultado se entrega sin declarar el periodo sobre el que fue calculado.
+Todas las clases del dominio son Value Objects inmutables que se calculan en cada consulta; no hay agregados porque el contexto no guarda estado propio.
 
 ##### 4.2.5.6.2. Bounded Context Database Design Diagram
 
-![Diagrama de base de datos del esquema analytics](assets/images/diagrams/db-analytics.png)
-
-*Figura 4.27. Esquema `analytics`. Elaboración propia con PlantUML.*
-
-Abrir fuente PlantUML ([https://tinyurl.com/25oys8gp](https://tinyurl.com/25oys8gp))
-
-Las tablas de este esquema almacenan resultados calculados, no datos operativos. Su contenido puede reconstruirse a partir de los esquemas de origen, lo que permite recalcular sin riesgo ante un cambio en la fórmula de un indicador.
+Dashboard & Analytics no tiene esquema propio. Lee los datos de los esquemas `cattle`, `iot`, `monitoring` y `subscription` a través de los Context Facades de esos contextos y calcula sus resultados en cada consulta, de modo que un cambio en la fórmula de un indicador se aplica de inmediato a todo el historial.
 
 ### 4.2.6. Bounded Context: Identity & Access Management
 
@@ -907,51 +896,50 @@ Resuelve quién es cada usuario, sobre qué unidades productivas puede operar y 
 
 #### 4.2.6.1. Domain Layer
 
-| Clase | Categoría | Propósito | Miembros destacados |
-|---|---|---|---|
-| `UserAccount` | Aggregate Root | Cuenta de acceso con su rol y su estado. Concentra la regla de bloqueo por intentos fallidos. | Métodos: `Verify()`, `ChangeRole(role)`, `Block(minutes)`, `IsActive()`. |
-| `ProfessionalProfile` | Entity | Datos profesionales del veterinario. Procede del contexto candidato Profiles, absorbido durante el Context Mapping. | Método: `Complete(specialty, license, years)`. |
-| `RanchMembership` | Entity | Vínculo del usuario con la unidad productiva a la que pertenece. | Método: `GrantsAccessTo(ranchId)`. |
-| `HerdAdvisory` | Entity | Relación de asesoría entre un profesional y un hato que no administra, con su ciclo de vida completo. | Métodos: `Grant(expiresAt)`, `Revoke()`, `Expire()`, `IsValidOn(date)`. |
-| `Email` | Value Object | Correo de la cuenta, con su regla de formato. | Método: `IsValid()`. |
-| `LicenseNumber` | Value Object | Número de colegiatura, único entre perfiles verificados. | Método: `Equals(other)`. |
-| `UserRole`, `AccountStatus`, `AdvisoryStatus`, `MembershipType` | Enumeraciones | Fijan los roles, estados de cuenta, estados de asesoría y tipos de vínculo. | |
-| `AuthorizationDomainService` | Domain Service | Resuelve si una cuenta puede acceder a un predio o modificar un registro clínico, combinando pertenencia y asesoría. | Métodos: `CanAccessRanch()`, `CanModifyClinicalRecord()`. |
-| `IUserAccountRepository`, `IHerdAdvisoryRepository` | Repository (interfaz) | Abstraen la persistencia de cuentas y asesorías. | |
+| Clase | Categoría | Propósito |
+|---|---|---|
+| `UserAccount` | Aggregate Root | Cuenta de un usuario. Se activa solo con el correo verificado y se bloquea temporalmente tras intentos fallidos. |
+| `RanchRegistration` | Aggregate Root | Unidad productiva registrada, con sus miembros y su código de acceso para veterinarios. |
+| `HerdAdvisory` | Aggregate Root | Asesoría de un veterinario sobre un hato: se otorga, rechaza, revoca o vence, y nunca vuelve a pendiente. |
+| `ProfessionalProfile`, `RanchMembership`, `AccessAttempt` | Entity | Perfil profesional del veterinario, pertenencia de una cuenta a una unidad productiva e intento de acceso sin credenciales. |
+| `Email`, `RanchAccessCode` | Value Object | Correo validado en minúsculas y código de acceso sin caracteres ambiguos. |
+| `UserRole`, `AccountStatus`, `AdvisoryStatus`, `AccessScope` | Enumeraciones | Roles, estados y alcances de acceso admitidos. |
+| `AuthorizationDomainService` | Domain Service | El propietario administra la unidad productiva, todo miembro la lee y un veterinario solo la alcanza con una asesoría vigente. |
+| `IUserAccountRepository`, `IRanchRegistrationRepository`, `IHerdAdvisoryRepository` | Repository (interfaz) | Persistencia de cuentas, unidades productivas y asesorías. |
 
 #### 4.2.6.2. Interface Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `AccountsController` | Controller | Expone el registro de la unidad productiva y el acceso a la plataforma. |
-| `ProfilesController` | Controller | Expone la consulta y la actualización del perfil profesional. |
-| `HerdAdvisoriesController` | Controller | Expone la solicitud, concesión y revocación de la asesoría sobre un hato. |
+| `AccountsController` | Controller | Registra cuentas y devuelve la cuenta autenticada con sus unidades productivas. |
+| `ProfilesController` | Controller | Completa y consulta el perfil profesional del veterinario. |
+| `RanchesController` | Controller | Resuelve una unidad productiva por su código de acceso. |
+| `HerdAdvisoriesController`, `VeterinaryAccessRequestsController` | Controller | Solicitan, otorgan, rechazan y revocan asesorías. |
+| `IIamContextFacade` | Context Facade | Responde a los demás contextos si la cuenta actual puede leer o administrar una unidad productiva. |
 
 #### 4.2.6.3. Application Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `RegisterRanchAccountCommandHandler` | Command Handler | Crea la cuenta y la unidad productiva, y rechaza correos ya registrados. |
-| `AuthenticateCommandHandler` | Command Handler | Delega la verificación en el proveedor externo y aplica la regla de bloqueo por intentos fallidos. |
-| `CompleteProfessionalProfileCommandHandler` | Command Handler | Completa el perfil verificando la unicidad del número de colegiatura. |
-| `RequestHerdAdvisoryCommandHandler` | Command Handler | Registra la solicitud y evita duplicarla cuando ya existe una vigente. |
-| `GrantHerdAdvisoryCommandHandler` | Command Handler | Concede el acceso con su alcance y su fecha de vencimiento. |
-| `RevokeHerdAdvisoryCommandHandler` | Command Handler | Revoca el acceso conservando la autoría de los registros previos. |
-| `ExpireAdvisoriesCommandHandler` | Command Handler | Ejecuta periódicamente la expiración de asesorías vencidas. |
+| `AccountCommandService` | Command Service | Registra cuentas y autentica credenciales; un intento fallido se registra antes de responder. |
+| `HerdAdvisoryCommandService`, `ProfessionalProfileCommandService` | Command Service | Gestionan asesorías y perfiles profesionales, comprobando que la colegiatura no esté repetida. |
+| `AccountQueryService`, `AuthorizationQueryService`, `HerdAdvisoryQueryService`, `RanchQueryService` | Query Service | Responden las consultas de cuentas, permisos, asesorías y unidades productivas. |
+| `IamContextFacade` | Context Facade | Implementa las comprobaciones de acceso que consumen los demás contextos. |
 
 #### 4.2.6.4. Infrastructure Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `IdentityRepository` | Repository | Implementa `IUserAccountRepository` con Entity Framework Core sobre el esquema `iam`. |
-| `HerdAdvisoryRepository` | Repository | Implementa `IHerdAdvisoryRepository`. |
-| `FirebaseAuthenticationAcl` | Anti-corruption Layer | Traduce el modelo de identidad del proveedor externo al agregado propio, de modo que un cambio en su contrato no alcance al dominio. |
+| `UserAccountRepository`, `RanchRegistrationRepository`, `HerdAdvisoryRepository` | Repository | Implementan los repositorios con Entity Framework Core sobre el esquema `iam`. |
+| `FirebaseAuthenticationHandler`, `FirebaseAuthenticationAcl` | Adapter (ACL) | Verifican el token de Firebase Authentication de cada solicitud y aíslan al contexto de los errores del proveedor. |
+| `HttpCurrentAccount` | Adapter | Resuelve la cuenta de la solicitud sin confiar en identificadores enviados por el cliente. |
+| `RandomRanchAccessCodeGenerator` | Adapter | Genera códigos de acceso con el generador criptográfico del sistema operativo. |
 
 #### 4.2.6.5. Bounded Context Software Architecture Component Level Diagrams
 
 ![Component Diagram del módulo Identity & Access Management](assets/images/diagrams/c4/c4-components-identity.png)
 
-*Figura 4.28. Componentes del módulo Identity & Access Management. Elaboración propia con Structurizr.*
+*Figura 4.27. Componentes del módulo Identity & Access Management. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -961,21 +949,21 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de Identity & Access Management](assets/images/diagrams/class-iam.png)
 
-*Figura 4.29. Domain Layer de Identity & Access Management. Elaboración propia con PlantUML.*
+*Figura 4.28. Domain Layer de Identity & Access Management. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/279ggbhv](https://tinyurl.com/279ggbhv))
 
-`UserAccount` compone su perfil profesional y sus pertenencias, pero agrega las asesorías, porque una asesoría vincula a dos partes y su ciclo de vida no termina con la cuenta del solicitante.
+`UserAccount` compone su perfil profesional y `RanchRegistration` compone sus pertenencias. `HerdAdvisory` relaciona un veterinario con una unidad productiva solo por identificador, con su estado y su vigencia.
 
 ##### 4.2.6.6.2. Bounded Context Database Design Diagram
 
 ![Diagrama de base de datos del esquema iam](assets/images/diagrams/db-iam.png)
 
-*Figura 4.30. Esquema `iam`. Elaboración propia con PlantUML.*
+*Figura 4.29. Esquema `iam`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/256tw7gc](https://tinyurl.com/256tw7gc))
 
-La tabla `herd_advisory` conserva las fechas de solicitud, concesión, vencimiento y revocación por separado, de modo que el historial completo de la relación quede auditable.
+`ProfessionalProfiles` comparte la clave de su cuenta y exige una colegiatura única. `HerdAdvisories` y `RanchMemberships` relacionan las cuentas con las unidades productivas mediante claves foráneas.
 
 ### 4.2.7. Bounded Context: Subscription Plans
 
@@ -983,50 +971,45 @@ Administra los planes contratados, sus límites y su facturación, y determina q
 
 #### 4.2.7.1. Domain Layer
 
-| Clase | Categoría | Propósito | Miembros destacados |
-|---|---|---|---|
-| `Subscription` | Aggregate Root | Suscripción de una unidad productiva, con su plan, su vigencia y su estado. | Métodos: `Activate()`, `Renew(until)`, `Cancel(reason)`, `CoversFeature(feature)`, `DeviceLimitValue()`, `MonthlyAmount()`. |
-| `Plan` | Entity | Modalidad comercial con su límite de dispositivos, su precio y sus funcionalidades. | Métodos: `EstimateFor(headCount)`, `Covers(headCount)`. |
-| `Payment` | Entity | Intento de cobro con su resultado y su referencia externa. | Métodos: `MarkAccepted(ref)`, `MarkRejected(reason)`. |
-| `Money` | Value Object | Importe con su moneda. Evita operar cantidades de monedas distintas. | Métodos: `Add(other)`, `Multiply(factor)`. |
-| `DeviceLimit` | Value Object | Cantidad máxima de dispositivos del plan, con la regla que evalúa si admite uno más. | Método: `Allows(used)`. |
-| `PlanType`, `SubscriptionStatus`, `PaymentStatus`, `FeatureCode` | Enumeraciones | Fijan las modalidades, los estados y el catálogo de funcionalidades habilitables. | |
-| `ISubscriptionRepository` | Repository (interfaz) | Abstrae la persistencia de la suscripción. | |
-| `IPaymentProviderPort` | Port | Declara en el dominio la operación de cobro, sin conocer al proveedor. | |
+| Clase | Categoría | Propósito |
+|---|---|---|
+| `Plan` | Aggregate Root | Plan del catálogo con la cuota anual, el precio por collar, el límite de dispositivos y las funcionalidades que otorga. |
+| `Subscription` | Aggregate Root | Contrato anual de una unidad productiva. Copia la cotización al solicitarse; solo una suscripción pendiente se activa y solo una activa vence. |
+| `Money`, `PlanQuote` | Value Object | Importe en una moneda redondeado a céntimos y cotización desglosada en cuota anual y costo de collares. |
+| `PaymentConfirmation` | Value Object | Pago que reporta el proveedor; solo es confiable después de verificar su firma. |
+| `PlanTier`, `SubscriptionStatus`, `FeatureCode` | Enumeraciones | Nivel del plan, estado de la suscripción y funcionalidades que otros contextos habilitan según el plan. |
+| `IPlanRepository`, `ISubscriptionRepository` | Repository (interfaz) | Lectura del catálogo y persistencia de las suscripciones. |
 
 #### 4.2.7.2. Interface Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `SubscriptionsController` | Controller | Expone la contratación, renovación, cancelación y consulta de la suscripción. |
-| `PlansController` | Controller | Expone el catálogo público de planes y la estimación de costo por cantidad de cabezas. |
-| `BillingController` | Controller | Expone el historial de pagos y la confirmación de cobro. |
+| `PlansController`, `QuotesController` | Controller | Exponen el catálogo de planes y la cotización según el tamaño del hato. |
+| `SubscriptionsController` | Controller | Solicita, consulta y cancela suscripciones e inicia el pago (`checkout-sessions`). |
+| `StripeWebhooksController` | Controller | Recibe `POST /api/v1/payments/stripe/webhooks`; la firma de Stripe reemplaza al token de usuario. |
+| `ISubscriptionPlansContextFacade` | Context Facade | Entrega a otros contextos las funcionalidades y el límite de collares de la unidad productiva. |
 
 #### 4.2.7.3. Application Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `SubscribeCommandHandler` | Command Handler | Valida los datos, solicita el cobro y activa la suscripción, publicando el hecho hacia los contextos que dependen del plan. |
-| `RenewSubscriptionCommandHandler` | Command Handler | Extiende la vigencia y registra el pago del nuevo periodo. |
-| `CancelSubscriptionCommandHandler` | Command Handler | Cancela conservando el historial de pagos. |
-| `EstimatePlanCostQueryHandler` | Query Handler | Calcula el costo estimado e identifica el plan adecuado cuando la cantidad excede el límite. |
-| `CheckFeatureAccessQueryHandler` | Query Handler | Resuelve si una funcionalidad está incluida en el plan vigente. |
-| `PaymentConfirmedEventHandler` | Event Handler | Activa la suscripción al confirmarse el cobro. |
+| `SubscriptionCommandService` | Command Service | Solicita, cancela, paga y activa suscripciones; comprueba permisos y reglas comerciales y deja las transiciones al agregado. |
+| `PlanQueryService`, `SubscriptionQueryService` | Query Service | Responden el catálogo, las cotizaciones y la suscripción vigente. |
+| `SubscriptionPlansContextFacade` | Context Facade | Implementa la consulta de funcionalidades para otros contextos. |
+| `IamSubscriptionAccessService` | Outbound Service (ACL) | Consulta a IAM si la cuenta puede leer o administrar la unidad productiva. |
 
 #### 4.2.7.4. Infrastructure Layer
 
 | Clase | Categoría | Propósito |
 |---|---|---|
-| `SubscriptionRepository` | Repository | Implementa `ISubscriptionRepository` con Entity Framework Core sobre el esquema `subscription`. |
-| `StripePaymentGateway` | Anti-corruption Layer | Implementa el puerto `IPaymentGateway`: crea la sesión de Stripe Checkout en soles y verifica la firma de los webhooks. Las excepciones de Stripe no salen de esta clase. |
-| `StripeWebhooksController` | Controller | Recibe `POST /api/v1/payments/stripe/webhooks` y activa la suscripción de un pago confirmado. |
-| `SubscriptionEventPublisher` | Infrastructure | Publica la activación y la cancelación hacia IoT Assets y Dashboard & Analytics. |
+| `PlanRepository`, `SubscriptionRepository` | Repository | Implementan los repositorios con Entity Framework Core sobre el esquema `subscription`. |
+| `StripePaymentGateway` | Adapter (ACL) | Implementa el puerto `IPaymentGateway`: crea la sesión de Stripe Checkout en soles y verifica la firma de los webhooks. Las excepciones de Stripe no salen de esta clase. |
 
 #### 4.2.7.5. Bounded Context Software Architecture Component Level Diagrams
 
 ![Component Diagram del módulo Subscription Plans](assets/images/diagrams/c4/c4-components-subscription.png)
 
-*Figura 4.31. Componentes del módulo Subscription Plans. Elaboración propia con Structurizr.*
+*Figura 4.30. Componentes del módulo Subscription Plans. Elaboración propia con Structurizr.*
 
 Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw))
 
@@ -1036,21 +1019,21 @@ Abrir fuente Structurizr ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw
 
 ![Diagrama de clases del Domain Layer de Subscription Plans](assets/images/diagrams/class-subscription.png)
 
-*Figura 4.32. Domain Layer de Subscription Plans. Elaboración propia con PlantUML.*
+*Figura 4.31. Domain Layer de Subscription Plans. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/2c28je8c](https://tinyurl.com/2c28je8c))
 
-`Subscription` compone el plan contratado y agrega sus pagos. El puerto `IPaymentProviderPort` mantiene el dominio independiente del proveedor concreto, que puede cambiar sin afectar las reglas de cobertura y renovación.
+`Subscription` copia la cotización del `Plan` al solicitarse, de modo que un cambio posterior de precios no altera lo acordado. `PaymentConfirmation` llega solo a través del puerto `IPaymentGateway`.
 
 ##### 4.2.7.6.2. Bounded Context Database Design Diagram
 
 ![Diagrama de base de datos del esquema subscription](assets/images/diagrams/db-subscription.png)
 
-*Figura 4.33. Esquema `subscription`. Elaboración propia con PlantUML.*
+*Figura 4.32. Esquema `subscription`. Elaboración propia con PlantUML.*
 
 Abrir fuente PlantUML ([https://tinyurl.com/29o349n3](https://tinyurl.com/29o349n3))
 
-La tabla `plan_feature` implementa la relación de muchos a muchos entre plan y funcionalidad con clave primaria compuesta, de modo que agregar una funcionalidad a un plan no requiere modificar el esquema.
+`plans` guarda la cuota anual y el precio por collar como columnas de importe y moneda, y sus funcionalidades en `plan_features`. `subscriptions` conserva la cotización acordada, el estado y la sesión de pago.
 
 ## 4.3. Síntesis del diseño
 
