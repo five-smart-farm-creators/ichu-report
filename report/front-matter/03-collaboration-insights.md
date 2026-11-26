@@ -152,7 +152,7 @@ Para la entrega final, el informe se corrigió frente al enunciado y a las rúbr
 
 | Integrante | Commits desde AV2 (`v1.0.0`) | Aporte |
 |---|---:|---|
-| Contreras Leon, Flor de María | 18 | Alineación de los capítulos I a VI, regeneración del modelo C4 y de los diagramas desde el código, diseño móvil, Sprint 3, conclusiones y registro de versiones. |
+| Contreras Leon, Flor de María | 21 | Alineación de los capítulos I a VI, regeneración del modelo C4 y de los diagramas desde el código, diseño móvil, Sprint 3, conclusiones y registro de versiones. |
 
 El recuento cuenta los commits de autoría en la rama de la entrega, sin los commits de fusión. Los aportes de los demás integrantes a TB2 se registran al integrar sus cambios en esta misma rama.
 
