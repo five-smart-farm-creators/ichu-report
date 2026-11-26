@@ -1903,6 +1903,190 @@ La API central reunió commits de los cinco integrantes. Junto con las aplicacio
 
 En el Edge, el collar y el panel, la autoría de los commits revisados se concentró en Flor. Los flujos de GitHub Actions enlazaron el trabajo de esos tres repositorios mediante ejecuciones del Edge y simulaciones de los firmwares, documentadas en la sección 6.2.2.8. Los recuentos reflejan actividad de versionado y se interpretan junto con el contenido de los cambios y las integraciones observadas.
 
+### 6.2.3. Sprint 3
+
+El Sprint 3 abarca desde el 15 de noviembre de 2026 hasta la entrega final. Al revisar el código al inicio del sprint se comprobó que 12 de las 15 historias previstas para el Sprint 3 ya se habían implementado durante el Sprint 2, entre el 5 y el 12 de noviembre, en la API central y en la aplicación web. Por eso el Sprint 3 se concentra en las historias pendientes, en el paso de los dispositivos al Modest IoT Nano Framework, en las notificaciones móviles y en la versión final de los productos y del informe.
+
+#### 6.2.3.1. Sprint Planning 3
+
+<table>
+  <colgroup>
+    <col style="width: 34%;"/>
+    <col style="width: 66%;"/>
+  </colgroup>
+  <tbody>
+    <tr>
+      <th align="left" scope="row" width="34%">Sprint #</th>
+      <td>Sprint 3</td>
+    </tr>
+    <tr>
+      <th align="left" colspan="2">Sprint Planning Background</th>
+    </tr>
+    <tr>
+      <td>Date</td>
+      <td><em>Pendiente: lo registra el equipo.</em></td>
+    </tr>
+    <tr>
+      <td>Time</td>
+      <td><em>Pendiente: lo registra el equipo.</em></td>
+    </tr>
+    <tr>
+      <td>Location</td>
+      <td><em>Pendiente: lo registra el equipo.</em></td>
+    </tr>
+    <tr>
+      <td>Prepared By</td>
+      <td>Contreras Leon, Flor de María</td>
+    </tr>
+    <tr>
+      <td>Attendees (to planning meeting)</td>
+      <td><em>Pendiente: lo registra el equipo.</em></td>
+    </tr>
+    <tr>
+      <td>Sprint Period</td>
+      <td>Del 15 de noviembre de 2026 a la entrega final.</td>
+    </tr>
+    <tr>
+      <td>Sprint 2 Review Summary</td>
+      <td>El Sprint 2 integró la API central con la aplicación web y la aplicación móvil, el Edge, el collar y el panel de alertas, y publicó la API en Render, la web en Firebase Hosting y la Landing Page en GitHub Pages. De las 32 historias del Sprint 2, 29 cuentan con endpoints y pantallas implementados en el código; quedan TS-11 (notificaciones por un proveedor externo), TS-16 y TS-17 (consultas de la aplicación móvil al Edge por la red local). Además se adelantaron 12 historias del Sprint 3.</td>
+    </tr>
+    <tr>
+      <td>Sprint 2 Retrospective Summary</td>
+      <td><em>Pendiente: lo registra el equipo.</em></td>
+    </tr>
+    <tr>
+      <th align="left" colspan="2">Sprint Goal &amp; User Stories</th>
+    </tr>
+    <tr>
+      <td>Sprint 3 Goal</td>
+      <td><em>Our focus is on</em> finishing the field experience of ICHU: running both devices on the Modest IoT Nano Framework, notifying new alerts on the phone, distributing installable test builds of the mobile application, and completing the pending herd stories.<br/><em>We believe it delivers</em> timely alerts to ranchers wherever they are, a maintainable firmware for the collar and the alert panel, and a final version of every product ready for validation with users.<br/><em>This will be confirmed when</em> a critical alert raised by the edge reaches the alert panel and appears as a notification on an Android or iOS phone, the APK and IPA install from the test builds, and the final releases of every repository are published.</td>
+    </tr>
+    <tr>
+      <td>Sprint 2 Velocity</td>
+      <td>208 Story Points con implementación verificada en el código durante el periodo del Sprint 2: 159 de las 29 historias del Sprint 2 y 49 de las 12 historias adelantadas del Sprint 3. La aceptación de cada historia se confirma en la Sprint Review.</td>
+    </tr>
+    <tr>
+      <td>Sum of Story Points</td>
+      <td>16 Story Points de las historias pendientes del Sprint 3 (TS-02, US-18 y US-27), más las tareas técnicas de 6.2.3.3.</td>
+    </tr>
+  </tbody>
+</table>
+
+#### 6.2.3.2. Aspect Leaders and Collaborators
+
+| Aspecto | Líder | Colaboradores |
+|---|---|---|
+| Embedded Applications y Edge | Contreras Leon, Flor de María | <em>Pendiente: lo registra el equipo.</em> |
+| Mobile Application | <em>Pendiente: lo registra el equipo.</em> | <em>Pendiente: lo registra el equipo.</em> |
+| Project Report | Contreras Leon, Flor de María | <em>Pendiente: lo registra el equipo.</em> |
+
+#### 6.2.3.3. Sprint Backlog 3
+
+La primera tabla muestra el estado de las 15 historias que el Capítulo III asigna al Sprint 3, con la evidencia que lo respalda. La segunda reúne el trabajo técnico que el equipo incorporó al sprint.
+
+| Historia | Estado | Evidencia | Puntos |
+|---|---|---|---:|
+| TS-02 — Operar el collar en modo de bajo consumo | Pendiente | El collar envía una lectura cada 10 s sin suspensión entre lecturas. | 5 |
+| TS-19 — Consultar indicadores autorizados desde la aplicación web | Implementada en el Sprint 2 | `GET /api/v1/ranches/{ranchId}/dashboard` | 5 |
+| US-29 — Consultar los indicadores del hato | Implementada en el Sprint 2 | Dashboard de la aplicación web | 5 |
+| US-08 — Actualizar la etapa productiva de un animal | Implementada en el Sprint 2 | `PATCH /api/v1/ranches/{ranchId}/cattle/{cattleId}/life-stage` | 2 |
+| US-09 — Registrar la baja de un animal | Implementada en el Sprint 2 | `POST /api/v1/ranches/{ranchId}/cattle/{cattleId}/deactivations` | 3 |
+| US-18 — Identificar un posible evento reproductivo | Pendiente | Existe el historial reproductivo, pero no la detección automática de celo. | 8 |
+| US-30 — Analizar tendencias y distribución del hato | Implementada en el Sprint 2 | `GET /api/v1/ranches/{ranchId}/trends` y `epidemiological-curves` | 5 |
+| US-31 — Exportar un reporte ejecutivo | Implementada en el Sprint 2 | `GET /api/v1/ranches/{ranchId}/reports/executive` | 5 |
+| US-39 — Solicitar autorización sobre una nueva unidad productiva | Implementada en el Sprint 2 | `POST /api/v1/veterinary-access-requests` | 3 |
+| US-23 — Registrar una intervención clínica | Implementada en el Sprint 2 | `POST /api/v1/ranches/{ranchId}/clinical-interventions` | 5 |
+| US-41 — Consultar el periodo de retiro vigente de un animal | Implementada en el Sprint 2 | `GET /api/v1/ranches/{ranchId}/withdrawal-periods` | 3 |
+| US-24 — Preparar una atención con información previa | Implementada en el Sprint 2 | Telemetría y operaciones del animal | 3 |
+| US-14 — Consultar el historial biométrico de un animal | Implementada en el Sprint 2 | `GET /api/v1/ranches/{ranchId}/cattle/{cattleId}/telemetry?from&to` | 5 |
+| US-26 — Programar una campaña sanitaria | Implementada en el Sprint 2 | `POST /api/v1/ranches/{ranchId}/planning-campaigns` | 5 |
+| US-27 — Recibir el recordatorio de una faena programada | Parcial | El calendario web muestra las faenas próximas; no se envía un recordatorio. | 3 |
+|  | **Total previsto** |  | **65** |
+
+| Historia relacionada | Trabajo del sprint | Estado | Evidencia |
+|---|---|---|---|
+| TS-01, TS-21 | Migrar el collar y el panel de alertas al Modest IoT Nano Framework | Hecha | Versiones `v0.2.0` de ambos firmwares |
+| TS-04 | Aceptar la clave del collar en la cabecera `Authorization: ApiKey` | Hecha | PR #17 de `ichu-edge-service` |
+| US-16 | Notificar en el teléfono las alertas nuevas | Hecha | Versión `v0.2.0` de `ichu-mobile-app` |
+| — | Compilar APK e IPA de prueba contra producción | En revisión | PR #28 de `ichu-mobile-app` |
+| — | Corregir el informe para la entrega final | Hecha | PR #57 de `ichu-report` |
+
+#### 6.2.3.4. Development Evidence for Sprint Review
+
+La tabla reúne los commits de desarrollo registrados desde el 15 de noviembre de 2026 en los repositorios de software, con la rama y el cuerpo del mensaje leídos de git.
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on |
+|---|---|---|---|---|---|
+| ichu-mobile-app | `release/v0.2.0` | [fbbfd51](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/fbbfd512cd17406b36d22daad6e89e78b4644d61) | chore(release): prepare v0.2.0 | — | 2026-11-25 |
+| ichu-mobile-app | `feature/iot-alert-notifications` | [f984757](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/f984757d5bf9208b414981c7cb288dafd7bc4c6e) | fix(operations-monitoring): decode stored alert ids as strings | Also builds iOS for the simulator in CI, since device builds need an Apple signing team. | 2026-11-25 |
+| ichu-mobile-app | `feature/iot-alert-notifications` | [0eb06f6](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/0eb06f6ba40cbbe6db397494bf84cb317146c025) | feat(operations-monitoring): notify new iot alerts on android and ios | Foreground polling of pending ranch alerts with local notifications, production config template, com.smartfarm.ichu app ids and Flutter CI jobs for Android tests and an iOS build. | 2026-11-25 |
+| ichu-edge-service | `feature/authorization-api-key` | [4c1de3e](https://github.com/five-smart-farm-creators/ichu-edge-service/commit/4c1de3ee8e6dbb442cf65c1bd67b9d4c5db2e6d1) | feat(iam): accept the device key in an Authorization ApiKey header | — | 2026-11-24 |
+| ichu-cattle-band-embedded-app | `release/v0.2.0` | [a3d5e34](https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app/commit/a3d5e3433e44e02ed539f7ade524a31f3dc55e51) | chore(release): prepare v0.2.0 | — | 2026-11-25 |
+| ichu-cattle-band-embedded-app | `feature/modest-iot-framework` | [abc82a3](https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app/commit/abc82a352a01626bf9f12caebe84d6e5d3b667f4) | fix: keep the dallastemperature driver and flash the merged wokwi image | — | 2026-11-25 |
+| ichu-cattle-band-embedded-app | `feature/modest-iot-framework` | [65d0926](https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app/commit/65d09261e55b21cf092c8e681bd8d5136d73d7a2) | refactor: run the collar on the modest iot nano framework | — | 2026-11-24 |
+| ichu-alert-panel-embedded-app | `release/v0.2.0` | [e4cfe5e](https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app/commit/e4cfe5e97ecb72d5b4631f74a131cdbd024ccc81) | chore(release): prepare v0.2.0 | — | 2026-11-25 |
+| ichu-alert-panel-embedded-app | `feature/modest-iot-framework` | [944a60d](https://github.com/five-smart-farm-creators/ichu-alert-panel-embedded-app/commit/944a60d523751640646c8c8585c46ac38372ff01) | refactor: run the alert panel on the modest iot nano framework | — | 2026-11-24 |
+
+#### 6.2.3.5. Testing Suite Evidence for Sprint Review
+
+Cada pull request ejecuta las pruebas de su repositorio en GitHub Actions. En el Sprint 3, la versión `v0.2.0` de la aplicación móvil pasó sus pruebas de widgets y de unidad, y los firmwares del collar y del panel pasaron sus escenarios de Wokwi CI (6.2.2.5) ya sobre el Modest IoT Nano Framework.
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on |
+|---|---|---|---|---|---|
+| ichu-mobile-app | `—` | [83716bc](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/83716bca041ffb6368ef5b7970e8804dcade569d) | ci: render the main screens from the widget tests | Runs only on this branch: it inserts captures into existing widget tests and uploads the PNGs, which the report uses as mobile mock-ups. Not meant to be merged. | 2026-11-25 |
+| ichu-mobile-app | `—` | [b3a761b](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/b3a761b6bc9ea5c32e71ee0bfeeff7b1000d0adf) | ci: publish production apk and unsigned ipa test builds | — | 2026-11-25 |
+| ichu-mobile-app | `feature/iot-alert-notifications` | [deed159](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/deed1597328b8be9886274ec747d3158f29b0dba) | test(operations-monitoring): cancel alert polling before timer checks | — | 2026-11-25 |
+| ichu-mobile-app | `feature/iot-alert-notifications` | [2b2f174](https://github.com/five-smart-farm-creators/ichu-mobile-app/commit/2b2f174a6f738c03504c9c910bdbaf0ce2960bb2) | test(operations-monitoring): disable alert polling in app widget tests | — | 2026-11-25 |
+| ichu-cattle-band-embedded-app | `feature/modest-iot-framework` | [971c70b](https://github.com/five-smart-farm-creators/ichu-cattle-band-embedded-app/commit/971c70bf381824df728aeaad59266218fad5099d) | ci: give wokwi a trimmed full flash image of the collar | — | 2026-11-25 |
+
+#### 6.2.3.6. Execution Evidence for Sprint Review
+
+Las pantallas de la aplicación móvil del Sprint 3 se presentan como mockups en la sección 5.4.3; son capturas de la aplicación real generadas desde sus pruebas de widgets. La aplicación móvil consulta las alertas sincronizadas cada 30 s y muestra una notificación local del sistema operativo por cada alerta nueva, en Android y en iOS.
+
+Video de navegación del Sprint 3: <em>Pendiente: lo registra el equipo.</em>
+
+#### 6.2.3.7. Services Documentation Evidence for Sprint Review
+
+El Sprint 3 no agregó endpoints a la API central. La tabla documenta los endpoints, ya publicados en Swagger UI, que respaldan las historias del Sprint 3 implementadas durante el Sprint 2, y el cambio de autenticación del Edge.
+
+| Historia | Endpoint | Uso |
+|---|---|---|
+| TS-19, US-29 | `GET /api/v1/ranches/{ranchId}/dashboard` | Indicadores del hato en un periodo. |
+| US-30 | `GET /api/v1/ranches/{ranchId}/trends` | Tendencias de temperatura, actividad y alertas. |
+| US-30 | `GET /api/v1/ranches/{ranchId}/epidemiological-curves` | Curva epidemiológica de un evento sanitario. |
+| US-31 | `GET /api/v1/ranches/{ranchId}/reports/executive` | Reporte ejecutivo del periodo. |
+| US-08 | `PATCH /api/v1/ranches/{ranchId}/cattle/{cattleId}/life-stage` | Cambio de etapa productiva. |
+| US-09 | `POST /api/v1/ranches/{ranchId}/cattle/{cattleId}/deactivations` | Baja del animal con su motivo. |
+| US-23 | `POST /api/v1/ranches/{ranchId}/clinical-interventions` | Registro de una intervención clínica. |
+| US-14, US-24 | `GET /api/v1/ranches/{ranchId}/cattle/{cattleId}/telemetry?from={from}&to={to}` | Historial biométrico del animal. |
+| US-41 | `GET /api/v1/ranches/{ranchId}/withdrawal-periods` | Periodos de retiro vigentes. |
+| US-26 | `POST /api/v1/ranches/{ranchId}/planning-campaigns` | Programación de una campaña sanitaria. |
+| US-39 | `POST /api/v1/veterinary-access-requests` | Solicitud de acceso de un veterinario con el código de la unidad productiva. |
+| TS-04 | `POST /api/v1/monitoring/telemetry-readings` (Edge) | Acepta la clave del collar en `Authorization: ApiKey <clave>` además de `X-API-Key`. |
+
+#### 6.2.3.8. Software Deployment Evidence for Sprint Review
+
+| Producto | Despliegue del Sprint 3 |
+|---|---|
+| Firmware del collar y del panel | Versiones `v0.2.0` publicadas el 25 de noviembre de 2026, con la release de GitHub y la simulación de Wokwi. |
+| Aplicación móvil | Versión `v0.2.0` publicada el 25 de noviembre de 2026. El flujo `Test builds` (PR #28) genera un APK de release para Android y un IPA sin firmar para iOS, configurados contra la API de producción. |
+| Edge API | Cambio de autenticación integrado en `develop` el 24 de noviembre de 2026 (PR #17). |
+| API central, aplicación web y Landing Page | Sin cambios de despliegue en el sprint; siguen publicadas en Render, Firebase Hosting y GitHub Pages (6.2.2.8). |
+
+#### 6.2.3.9. Team Collaboration Insights during Sprint
+
+Commits de autoría por repositorio desde el 15 de noviembre de 2026, sin contar los commits de fusión.
+
+| Repositorio | Integrante | Commits |
+|---|---|---:|
+| `ichu-alert-panel-embedded-app` | Contreras Leon, Flor de María | 2 |
+| `ichu-cattle-band-embedded-app` | Contreras Leon, Flor de María | 4 |
+| `ichu-edge-service` | Contreras Leon, Flor de María | 1 |
+| `ichu-mobile-app` | Contreras Leon, Flor de María | 7 |
+| `ichu-report` | Contreras Leon, Flor de María | 15 |
+
+<em>Pendiente: lo registra el equipo.</em> Capturas de GitHub Insights del sprint.
+
 ## 6.3. Validation Interviews
 
 ### 6.3.1. Diseño de Entrevistas
