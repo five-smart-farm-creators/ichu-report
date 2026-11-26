@@ -14,13 +14,9 @@ Los dos segmentos objetivo agrupan a los usuarios por su relación con el negoci
 | **Operario de campo** | Segmento 1 | Personal que ejecuta las faenas en el potrero. No decide la compra, pero es quien registra los eventos y busca a los animales. Aparece en la entrevista de Meikoll, que señala la "falta de hábito para registrar las intervenciones inmediatamente después del trabajo de campo", y en la de Grober, responsable de "asistencia técnica en sanidad, manejo, alimentación y registros". |
 | **Médico veterinario** | Segmento 2 | Profesional que diagnostica y prescribe. Corresponde a Darwin Carbajal, Eliseo Ramírez y Dionisio Rodríguez. |
 | **Visitante** | No aplica | Rol base para el sitio web estático, sin cuenta en la plataforma. |
-| **Fabricante o integrador de dispositivos** | No aplica | Fabricante o integrador del collar y del controlador; necesita contratos de captura, transmisión y confirmación para integrar el programa embebido. |
-| **Nodo de borde portátil** | No aplica | Sistema que recibe lecturas por HTTP en la red Wi-Fi local (BLE previsto), las conserva y evalúa localmente y consume la API central al recuperar conectividad. |
-| **Aplicación web** | No aplica | Cliente de la API central para consultas del hato, indicadores y contratación. Actúa con la autorización del usuario. |
-| **Aplicación móvil** | No aplica | Cliente de la API central y del nodo de borde para consultas, alertas y registros de campo, con permisos y operación sin Internet. |
-| **Servicio central de ICHU** | No aplica | Sistema que consume proveedores externos y expone servicios a los clientes autorizados. |
+| **Developer** | No aplica | Rol de las Technical Stories, como indica el enunciado. Cada historia nombra el producto que el developer construye: la aplicación embebida del collar o del panel de alertas, el Edge Service, la aplicación web, la aplicación móvil o el RESTful API central. |
 
-Los actores técnicos describen al consumidor o sistema responsable de una capacidad; no constituyen nuevos segmentos de mercado. Las rutas HTTP y los contratos de la sección 3.1 son requisitos propuestos, no evidencias de servicios ya implementados. El flujo obligatorio del collar es **collar inteligente → Wi-Fi local → nodo de borde portátil → API central**. El collar invoca solo la ruta local del nodo de borde (`POST /api/v1/monitoring/telemetry-readings`) y no se conecta directamente a la nube. El enlace por BLE queda previsto: un adaptador BLE del nodo de borde entregaría el mismo cuerpo JSON al servicio de borde local.
+El rol Developer describe a quien construye un producto que consume o expone una capacidad; no constituye un nuevo segmento de mercado. Las rutas HTTP de la sección 3.1 son los contratos de los servicios. El flujo obligatorio del collar es **collar inteligente → Wi-Fi local → nodo de borde portátil → API central**. El collar invoca solo la ruta local del nodo de borde (`POST /api/v1/monitoring/telemetry-readings`) y no se conecta directamente a la nube.
 
 El operario de campo no constituye un tercer segmento objetivo. Es un rol operativo dentro del Segmento 1, cuya adopción del producto depende de la decisión de compra del administrador, por lo que no se le construye un arquetipo propio.
 
@@ -59,7 +55,7 @@ Los requisitos se organizan en once épicas. La siguiente relación con los cont
 - Los criterios de aceptación describen comportamientos comprobables: nombran la entidad del dominio afectada, los datos que quedan registrados y el estado resultante.
 - Ningún criterio de aceptación hace referencia a controles, pantallas, colores ni gestos de interacción.
 - Las historias que admiten un flujo alternativo incluyen al menos un escenario de error o de excepción.
-- Las historias técnicas identifican al consumidor o sistema responsable. Los contratos HTTP especifican método, ruta, autorización y respuesta; los contratos embebidos especifican datos, confirmación y fallos; el collar solo consume la ruta HTTP local del nodo de borde.
+- Las historias técnicas usan el rol Developer y nombran el producto que lo consume. Los contratos HTTP especifican método, ruta, autorización y respuesta; los contratos embebidos especifican datos, confirmación y fallos; el collar solo consume la ruta HTTP local del nodo de borde.
 - Las historias informativas y de contacto de la página de presentación forman parte de la primera iteración; la contratación integrada de US-34 requiere servicios y se planifica después de TB1.
 - Las historias de internacionalización (US-37) y accesibilidad (US-38) cubren los requisitos de i18n y a11y exigidos para la página de presentación y las aplicaciones web.
 
@@ -75,20 +71,20 @@ Cada arquetipo de usuario cuenta con al menos 21 historias de usuario redactadas
 | Visitante | No aplica, es el rol base del sitio web estático | No aplica | 7 |
 | Usuario registrado | No aplica, es un rol transversal de acceso | No aplica | 1 |
 | Ganadero o médico veterinario | Ambos segmentos, recorrido inicial de la interfaz (US-58) | Segmentos 1 y 2 | 1 |
-| Actores técnicos | fabricante o integrador de dispositivos, nodo de borde portátil, aplicación web, aplicación móvil y servicio central de ICHU | No aplica | 17 |
+| Developer | aplicaciones embebidas del collar y del panel de alertas, Edge Service, aplicación web, aplicación móvil y RESTful API central | No aplica | 19 |
 
 **Cobertura por producto digital**
 
-La cobertura es compartida: una historia puede habilitar más de un producto. Las 55 historias de usuario describen necesidades de personas; las 17 historias técnicas especifican contratos de dispositivos, nodo de borde, nube y clientes. No se suman las filas siguientes para obtener el total.
+La cobertura es compartida: una historia puede habilitar más de un producto. Las 55 historias de usuario describen necesidades de personas; las 19 historias técnicas especifican contratos de dispositivos, nodo de borde, nube y clientes. No se suman las filas siguientes para obtener el total.
 
 | Producto digital | Historias de usuario relacionadas | Historias técnicas habilitadoras |
 |---|---|---|
 | Página de presentación | US-32 a US-38, US-59 | Ninguna API propia para la primera versión; TS-10 habilita la contratación integrada de US-34 en una iteración posterior. |
-| Aplicación web | US-01 a US-19, US-23 a US-31, US-39 a US-53, US-58 | US-58 no requiere servicio central; TS-08, TS-10 y TS-19 habilitan la integración funcional posterior. |
+| Aplicación web | US-01 a US-19, US-23 a US-31, US-39 a US-53, US-58 | US-58 no requiere servicio central; TS-08, TS-10, TS-19 y TS-20 habilitan la integración funcional posterior. |
 | Aplicación móvil | US-07, US-13, US-16, US-19 a US-22, US-27, US-40, US-47 | TS-09, TS-16, TS-17, TS-18 |
-| API REST central | Soporta acceso, suscripción, monitoreo, atención e indicadores | TS-06 a TS-12, TS-15, TS-18, TS-19 |
-| API local / nodo de borde portátil | US-13, US-16, US-17, US-19, US-20 | TS-04, TS-05, TS-06, TS-15, TS-16, TS-17 |
-| Aplicaciones embebidas | Habilitan captura de telemetría en el collar | TS-01, TS-02, TS-03 |
+| API REST central | Soporta acceso, suscripción, monitoreo, atención e indicadores | TS-06 a TS-12, TS-15, TS-18 a TS-20 |
+| API local / nodo de borde portátil | US-13, US-16, US-17, US-19, US-20 | TS-04, TS-05, TS-06, TS-15, TS-16, TS-17, TS-21 |
+| Aplicaciones embebidas | Capturan telemetría en el collar y muestran las alertas en el panel del predio | TS-01, TS-02, TS-03, TS-21 |
 
 **Dependencias técnicas añadidas por la revisión**
 
@@ -96,8 +92,8 @@ La cobertura es compartida: una historia puede habilitar más de un producto. La
 |---|---|
 | Primera experiencia web | US-58 ofrece recorridos con datos de ejemplo y validación local; no completa US-01, US-02, US-03, US-04, US-06 ni US-07 como capacidades integradas. |
 | Contacto para demostración | US-59 prepara el mensaje en el canal publicado y deja el envío a la persona; no requiere TS-10 ni registra una contratación. |
-| Contratar desde el sitio público | US-35 → US-34 → US-01 / US-02 → TS-10. Una solicitud pendiente no acredita cobro ni suscripción activa. |
-| Alertas sin Internet | US-10 y US-15 configuran asignaciones y geocercas; TS-15 las descarga; TS-01 / TS-04 / TS-05 capturan, reciben y evalúan; TS-16 permite consultar y atender alertas localmente. |
+| Contratar desde el sitio público | US-35 → US-34 → US-01 / US-02 → TS-10 → TS-20. La suscripción se activa solo cuando Stripe confirma el pago. |
+| Alertas sin Internet | US-10 y US-15 configuran asignaciones y geocercas; TS-15 las descarga; TS-01 / TS-04 / TS-05 capturan, reciben y evalúan; TS-16 permite consultar y atender alertas localmente y TS-21 las muestra en el panel del predio. |
 | Monitoreo en móvil durante el pastoreo | TS-17 sirve datos locales; US-13 y US-20 indican origen y antigüedad. No se presupone cobertura en la nube. |
 | Registros de campo sin Internet | US-21 / US-22 → TS-18. La cola de eventos móviles es distinta de la cola de telemetría del nodo de borde de TS-06. |
 | Indicadores web | US-29 / US-31 → TS-19, sobre datos sincronizados y autorizados; la ausencia de datos se distingue de un valor cero. |

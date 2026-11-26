@@ -129,11 +129,11 @@ Desarrollar una solución tecnológica distribuida e innovadora basada en Intern
 
 **Objetivos Específicos**
 
-- **Diseñar y simular el dispositivo físico de borde:** Desarrollar un prototipo funcional de collar inteligente mediante herramientas de modelado de circuitos, incorporando sensores de movimiento (acelerómetro), temperatura y posicionamiento GPS con un consumo de energía óptimo.
+- **Diseñar y simular el dispositivo físico de borde:** Desarrollar un prototipo funcional de collar inteligente mediante herramientas de modelado de circuitos, incorporando sensores de movimiento (acelerómetro), temperatura, pulso, metano y posicionamiento GPS con un consumo de energía óptimo, y un panel de alertas local que avise al personal del predio.
 - **Implementar una API REST interna robusta:** Construir el servicio web de backend para la persistencia, procesamiento y analítica cuantitativa de los datos biométricos enviados por los dispositivos de borde.
 - **Desarrollar aplicaciones cliente adaptables:** Implementar una aplicación móvil nativa o multiplataforma dirigida al personal de campo para alertas y monitoreo rápido en movimiento, junto con una aplicación web completa para que los administradores analicen historiales detallados y métricas estadísticas.
 - **Desplegar una Landing Page informativa:** Crear un sitio web estático para la promoción comercial del modelo de negocio, integrando secciones de código de ética, términos y condiciones legales y enlaces a las plataformas operativas.
-- **Integrar servicios externos de terceros:** Conectar la solución con un servicio meteorológico externo o una pasarela de mensajería (SMS/Email) para enriquecer la toma de decisiones y el envío de notificaciones automáticas ante emergencias.
+- **Integrar servicios externos de terceros:** Conectar la solución con servicios de terceros: Stripe para el pago en línea de las suscripciones y Firebase Authentication para la identidad de los usuarios de las aplicaciones web y móvil.
 
 **Restricciones del Proyecto**
 
@@ -163,17 +163,15 @@ Estos beneficios son objetivos por validar en un piloto; no son resultados ya al
 
 #### 1.2.2.2. Lean UX Assumptions.
 
-Para guiar el diseño centrado en el usuario, hemos estructurado nuestras creencias en cinco categorías de supuestos, redactados como enunciados verificables que serán validados durante el desarrollo.
+Para guiar el diseño centrado en el usuario, hemos estructurado nuestras creencias en cinco categorías de supuestos, redactados como enunciados verificables que serán validados durante el desarrollo. Cada feature assumption (E1 a E11) tiene su hypothesis statement en la sección 1.2.2.3, con el mismo número.
 
 | Categoría | Supuesto | Forma de validación |
 |---|---|---|
 | **A. Business Assumptions** | Los ganaderos podrían adoptar una suscripción anual con tarifa fija si perciben valor suficiente para su operación y pueden evaluar sus costos y beneficios. La disposición de pago y el modelo de precio se validarán mediante entrevistas y un piloto; no se presupone una reducción de mortalidad comprobada. | Entrevistas de disposición de pago, prueba piloto y seguimiento de conversión a suscripciones. |
 | **A. Business Assumptions** | Un esquema de adquisición híbrido, que combine la venta física del collar inteligente a bajo costo con una suscripción digital, reducirá la barrera de entrada al mercado ganadero. | Pruebas de precio y comparación de interés entre venta de hardware, suscripción y paquete combinado. |
-| **E. Technical / Feature Assumptions** | Se podrá alcanzar una autonomía de hasta tres años por batería con un collar IoT de bajo consumo. Es una meta técnica por comprobar. | Pruebas de consumo y autonomía con prototipos en laboratorio y campo. |
 | **A. Business Assumptions** | Las alianzas con cooperativas ganaderas y veterinarios locales serán un canal principal de adquisición de clientes. | Registro de contactos, conversiones y suscripciones provenientes de cada alianza. |
 | **B. Business Outcome Assumptions** | Se capturarán al menos 150 suscripciones activas de unidades ganaderas durante el primer año de operaciones. | Seguimiento mensual de clientes, planes activos y cancelaciones. |
 | **B. Business Outcome Assumptions** | Se mantendrá una tasa de retención anual de suscripciones superior al 92%. | Análisis de cohortes y comparación entre suscripciones renovadas y canceladas. |
-| **E. Technical / Feature Assumptions** | La tasa de fallas técnicas o pérdida de señal de los collares IoT en el campo será inferior al 2% anual. Es un objetivo técnico aún no validado. | Registro de incidentes, disponibilidad de dispositivos y reportes de conectividad durante el piloto. |
 | **B. Business Outcome Assumptions** | El costo de adquisición de clientes (CAC) disminuirá en un 25% durante el segundo semestre gracias a las recomendaciones orgánicas. | Comparación semestral del CAC y del origen de cada nuevo cliente. |
 | **B. Business Outcome Assumptions** | Una proporción creciente de las unidades suscritas utilizará la plataforma de forma frecuente. | Medición de usuarios y unidades activas por semana y días de uso durante el piloto. |
 | **C. User Assumptions** | El usuario principal del Segmento 1 es el ganadero propietario o administrador de la finca, quien necesita interfaces legibles y pocos pasos. | Pruebas de usabilidad, tiempo de ejecución de tareas y entrevistas posteriores. |
@@ -183,10 +181,17 @@ Para guiar el diseño centrado en el usuario, hemos estructurado nuestras creenc
 | **D. User Outcome and Benefit Assumptions** | En un piloto, la detección temprana y la atención de alertas podrían contribuir a reducir en 15% la mortalidad respecto de una línea base comparable. Es una meta de validación, no un resultado observado. | Definir la línea base y el periodo de seguimiento antes del piloto; comparar resultados y documentar factores que puedan influir. |
 | **D. User Outcome and Benefit Assumptions** | La geolocalización de los animales aumentará la sensación de seguridad y ayudará a prevenir abigeatos y extravíos. | Pruebas de alertas de alejamiento, recuperación de posiciones y encuestas de percepción. |
 | **D. User Outcome and Benefit Assumptions** | Las anomalías térmicas detectadas automáticamente permitirán aislar oportunamente animales con posibles brotes epidémicos. | Medición del tiempo entre la detección, la alerta y la intervención del usuario. |
-| **E. Technical / Feature Assumptions** | Un collar IoT hermético con sensores de temperatura, acelerómetro y GPS transmitirá datos biométricos estables al servicio Edge API. | Pruebas de precisión, autonomía, resistencia y continuidad de transmisión. |
-| **E. Technical / Feature Assumptions** | Las notificaciones automáticas en la aplicación móvil y por SMS alertarán oportunamente ante desviaciones críticas del comportamiento animal. | Medición del tiempo de entrega, tasa de recepción y cantidad de falsos positivos. |
-| **E. Technical / Feature Assumptions** | El panel de análisis permitirá visualizar métricas agrupadas, promedios de salud del hato y mapas de calor de pastoreo. | Pruebas de tareas, revisión de métricas consultadas y evaluación de utilidad por los usuarios. |
-| **E. Technical / Feature Assumptions** | El modo sin conexión permitirá registrar datos localmente y sincronizarlos al recuperar señal, garantizando la continuidad operativa en campo. | Medición de registros creados sin conexión, sincronizaciones exitosas y datos faltantes. |
+| **E. Feature Assumptions** | E1. Un collar IoT hermético con sensores de temperatura, acelerómetro, GPS, pulso y metano transmitirá lecturas estables al Edge API por la red Wi-Fi local y alcanzará una autonomía de hasta tres años por batería. La autonomía es una meta técnica por comprobar; el sensor de metano del prototipo aumenta el consumo. | Pruebas de precisión, consumo, autonomía, resistencia y continuidad de transmisión con prototipos en laboratorio y campo. |
+| **E. Feature Assumptions** | E2. Las alertas evaluadas en el Portable Edge Gateway, mostradas en la aplicación móvil y en el panel de alertas del predio con luces y sonido, avisarán oportunamente ante desviaciones críticas aun sin Internet. | Medición del tiempo entre la lectura y el aviso, tasa de recepción y cantidad de falsos positivos. |
+| **E. Feature Assumptions** | E3. El panel de análisis permitirá visualizar indicadores agregados, promedios y tendencias de temperatura, actividad y frecuencia cardiaca del hato. | Pruebas de tareas, revisión de métricas consultadas y evaluación de utilidad por los usuarios. |
+| **E. Feature Assumptions** | E4. El modo sin conexión permitirá consultar y registrar datos localmente y sincronizarlos al recuperar señal, garantizando la continuidad operativa en campo. | Medición de registros creados sin conexión, sincronizaciones exitosas y datos faltantes. |
+| **E. Feature Assumptions** | E5. Una ficha digital por animal, con identificación, lote, antecedentes y eventos, reemplazará los cuadernos y hojas de cálculo del inventario. | Pruebas de registro y consulta de animales y entrevistas sobre la duplicación de registros. |
+| **E. Feature Assumptions** | E6. Un historial clínico individual permitirá a los veterinarios preparar sus atenciones con antecedentes clínicos y biométricos trazables. | Pruebas de consulta clínica y entrevistas con profesionales sobre la preparación de visitas. |
+| **E. Feature Assumptions** | E7. El registro de aplicaciones sanitarias y la consulta de periodos de retiro por animal permitirán coordinar campañas entre veterinarios y ganaderos. | Seguimiento de campañas registradas, animales atendidos y consultas de periodos de retiro. |
+| **E. Feature Assumptions** | E8. Un calendario ganadero con recordatorios permitirá anticipar vacunaciones, controles y revisiones. | Medición de actividades programadas, recordatorios atendidos y faenas ejecutadas a tiempo. |
+| **E. Feature Assumptions** | E9. Las geocercas configurables, las alertas de salida y la consulta de la última posición GPS orientarán la búsqueda de animales extraviados. | Pruebas de alertas de alejamiento, tiempo de búsqueda y encuestas de percepción de seguridad. |
+| **E. Feature Assumptions** | E10. Una vista del inventario de collares con su señal y batería permitirá actuar antes de perder lecturas; la tasa de fallas o pérdida de señal en campo será inferior al 2% anual. Esa tasa es un objetivo técnico aún no validado. | Registro de incidentes, disponibilidad de dispositivos y reportes de conectividad durante el piloto. |
+| **E. Feature Assumptions** | E11. Los permisos por unidad productiva, que el ganadero concede y revoca, permitirán sumar veterinarios asesores sin que el ganadero pierda el control de sus datos. | Seguimiento de solicitudes de asesoría, permisos concedidos y revocados, y entrevistas a ambos segmentos. |
 
 **Estado de la evidencia.** Las entrevistas y cuestionarios aportan evidencia preliminar de la relevancia del problema y de las necesidades expresadas por los participantes. La muestra reportada es de dos ganaderos y tres profesionales en los cuestionarios; no permite generalizar al sector. La disposición de pago requiere validación adicional y no se ha demostrado ningún resultado de negocio, beneficio de usuario ni desempeño técnico. La precisión, autonomía, conectividad, entrega de alertas y sincronización requieren pruebas de laboratorio y de campo.
 
@@ -200,76 +205,77 @@ Para cada hipótesis se aplica la estructura indicada en el template: el resulta
 **Creemos que lograremos** una tasa de renovación anual de suscripciones superior al 92%
 **si** los administradores ganaderos
 **alcanzan** la localización individual de cada animal y la detección temprana de indicios de enfermedad
-**con** un collar inteligente de bajo consumo que registra temperatura corporal, índice de actividad y coordenadas de posición.
+**con** un collar inteligente de bajo consumo que registra temperatura corporal, índice de actividad, frecuencia cardiaca, índice de metano y coordenadas de posición (E1).
 
 **Hypothesis 2. Real-Time Alerts**
 
-**Creemos que lograremos** una tasa de renovación anual de suscripciones superior al 92%, como hipótesis de negocio
+**Creemos que lograremos** una tasa de renovación anual de suscripciones superior al 92%
 **si** los ganaderos propietarios y administradores
 **alcanzan** la capacidad de aislar y atender a un animal enfermo en menos de una hora desde la desviación de sus constantes
-**con** alertas evaluadas en el Portable Edge Gateway y consultables localmente en el móvil; al recuperar conectividad, el Edge sincroniza con la API central y el backend puede solicitar notificaciones externas. La reducción del 15% en mortalidad se conserva como hipótesis de beneficio del usuario por validar en un piloto, no como resultado empresarial demostrado.
+**con** alertas evaluadas en el Portable Edge Gateway, consultables en el móvil y mostradas en el panel de alertas del predio sin Internet; al recuperar conectividad, el Edge sincroniza con la API central (E2). La reducción del 15% en mortalidad se conserva como hipótesis de beneficio del usuario por validar en un piloto.
 
 **Hypothesis 3. Analytics Dashboard**
 
 **Creemos que lograremos** 150 unidades productivas con suscripción activa durante el primer año, impulsadas por la recomendación profesional
 **si** los zootecnistas y médicos veterinarios
 **alcanzan** un diagnóstico sustentado en historiales biométricos, tendencias de temperatura y distribución de casos en el hato
-**con** un panel de análisis integrado al RESTful API de desarrollo interno.
+**con** un panel de análisis integrado al RESTful API de desarrollo interno (E3).
 
 **Hypothesis 4. Offline Operation**
 
-**Indicador de adopción de negocio por validar:** que al menos el 60% de las unidades suscritas registre actividad cinco días por semana.
-**Si** el personal de campo consulta fichas y registra eventos durante sus faenas en zonas sin cobertura
-**entonces** podrá mantener la continuidad del trabajo y el registro
-**con** un modo sin conexión que almacena los datos localmente y los sincroniza al recuperar la señal.
-**Medición:** frecuencia de uso, registros locales, sincronizaciones exitosas y conflictos durante el piloto.
+**Creemos que lograremos** que al menos el 60% de las unidades suscritas registre actividad cinco días por semana
+**si** los operarios de campo y administradores ganaderos
+**alcanzan** la continuidad de la consulta y el registro durante faenas en zonas sin cobertura
+**con** un modo sin conexión que almacena los datos localmente y los sincroniza al recuperar la señal (E4).
 
 **Hypothesis 5. Individual Herd Records**
 
-**Creemos que aumentará** el uso recurrente de ICHU y la renovación de suscripciones
+**Creemos que lograremos** un uso recurrente de ICHU y la renovación de las suscripciones
 **si** los administradores ganaderos y operarios de campo
-**pueden** consultar una ficha confiable por animal y registrar eventos sin duplicar la información en cuadernos u hojas de cálculo
-**con** un inventario digital que reúne identificación, lote, antecedentes y eventos del animal.
+**alcanzan** una ficha confiable por animal y el registro de eventos sin duplicar la información en cuadernos u hojas de cálculo
+**con** un inventario digital que reúne identificación, lote, antecedentes y eventos del animal (E5).
 
 **Hypothesis 6. Veterinary Clinical History**
 
-**Creemos que aumentará** la recomendación profesional y el uso compartido de la plataforma
+**Creemos que lograremos** más recomendaciones profesionales y un uso compartido de la plataforma
 **si** los médicos veterinarios y zootecnistas
-**pueden** preparar una atención con antecedentes clínicos y biométricos trazables, y compartir sus hallazgos con autorización del ganadero
-**con** un historial clínico individual para registrar consultas, diagnósticos, tratamientos, vacunaciones y resultados de seguimiento.
+**alcanzan** la preparación de cada atención con antecedentes clínicos y biométricos trazables, compartidos con autorización del ganadero
+**con** un historial clínico individual para registrar consultas, diagnósticos, tratamientos, vacunaciones y resultados de seguimiento (E6).
 
 **Hypothesis 7. Health Campaigns and Withdrawal Periods**
 
-**Creemos que mejorará** la continuidad del uso entre veterinarios y ganaderos
-**si** pueden coordinar campañas sanitarias y verificar qué animales fueron atendidos y cuándo pueden volver a destinarse sus productos al consumo
-**con** registro de aplicaciones, recordatorios de seguimiento y consulta de periodos de retiro por animal.
+**Creemos que lograremos** una mayor continuidad del uso entre veterinarios y ganaderos
+**si** los veterinarios y administradores ganaderos
+**alcanzan** la coordinación de campañas sanitarias y la certeza de qué animales fueron atendidos y cuándo pueden volver a destinarse sus productos al consumo
+**con** el registro de aplicaciones, recordatorios de seguimiento y consulta de periodos de retiro por animal (E7).
 
 **Hypothesis 8. Livestock Calendar and Preventive Reminders**
 
-**Creemos que aumentará** la frecuencia de uso de la plataforma
+**Creemos que lograremos** una mayor frecuencia de uso de la plataforma
 **si** los administradores ganaderos y profesionales asesores
-**pueden** anticipar vacunaciones, controles y revisiones sin depender de recordar fechas o revisar varios registros
-**con** un calendario ganadero que organiza actividades y envía recordatorios a los responsables.
+**alcanzan** la anticipación de vacunaciones, controles y revisiones sin depender de recordar fechas o revisar varios registros
+**con** un calendario ganadero que organiza actividades y envía recordatorios a los responsables (E8).
 
 **Hypothesis 9. Geofencing and Lost-Animal Search**
 
-**Creemos que** los ganaderos percibirán suficiente valor operativo para mantener activa su suscripción
-**si** los administradores y operarios
-**pueden** detectar la salida de un animal de su zona asignada y consultar su última ubicación disponible para orientar la búsqueda
-**con** geocercas configurables, alertas de salida y consulta de la última posición GPS recibida.
+**Creemos que lograremos** que los ganaderos mantengan activa su suscripción por su valor operativo
+**si** los administradores y operarios de campo
+**alcanzan** la detección de la salida de un animal de su zona asignada y su última ubicación disponible para orientar la búsqueda
+**con** geocercas configurables, alertas de salida y consulta de la última posición GPS recibida (E9).
 
 **Hypothesis 10. Device Status and Maintenance**
 
-**Creemos que se reducirá** la interrupción de la captura de datos y el esfuerzo de soporte
+**Creemos que lograremos** menos interrupciones en la captura de datos y menos esfuerzo de soporte
 **si** los administradores ganaderos
-**pueden** identificar collares sin señal, con batería baja o que requieren reasignación antes de perder lecturas durante un periodo prolongado
-**con** una vista del inventario de dispositivos que expone su estado y permite asociarlos o liberarlos de un animal.
+**alcanzan** la identificación de collares sin señal, con batería baja o que requieren reasignación antes de perder lecturas
+**con** una vista del inventario de dispositivos que expone su estado y permite asociarlos o liberarlos de un animal (E10).
 
 **Hypothesis 11. Authorized Herd Advisory**
 
-**Creemos que aumentará** la participación de veterinarios asesores en ICHU sin reducir el control del ganadero sobre sus datos
-**si** el administrador puede conceder, limitar y revocar el acceso de un profesional, y el profesional puede consultar los hatos autorizados desde una sola experiencia
-**con** solicitudes de asesoría, permisos por unidad productiva y un registro auditable de la vigencia del acceso.
+**Creemos que lograremos** una mayor participación de veterinarios asesores en ICHU sin reducir el control del ganadero sobre sus datos
+**si** los administradores ganaderos y los médicos veterinarios
+**alcanzan** la concesión, limitación y revocación del acceso de un profesional, y la consulta de los hatos autorizados desde una sola experiencia
+**con** solicitudes de asesoría, permisos por unidad productiva y un registro auditable de la vigencia del acceso (E11).
 
 #### 1.2.2.4. Lean UX Canvas.
 
