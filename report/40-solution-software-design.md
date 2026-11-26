@@ -140,7 +140,7 @@ Abrir tablero Figma de Domain Message Flows ([https://tinyurl.com/BigPictureEven
 | 6 | Operario de campo | registra | el evento de salud observado | Mobile Application | Operations & Monitoring |
 | 7 | Portable Edge Gateway | sincroniza al recuperar señal | el lote de lecturas y alertas pendientes | Operations & Monitoring | Operations & Monitoring |
 | 8 | Operations & Monitoring | valida y persiste | la telemetría y el evento del operario | base central | Operations & Monitoring |
-| 9 | Operations & Monitoring | solicita | la notificación al responsable | Firebase Cloud Messaging | Operations & Monitoring |
+| 9 | Mobile Application | muestra | la notificación local de la alerta sincronizada | Administrador ganadero | Operations & Monitoring |
 | 10 | Médico veterinario | consulta | la telemetría y los antecedentes del animal | Operations & Monitoring | Operations & Monitoring |
 | 11 | Operations & Monitoring | verifica | la autorización vigente del profesional | Identity & Access Management | Identity & Access Management |
 | 12 | Médico veterinario | registra | la intervención con producto y dosis | Operations & Monitoring | Operations & Monitoring |
@@ -159,8 +159,8 @@ Abrir tablero Figma de Domain Message Flows ([https://tinyurl.com/BigPictureEven
 | 1 | Visitante | compara | los planes y estima el costo de su hato | Landing Page | Subscription Plans |
 | 2 | Visitante | inicia | la contratación con el plan y la cantidad de cabezas seleccionados | Landing Page → Web Application | Subscription Plans |
 | 3 | Administrador ganadero | contrata | el plan para su unidad productiva | Subscription Plans | Subscription Plans |
-| 4 | Subscription Plans | solicita | el cobro del periodo | Payment Provider | Subscription Plans |
-| 5 | Payment Provider | confirma | la aceptación del pago | Subscription Plans | Subscription Plans |
+| 4 | Subscription Plans | solicita | la sesión de pago del periodo | Stripe | Subscription Plans |
+| 5 | Stripe | confirma | el pago con un evento firmado | Subscription Plans | Subscription Plans |
 | 6 | Subscription Plans | publica | el hecho "suscripción activada" | IoT Assets, Dashboard & Analytics | Subscription Plans |
 | 7 | IoT Assets | habilita | el límite de dispositivos del plan | Administrador ganadero | IoT Assets |
 | 8 | Dashboard & Analytics | habilita | los reportes incluidos en el plan | Administrador ganadero | Dashboard & Analytics |
@@ -191,7 +191,7 @@ Cada contexto candidato se diseñó mediante un Bounded Context Canvas, siguiend
 | **Lenguaje ubicuo** | Telemetry, Rumination, Red Alert, Clinical Threshold, Geofence, Last Known Location, Estrus Detection, Insemination Event |
 | **Capacidades entrantes** | Recibir telemetría del dispositivo y del borde. Recibir eventos de campo del operario. Recibir intervenciones clínicas del veterinario. Entregar configuración de umbrales y geocercas al borde. |
 | **Capacidades salientes** | Publicar alertas generadas. Solicitar notificaciones. Exponer telemetría e historial a las aplicaciones y a Analytics. |
-| **Dependencias** | Consume identidad de IAM, ficha del animal de Cattle Information y asignación de dispositivo de IoT Assets. Depende de Firebase Cloud Messaging para notificar. |
+| **Dependencias** | Consume identidad de IAM, ficha del animal de Cattle Information y asignación de dispositivo de IoT Assets. Las aplicaciones móviles consultan sus alertas para mostrar notificaciones locales. |
 | **Crítica del diseño** | Es el contexto con mayor superficie. Se evaluó dividirlo en Telemetry y Alerting, y se descartó porque la regla de deduplicación exige que ambos compartan la misma transacción. |
 
 ![Bounded Context Canvas de Operations & Monitoring](assets/images/diagrams/bounded-context-canvases/01-operations-monitoring.png)
@@ -317,7 +317,7 @@ Abrir tablero Figma de los Bounded Context Canvases ([https://tinyurl.com/BigPic
 | **Lenguaje ubicuo** | Plan, Annual Subscription, Device Limit, Plan Coverage, Renewal |
 | **Capacidades entrantes** | Contratar plan. Renovar. Cancelar. Consultar cobertura y límites. |
 | **Capacidades salientes** | Exponer el límite de dispositivos y las funcionalidades habilitadas. Publicar la activación y la cancelación. |
-| **Dependencias** | Delega el cobro en el proveedor de pagos mediante Anti-corruption Layer. |
+| **Dependencias** | Delega el cobro en Stripe mediante el puerto `IPaymentGateway`, implementado por `StripePaymentGateway`. |
 | **Crítica del diseño** | Se evaluó adoptar una plataforma de suscripciones de terceros. Se descartó para esta fase por la necesidad de vincular el límite de dispositivos con el inventario propio, que es una regla específica del producto. |
 
 ![Bounded Context Canvas de Subscription Plans](assets/images/diagrams/bounded-context-canvases/07-subscription-plans.png)
@@ -370,8 +370,8 @@ Abrir código fuente PlantUML de integraciones externas ([https://tinyurl.com/25
 | Monitoring, Cattle y Planning hacia Dashboard & Analytics | Conformist | Analytics consume los modelos tal como los publican los contextos de origen, sin negociar cambios ni traducir. Es aceptable porque su relación es de solo lectura y un cambio aguas arriba solo obliga a recalcular. |
 | Operations & Monitoring hacia Portable Edge Gateway | Open Host Service | El `Edge Configuration API` publica un contrato estable de umbrales, geocercas y asignaciones que cualquier dispositivo de borde puede consumir. |
 | Portable Edge Gateway hacia Operations & Monitoring | Anti-corruption Layer | El `ICHU Cloud API ACL` traduce el modelo local del borde, orientado a la supervivencia sin conexión, al contrato de la nube. |
-| Identity con Firebase Authentication, Subscription con el proveedor de pagos, Monitoring con Firebase Cloud Messaging | Anti-corruption Layer | Tres servicios externos sobre los que el equipo no tiene control. El ACL aísla el dominio de cualquier cambio en sus contratos. |
-| Monitoring con el proveedor de mapas | Conformist | La visualización cartográfica se adapta al contrato del proveedor, porque no hay reglas de negocio propias que proteger. |
+| Identity con Firebase Authentication y Subscription Plans con Stripe | Anti-corruption Layer | Dos servicios externos sobre los que el equipo no tiene control. El ACL aísla el dominio de cualquier cambio en sus contratos. |
+| Aplicación web con OpenStreetMap | Conformist | La visualización cartográfica se adapta al contrato de las teselas de OpenStreetMap, porque no hay reglas de negocio propias que proteger. |
 
 **Alternativas evaluadas y descartadas**
 
@@ -397,15 +397,15 @@ El Ubiquitous Language del capítulo anterior conserva ambos bloques separados p
 
 ### 4.1.3. Software Architecture
 
-La arquitectura de la solución se representa aplicando el C4 Model, elaborado como Diagram-as-Code en Structurizr DSL. El modelo completo reúne cuatro personas, seis sistemas externos, once containers, setenta y tres componentes clasificados por capa y veinticinco vistas. La separación entre el alojamiento de archivos web y su ejecución en el navegador se hace explícita en las vistas de containers y despliegue.
+La arquitectura de la solución se representa aplicando el C4 Model, elaborado como Diagram-as-Code en Structurizr DSL. El modelo reúne cuatro personas, cinco sistemas externos, diez containers, treinta componentes clasificados por capa y diez vistas: System Landscape, System Context, Containers, Deployment, tres vistas de componentes y tres flujos dinámicos. La separación entre el alojamiento de archivos web y su ejecución en el navegador se hace explícita en las vistas de containers y despliegue.
 
-El código fuente de todos los diagramas de este capítulo forma parte del repositorio. El modelo C4 completo se encuentra en workspace-ichu-c4.dsl ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw)). La fuente utilizada para exportar las cuatro vistas generales de esta sección desde Structurizr Playground se encuentra en workspace-ichu-c4-overview.dsl ([https://tinyurl.com/27nlbexv](https://tinyurl.com/27nlbexv)); conserva el mismo modelo de alto nivel sin incluir las vistas de componentes. Los diagramas UML y de base de datos se encuentran en la carpeta assets/diagram-sources/puml ([https://tinyurl.com/246ycxz2](https://tinyurl.com/246ycxz2)).
+El código fuente de todos los diagramas de este capítulo forma parte del repositorio. El modelo C4 se encuentra en `report/assets/diagram-sources/structurizr/workspace-ichu-c4.dsl` ([https://tinyurl.com/2bw8zfnw](https://tinyurl.com/2bw8zfnw)) y las vistas se exportaron desde esa fuente. Los diagramas UML y de base de datos se encuentran en la carpeta assets/diagram-sources/puml ([https://tinyurl.com/246ycxz2](https://tinyurl.com/246ycxz2)).
 
-La solución se organiza como un **monolito modular** en la nube, en el que cada contexto acotado es un módulo interno con su propio esquema de base de datos, acompañado de un servicio de borde y dos aplicaciones embebidas. Se eligió el monolito modular sobre una arquitectura de microservicios porque el equipo tiene seis integrantes y un ciclo de quince semanas: el aislamiento por módulos preserva los límites de los contextos sin pagar el costo operativo de desplegar y coordinar siete servicios independientes. La modularidad interna deja abierta la extracción posterior de cualquier módulo que lo justifique.
+La solución se organiza como un **monolito modular** en la nube, en el que cada contexto acotado es un módulo interno con su propio esquema de base de datos, acompañado de un servicio de borde y dos aplicaciones embebidas. Se eligió el monolito modular sobre una arquitectura de microservicios porque el equipo tiene cinco integrantes y un ciclo de quince semanas: el aislamiento por módulos preserva los límites de los contextos sin pagar el costo operativo de desplegar y coordinar siete servicios independientes. La modularidad interna deja abierta la extracción posterior de cualquier módulo que lo justifique.
 
 #### 4.1.3.1. Software Architecture System Landscape Diagram
 
-El System Landscape presenta el panorama completo en el que se inserta la solución: las cuatro personas que interactúan con ella, los dos dispositivos físicos que la alimentan y los cuatro servicios externos de los que depende. Esta vista muestra el entorno general, mientras que el diagrama de contexto se centra en el alcance y las relaciones de ICHU. En el modelo actual ambas vistas comparten estos participantes; ninguna expone los detalles internos de los containers.
+El System Landscape presenta el panorama completo en el que se inserta la solución: las cuatro personas que interactúan con ella, los dos dispositivos físicos del predio (el collar y el panel de alertas) y los tres servicios externos de los que depende. Esta vista muestra el entorno general, mientras que el diagrama de contexto se centra en el alcance y las relaciones de ICHU. En el modelo actual ambas vistas comparten estos participantes; ninguna expone los detalles internos de los containers.
 
 ![System Landscape de ICHU](assets/images/diagrams/c4/c4-system-landscape.png)
 
@@ -417,7 +417,7 @@ El Context Diagram sitúa a ICHU como una caja única en el centro, rodeada por 
 
 Los actores representados son el **administrador ganadero**, que gestiona el ganado, los dispositivos, la planificación y la suscripción; el **operario de campo**, que supervisa el ganado durante las faenas y opera con o sin cobertura; el **médico veterinario**, que revisa la información autorizada de los hatos que asesora; y el **visitante**, que consulta la propuesta y los planes en el sitio público.
 
-Los sistemas externos son el **hardware del collar inteligente**, que aporta telemetría; **Firebase Authentication**, que verifica credenciales; **Firebase Cloud Messaging**, que entrega notificaciones; el **proveedor de mapas**, que permite visualizar posiciones y geocercas; y el **proveedor de pagos**, que procesa los cobros de la suscripción.
+Los sistemas externos son el **hardware del collar inteligente**, que aporta temperatura, actividad, posición, pulso e índice de metano; el **hardware del panel de alertas**, que muestra el estado de las alertas en el predio con LEDs, zumbador y pantalla LCD; **Firebase Authentication**, que identifica a los usuarios; **Stripe**, que cobra las suscripciones con su página de pago y confirma cada pago con un webhook firmado; y **OpenStreetMap**, que entrega las teselas del mapa de posiciones y geocercas.
 
 ![System Context de ICHU](assets/images/diagrams/c4/c4-system-context.png)
 
@@ -429,26 +429,24 @@ El Container Diagram descompone la solución en aplicaciones, servicios y almace
 
 | Container | Tecnología | Responsabilidad |
 |---|---|---|
-| Landing Page | HTML, CSS y JavaScript | Archivos del sitio público alojados y entregados por HTTPS, con la propuesta de valor y los planes |
-| Landing Page Browser Client | HTML, CSS y JavaScript | Ejecución y visualización del sitio público en el navegador del visitante |
-| Web Application Hosting | Alojamiento web estático | Entrega por HTTPS los archivos HTML, CSS y JavaScript compilados de la SPA |
-| Web Application | Angular con TypeScript | SPA ejecutada en el navegador para gestionar ganado, dispositivos, planificación, analítica y suscripciones |
-| Mobile Application | Flutter con Dart | Monitoreo, alertas y operación de campo, con funcionamiento sin cobertura |
-| Cattle Band Embedded Application | C++ sobre ESP32 | Captura de temperatura, movimiento y posición, con transmisión HTTP por Wi-Fi al Portable Edge Gateway; la ruta BLE está prevista |
-| Portable Edge Gateway | Flask con Peewee ORM sobre Python | Recepción HTTP de los collares por la red local (receptor BLE previsto), almacenamiento local, evaluación de reglas críticas y sincronización periódica |
-| Edge Database | SQLite | Telemetría sin conexión, estado de alertas, umbrales y geocercas en caché |
+| Website | HTML, CSS y JavaScript | Landing Page estática con la propuesta de valor y los planes, publicada en GitHub Pages |
+| Web Application | Alojamiento web estático | Archivos compilados de la SPA, publicados en Firebase Hosting |
+| Single Page Application | Angular con TypeScript | SPA ejecutada en el navegador para gestionar ganado, dispositivos, planificación, analítica y suscripciones |
+| Mobile Application | Flutter con Dart | Consulta de ganado, telemetría y alertas en el campo, con notificaciones locales de las alertas nuevas |
+| Cattle Band Embedded Application | C++ sobre ESP32-S3 con Modest IoT Nano Framework | Lectura de temperatura, movimiento, posición, pulso, índice de metano y batería; envío HTTP por Wi-Fi al Edge cada 10 s, con cola de 60 lecturas |
+| Alert Panel Embedded Application | C++ sobre ESP32 con Modest IoT Nano Framework | Consulta de las alertas activas del Edge cada 3 s y aviso con LEDs, zumbador y pantalla LCD |
+| Portable Edge Service | Flask con Peewee ORM sobre Python | Recepción HTTP de los collares por la red local, almacenamiento local, evaluación de umbrales y geocercas, y sincronización periódica |
+| Edge Database | SQLite | Lecturas, alertas, estado de sincronización, umbrales y geocercas en caché |
 | ICHU Web Service | ASP.NET Core Web API | API REST en la nube implementada como un monolito modular, con los siete contextos como módulos internos |
 | ICHU Cloud Database | PostgreSQL | Persistencia relacional con un esquema por contexto acotado |
 
 El navegador descarga los archivos de la landing page desde su alojamiento web y el paquete compilado de Angular desde el alojamiento de la aplicación. El acceso desde la landing page a la aplicación corresponde a una navegación hacia la URL de la SPA, no a una llamada al backend que ejecute Angular. Una vez cargadas, las aplicaciones cliente consumen la API REST sobre HTTPS con JSON para las operaciones y consultas que lo requieren.
 
-El icono de navegador se utiliza únicamente para Landing Page Browser Client y Web Application, donde se ejecuta el código del cliente. Landing Page y Web Application Hosting se representan como cajas de alojamiento estático; las bases de datos conservan la forma de cilindro y la aplicación móvil su forma de dispositivo móvil. La forma del elemento expresa su función, no el lugar desde el cual una persona lo visualiza.
+El icono de navegador se utiliza únicamente para la Single Page Application, donde se ejecuta el código del cliente. Website y Web Application se representan como carpetas de archivos estáticos; las bases de datos conservan la forma de cilindro y la aplicación móvil su forma de dispositivo móvil. La forma del elemento expresa su función, no el lugar desde el cual una persona lo visualiza.
 
-El backend se denomina ICHU Web Service para expresar su responsabilidad funcional. «Monolito modular» describe la decisión arquitectónica y no forma parte de su nombre. Sigue siendo un único container de backend; los contextos acotados son módulos internos, no microservicios desplegados por separado. Las tecnologías de estas cuatro vistas se presentan sin números de versión, de manera uniforme y sin atribuir versiones que el proyecto no haya establecido.
+El backend se denomina ICHU Web Service para expresar su responsabilidad funcional. «Monolito modular» describe la decisión arquitectónica y no forma parte de su nombre. Sigue siendo un único container de backend; los contextos acotados son módulos internos, no microservicios desplegados por separado.
 
-El Cattle Band transmite por Wi-Fi al Portable Edge Gateway con `POST /api/v1/monitoring/telemetry-readings`, autenticado con la cabecera `X-API-Key` del collar y con un `event_id` estable que hace idempotentes los reintentos. El gateway persiste las lecturas en SQLite, las evalúa con los umbrales, geocercas y asignaciones descargados de la API central, y un proceso aparte (`flask --app app synchronize`) envía cada 15 s los registros pendientes a `POST /api/v1/telemetry/batch`; tras un fallo, la espera se duplica hasta un máximo de 5 min. Este flujo se mantiene también cuando hay cobertura: el collar no invoca directamente el Cloud. La transmisión por BLE al gateway se mantiene como alternativa prevista: el firmware incluye la ruta, pero el gateway aún no tiene receptor BLE. La disponibilidad de Wi-Fi no demuestra acceso a Internet. La Mobile Application consulta y atiende alertas del Edge por la red local (TS-16), y consulta lecturas locales mediante TS-17. El backend accede a PostgreSQL mediante Entity Framework Core con el proveedor Npgsql.
-
-La revisión de requisitos del 8 de octubre de 2026 actualiza estos contratos en el Capítulo III. La fuente Structurizr `workspace-ichu-c4.dsl` ya representa al Edge como intermediario obligatorio del collar, con Wi-Fi HTTP implementado y BLE previsto. Las imágenes exportadas de las vistas C4 y los flujos gráficos todavía corresponden a AV1 y deben volver a exportarse desde esa fuente; mientras tanto, documentan el diseño anterior y no constituyen evidencia de implementación de las historias corregidas.
+El Cattle Band transmite por Wi-Fi al Portable Edge Service con `POST /api/v1/monitoring/telemetry-readings`, autenticado con la clave del collar (`Authorization: ApiKey` o `X-API-Key`) y con un `event_id` estable que hace idempotentes los reintentos. El Edge persiste las lecturas en SQLite, las evalúa con los umbrales por etapa productiva y severidad (`Warning` y `Critical`), las geocercas y las asignaciones descargadas de la API central, y un proceso aparte (`flask --app app synchronize`) envía cada 15 s los registros pendientes a `POST /api/v1/telemetry/batch`; tras un fallo, la espera se duplica hasta un máximo de 5 min. El collar nunca invoca directamente la nube. Sin Internet, el Alert Panel consulta `GET /api/v1/monitoring/alerts` del Edge cada 3 s y avisa al personal del predio. Con Internet, la Mobile Application consulta las alertas sincronizadas cada 30 s y muestra una notificación local por cada alerta nueva. El backend accede a PostgreSQL mediante Entity Framework Core con el proveedor Npgsql.
 
 ![Container Diagram de ICHU](assets/images/diagrams/c4/c4-container.png)
 
@@ -460,17 +458,17 @@ El Deployment Diagram describe dónde se alojan y dónde se ejecutan las instanc
 
 | Nodo de despliegue | Contiene | Observación |
 |---|---|---|
-| Entorno del predio y zona de pastoreo | Cattle Band Device, Portable Edge Gateway Device, dispositivo móvil del operario | Opera con conectividad intermitente por diseño |
-| Computadora del usuario / navegador | Landing Page Browser Client y Web Application | Ejecuta el código HTML, CSS y JavaScript descargado; no aloja los archivos para distribuirlos a otros usuarios |
-| Plataforma en la nube / alojamiento de la landing page | Landing Page | Sirve los archivos estáticos del sitio público por HTTPS |
-| Plataforma en la nube / alojamiento de la aplicación Angular | Web Application Hosting | Sirve el paquete compilado de la SPA; su ejecución ocurre en el navegador |
-| Plataforma en la nube / runtime .NET | ICHU Web Service | Ejecuta la API REST como un único monolito modular |
-| Plataforma en la nube / servidor de PostgreSQL | ICHU Cloud Database | Aloja la base relacional del backend, separada de los servicios de Firebase |
-| Proveedores externos | Firebase Authentication, Firebase Cloud Messaging, Map Provider y Payment Provider | Ofrecen autenticación, notificaciones, mapas y pagos; no ejecutan el backend de ICHU |
+| Entorno del predio y zona de pastoreo | Cattle Band Device (ESP32-S3), Alert Panel Device (ESP32), Portable Edge Gateway Device y dispositivo móvil | Operan en la red Wi-Fi local; el Edge mantiene la operación sin Internet |
+| Computadora del usuario / navegador | Single Page Application | Ejecuta el código descargado; no aloja los archivos para otros usuarios |
+| GitHub Pages | Website | Sirve la Landing Page por HTTPS |
+| Firebase Hosting | Web Application | Sirve el paquete compilado de la SPA; su ejecución ocurre en el navegador |
+| Render / Web Service | ICHU Web Service | Ejecuta la API REST en un contenedor Docker, como un único monolito modular |
+| Render / PostgreSQL | ICHU Cloud Database | Aloja la base relacional del backend |
+| Proveedores externos | Firebase Authentication, Stripe y OpenStreetMap | Ofrecen identidad, pagos y teselas de mapa; no ejecutan el backend de ICHU |
 
-El reparto responde directamente al hallazgo de conectividad del capítulo anterior: el 100% de los encuestados calificó la cobertura en las zonas de pastoreo como regular. Por eso el Edge Gateway y su base local se despliegan en el predio y no en la nube, y por eso las reglas críticas se evalúan en el borde.
+El reparto responde directamente al hallazgo de conectividad del capítulo anterior: el 100% de los encuestados calificó la cobertura en las zonas de pastoreo como regular. Por eso el Edge Gateway, su base local y el panel de alertas se despliegan en el predio y no en la nube, y por eso las reglas de alerta se evalúan en el borde.
 
-El alojamiento de la landing page y el de la SPA son nodos distintos en el modelo, aunque una implementación pueda utilizar un mismo proveedor de alojamiento. Las consultas al backend y las llamadas a proveedores externos requieren conectividad; no se presupone que el acceso desde el predio a esos servicios esté garantizado. La operación local del Edge Gateway y su sincronización posterior se mantienen.
+La Landing Page y la SPA se publican en servicios distintos: GitHub Pages y Firebase Hosting. Las consultas al backend y las llamadas a proveedores externos requieren conectividad; no se presupone que el acceso desde el predio a esos servicios esté garantizado. La operación local del Edge Gateway y su sincronización posterior se mantienen.
 
 ![Deployment Diagram de producción](assets/images/diagrams/c4/c4-deployment.png)
 
@@ -492,11 +490,11 @@ Es el core domain de la solución. Recibe la telemetría de los dispositivos y d
 
 | Clase | Categoría | Propósito | Miembros destacados |
 |---|---|---|---|
-| `TelemetryReading` | Aggregate Root | Representa una lectura recibida de un dispositivo, con su origen y su instante de captura. | Atributos: `bodyTemperature`, `activityIndex`, `ruminationMinutes`, `position`, `recordedAt`, `origin`. Métodos: `IsValid()`, `IsStale(now)`. |
+| `TelemetryReading` | Aggregate Root | Representa una lectura recibida de un dispositivo, con su origen y su instante de captura. | Atributos: `bodyTemperature`, `activityIndex`, `heartRate`, `methaneIndex`, `position`, `batteryLevel`, `recordedAt`, `origin`. Métodos: `IsValid()`, `IsStale(now)`. |
 | `MonitoringAlert` | Aggregate Root | Concentra la regla de generación, deduplicación y atención de una alerta. Es el agregado que garantiza que no se dupliquen alertas del mismo tipo dentro de la ventana definida. | Métodos: `Raise(value, threshold)`, `Absorb(reading)`, `Acknowledge(finding, at)`, `ExpireWithoutAttention()`, `ResponseTime()`. |
 | `Geofence` | Aggregate Root | Delimita el área de pastoreo permitida y resuelve si una posición está dentro o fuera de ella. | Métodos: `IsClosedPolygon()`, `Contains(position)`, `DistanceToBoundary(position)`. |
 | `LivestockOperation` | Aggregate Root | Registra un evento de campo o una intervención clínica, con su autoría y su estado de sincronización. | Métodos: `Register()`, `MarkSynchronized()`, `MarkConflict(reason)`. |
-| `Threshold` | Value Object | Rango válido de una métrica para una etapa productiva. Es inmutable y su identidad la componen la etapa y la métrica. | Método: `IsExceededBy(value)`. |
+| `Threshold` | Value Object | Rango válido de una métrica (temperatura, actividad, frecuencia cardiaca o índice de metano) para una etapa productiva y una severidad (`Warning` o `Critical`). Es inmutable y su identidad la componen la etapa, la métrica y la severidad. | Método: `IsExceededBy(value)`. |
 | `GeoPosition` | Value Object | Coordenada con su precisión declarada. La precisión es parte del valor porque determina si la lectura es concluyente. | Método: `DistanceTo(other)`. |
 | `AlertType`, `AlertSeverity`, `AlertStatus`, `OperationType`, `ReadingOrigin`, `SyncState` | Enumeraciones | Fijan los valores admitidos de cada clasificación del contexto. | |
 | `MonitoringRulesDomainService` | Domain Service | Concentra las reglas que involucran a más de un agregado y que no pertenecen a ninguno en particular. | Métodos: `EvaluateTemperature()`, `EvaluateGeofence()`, `DetectReproductivePattern()`, `IsDuplicateWithinWindow()`. |
@@ -523,7 +521,6 @@ Es el core domain de la solución. Recibe la telemetría de los dispositivos y d
 | `RegisterClinicalInterventionCommandHandler` | Command Handler | Registra la intervención, verifica la autorización del profesional y publica el hecho que origina el periodo de retiro. |
 | `DefineGeofenceCommandHandler` | Command Handler | Valida que el polígono sea cerrado y lo asocia al lote. |
 | `ThresholdExceededEventHandler` | Event Handler | Reacciona al hecho de umbral superado generando o absorbiendo la alerta según la ventana de deduplicación. |
-| `AlertRaisedEventHandler` | Event Handler | Solicita la notificación al responsable configurado. |
 | `CattleDeactivatedEventHandler` | Event Handler | Descarta las lecturas posteriores a la baja del animal. |
 
 #### 4.2.1.4. Infrastructure Layer
@@ -534,8 +531,6 @@ Es el core domain de la solución. Recibe la telemetría de los dispositivos y d
 | `GeofenceRepository` | Repository | Implementa `IGeofenceRepository`, incluida la persistencia ordenada de los vértices del polígono. |
 | `CattleLookupAcl` | Anti-corruption Layer | Traduce la ficha del animal publicada por Cattle Information a la etapa productiva que la regla necesita. |
 | `IoTAssetsLookupAcl` | Anti-corruption Layer | Resuelve a qué animal está asignado un dispositivo en el instante de la lectura. |
-| `FirebaseMessagingAdapter` | Adapter | Solicita la notificación push y registra el estado de entrega devuelto por el servicio. |
-| `MapProviderAdapter` | Adapter | Traduce las posiciones al contrato del proveedor cartográfico. |
 | `InternalDomainEventDispatcher` | Infrastructure | Publica los eventos de dominio hacia los handlers de los demás módulos dentro del mismo proceso. |
 
 #### 4.2.1.5. Bounded Context Software Architecture Component Level Diagrams
@@ -1023,7 +1018,8 @@ Administra los planes contratados, sus límites y su facturación, y determina q
 | Clase | Categoría | Propósito |
 |---|---|---|
 | `SubscriptionRepository` | Repository | Implementa `ISubscriptionRepository` con Entity Framework Core sobre el esquema `subscription`. |
-| `PaymentProviderAcl` | Anti-corruption Layer | Traduce la operación de cobro del dominio al contrato del proveedor de pagos. |
+| `StripePaymentGateway` | Anti-corruption Layer | Implementa el puerto `IPaymentGateway`: crea la sesión de Stripe Checkout en soles y verifica la firma de los webhooks. Las excepciones de Stripe no salen de esta clase. |
+| `StripeWebhooksController` | Controller | Recibe `POST /api/v1/payments/stripe/webhooks` y activa la suscripción de un pago confirmado. |
 | `SubscriptionEventPublisher` | Infrastructure | Publica la activación y la cancelación hacia IoT Assets y Dashboard & Analytics. |
 
 #### 4.2.7.5. Bounded Context Software Architecture Component Level Diagrams
